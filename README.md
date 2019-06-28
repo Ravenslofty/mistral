@@ -67,3 +67,45 @@ The most important thing to observe is the cell count. Here, Yosys, lacking any 
 information on what to synthesise to, has converted the design to its internal cells. These include
 basic boolean functions, such as `$_AND_`/`$_OR_`/`$_NOT_` etc, but also some more complex functions
 like `a and (not b)` (`$_ANDNOT_`), and `(a and b) nor c` (`$_AOI3_` for "3-input and-or-invert").
+
+There is also `$_DFF_P_`, which I'll get back to later.
+
+Unfortunately, the Cyclone V is not made up of logic gates like this. It instead uses look-up tables
+(LUTs) that are a function of the input bits, and these can be split up into multiple modes.
+
+The absolute maximum number of inputs an ALM can accept is six, so let's synthesise for a 6-input
+LUT architecture. We can do this using the `-lut 6` argument to `synth`.
+
+We will also add `stat -width` to print the statistics screen with the width of each cell.
+
+Now our script looks like this:
+
+```
+synth -lut 6
+stat -width
+```
+
+This produces:
+
+```
+=== axilxbar ===
+
+   Number of wires:               3818
+   Number of wire bits:          10754
+   Number of public wires:         514
+   Number of public wire bits:    5818
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               6844
+     $_DFF_P_                     1900
+     $lut_2                        121
+     $lut_3                        495
+     $lut_4                        371
+     $lut_5                       1158
+     $lut_6                       2799
+```
+
+Here we can see that Yosys has synthesised this to mostly 6-input LUTs, with smaller LUTs being
+used less often. These LUTs being bigger and more flexible means Yosys needs less of them to
+produce the same result.

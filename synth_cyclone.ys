@@ -1,1 +1,2 @@
-synth
+synth -lut 6
+stat -width
