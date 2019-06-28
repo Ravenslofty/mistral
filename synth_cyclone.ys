@@ -1,2 +1,4 @@
-synth -lut 6
+synth -lut 7
+read_verilog -lib cells_sim.v
+techmap -map cells_map.v
 stat -width
