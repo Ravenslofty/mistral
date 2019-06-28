@@ -1,4 +1,11 @@
-synth -lut 7
+synth -run :fine
+opt -fast -full
+memory_map
+opt -full
+techmap
+opt -fast
+abc -luts 1,1,1,2,6,12 -dress
+opt -fast
 read_verilog -lib cells_sim.v
 techmap -map cells_map.v
 stat -width

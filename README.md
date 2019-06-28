@@ -74,8 +74,8 @@ but also some more complex functions like `a and (not b)` (`$_ANDNOT_`), and `(a
 Unfortunately, the Cyclone V is not made up of logic gates like this. It instead uses look-up tables
 (LUTs) that are a function of the input bits, and these can be split up into multiple modes.
 
-The absolute maximum number of inputs an ALM can accept is seven in extended mode, so let's
-synthesise for a 7-input LUT architecture. We can do this using the `-lut 7` argument to `synth`.
+The absolute maximum number of inputs an ALM can accept is six in normal mode, so let's
+synthesise for a 6-input LUT architecture. We can do this using the `-lut 6` argument to `synth`.
 
 We will also add `stat -width` to print the statistics screen with the width of each cell.
 
@@ -83,7 +83,7 @@ Now our script looks like this:
 
 ```
 # filename: synth_cyclone.ys
-synth -lut 7
+synth -lut 6
 stat -width
 ```
 
@@ -92,24 +92,23 @@ This produces:
 ```
 === axilxbar ===
 
-   Number of wires:               3454
-   Number of wire bits:          10390
+   Number of wires:               3818
+   Number of wire bits:          10754
    Number of public wires:         514
    Number of public wire bits:    5818
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:               6480
+   Number of cells:               6844
      $_DFF_P_                     1900
-     $lut_2                         68
-     $lut_3                        482
-     $lut_4                        180
-     $lut_5                        724
-     $lut_6                       1158
-     $lut_7                       1968
+     $lut_2                        121
+     $lut_3                        495
+     $lut_4                        371
+     $lut_5                       1158
+     $lut_6                       2799
 ```
 
-Here we can see that Yosys has synthesised this to mostly 6-input and 7-input LUTs, with smaller
+Here we can see that Yosys has synthesised this to mostly 6-input LUTs, with smaller
 LUTs being used less often. These LUTs being bigger and more flexible means Yosys needs less of
 them to produce the same result.
 
@@ -154,7 +153,7 @@ Finally, we need to invoke `techmap` after `synth` to map the relevant gate.
 
 ```
 # filename: synth_cyclone.ys
-synth -lut 7
+synth -lut 6
 read_verilog -lib cells_sim.v
 techmap -map cells_map.v
 stat -width
@@ -168,19 +167,234 @@ Running this synthesis script gives the following:
 ```
 === axilxbar ===
 
-   Number of wires:               9154
-   Number of wire bits:          16090
+   Number of wires:               9518
+   Number of wire bits:          16454
    Number of public wires:         514
    Number of public wire bits:    5818
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:               6480
-     $lut_2                         68
-     $lut_3                        482
-     $lut_4                        180
-     $lut_5                        724
-     $lut_6                       1158
-     $lut_7                       1968
+   Number of cells:               6844
+     $lut_2                        121
+     $lut_3                        495
+     $lut_4                        371
+     $lut_5                       1158
+     $lut_6                       2799
      MISTRAL_FF                   1900
 ```
+
+Now that we know this, we can write a `techmap` pass for `$lut`. The ALM natively contains 3-input
+and 4-input LUTs, so let's model those.
+
+```
+// append to filename: cells_sim.v
+// based on the Trellis cells_sim LUTs
+module MISTRAL_LUT3(input A, B, C, output Q);
+
+parameter [7:0] LUT = 8'h000;
+
+wire [3:0] s2 = C ? INIT[7:4] : INIT[3:0];
+wire [1:0] s1 = B ? s2[3:2] : s2[1:0];
+assign Q = A ? s1[1] : s1[0];
+
+endmodule
+
+module MISTRAL_LUT4(input A, B, C, D, output Q);
+
+parameter [15:0] LUT = 16'h0000;
+
+wire [7:0] s3 = D ? INIT[15:8] : INIT[7:0];
+wire [3:0] s2 = C ? s3[7:4] : s3[3:0];
+wire [1:0] s1 = B ? s2[3:2] : s2[1:0];
+assign Q = A ? s1[1] : s1[0];
+
+endmodule
+```
+
+And then we need to model a multiplexer to switch between LUT outputs.
+
+```
+// append to filename: cells_sim.v
+module MISTRAL_MUX2(input A, B, S, output Q);
+
+assign Q = S ? B : A;
+
+endmodule
+```
+
+Finally, we can write the `techmap` pass, multiplexing together smaller LUTs into larger ones.
+
+```
+// append to filename: cells_map.v
+module \$lut (A, Y);
+
+parameter WIDTH = 0;
+parameter LUT = 0;
+
+input [WIDTH-1:0] A;
+output Y;
+
+generate
+    if (WIDTH == 1) begin
+        MISTRAL_LUT3 #(.LUT({8{LUT[0]}})) _TECHMAP_REPLACE_(
+            .A(1'b1), .B(1'b1), .C(A[0]), .Q(Y)
+        );
+    end else
+    if (WIDTH == 2) begin
+        MISTRAL_LUT3 #(.LUT({4{LUT[1:0]}})) _TECHMAP_REPLACE_(
+            .A(1'b1), .B(A[1]), .C(A[0]), .Q(Y)
+        );
+    end else
+    if (WIDTH == 3) begin
+        MISTRAL_LUT3 #(.LUT({2{LUT[3:0]}})) _TECHMAP_REPLACE_(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(Y)
+        );
+    end else
+    if (WIDTH == 4) begin
+        MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
+            .A(A[3]), .B(A[2]), .C(A[1]), .D(A[0]), .Q(Y)
+        );
+    end else
+    if (WIDTH == 5) begin
+        wire lut3_0_out, lut3_1_out;
+        wire lut4_0_out, lut4_1_out;       
+ 
+        MISTRAL_LUT3 #(.LUT(LUT[7:0])) lut3_0(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_0_out)
+        );
+        MISTRAL_LUT3 #(.LUT(LUT[15:8])) lut3_1(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_1_out)
+        );
+        MISTRAL_LUT4 #(.LUT(LUT[31:16])) lut4_1(
+            .A(A[3]), .B(A[2]), .C(A[1]), .D(A[0]), .Q(lut4_0_out)
+        );
+
+        MISTRAL_MUX2 lut33_mux(
+            .A(lut3_0_out), .B(lut3_1_out), .S(A[3]), .Q(lut4_1_out)
+        );
+        MISTRAL_MUX2 lut44_mux(
+            .A(lut4_0_out), .B(lut4_1_out), .S(A[4]), .Q(Y)
+        );
+    end else
+    if (WIDTH == 6) begin
+        wire lut3_0_out;
+        wire lut3_1_out;
+        wire lut3_2_out;
+        wire lut3_3_out;
+        wire lut4_0_out;
+        wire lut4_1_out;       
+        wire lut4_2_out;
+        wire lut4_3_out;
+        wire lut5_0_out;
+        wire lut5_1_out;
+ 
+        MISTRAL_LUT3 #(.LUT(LUT[7:0])) lut3_0(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_0_out)
+        );
+        MISTRAL_LUT3 #(.LUT(LUT[15:8])) lut3_1(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_1_out)
+        );
+        MISTRAL_LUT4 #(.LUT(LUT[31:16])) lut4_1(
+            .A(A[3]), .B(A[2]), .C(A[1]), .D(A[0]), .Q(lut4_0_out)
+        );
+
+        MISTRAL_MUX2 lut33_mux0(
+            .A(lut3_0_out), .B(lut3_1_out), .S(A[3]), .Q(lut4_1_out)
+        );
+        MISTRAL_MUX2 lut44_mux0(
+            .A(lut4_0_out), .B(lut4_1_out), .S(A[4]), .Q(lut5_0_out)
+        );
+
+        MISTRAL_LUT3 #(.LUT(LUT[39:32])) lut3_2(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_2_out)
+        );
+        MISTRAL_LUT3 #(.LUT(LUT[47:40])) lut3_3(
+            .A(A[2]), .B(A[1]), .C(A[0]), .Q(lut3_3_out)
+        );
+        MISTRAL_LUT4 #(.LUT(LUT[63:48])) lut4_3(
+            .A(A[3]), .B(A[2]), .C(A[1]), .D(A[0]), .Q(lut4_2_out)
+        );
+
+        MISTRAL_MUX2 lut33_mux1(
+            .A(lut3_2_out), .B(lut3_3_out), .S(A[3]), .Q(lut4_3_out)
+        );
+        MISTRAL_MUX2 lut44_mux1(
+            .A(lut4_0_out), .B(lut4_1_out), .S(A[4]), .Q(lut5_1_out)
+        );
+        
+        MISTRAL_MUX2 lut55_mux(
+            .A(lut5_0_out), .B(lut5_1_out), .S(A[5]), .Q(Y)
+        );
+    end else
+        wire _TECHMAP_FAIL_ = 1'b1;
+    end
+endgenerate
+endmodule
+```
+
+Setting `_TECHMAP_FAIL_` to `1'b1` in the `else` causes `techmap` to reject this pass if the pass
+is asked to create a multiplexer wider than 6 inputs.
+
+This results in the following:
+
+```
+=== axilxbar ===
+
+   Number of wires:              52028
+   Number of wire bits:          79815
+   Number of public wires:         514
+   Number of public wire bits:    5818
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              39466
+     MISTRAL_FF                   1900
+     MISTRAL_LUT3                14128
+     MISTRAL_LUT4                 7127
+     MISTRAL_MUX2                16311
+```
+
+The number of cells has shot way up, but that's acceptable for a first test. The problem here is
+that the pass responsible for mapping to LUTs - `abc` - thinks LUT6s are as cheap as LUT4s, and
+thus creates LUTs that are far too big. To fix this, we need to sidestep part of `synth` and handle
+things ourselves.
+
+```
+# filename: synth_cyclone.v
+synth -run :fine
+opt -fast -full
+memory_map
+opt -full
+techmap
+opt -fast
+abc -luts 1,1,1,2,6,12 -dress
+opt -fast
+read_verilog -lib cells_sim.v
+techmap -map cells_map.v
+stat -width
+```
+
+Here, we run `synth` until the `fine` label, then we run the contents of `fine` but pass custom
+arguments to `abc`. The weights in `abc -luts` are meant to prefer using LUT3s over LUT4s, and
+discourage unnecessarily large LUTs.
+
+After this, we get:
+
+```
+=== axilxbar ===
+
+   Number of wires:              33865
+   Number of wire bits:          61025
+   Number of public wires:         514
+   Number of public wire bits:    5818
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              13485
+     MISTRAL_FF                   1900
+     MISTRAL_LUT3                 6189
+     MISTRAL_LUT4                 4030
+     MISTRAL_MUX2                 1366
+```
+
+Which is a lot more reasonable.
