@@ -9,8 +9,6 @@ techmap -map alu_map.v
 techmap 
 techmap -map dff_map.v
 techmap
-opt -fast
 abc -luts 1,1,1,1,3,6  -dress
-opt -fast
 techmap -map lut_map.v
 stat -width

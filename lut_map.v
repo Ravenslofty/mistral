@@ -1,3 +1,7 @@
+`ifdef VERILATOR
+`include "cells_sim.v"
+`endif
+
 module \$lut (A, Y);
 
 parameter WIDTH = 1;
@@ -8,14 +12,21 @@ output Y;
 
 generate
     if (WIDTH == 1) begin
-        MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
+        localparam LUT16 = {{8{LUT[1]}}, {8{LUT[0]}}};
+        MISTRAL_LUT4 #(.LUT(LUT16)) _TECHMAP_REPLACE_(
             .A(1'b1), .B(1'b1), .C(1'b1), .D(A[0]), .Q(Y)
         );
     end else
     if (WIDTH == 2) begin
-        MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
+        /*MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
+            .A(A[0]), .B(A[1]), .C(1'b1), .D(1'b1), .Q(Y)
+        );*/
+        localparam LUT16 = {{4{LUT[3]}}, {4{LUT[2]}}, {4{LUT[1]}}, {4{LUT[0]}}};
+        MISTRAL_LUT4 #(.LUT(LUT16)) _TECHMAP_REPLACE_(
             .A(1'b1), .B(1'b1), .C(A[1]), .D(A[0]), .Q(Y)
         );
+        
+        /*
     end else
     if (WIDTH == 3) begin
         MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
@@ -73,7 +84,7 @@ generate
 
         MISTRAL_MUX2 lut55_mux(
             .A(lut5_0_out), .B(lut5_1_out), .S(A[5]), .Q(Y)
-        );
+        );*/
     end else begin
         wire _TECHMAP_FAIL_ = 1'b1;
     end
