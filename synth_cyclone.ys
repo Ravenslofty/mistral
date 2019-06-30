@@ -1,11 +1,16 @@
-synth -run :fine
-opt -fast -full
+synth -auto-top -lut 4 -run :fine
+stat -width
+opt -full
+memory_bram -rules bram.rules
 memory_map
 opt -full
+read_verilog -lib cells_sim.v
+techmap -map alu_map.v
+techmap 
+techmap -map dff_map.v
 techmap
 opt -fast
-abc -luts 1,1,1,2,6,12 -dress
+abc -luts 1,1,1,1,3,6  -dress
 opt -fast
-read_verilog -lib cells_sim.v
-techmap -map cells_map.v
+techmap -map lut_map.v
 stat -width

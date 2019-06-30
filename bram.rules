@@ -1,0 +1,91 @@
+bram $__M10K_SDP
+    init   1
+    abits 13   @D8192x1
+    dbits  1   @D8192x1
+    abits 12   @D4096x2
+    dbits  2   @D4096x2
+    abits 11   @D2048x4 @D2048x5
+    dbits  4   @D2048x4
+    dbits  5   @D2048x5
+    abits 10   @D1024x8 @D1024x10
+    dbits  8   @D1024x8
+    dbits 10   @D1024x10
+    abits  9   @D512x16 @D512x20
+    dbits 16   @D512x16
+    dbits 20   @D512x20
+    abits  8   @D256x32 @D256x40
+    dbits 32   @D256x32
+    dbits 40   @D256x40
+    groups 2
+    ports  1 1
+    wrmode 0 1
+    # read enable; write enable + byte enables (only for multiples of 8)
+    enable 1 1 @D8192x1 @D4096x2 @D2048x4 @D2048x5 @D1024x8 @D1024x10 @D512x20 @D256x40
+    enable 1 3 @D512x16
+    enable 1 5 @D256x32
+    transp 0 0
+    clocks 1 1
+    clkpol 1 1
+endbram
+
+bram $__M10K_TDP
+    init   1
+    abits 13   @D8192x1
+    dbits  1   @D8192x1
+    abits 12   @D4096x2
+    dbits  2   @D4096x2
+    abits 11   @D2048x4 @D2048x5
+    dbits  4   @D2048x4
+    dbits  5   @D2048x5
+    abits 10   @D1024x8 @D1024x10
+    dbits  8   @D1024x8
+    dbits 10   @D1024x10
+    abits  9   @D512x16 @D512x20
+    dbits 16   @D512x16
+    dbits 20   @D512x20
+    abits  8   @D256x32 @D256x40
+    dbits 32   @D256x32
+    dbits 40   @D256x40
+    groups 2
+    ports  1 1
+    wrmode 0 1
+    # read enable; write enable + byte enables (only for multiples of 8)
+    enable 1 1 @D8192x1 @D4096x2 @D2048x4 @D2048x5 @D1024x8 @D1024x10 @D512x20 @D256x40
+    enable 1 3 @D512x16
+    enable 1 5 @D256x32
+    enable 1 3
+    transp 0 0
+    clocks 1 2
+    clkpol 1 1
+endbram
+
+bram $__MLAB
+    init   1
+    abits  5   @D32
+    dbits  20  @D32
+    groups 2
+    ports  1 1
+    wrmode 0 1
+    # clock enable; 4 5-bit enables.
+    enable 0 5
+    transp 1 0
+    clocks 1 1
+    clkpol 1 1
+endbram
+
+match $__MLAB
+    min efficiency 5
+    make_outreg
+    or_next_if_better
+endmatch
+
+match $__M10K_SDP
+    min efficiency 5
+    make_transp
+    or_next_if_better
+endmatch
+
+match $__M10K_TDP
+    min efficiency 5
+    make_transp
+endmatch
