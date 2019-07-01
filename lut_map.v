@@ -18,18 +18,14 @@ generate
         );
     end else
     if (WIDTH == 2) begin
-        /*MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
-            .A(A[0]), .B(A[1]), .C(1'b1), .D(1'b1), .Q(Y)
-        );*/
         localparam LUT16 = {{4{LUT[3]}}, {4{LUT[2]}}, {4{LUT[1]}}, {4{LUT[0]}}};
         MISTRAL_LUT4 #(.LUT(LUT16)) _TECHMAP_REPLACE_(
             .A(1'b1), .B(1'b1), .C(A[1]), .D(A[0]), .Q(Y)
         );
-        
-        /*
     end else
     if (WIDTH == 3) begin
-        MISTRAL_LUT4 #(.LUT(LUT)) _TECHMAP_REPLACE_(
+        localparam LUT16 = {{2{LUT[7]}}, {2{LUT[6]}}, {2{LUT[5]}}, {2{LUT[4]}}, {2{LUT[3]}}, {2{LUT[2]}}, {2{LUT[1]}}, {2{LUT[0]}}};
+        MISTRAL_LUT4 #(.LUT(LUT16)) _TECHMAP_REPLACE_(
             .A(1'b1), .B(A[2]), .C(A[1]), .D(A[0]), .Q(Y)
         );
     end else
@@ -84,7 +80,7 @@ generate
 
         MISTRAL_MUX2 lut55_mux(
             .A(lut5_0_out), .B(lut5_1_out), .S(A[5]), .Q(Y)
-        );*/
+        );
     end else begin
         wire _TECHMAP_FAIL_ = 1'b1;
     end
