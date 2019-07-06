@@ -69,14 +69,13 @@ bram $__MLAB
     # clock enable; 4 5-bit enables.
     enable 0 5
     transp 1 0
-    clocks 1 1
+    clocks 0 1
     clkpol 1 1
 endbram
 
 match $__MLAB
     min efficiency 5
     make_outreg
-    or_next_if_better
 endmatch
 
 match $__M10K_SDP
