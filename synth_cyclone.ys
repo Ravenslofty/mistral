@@ -1,4 +1,9 @@
-synth -auto-top -lut 4 -run :fine
+hierarchy -auto-top
+proc
+flatten
+tribuf -logic
+deminout
+synth -lut 4 -run :fine
 stat -width
 opt -full
 memory_bram -rules bram.rules
@@ -6,9 +11,11 @@ memory_map
 opt -full
 read_verilog -lib cells_sim.v
 techmap -map alu_map.v
+dffsr2dff
 techmap 
 techmap -map dff_map.v
 techmap
-abc -luts 1,1,1,1,3,6  -dress
+stat -width
+abc -luts 1,1,1,1,3,6 -dress
 techmap -map lut_map.v
 stat -width
