@@ -70,10 +70,55 @@ impl Database {
     }
 }
 
+fn build(q: &quartus::Quartus, filenames: &[&str], top_level: &str) {
+    let mut cmd = String::new();
+    writeln!(cmd, "project_new -overwrite {}", top_level);
+    for filename in filenames {
+        writeln!(
+            cmd,
+            "set_global_assignment -name VERILOG_FILE \"{}\"",
+            filename
+        );
+    }
+    writeln!(
+        cmd,
+        "set_global_assignment -name TOP_LEVEL_ENTITY {}",
+        top_level
+    );
+    writeln!(cmd, "set_global_assignment -name NUM_PARALLEL_PROCESSORS 1");
+    writeln!(cmd, "export_assignments");
+    writeln!(cmd, "project_close");
+    writeln!(cmd, "project_open {}", top_level);
+    writeln!(cmd, "load_package flow");
+    writeln!(cmd, "execute_flow -compile");
+    writeln!(cmd, "execute_flow -vqm_writer");
+
+    let output = q.run_tcl("quartus_sh.exe", &cmd).unwrap();
+
+    for line in output {
+        println!("{}", line);
+    }
+
+    let output = q
+        .run_arg("quartus_cdb.exe", &["--back_annotate=routing", top_level])
+        .unwrap();
+
+    for line in output {
+        println!("{}", line);
+    }
+}
+
 fn main() {
     let q = quartus::Quartus::new(&"/mnt/d/intelFPGA_lite/18.1/quartus/bin64/").unwrap();
 
+    /*
     const DATABASE_NAME: &str = "mistral.json";
 
     let _db = Database::new();
+    */
+    build(
+        &q,
+        &[r"//wsl\$/Ubuntu-18.04/home/lofty/cyclonev/cyclone_re/crc32.v"],
+        "cyclone_re",
+    );
 }

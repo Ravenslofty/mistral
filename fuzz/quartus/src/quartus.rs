@@ -60,6 +60,19 @@ impl Quartus {
 
         Ok(lines)
     }
+
+    pub fn run_arg(&self, cmd: &str, args: &[&str]) -> io::Result<Vec<String>> {
+        let cmd = Command::new(self.path.join(cmd)).args(args).output()?;
+
+        let lines = String::from_utf8(cmd.stdout)
+            .unwrap()
+            .lines()
+            .filter(|line| !line.contains("Info") && !line.contains("Error"))
+            .map(String::from)
+            .collect::<Vec<String>>();
+
+        Ok(lines)
+    }
 }
 
 mod tests {
