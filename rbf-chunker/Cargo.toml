@@ -1,0 +1,9 @@
+[package]
+name = "rbf-chunker"
+version = "0.1.0"
+authors = ["Hal Gentz <zegentzy@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+crc16 = "0.4"
+arrayref = "0.3"
