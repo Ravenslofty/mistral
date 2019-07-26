@@ -1,185 +1,167 @@
-#![feature(const_generics)]
-
-#[macro_use]
-extern crate arrayref;
-
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{Error, ErrorKind};
 use std::path::{Path, PathBuf};
 
-mod array_gen;
-use array_gen::ArrayGen;
+#[derive(Debug, Copy, Clone)]
+enum SectionType {
+    Unkown,
+    Header,
+    Footer,
+    Packet { crc: [u8; 2] },
+    PacketCRC,
+}
 
 #[derive(Debug, Copy, Clone)]
-struct PacketInfo {
-    packet_number: u16,
-    packet_offset: usize,
-    packet_size: usize,
-    discards: usize,
-    target_crc: [u8; 2],
-    crc: [u8; 2],
+struct SectionInfo {
+    offset: usize,
+    size: usize,
+    stype: SectionType,
 }
 
-impl PacketInfo {
-    fn new(
-        packet_number: u16,
-        packet_offset: usize,
-        discards: usize,
-        packet: &[u8],
-        crc: u16,
-    ) -> Self {
-        PacketInfo {
-            packet_number,
-            packet_offset,
-            discards,
-            packet_size: packet.len(),
-            target_crc: array_ref!(packet, packet.len() - 2, 2).clone(),
-            crc: [(crc & 0xFF) as u8, ((crc & !0xFF) >> 8) as u8],
+impl SectionInfo {
+    fn new_header(size: usize) -> Self {
+        SectionInfo {
+            offset: 0,
+            size,
+            stype: SectionType::Header,
+        }
+    }
+
+    fn new_unkown(offset: usize, size: usize) -> Self {
+        SectionInfo {
+            offset,
+            size,
+            stype: SectionType::Unkown,
+        }
+    }
+
+    fn new_footer(offset: usize, size: usize) -> Self {
+        SectionInfo {
+            offset,
+            size,
+            stype: SectionType::Footer,
+        }
+    }
+
+    fn new_packet(offset: usize, size: usize, crc: [u8; 2]) -> Self {
+        SectionInfo {
+            offset,
+            size,
+            stype: SectionType::Packet { crc },
+        }
+    }
+
+    fn new_packet_crc(offset: usize) -> Self {
+        SectionInfo {
+            offset,
+            size: 2,
+            stype: SectionType::PacketCRC,
         }
     }
 }
 
-fn dump_packet_infos(target_dir: &PathBuf, packet_infos: &[PacketInfo]) -> std::io::Result<()> {
-    let mut crc_info_file = File::create(target_dir.join("packet_infos"))?;
-    for crc_info in packet_infos {
-        writeln!(&mut crc_info_file, "{:?}", crc_info)?;
+const RBF_SIZE: usize = 7020944;
+const PACKET_MIN_SIZE: usize = 916;
+const PACKET_MAX_SIZE: usize = 916;
+const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
+const HEADER_SIZE: usize = 0x84;
+const FOOTER_SIZE: usize = 0x268;
+const EXPECTED_UNKOWN_SIZE: usize = 0x378; // Used only for optimization.
+
+fn partition_rbf(
+    id: PathBuf,
+    rbf: &[u8],
+) -> Result<Vec<SectionInfo>, (Vec<SectionInfo>, &'static str)> {
+    let mut section_infos = Vec::with_capacity(
+        (RBF_SIZE - EXPECTED_UNKOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
+    );
+    section_infos.push(SectionInfo::new_header(HEADER_SIZE));
+
+    let mut discard_start = HEADER_SIZE;
+    let mut section_start = HEADER_SIZE;
+    let mut section_end = HEADER_SIZE;
+    let mut running_crc = crc16::State::<crc16::MODBUS>::new();
+
+    while section_end != rbf.len() {
+        if section_start == section_end {
+            section_end = section_end + PACKET_MIN_SIZE;
+            if section_end > rbf.len() {
+                // footer found
+                break;
+            }
+            running_crc.update(&rbf[section_start..section_end - 2]);
+        } else if section_end - section_start < PACKET_MAX_SIZE {
+            section_end = section_end + 1;
+            running_crc.update(&[rbf[section_end - 1 - 2]]);
+        } else if section_start - discard_start >= DISCARD_MAX_SIZE {
+            section_infos.push(SectionInfo::new_unkown(
+                discard_start,
+                section_start - discard_start,
+            ));
+            return Err((section_infos, "No packet found. Refuse to continue."));
+        } else {
+            running_crc = crc16::State::<crc16::MODBUS>::new();
+            section_start = section_start + 1;
+            section_end = section_start;
+            continue;
+        }
+
+        let crc = running_crc.get();
+        let crc = [(crc & 0xFF) as u8, (crc >> 8) as u8];
+        let target_crc = [rbf[section_end - 2], rbf[section_end - 1]];
+
+        if crc == target_crc && crc != [0, 0] {
+            if section_start != discard_start {
+                section_infos.push(SectionInfo::new_unkown(
+                    discard_start,
+                    section_start - discard_start,
+                ));
+            }
+            section_infos.push(SectionInfo::new_packet(
+                section_start,
+                section_end - section_start - 2,
+                crc,
+            ));
+            section_infos.push(SectionInfo::new_packet_crc(section_end - 2));
+
+            section_start = section_end;
+            discard_start = section_end;
+            running_crc = crc16::State::<crc16::MODBUS>::new();
+        }
+    }
+
+    let (offset, size) = if discard_start == rbf.len() {
+        // Last packet was actually the footer.
+        // Discard it.
+        //
+        // Wtf???
+        eprintln!("{:?}: Discarding last packet as was footer.", id);
+        let last_packet_crc = section_infos.pop().unwrap();
+        let last_packet = section_infos.pop().unwrap();
+
+        match (last_packet_crc.stype, last_packet.stype) {
+            (SectionType::PacketCRC, SectionType::Packet { .. }) => (),
+            _ => panic!(),
+        }
+
+        (last_packet.offset, last_packet.size + 2)
+    } else {
+        (discard_start, rbf.len() - discard_start)
+    };
+
+    assert_eq!(size, FOOTER_SIZE);
+    section_infos.push(SectionInfo::new_footer(offset, size));
+
+    Ok(section_infos)
+}
+
+fn dump_sections(target_dir: &PathBuf, sections: &[SectionInfo]) -> std::io::Result<()> {
+    let mut file = File::create(target_dir.join("section_infos"))?;
+    for section in sections {
+        writeln!(&mut file, "{:?}", section)?;
     }
     Ok(())
-}
-
-fn handle_file(target_dir: PathBuf, filename: PathBuf) -> std::io::Result<()> {
-    const PACKET_MIN_SIZE: usize = 300;
-    const PACKET_MAX_SIZE: usize = 1024 * 2;
-    const DISCARD_MAX_SIZE: usize = 1024 * 5;
-    const HEADER_SIZE: usize = 0x84;
-
-    if target_dir.exists() {
-        Err(Error::new(
-            ErrorKind::AlreadyExists,
-            "Target dir already exists. Refuse to overwrite.",
-        ))?
-    }
-
-    std::fs::create_dir(target_dir.clone())?;
-    let mut file = File::open(filename.clone())?;
-    let mut working_buffer: ArrayGen<u8, { PACKET_MAX_SIZE + DISCARD_MAX_SIZE }> =
-        [0; PACKET_MAX_SIZE + DISCARD_MAX_SIZE].into();
-
-    // Read the header.
-    file.read_exact(&mut working_buffer[..HEADER_SIZE])?;
-    File::create(target_dir.join("header"))?.write_all(&working_buffer[..HEADER_SIZE])?;
-
-    let mut running_crc = crc16::State::<crc16::MODBUS>::new();
-    let mut packet_infos = vec![];
-
-    let mut read_so_far = 0;
-    let mut discard_so_far = 0;
-    let mut packet_offset = HEADER_SIZE;
-    let mut packet_number = 0u16;
-    loop {
-        match file.read(
-            &mut working_buffer[discard_so_far + read_so_far..discard_so_far + PACKET_MAX_SIZE],
-        ) {
-            Ok(0) => {
-                if read_so_far == 0 {
-                    // Last packet was actually the footer.
-                    // Discard it.
-                    //
-                    // Wtf???
-                    eprintln!("{:?}: Discarding last packet as was footer.", filename);
-
-                    assert!(packet_number > 0);
-                    let filename = format!("packet{:05}", packet_number - 1);
-                    std::fs::remove_file(target_dir.join(filename))?;
-                    packet_infos.pop().unwrap();
-                }
-                File::create(target_dir.join("footer"))?
-                    .write_all(&working_buffer[..discard_so_far + read_so_far])?;
-                dump_packet_infos(&target_dir, &packet_infos)?;
-
-                return Ok(());
-            }
-            Ok(n) => {
-                let mut old_read_so_far = read_so_far;
-                read_so_far = read_so_far + n;
-                assert!(read_so_far <= PACKET_MAX_SIZE);
-                assert!(discard_so_far <= DISCARD_MAX_SIZE);
-
-                'try_again: loop {
-                    for end_read_so_far in old_read_so_far..read_so_far {
-                        if end_read_so_far < 3 {
-                            continue;
-                        }
-                        running_crc.update(&[working_buffer[discard_so_far + end_read_so_far - 3]]);
-                        let packet_info = PacketInfo::new(
-                            packet_number,
-                            packet_offset,
-                            discard_so_far,
-                            &working_buffer[discard_so_far..discard_so_far + end_read_so_far],
-                            running_crc.get(),
-                        );
-                        if end_read_so_far < PACKET_MIN_SIZE {
-                            continue;
-                        }
-                        if packet_info.crc == packet_info.target_crc && packet_info.crc != [0, 0] {
-                            let filename = format!("packet{:05}", packet_number);
-                            File::create(target_dir.join(filename))?.write_all(
-                                &working_buffer[discard_so_far..discard_so_far + end_read_so_far],
-                            )?;
-
-                            if discard_so_far != 0 {
-                                let filename = format!("packet{:05}-discard", packet_number);
-                                File::create(target_dir.join(filename))?
-                                    .write_all(&working_buffer[0..discard_so_far])?;
-                            }
-
-                            packet_infos.push(packet_info);
-                            if read_so_far != end_read_so_far {
-                                assert!(read_so_far > end_read_so_far);
-                                assert!(read_so_far <= PACKET_MAX_SIZE);
-                                assert!(discard_so_far <= DISCARD_MAX_SIZE);
-                                unsafe {
-                                    std::ptr::copy(
-                                        &working_buffer[discard_so_far + end_read_so_far]
-                                            as *const u8,
-                                        &mut working_buffer[0] as *mut u8,
-                                        read_so_far - end_read_so_far,
-                                    );
-                                }
-                            }
-                            packet_offset = packet_offset + end_read_so_far;
-                            discard_so_far = 0;
-                            read_so_far = read_so_far - end_read_so_far;
-                            running_crc = crc16::State::<crc16::MODBUS>::new();
-                            packet_number = packet_number + 1;
-
-                            continue 'try_again;
-                        }
-                    }
-
-                    if read_so_far == PACKET_MAX_SIZE && discard_so_far == DISCARD_MAX_SIZE {
-                        dump_packet_infos(&target_dir, &packet_infos)?;
-                        Err(Error::new(
-                            ErrorKind::InvalidData,
-                            "No packet found. Refuse to continue.",
-                        ))?
-                    } else if read_so_far == PACKET_MAX_SIZE {
-                        packet_offset = packet_offset + 1;
-                        discard_so_far = discard_so_far + 1;
-                        running_crc = crc16::State::<crc16::MODBUS>::new();
-                        read_so_far = read_so_far - 1;
-                        old_read_so_far = 0;
-                        continue 'try_again;
-                    }
-
-                    break;
-                }
-            }
-            Err(ref err) if err.kind() == ErrorKind::Interrupted => (),
-            err => return err.map(|_| unreachable!()),
-        }
-    }
 }
 
 fn main() {
@@ -204,7 +186,41 @@ fn main() {
             .canonicalize()
             .and_then(|filepath| {
                 println!("{:?}: Proccessing into {:?}", filepath, target_dir);
-                handle_file(target_dir, filepath)
+
+                if target_dir.exists() {
+                    Err(Error::new(
+                        ErrorKind::AlreadyExists,
+                        "Target dir already exists. Refuse to overwrite.",
+                    ))?
+                }
+                std::fs::create_dir(&target_dir)?;
+
+                let mut file = File::open(&filename)?;
+                let mut rbf = vec![0; RBF_SIZE];
+                file.read_exact(&mut rbf[..])?;
+
+                let sections = partition_rbf(filepath, &rbf[..]).map_err(|(s, e)| {
+                    dump_sections(&target_dir, &s).unwrap();
+                    Error::new(ErrorKind::Other, e)
+                })?;
+
+                dump_sections(&target_dir, &sections)?;
+
+                for (i, section) in sections.iter().enumerate() {
+                    File::create(target_dir.join(
+                        i.to_string()
+                            + match section.stype {
+                                SectionType::Unkown => "unkown",
+                                SectionType::Header => "header",
+                                SectionType::Footer => "footer",
+                                SectionType::Packet { .. } => "packet",
+                                SectionType::PacketCRC => "packet_crc",
+                            },
+                    ))?
+                    .write_all(&rbf[section.offset..section.offset + section.size])?;
+                }
+
+                Ok(())
             })
             .unwrap_or_else(|err| eprintln!("{:?}: Failed to proccess with {:?}", filename, err));
     }

@@ -6,4 +6,3 @@ edition = "2018"
 
 [dependencies]
 crc16 = "0.4"
-arrayref = "0.3"
