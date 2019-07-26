@@ -71,7 +71,7 @@ const EXPECTED_UNKNOWN_SIZE: usize = 0x378; // Used only for optimization.
 fn partition_rbf(
     id: PathBuf,
     rbf: &[u8],
-) -> Result<Vec<SectionInfo>, (Vec<SectionInfo>, &'static str)> {
+) -> Vec<SectionInfo> {
     let mut section_infos = Vec::with_capacity(
         (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
     );
@@ -94,11 +94,7 @@ fn partition_rbf(
             section_end += 1;
             running_crc.update(&[rbf[section_end - 1 - 2]]);
         } else if section_start - discard_start >= DISCARD_MAX_SIZE {
-            section_infos.push(SectionInfo::new_unknown(
-                discard_start,
-                section_start - discard_start,
-            ));
-            return Err((section_infos, "No packet found. Refusing to continue."));
+            panic!("Failed to find sections starting at {:?}", discard_start);
         } else {
             running_crc = crc16::State::<crc16::MODBUS>::new();
             section_start += 1;
@@ -152,7 +148,7 @@ fn partition_rbf(
     assert_eq!(size, FOOTER_SIZE);
     section_infos.push(SectionInfo::new_footer(offset, size));
 
-    Ok(section_infos)
+    section_infos
 }
 
 fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result<()> {
@@ -198,10 +194,7 @@ fn main() {
                 let mut rbf = vec![0; file.metadata()?.len() as usize];
                 file.read_exact(&mut rbf[..])?;
 
-                let sections = partition_rbf(filepath, &rbf[..]).map_err(|(s, e)| {
-                    dump_sections(&target_dir, &s).unwrap();
-                    Error::new(ErrorKind::Other, e)
-                })?;
+                let sections = partition_rbf(filepath, &rbf[..]);
 
                 dump_sections(&target_dir, &sections)?;
 
