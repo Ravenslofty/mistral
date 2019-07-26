@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 
 #[derive(Debug, Copy, Clone)]
 enum SectionType {
-    Unkown,
+    Unknown,
     Header,
     Footer,
     Packet { crc: [u8; 2] },
@@ -28,11 +28,11 @@ impl SectionInfo {
         }
     }
 
-    fn new_unkown(offset: usize, size: usize) -> Self {
+    fn new_unknown(offset: usize, size: usize) -> Self {
         SectionInfo {
             offset,
             size,
-            stype: SectionType::Unkown,
+            stype: SectionType::Unknown,
         }
     }
 
@@ -61,20 +61,19 @@ impl SectionInfo {
     }
 }
 
-const RBF_SIZE: usize = 7020944;
 const PACKET_MIN_SIZE: usize = 916;
 const PACKET_MAX_SIZE: usize = 916;
 const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
 const HEADER_SIZE: usize = 0x84;
 const FOOTER_SIZE: usize = 0x268;
-const EXPECTED_UNKOWN_SIZE: usize = 0x378; // Used only for optimization.
+const EXPECTED_UNKNOWN_SIZE: usize = 0x378; // Used only for optimization.
 
 fn partition_rbf(
     id: PathBuf,
     rbf: &[u8],
 ) -> Result<Vec<SectionInfo>, (Vec<SectionInfo>, &'static str)> {
     let mut section_infos = Vec::with_capacity(
-        (RBF_SIZE - EXPECTED_UNKOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
+        (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
     );
     section_infos.push(SectionInfo::new_header(HEADER_SIZE));
 
@@ -85,24 +84,24 @@ fn partition_rbf(
 
     while section_end != rbf.len() {
         if section_start == section_end {
-            section_end = section_end + PACKET_MIN_SIZE;
+            section_end += PACKET_MIN_SIZE;
             if section_end > rbf.len() {
                 // footer found
                 break;
             }
             running_crc.update(&rbf[section_start..section_end - 2]);
         } else if section_end - section_start < PACKET_MAX_SIZE {
-            section_end = section_end + 1;
+            section_end += 1;
             running_crc.update(&[rbf[section_end - 1 - 2]]);
         } else if section_start - discard_start >= DISCARD_MAX_SIZE {
-            section_infos.push(SectionInfo::new_unkown(
+            section_infos.push(SectionInfo::new_unknown(
                 discard_start,
                 section_start - discard_start,
             ));
-            return Err((section_infos, "No packet found. Refuse to continue."));
+            return Err((section_infos, "No packet found. Refusing to continue."));
         } else {
             running_crc = crc16::State::<crc16::MODBUS>::new();
-            section_start = section_start + 1;
+            section_start += 1;
             section_end = section_start;
             continue;
         }
@@ -113,7 +112,7 @@ fn partition_rbf(
 
         if crc == target_crc && crc != [0, 0] {
             if section_start != discard_start {
-                section_infos.push(SectionInfo::new_unkown(
+                section_infos.push(SectionInfo::new_unknown(
                     discard_start,
                     section_start - discard_start,
                 ));
@@ -136,7 +135,7 @@ fn partition_rbf(
         // Discard it.
         //
         // Wtf???
-        eprintln!("{:?}: Discarding last packet as was footer.", id);
+        eprintln!("{:?}: Discarding the last packet as it was the footer.", id);
         let last_packet_crc = section_infos.pop().unwrap();
         let last_packet = section_infos.pop().unwrap();
 
@@ -156,10 +155,10 @@ fn partition_rbf(
     Ok(section_infos)
 }
 
-fn dump_sections(target_dir: &PathBuf, sections: &[SectionInfo]) -> std::io::Result<()> {
+fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result<()> {
     let mut file = File::create(target_dir.join("section_infos"))?;
     for section in sections {
-        writeln!(&mut file, "{:?}", section)?;
+        write!(&mut file, "{:?}\n", section)?;
     }
     Ok(())
 }
@@ -185,7 +184,7 @@ fn main() {
         filepath
             .canonicalize()
             .and_then(|filepath| {
-                println!("{:?}: Proccessing into {:?}", filepath, target_dir);
+                println!("{:?}: Processing into {:?}", filepath, target_dir);
 
                 if target_dir.exists() {
                     Err(Error::new(
@@ -196,7 +195,7 @@ fn main() {
                 std::fs::create_dir(&target_dir)?;
 
                 let mut file = File::open(&filename)?;
-                let mut rbf = vec![0; RBF_SIZE];
+                let mut rbf = vec![0; file.metadata()?.len() as usize];
                 file.read_exact(&mut rbf[..])?;
 
                 let sections = partition_rbf(filepath, &rbf[..]).map_err(|(s, e)| {
@@ -210,7 +209,7 @@ fn main() {
                     File::create(target_dir.join(
                         i.to_string()
                             + match section.stype {
-                                SectionType::Unkown => "unkown",
+                                SectionType::Unknown => "unknown",
                                 SectionType::Header => "header",
                                 SectionType::Footer => "footer",
                                 SectionType::Packet { .. } => "packet",
@@ -222,6 +221,6 @@ fn main() {
 
                 Ok(())
             })
-            .unwrap_or_else(|err| eprintln!("{:?}: Failed to proccess with {:?}", filename, err));
+            .unwrap_or_else(|err| eprintln!("{:?}: Failed to process with {:?}", filename, err));
     }
 }
