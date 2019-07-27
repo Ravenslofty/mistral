@@ -1,9 +1,18 @@
+#![feature(maybe_uninit_slice, maybe_uninit_array)]
+
+#[macro_use]
+extern crate core;
+
+mod int_writer;
+
+use rayon::prelude::*;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{Error, ErrorKind};
 use std::path::{Path, PathBuf};
+use int_writer::WriteInt;
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Copy, Clone)]
 enum SectionType {
     Unknown,
     Header,
@@ -12,7 +21,20 @@ enum SectionType {
     PacketCRC,
 }
 
-#[derive(Debug, Copy, Clone)]
+impl SectionType {
+    #[inline]
+    fn name_as_str(&self) -> &'static str {
+        match self {
+            SectionType::Unknown => "Unknown",
+            SectionType::Header => "Header",
+            SectionType::Footer => "Footer",
+            SectionType::Packet { .. } => "Packet",
+            SectionType::PacketCRC => "PacketCRC",
+        }
+    }
+}
+
+#[derive(Copy, Clone)]
 struct SectionInfo {
     offset: usize,
     size: usize,
@@ -20,6 +42,7 @@ struct SectionInfo {
 }
 
 impl SectionInfo {
+    #[inline]
     fn new_header(size: usize) -> Self {
         SectionInfo {
             offset: 0,
@@ -28,6 +51,7 @@ impl SectionInfo {
         }
     }
 
+    #[inline]
     fn new_unknown(offset: usize, size: usize) -> Self {
         SectionInfo {
             offset,
@@ -36,6 +60,7 @@ impl SectionInfo {
         }
     }
 
+    #[inline]
     fn new_footer(offset: usize, size: usize) -> Self {
         SectionInfo {
             offset,
@@ -44,6 +69,7 @@ impl SectionInfo {
         }
     }
 
+    #[inline]
     fn new_packet(offset: usize, size: usize, crc: [u8; 2]) -> Self {
         SectionInfo {
             offset,
@@ -52,6 +78,7 @@ impl SectionInfo {
         }
     }
 
+    #[inline]
     fn new_packet_crc(offset: usize) -> Self {
         SectionInfo {
             offset,
@@ -68,10 +95,8 @@ const HEADER_SIZE: usize = 0x84;
 const FOOTER_SIZE: usize = 0x268;
 const EXPECTED_UNKNOWN_SIZE: usize = 0x378; // Used only for optimization.
 
-fn partition_rbf(
-    id: PathBuf,
-    rbf: &[u8],
-) -> Vec<SectionInfo> {
+#[inline]
+fn partition_rbf(id: PathBuf, rbf: &[u8]) -> Vec<SectionInfo> {
     let mut section_infos = Vec::with_capacity(
         (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
     );
@@ -151,10 +176,33 @@ fn partition_rbf(
     section_infos
 }
 
+#[inline]
 fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result<()> {
-    let mut file = File::create(target_dir.join("section_infos"))?;
+    // Doing all this writing here, instead of using rust's debug trait provides
+    // a 2x-3x speed up.
+    //
+    // Presumably, rustc fails to inline/optimize the stdlib, so moving it here
+    // makes stuff faster... somehow?
+    //
+    // Since we don't need to output the exact thing Debug normally outputs, we
+    // can save another 20%.
+    let mut f = File::create(target_dir.join("section_infos"))?;
     for section in sections {
-        write!(&mut file, "{:?}\n", section)?;
+        usize::write_int(section.offset, &mut f)?;
+        f.write_all(&[b','])?;
+        usize::write_int(section.size, &mut f)?;
+        f.write_all(&[b','])?;
+        f.write_all(section.stype.name_as_str().as_bytes())?;
+        f.write_all(&[b','])?;
+        match section.stype {
+            SectionType::Packet { crc } => {
+                u8::write_int(crc[0], &mut f)?;
+                f.write_all(&[b' '])?;
+                u8::write_int(crc[1], &mut f)?;
+            },
+            _ => (),
+        }
+        f.write_all(&[b'\n'])?;
     }
     Ok(())
 }
@@ -174,7 +222,7 @@ fn main() {
         eprintln!("Duplicate files found, ignoring.");
     }
 
-    for filename in files {
+    files.par_iter().for_each(|filename| {
         let filepath: &Path = filename.as_ref();
         let target_dir = target_dir.join(filepath.file_name().unwrap());
         filepath
@@ -199,21 +247,12 @@ fn main() {
                 dump_sections(&target_dir, &sections)?;
 
                 for (i, section) in sections.iter().enumerate() {
-                    File::create(target_dir.join(
-                        i.to_string()
-                            + match section.stype {
-                                SectionType::Unknown => "unknown",
-                                SectionType::Header => "header",
-                                SectionType::Footer => "footer",
-                                SectionType::Packet { .. } => "packet",
-                                SectionType::PacketCRC => "packet_crc",
-                            },
-                    ))?
-                    .write_all(&rbf[section.offset..section.offset + section.size])?;
+                    File::create(target_dir.join(i.to_string() + section.stype.name_as_str()))?
+                        .write_all(&rbf[section.offset..section.offset + section.size])?;
                 }
 
                 Ok(())
             })
             .unwrap_or_else(|err| eprintln!("{:?}: Failed to process with {:?}", filename, err));
-    }
+    })
 }

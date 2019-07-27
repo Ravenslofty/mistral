@@ -1,3 +1,5 @@
+cargo-features = ["profile-overrides"]
+
 [package]
 name = "rbf-chunker"
 version = "0.1.0"
@@ -6,3 +8,12 @@ edition = "2018"
 
 [dependencies]
 crc16 = "0.4"
+rayon = "1.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[profile.release.overrides."*"]
+codegen-units = 1
+opt-level = 3
