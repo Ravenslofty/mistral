@@ -5,12 +5,13 @@ extern crate core;
 
 mod int_writer;
 
+use int_writer::WriteInt;
 use rayon::prelude::*;
+use std::fmt::{self, Display, Formatter};
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{Error, ErrorKind};
 use std::path::{Path, PathBuf};
-use int_writer::WriteInt;
 
 #[derive(Copy, Clone)]
 enum SectionType {
@@ -21,16 +22,15 @@ enum SectionType {
     PacketCRC,
 }
 
-impl SectionType {
-    #[inline]
-    fn name_as_str(&self) -> &'static str {
-        match self {
+impl Display for SectionType {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.write_str(match self {
             SectionType::Unknown => "Unknown",
             SectionType::Header => "Header",
             SectionType::Footer => "Footer",
             SectionType::Packet { .. } => "Packet",
             SectionType::PacketCRC => "PacketCRC",
-        }
+        })
     }
 }
 
@@ -191,15 +191,13 @@ fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result
         usize::write_int(section.offset, &mut f)?;
         f.write_all(&[b','])?;
         usize::write_int(section.size, &mut f)?;
-        f.write_all(&[b','])?;
-        f.write_all(section.stype.name_as_str().as_bytes())?;
-        f.write_all(&[b','])?;
+        write!(f, ",{},", section.stype)?;
         match section.stype {
             SectionType::Packet { crc } => {
                 u8::write_int(crc[0], &mut f)?;
                 f.write_all(&[b' '])?;
                 u8::write_int(crc[1], &mut f)?;
-            },
+            }
             _ => (),
         }
         f.write_all(&[b'\n'])?;
@@ -247,7 +245,7 @@ fn main() {
                 dump_sections(&target_dir, &sections)?;
 
                 for (i, section) in sections.iter().enumerate() {
-                    File::create(target_dir.join(i.to_string() + section.stype.name_as_str()))?
+                    File::create(target_dir.join(format!("{} {}", i, section.stype)))?
                         .write_all(&rbf[section.offset..section.offset + section.size])?;
                 }
 

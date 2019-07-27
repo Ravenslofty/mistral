@@ -8,8 +8,9 @@ use std::io::prelude::*;
 use std::mem::MaybeUninit;
 use std::ops::{Div, Rem, Sub};
 
-trait Int: PartialEq + PartialOrd + Div<Output=Self> + Rem<Output=Self> +
-           Sub<Output=Self> + Copy {
+trait Int:
+    PartialEq + PartialOrd + Div<Output = Self> + Rem<Output = Self> + Sub<Output = Self> + Copy
+{
     fn to_u64(&self) -> u64;
 }
 
@@ -119,4 +120,3 @@ mod imp {
             as u64 via to_u64 named fmt_u64
     );
 }
-
