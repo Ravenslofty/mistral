@@ -1,11 +1,8 @@
-#![feature(maybe_uninit_slice, maybe_uninit_array)]
+#![feature(seek_convenience)]
 
 #[macro_use]
 extern crate core;
 
-mod int_writer;
-
-use int_writer::WriteInt;
 use rayon::prelude::*;
 use std::fmt::{self, Display, Formatter};
 use std::fs::File;
@@ -88,15 +85,17 @@ impl SectionInfo {
     }
 }
 
-const PACKET_MIN_SIZE: usize = 916;
-const PACKET_MAX_SIZE: usize = 916;
-const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
+const PACKET_MIN_SIZE: usize = 524;
+const PACKET_MAX_SIZE: usize = 524;
+const DISCARD_MAX_SIZE: usize = 1 * PACKET_MAX_SIZE;
 const HEADER_SIZE: usize = 0x84;
-const FOOTER_SIZE: usize = 0x268;
-const EXPECTED_UNKNOWN_SIZE: usize = 0x378; // Used only for optimization.
+
+// Used only for optimization. Underguessing is better than over guessing.
+const FOOTER_SIZE: usize = 0x200;
+const EXPECTED_UNKNOWN_SIZE: usize = 0x300;
 
 #[inline]
-fn partition_rbf(id: PathBuf, rbf: &[u8]) -> Vec<SectionInfo> {
+fn partition_rbf(id: PathBuf, rbf: &[u8], target_dir: &Path) -> Vec<SectionInfo> {
     let mut section_infos = Vec::with_capacity(
         (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
     );
@@ -119,7 +118,9 @@ fn partition_rbf(id: PathBuf, rbf: &[u8]) -> Vec<SectionInfo> {
             section_end += 1;
             running_crc.update(&[rbf[section_end - 1 - 2]]);
         } else if section_start - discard_start >= DISCARD_MAX_SIZE {
-            panic!("Failed to find sections starting at {:?}", discard_start);
+            // Often, it's just a mispicked header size.
+            dump_sections(target_dir, &section_infos).unwrap();
+            panic!("Failed to find sections starting at {:x?}", discard_start);
         } else {
             running_crc = crc16::State::<crc16::MODBUS>::new();
             section_start += 1;
@@ -170,7 +171,6 @@ fn partition_rbf(id: PathBuf, rbf: &[u8]) -> Vec<SectionInfo> {
         (discard_start, rbf.len() - discard_start)
     };
 
-    assert_eq!(size, FOOTER_SIZE);
     section_infos.push(SectionInfo::new_footer(offset, size));
 
     section_infos
@@ -188,19 +188,14 @@ fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result
     // can save another 20%.
     let mut f = File::create(target_dir.join("section_infos"))?;
     for section in sections {
-        usize::write_int(section.offset, &mut f)?;
-        f.write_all(&[b','])?;
-        usize::write_int(section.size, &mut f)?;
-        write!(f, ",{},", section.stype)?;
+        write!(f, "{:x},{:x},{}", section.offset, section.size, section.stype)?;
         match section.stype {
             SectionType::Packet { crc } => {
-                u8::write_int(crc[0], &mut f)?;
-                f.write_all(&[b' '])?;
-                u8::write_int(crc[1], &mut f)?;
+                write!(f, ",{:x} {:x}", crc[0], crc[1])?;
             }
             _ => (),
         }
-        f.write_all(&[b'\n'])?;
+        write!(f, "\n")?;
     }
     Ok(())
 }
@@ -240,13 +235,24 @@ fn main() {
                 let mut rbf = vec![0; file.metadata()?.len() as usize];
                 file.read_exact(&mut rbf[..])?;
 
-                let sections = partition_rbf(filepath, &rbf[..]);
+                let sections = partition_rbf(filepath, &rbf[..], &target_dir);
 
                 dump_sections(&target_dir, &sections)?;
 
+                let mut f = File::create(target_dir.join("sections"))?;
                 for (i, section) in sections.iter().enumerate() {
-                    File::create(target_dir.join(format!("{} {}", i, section.stype)))?
-                        .write_all(&rbf[section.offset..section.offset + section.size])?;
+                    write!(f, "SECTION START {:x},{:x}", section.size, i)?;
+
+                    // Align to 16 bytes
+                    const SPACES: [u8; 15] = [b' '; 15];
+                    let align = (f.stream_position()? as usize + 1) % 16;
+                    if align != 0 {
+                        f.write_all(&SPACES[0..16 - align])?;
+                    }
+                    write!(f, "\n")?;
+
+                    f.write_all(&rbf[section.offset..section.offset + section.size])?;
+                    write!(f, "\nSECTION END\n")?;
                 }
 
                 Ok(())
