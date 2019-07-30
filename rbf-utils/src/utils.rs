@@ -85,8 +85,8 @@ impl SectionInfo {
     }
 }
 
-const PACKET_MIN_SIZE: usize = 524; // 0x916
-const PACKET_MAX_SIZE: usize = 524; // 0x916
+const PACKET_MIN_SIZE: usize = 524; // 916
+const PACKET_MAX_SIZE: usize = 524; // 916
 const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
 const HEADER_SIZE: usize = 0x84;
 
