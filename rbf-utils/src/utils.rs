@@ -217,12 +217,11 @@ pub fn load_rbf(filepath: &Path) -> io::Result<Vec<u8>> {
     Ok(rbf)
 }
 
-pub const BYTES_PER_LINE: usize = 16;
-
 #[inline]
 pub fn find_diff_bytes<'a, T1, T2>(
     files: &'a mut Vec<(T1, T2)>,
     master_file: (T1, T2),
+    bytes_per_line: usize,
 ) -> Vec<(usize, usize, Vec<u8>)>
 where
     [(T1, T2)]: IntoParallelRefIterator<'a, Item = &'a (T1, T2)>,
@@ -271,7 +270,7 @@ where
     let diff_bytes: Vec<_> = diff_bytes
         .into_par_iter()
         .map(|addr| {
-            let line = addr / BYTES_PER_LINE;
+            let line = addr / bytes_per_line;
             let values_per_file: Vec<_> =
                 files.iter().map(|(rbf, _)| rbf.borrow()[addr]).collect();
             (addr, line, values_per_file)

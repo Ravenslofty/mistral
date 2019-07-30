@@ -28,6 +28,8 @@ const BRIGHT_CYAN_COLOR: &'static str = "\x1B[36;1m";
 const BOLD_COLOR: &'static str = "\x1B[1m";
 const RESET_COLOR: &'static str = "\x1B[0m";
 
+const BYTES_PER_LINE: usize = 16;
+
 fn main() -> io::Result<()> {
     let mut files: Vec<_> = std::env::args_os()
         .skip(1)
@@ -67,7 +69,7 @@ fn main() -> io::Result<()> {
         })
         .collect::<Result<_, _>>()?;
 
-    let diff_bytes = utils::find_diff_bytes(&mut files, master_file);
+    let diff_bytes = utils::find_diff_bytes(&mut files, master_file, BYTES_PER_LINE);
 
     eprintln!("Proccesing lines...");
 
@@ -80,8 +82,8 @@ fn main() -> io::Result<()> {
                 line_contents.map(|lc| Some(lc)).collect();
             let mut offset = 0;
 
-            let start = line * utils::BYTES_PER_LINE;
-            let end = start + utils::BYTES_PER_LINE;
+            let start = line * BYTES_PER_LINE;
+            let end = start + BYTES_PER_LINE;
 
             let mut match_types = vec![];
 
@@ -134,7 +136,7 @@ fn main() -> io::Result<()> {
                 preview_str.push_str("|");
 
                 let mut first = true;
-                for byte in 0..utils::BYTES_PER_LINE {
+                for byte in 0..BYTES_PER_LINE {
                     if !first {
                         main_str.push_str(" ");
                     }
@@ -172,14 +174,19 @@ fn main() -> io::Result<()> {
                 Cell::new(&out_str)
             }));
 
-            Row::new(this_row)
+            (start, Row::new(this_row))
         })
         .collect();
 
     eprintln!("Adding {} rows...", diff_rows.len());
 
-    diff_rows.into_iter().for_each(|row| {
+    let mut next_line = diff_rows.first().map(|(line, _)| *line);
+    diff_rows.into_iter().for_each(|(line, row)| {
+        if Some(line) != next_line {
+            table.add_row(Row::new(vec![Cell::new("**********")]));
+        }
         table.add_row(row);
+        next_line = Some(line + BYTES_PER_LINE);
     });
     table.printstd();
 
