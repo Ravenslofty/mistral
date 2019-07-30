@@ -1,7 +1,7 @@
 cargo-features = ["profile-overrides"]
 
 [package]
-name = "rbf-chunker"
+name = "rbf-utils"
 version = "0.1.0"
 authors = ["Hal Gentz <zegentzy@protonmail.com>"]
 edition = "2018"
@@ -9,6 +9,16 @@ edition = "2018"
 [dependencies]
 crc16 = "0.4"
 rayon = "1.1"
+itertools = "0.8"
+prettytable-rs = "0.8"
+
+[[bin]]
+name = "chunker"
+path = "src/chunker.rs"
+
+[[bin]]
+name = "diffmay"
+path = "src/diffmay.rs"
 
 [profile.release]
 lto = true

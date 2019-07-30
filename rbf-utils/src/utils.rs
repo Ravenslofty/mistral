@@ -1,17 +1,17 @@
-#![feature(seek_convenience)]
-
-#[macro_use]
-extern crate core;
+// Not all functions are used.
+#![allow(dead_code)]
 
 use rayon::prelude::*;
-use std::fmt::{self, Display, Formatter};
+use std::borrow::Borrow;
+use std::ffi::OsStr;
+use std::fmt::{self, Debug, Display, Formatter};
 use std::fs::File;
+use std::io;
 use std::io::prelude::*;
-use std::io::{Error, ErrorKind};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 #[derive(Copy, Clone)]
-enum SectionType {
+pub enum SectionType {
     Unknown,
     Header,
     Footer,
@@ -32,10 +32,10 @@ impl Display for SectionType {
 }
 
 #[derive(Copy, Clone)]
-struct SectionInfo {
-    offset: usize,
-    size: usize,
-    stype: SectionType,
+pub struct SectionInfo {
+    pub offset: usize,
+    pub size: usize,
+    pub stype: SectionType,
 }
 
 impl SectionInfo {
@@ -85,19 +85,22 @@ impl SectionInfo {
     }
 }
 
-const PACKET_MIN_SIZE: usize = 524;
-const PACKET_MAX_SIZE: usize = 524;
-const DISCARD_MAX_SIZE: usize = 1 * PACKET_MAX_SIZE;
+const PACKET_MIN_SIZE: usize = 524; // 0x916
+const PACKET_MAX_SIZE: usize = 524; // 0x916
+const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
 const HEADER_SIZE: usize = 0x84;
 
 // Used only for optimization. Underguessing is better than over guessing.
-const FOOTER_SIZE: usize = 0x200;
-const EXPECTED_UNKNOWN_SIZE: usize = 0x300;
+const FOOTER_SIZE: usize = 0x1f8; // 0x268
+const EXPECTED_UNKNOWN_SIZE: usize = 0x1f0; // 0x378
 
 #[inline]
-fn partition_rbf(id: PathBuf, rbf: &[u8], target_dir: &Path) -> Vec<SectionInfo> {
+pub fn partition_rbf(id: &OsStr, rbf: &[u8]) -> Vec<SectionInfo> {
     let mut section_infos = Vec::with_capacity(
-        (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE) / PACKET_MIN_SIZE * 2 + 3,
+        (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE)
+            / PACKET_MIN_SIZE
+            * 2
+            + 3,
     );
     section_infos.push(SectionInfo::new_header(HEADER_SIZE));
 
@@ -119,7 +122,6 @@ fn partition_rbf(id: PathBuf, rbf: &[u8], target_dir: &Path) -> Vec<SectionInfo>
             running_crc.update(&[rbf[section_end - 1 - 2]]);
         } else if section_start - discard_start >= DISCARD_MAX_SIZE {
             // Often, it's just a mispicked header size.
-            dump_sections(target_dir, &section_infos).unwrap();
             panic!("Failed to find sections starting at {:x?}", discard_start);
         } else {
             running_crc = crc16::State::<crc16::MODBUS>::new();
@@ -177,7 +179,10 @@ fn partition_rbf(id: PathBuf, rbf: &[u8], target_dir: &Path) -> Vec<SectionInfo>
 }
 
 #[inline]
-fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result<()> {
+pub fn dump_sections(
+    target_dir: &Path,
+    sections: &[SectionInfo],
+) -> io::Result<()> {
     // Doing all this writing here, instead of using rust's debug trait provides
     // a 2x-3x speed up.
     //
@@ -188,7 +193,11 @@ fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result
     // can save another 20%.
     let mut f = File::create(target_dir.join("section_infos"))?;
     for section in sections {
-        write!(f, "{:x},{:x},{}", section.offset, section.size, section.stype)?;
+        write!(
+            f,
+            "{:x},{:x},{}",
+            section.offset, section.size, section.stype
+        )?;
         match section.stype {
             SectionType::Packet { crc } => {
                 write!(f, ",{:x} {:x}", crc[0], crc[1])?;
@@ -200,63 +209,74 @@ fn dump_sections(target_dir: &Path, sections: &[SectionInfo]) -> std::io::Result
     Ok(())
 }
 
-fn main() {
-    let mut args = std::env::args_os().skip(1);
+#[inline]
+pub fn load_rbf(filepath: &Path) -> io::Result<Vec<u8>> {
+    let mut file = File::open(filepath)?;
+    let mut rbf = vec![0; file.metadata()?.len() as usize];
+    file.read_exact(&mut rbf[..])?;
+    Ok(rbf)
+}
 
-    let target_dir = args.next().unwrap();
-    let target_dir: &Path = target_dir.as_ref();
-    let target_dir = target_dir.canonicalize().unwrap();
+pub const BYTES_PER_LINE: usize = 16;
 
-    let mut files: Vec<_> = args.collect();
-    let num_files = files.len();
-    files.sort_unstable();
-    files.dedup();
-    if files.len() != num_files {
-        eprintln!("Duplicate files found, ignoring.");
-    }
+#[inline]
+pub fn find_diff_bytes<'a, T1, T2>(
+    files: &'a mut Vec<(T1, T2)>,
+    master_file: (T1, T2),
+) -> Vec<(usize, usize, Vec<u8>)>
+where
+    [(T1, T2)]: IntoParallelRefIterator<'a, Item = &'a (T1, T2)>,
+    T1: Borrow<[u8]> + Send + Sync,
+    T2: Debug + Send + Sync,
+{
+    // Pass one: We track down which bytes vary between the master file and the
+    // others. We can then merge these vectors to get all the bytes to examine.
+    //
+    // Consider the master and two files, there are only three possible
+    // results:
+    // MS | F1 | F2
+    // 00 | 00 | 00 -> No diffs
+    // 00 | 00 | 01 -> One diff in F2's diff list.
+    // 01 | 00 | 00 -> One diff in both F1's and F2's diff list.
+    //
+    // If we merge then dedupe the diff lists, we will have an list of
+    // bytes that vary between at least two files.
 
-    files.par_iter().for_each(|filename| {
-        let filepath: &Path = filename.as_ref();
-        let target_dir = target_dir.join(filepath.file_name().unwrap());
-        filepath
-            .canonicalize()
-            .and_then(|filepath| {
-                println!("{:?}: Processing into {:?}", filepath, target_dir);
+    eprintln!("Diffing {} files...", files.len());
 
-                if target_dir.exists() {
-                    Err(Error::new(
-                        ErrorKind::AlreadyExists,
-                        "Target dir already exists. Refuse to overwrite.",
-                    ))?
-                }
-                std::fs::create_dir(&target_dir)?;
+    let mut diff_bytes: Vec<_> = files
+        .par_iter()
+        .map(|(rbf, id)| {
+            eprintln!("Pass 1: {:?}", id);
 
-                let mut file = File::open(&filename)?;
-                let mut rbf = vec![0; file.metadata()?.len() as usize];
-                file.read_exact(&mut rbf[..])?;
+            rbf.borrow()
+                .par_iter()
+                .cloned()
+                .zip(master_file.0.borrow().par_iter().cloned())
+                .enumerate()
+                .filter_map(
+                    |(addr, (b1, b2))| if b1 != b2 { Some(addr) } else { None },
+                )
+        })
+        .flatten()
+        .collect();
+    diff_bytes.par_sort_unstable();
+    diff_bytes.dedup();
 
-                let sections = partition_rbf(filepath, &rbf[..], &target_dir);
+    files.push(master_file);
 
-                dump_sections(&target_dir, &sections)?;
+    // Pass 2: We collect the actual differences.
+    eprintln!("Gathering {} bytes...", diff_bytes.len());
 
-                let mut f = File::create(target_dir.join("sections"))?;
-                for (i, section) in sections.iter().enumerate() {
-                    write!(f, "SECTION START {:x},{:x}", section.size, i)?;
+    let diff_bytes: Vec<_> = diff_bytes
+        .into_par_iter()
+        .map(|addr| {
+            let line = addr / BYTES_PER_LINE;
+            let values_per_file: Vec<_> =
+                files.iter().map(|(rbf, _)| rbf.borrow()[addr]).collect();
+            (addr, line, values_per_file)
+        })
+        .collect();
 
-                    // Align to 16 bytes
-                    const SPACES: [u8; 15] = [b' '; 15];
-                    let align = (f.stream_position()? as usize + 1) % 16;
-                    if align != 0 {
-                        f.write_all(&SPACES[0..16 - align])?;
-                    }
-                    write!(f, "\n")?;
-
-                    f.write_all(&rbf[section.offset..section.offset + section.size])?;
-                    write!(f, "\nSECTION END\n")?;
-                }
-
-                Ok(())
-            })
-            .unwrap_or_else(|err| eprintln!("{:?}: Failed to process with {:?}", filename, err));
-    })
+    diff_bytes
 }
