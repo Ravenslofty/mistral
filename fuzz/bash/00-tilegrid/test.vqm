@@ -1,0 +1,20 @@
+`include "lut.vh"
+
+module top(input a, b, c, d, e, f, output x);
+
+cyclonev_lcell_comb #(
+    .lut_mask(`LUT_MASK),
+    .shared_arith("off"),
+    .extended_lut("off"),
+    .dont_touch("on")
+) lut (
+    .dataa(a),
+    .datab(b),
+    .datac(c),
+    .datad(d),
+    .datae(e),
+    .dataf(f),
+    .combout(x)
+);
+
+endmodule
