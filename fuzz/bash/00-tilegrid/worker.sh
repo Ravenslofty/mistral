@@ -33,7 +33,7 @@ EOF
     $QUARTUS_CPF --convert "obj/$TARGET.sof" "../out/$TARGET-$LUT.rbf"
 
     # Quartus will complain if we try to use a field which does not exist; detect and skip it.
-    ILLEGAL_POS=$(grep -F "Error (171016): Can't place node" && echo "yes")
+    ILLEGAL_POS=$(grep -F "Error (171016): Can't place node" "obj/$TARGET.fit.rpt" && echo "yes")
 
     cd ..
     rm -rf "$TARGET"
@@ -49,10 +49,12 @@ wrap_build() {
 }
 
 mkdir -p out
-wrap_build "$1" "FFFFFFFFFFFFFFFF" 
-wrap_build "$1" "FFFFFFFF00000000"
-wrap_build "$1" "FFFF0000FFFF0000"
-wrap_build "$1" "FF00FF00FF00FF00"
-wrap_build "$1" "F0F0F0F0F0F0F0F0"
-wrap_build "$1" "CCCCCCCCCCCCCCCC"
-wrap_build "$1" "5555555555555555"
+for n in N0 N3 N6 N9 N12 N15 N18 N21 N24 N27 N30 N33 N36 N39 N42 N45 N48 N51 N54 N57; do
+    wrap_build "$1_$n" "FFFFFFFFFFFFFFFF" 
+    wrap_build "$1_$n" "FFFFFFFF00000000"
+    wrap_build "$1_$n" "FFFF0000FFFF0000"
+    wrap_build "$1_$n" "FF00FF00FF00FF00"
+    wrap_build "$1_$n" "F0F0F0F0F0F0F0F0"
+    wrap_build "$1_$n" "CCCCCCCCCCCCCCCC"
+    wrap_build "$1_$n" "5555555555555555"
+done
