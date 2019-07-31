@@ -69,7 +69,8 @@ fn main() -> io::Result<()> {
         })
         .collect::<Result<_, _>>()?;
 
-    let diff_bytes = utils::find_diff_bytes(&mut files, master_file, BYTES_PER_LINE);
+    let diff_bytes =
+        utils::find_diff_bytes(&mut files, master_file, BYTES_PER_LINE);
 
     eprintln!("Proccesing lines...");
 
