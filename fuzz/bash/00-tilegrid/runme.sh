@@ -13,7 +13,7 @@ rm labs.txt
 
 echo "building LAB table..."
 for x in $X; do
-    for y in "Y1"; do
+    for y in $Y; do
         echo "LABCELL_$x\_$y" >> labs.txt
     done
 done

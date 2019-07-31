@@ -9,6 +9,9 @@ build() {
     TARGET=$1
     LUT=$2
 
+    # Don't recompile object files that have already been built.
+    test -f "out/$TARGET-$LUT.rbf" && return 0
+
     mkdir -p "$TARGET"
     cp test.vqm "$TARGET"
     cd "$TARGET" || (echo "can't cd to $TARGET"; exit 1)
@@ -36,7 +39,8 @@ EOF
     ILLEGAL_POS=$(grep -F "Error (171016): Can't place node" "obj/$TARGET.fit.rpt" && echo "yes")
 
     cd ..
-    rm -rf "$TARGET"
+    # Clean up after Quartus because they won't clean up after themselves.
+    rm -rf "$TARGET" /tmp/alt-*.dir
 
     test -n "$ILLEGAL_POS" && exit 1
 }
