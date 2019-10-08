@@ -12,11 +12,11 @@ Y="$Y Y34 Y35 Y36 Y37 Y38 Y39 Y40 Y41 Y42 Y43 Y44"
 rm labs.txt
 
 echo "building LAB table..."
-for x in $X; do
+for x in X1; do
     for y in $Y; do
         echo "LABCELL_$x\_$y" >> labs.txt
     done
 done
 
 echo "now synthesizing:"
-xargs -t -P "$(nproc)" -n 1 -a labs.txt -- ./worker.sh
+xargs -t -P "1" -n 1 -a labs.txt -- ./worker.sh
