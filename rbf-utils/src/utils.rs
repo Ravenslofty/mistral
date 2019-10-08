@@ -1,14 +1,17 @@
 // Not all functions are used.
-#![allow(dead_code)]
+#![allow(dead_code, unused_macros)]
 
 use rayon::prelude::*;
 use std::borrow::Borrow;
-use std::ffi::OsStr;
 use std::fmt::{self, Debug, Display, Formatter};
 use std::fs::File;
 use std::io;
 use std::io::prelude::*;
 use std::path::Path;
+
+macro_rules! make_io_error {
+    ($err:expr $(, $($arg:tt)*)?) => (Err(Error::new(ErrorKind::Other, format!($err, $($($arg)*)? ) )));
+}
 
 #[derive(Copy, Clone)]
 pub enum SectionType {
@@ -85,8 +88,8 @@ impl SectionInfo {
     }
 }
 
-const PACKET_MIN_SIZE: usize = 524; // 916
-const PACKET_MAX_SIZE: usize = 524; // 916
+pub const PACKET_MIN_SIZE: usize = 524; // 916
+pub const PACKET_MAX_SIZE: usize = 524; // 916
 const DISCARD_MAX_SIZE: usize = PACKET_MAX_SIZE;
 const HEADER_SIZE: usize = 0x84;
 
@@ -95,7 +98,7 @@ const FOOTER_SIZE: usize = 0x1f8; // 0x268
 const EXPECTED_UNKNOWN_SIZE: usize = 0x1f0; // 0x378
 
 #[inline]
-pub fn partition_rbf(id: &OsStr, rbf: &[u8]) -> Vec<SectionInfo> {
+pub fn partition_rbf(id: &str, rbf: &[u8]) -> Vec<SectionInfo> {
     let mut section_infos = Vec::with_capacity(
         (rbf.len() - EXPECTED_UNKNOWN_SIZE - HEADER_SIZE - FOOTER_SIZE)
             / PACKET_MIN_SIZE

@@ -2,6 +2,7 @@
 //!
 //! This two-pass diff algo devised by me in my boredom should hopefully
 //! correct this.
+#[macro_use]
 mod utils;
 
 use itertools::Itertools;
@@ -10,10 +11,6 @@ use std::io::{self, Error, ErrorKind};
 use std::path::PathBuf;
 
 use prettytable::{format, Cell, Row, Table};
-
-macro_rules! make_io_error {
-    ($err:expr $(, $($arg:tt)*)?) => (Err(Error::new(ErrorKind::Other, format!($err, $($($arg)*)? ) )));
-}
 
 #[derive(Debug, Clone)]
 enum MatchType {

@@ -2,3 +2,4 @@
 Cargo.lock
 **/*.rs.bk
 callgrind.out.*
+bits_for_a_single_rbf

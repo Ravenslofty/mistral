@@ -11,6 +11,7 @@ crc16 = "0.4"
 rayon = "1.1"
 itertools = "0.8"
 prettytable-rs = "0.8"
+static_assertions = { version = "0.3.3", features = ["nightly"] }
 
 [[bin]]
 name = "chunker"
@@ -19,6 +20,10 @@ path = "src/chunker.rs"
 [[bin]]
 name = "diffmay"
 path = "src/diffmay.rs"
+
+[[bin]]
+name = "horrortable"
+path = "src/horrortable.rs"
 
 [profile.release]
 lto = true

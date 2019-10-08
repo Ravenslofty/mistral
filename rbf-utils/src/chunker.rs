@@ -41,8 +41,10 @@ fn main() {
 
                 let rbf = utils::load_rbf(filename.as_ref())?;
 
-                let sections =
-                    utils::partition_rbf(filepath.as_os_str(), &rbf[..]);
+                let sections = utils::partition_rbf(
+                    filepath.as_os_str().to_str().unwrap(),
+                    &rbf[..],
+                );
 
                 utils::dump_sections(&target_dir, &sections)?;
 
