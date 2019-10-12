@@ -18,12 +18,12 @@ enum MatchType {
     Varying(Vec<u8>),
 }
 
-const GREEN_COLOR: &'static str = "\x1B[32m";
-const CYAN_COLOR: &'static str = "\x1B[36m";
-const BRIGHT_GREEN_COLOR: &'static str = "\x1B[32;1m";
-const BRIGHT_CYAN_COLOR: &'static str = "\x1B[36;1m";
-const BOLD_COLOR: &'static str = "\x1B[1m";
-const RESET_COLOR: &'static str = "\x1B[0m";
+const GREEN_COLOR: &str = "\x1B[32m";
+const CYAN_COLOR: &str = "\x1B[36m";
+const BRIGHT_GREEN_COLOR: &str = "\x1B[32;1m";
+const BRIGHT_CYAN_COLOR: &str = "\x1B[36;1m";
+const BOLD_COLOR: &str = "\x1B[1m";
+const RESET_COLOR: &str = "\x1B[0m";
 
 const BYTES_PER_LINE: usize = 16;
 
@@ -37,7 +37,10 @@ fn main() -> io::Result<()> {
     files.sort_unstable();
     files.dedup();
     if files.len() < 2 {
-        make_io_error!("Need at least two files to diff.")?;
+        return Err(Error::new(
+            ErrorKind::Other,
+            "Need at least two files to diff.",
+        ));
     }
 
     if files.len() != num_files {
@@ -76,8 +79,7 @@ fn main() -> io::Result<()> {
     let diff_lines: Vec<_> = diff_bytes_groups
         .into_iter()
         .map(|(line, line_contents)| {
-            let mut line_contents: Vec<_> =
-                line_contents.map(|lc| Some(lc)).collect();
+            let mut line_contents: Vec<_> = line_contents.map(Some).collect();
             let mut offset = 0;
 
             let start = line * BYTES_PER_LINE;
@@ -134,15 +136,15 @@ fn main() -> io::Result<()> {
                 preview_str.push_str("|");
 
                 let mut first = true;
-                for byte in 0..BYTES_PER_LINE {
+                for byte in match_types.iter().take(BYTES_PER_LINE) {
                     if !first {
                         main_str.push_str(" ");
                     }
                     first = false;
 
-                    let (dim_color, color, val) = match match_types[byte] {
-                        MatchType::Matching(v) => {
-                            (GREEN_COLOR, BRIGHT_GREEN_COLOR, v)
+                    let (dim_color, color, val) = match byte {
+                        MatchType::Matching(ref v) => {
+                            (GREEN_COLOR, BRIGHT_GREEN_COLOR, *v)
                         }
                         MatchType::Varying(ref vs) => {
                             (CYAN_COLOR, BRIGHT_CYAN_COLOR, vs[i])

@@ -25,11 +25,11 @@ pub enum SectionType {
 impl Display for SectionType {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
-            SectionType::Unknown => "Unknown",
-            SectionType::Header => "Header",
-            SectionType::Footer => "Footer",
-            SectionType::Packet { .. } => "Packet",
-            SectionType::PacketCRC => "PacketCRC",
+            Self::Unknown => "Unknown",
+            Self::Header => "Header",
+            Self::Footer => "Footer",
+            Self::Packet { .. } => "Packet",
+            Self::PacketCRC => "PacketCRC",
         })
     }
 }
@@ -44,7 +44,7 @@ pub struct SectionInfo {
 impl SectionInfo {
     #[inline]
     fn new_header(size: usize) -> Self {
-        SectionInfo {
+        Self {
             offset: 0,
             size,
             stype: SectionType::Header,
@@ -53,7 +53,7 @@ impl SectionInfo {
 
     #[inline]
     fn new_unknown(offset: usize, size: usize) -> Self {
-        SectionInfo {
+        Self {
             offset,
             size,
             stype: SectionType::Unknown,
@@ -62,7 +62,7 @@ impl SectionInfo {
 
     #[inline]
     fn new_footer(offset: usize, size: usize) -> Self {
-        SectionInfo {
+        Self {
             offset,
             size,
             stype: SectionType::Footer,
@@ -71,7 +71,7 @@ impl SectionInfo {
 
     #[inline]
     fn new_packet(offset: usize, size: usize, crc: [u8; 2]) -> Self {
-        SectionInfo {
+        Self {
             offset,
             size,
             stype: SectionType::Packet { crc },
@@ -80,7 +80,7 @@ impl SectionInfo {
 
     #[inline]
     fn new_packet_crc(offset: usize) -> Self {
-        SectionInfo {
+        Self {
             offset,
             size: 2,
             stype: SectionType::PacketCRC,
@@ -201,13 +201,10 @@ pub fn dump_sections(
             "{:x},{:x},{}",
             section.offset, section.size, section.stype
         )?;
-        match section.stype {
-            SectionType::Packet { crc } => {
-                write!(f, ",{:x} {:x}", crc[0], crc[1])?;
-            }
-            _ => (),
+        if let SectionType::Packet { crc } = section.stype {
+            write!(f, ",{:x} {:x}", crc[0], crc[1])?;
         }
-        write!(f, "\n")?;
+        writeln!(f, "\n")?;
     }
     Ok(())
 }
@@ -257,7 +254,7 @@ where
                 .zip(master_file.0.borrow().par_iter().cloned())
                 .enumerate()
                 .filter_map(
-                    |(addr, (b1, b2))| if b1 != b2 { Some(addr) } else { None },
+                    |(addr, (b1, b2))| if b1 == b2 { None } else { Some(addr) },
                 )
         })
         .flatten()
