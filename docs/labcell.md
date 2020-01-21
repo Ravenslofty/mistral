@@ -4,7 +4,7 @@
 A Logic Array Block Cell contains the combinational look-up tables (LUTs) that are used to generate logic functions.
 
 ## CSV format
-`LUT bit number (1-indexed)`, `LABCELL index (0-indexed, increases in sixes)`, `LUT bit in bitstream relative to start of LABCELL tile (in bits)`
+`LUT bit number (1-indexed)`, `LABCELL index (0-indexed, increases in sixes)`, `LUT bit in bitstream relative to first known LUT bit (in bits)`
 
 ## Quartus quirks
 Quartus internally maps two virtual look-up tables to a single physical look-up table. For example, the virtual LUTs N0 and N3 map to the same physical LUT. Presumably, this lets Quartus map multiple independent LUTs to a single physical LUT.
