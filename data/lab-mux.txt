@@ -1,0 +1,131 @@
+i tdff0                  m:1  29.1
+  0 reg !
+  1 nlut
+i tdff1                  m:1  28.1
+  0 reg !
+  1 nlut
+i tdff1l                 m:1  29.2
+  0 reg !
+  1 nlut
+i bdff0                  m:1  29.6
+  0 reg !
+  1 nlut
+i bdff1                  m:1  28.6
+  0 reg !
+  1 nlut
+i bdff1l                 m:1  29.5
+  0 reg !
+  1 nlut
+i tsload_en              b-   26.1
+i tsclr_dis              b-   26.0
+i tpkreg0                b-   25.1
+i tpkreg1                b-   25.0
+i tclk_sel               m:3  23.0 23.1 24.1
+  0 off !
+  1 clk0
+  2 clk1
+  4 clk2
+i tclr_sel               n:1  22.0
+  0 0 !
+  1 1
+i tef_sel                m:1  27.0
+  0 e !
+  1 f
+i bsload_en              b-   26.6
+i bsclr_dis              b-   26.7
+i bpkreg0                b-   25.6
+i bpkreg1                b-   25.7
+i bclk_sel               m:3  23.7 23.6 24.6
+  0 off !
+  1 clk0
+  2 clk1
+  4 clk2
+i bclr_sel               n:1  22.7
+  0 0 !
+  1 1
+i bef_sel                m:1  27.7
+  0 e !
+  1 f
+i share                  b-   21.3
+i t_feedback_sel         n:1  22.1
+  0 0 !
+  1 1
+i b_feedback_sel         n:1  22.6
+  0 0 !
+  1 1
+i arith_sel              m:3  7.0 16.1 8.0
+  1 adder
+  6 lut !
+i mode                   m:8  1.5 0.5 1.7 0.7 1.1 0.1 1.3 0.3
+  00 l5
+  40 l5_ft
+  04 l5_fb
+  44 l5_ftb
+  ae l6 !
+  9e l6_ft
+  ad l6_fb
+  9d l6_ftb
+  a0 l7_e0
+  90 l7_e0_ft
+  a4 l7_e0_fb
+  94 l7_e0_ftb
+  0e l7_e1
+  4e l7_e1_ft
+  0d l7_e1_fb
+  4d l7_e1_ftb
+i lut_mask               r-:64 2.5 3.5 3.4 4.4 4.5 5.5 5.4 6.4 11.4 10.4 10.5 9.5 9.4 8.4 8.5 7.5 12.5 13.5 13.4 14.4 14.5 15.5 15.4 16.4 21.4 20.4 20.5 19.5 19.4 18.4 18.5 17.5 2.7 3.7 3.6 4.6 4.7 5.7 5.6 6.6 11.6 10.6 10.7 9.7 9.6 8.6 8.7 7.7 12.7 13.7 13.6 14.6 14.7 15.7 15.6 16.6 21.6 20.6 20.7 19.7 19.6 18.6 18.7 17.7
+g en0_en                 b+   13.45
+g en1_en                 b+   13.43
+g en2_en                 b+   13.40
+g dft_mode               m:3  21.42 20.40 20.43
+  0 off
+  1 on !
+  7 dft_pprog
+g clka_sel               m:1  0.43
+  0 clki0 !
+  1 gin2
+g clkb_sel               m:1  1.42
+  0 clki1 !
+  1 gin3
+g clk0_sel               m:1  10.44
+  0 clka !
+  1 clkb
+g clk0_inv               b-   6.45
+g clk1_sel               m:1  10.43
+  0 clka !
+  1 clkb
+g clk1_inv               b-   6.43
+g clk2_sel               m:1  10.41
+  0 clka !
+  1 clkb
+g clk2_inv               b-   6.41
+g en0_ninv               b+   1.44
+g en1_ninv               b+   0.44
+g en2_ninv               b+   1.40
+g regscan_latch_en       b-   6.42
+g en0_sel                m:1  0.40
+  0 gin1 !
+  1 gin3
+g en1_sel                m:1  1.43
+  0 gin0
+  1 gin3 !
+g en_sclk_load_what      b-   25.44
+g sclr_mux               m:1  25.43
+  0 gin3 !
+  1 gin2
+g sclr_inv               b-   26.43
+g sload_sel              m:1  24.44
+  0 gin0 !
+  1 gin3
+g sload_inv              b+   25.45
+g aclr0_sel              m:1  25.42
+  0 gin1 !
+  1 clki2
+g aclr0_inv              b-   26.42
+g aclr1_sel              m:1  25.40
+  0 gin0 !
+  1 clki3
+g aclr1_inv              b-   25.41
+g bypass_dis             b+   29.43
+g tto_dis                b-   28.43
+g bto_dis                b-   29.42

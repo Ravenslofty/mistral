@@ -1,0 +1,438 @@
+i pld_pcs_if_base_addr                     r:11
+  * 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994
+  * 1040 1041 1042 1043 1044 1045 1046 1047 1048 1049 1050
+  * 96 97 98 99 100 101 102 103 104 105 106
+i pcs8g_base_addr                          r:11
+  * 2640 2641 2642 2643 2644 2645 2646 2647 2648 2649 2650
+  * 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706
+  * 752 753 754 755 756 757 758 759 760 761 762
+i pma_pcs_if_base_addr                     r:11
+  * 2816 2817 2818 2819 2820 2821 2822 2823 2824 2825 2826
+  * 1872 1873 1874 1875 1876 1877 1878 1879 1880 1881 1882
+  * 928 929 930 931 932 933 934 935 936 937 938
+i pld_pcs_default_broadcast_en             b-   1998 | 1054 | 110
+i pcs8g_default_broadcast_en               b-   2654 | 1710 | 766
+i pma_pcs_default_broadcast_en             b-     2830 |  1886 | 942
+i pld_pcs_power_isolation_en               b-   1999 | 1055 | 111
+i pcs8g_power_isolation_en                 b-   2655 | 1711 | 767
+i pma_pcs_power_isolation_en               b-     2831 |  1887 | 943
+i pld_pcs_mdio_dis_force_en                b-   1997 | 1053 | 109
+i pcs8g_mdio_dis_force_en                  b-   2653 | 1709 | 765
+i pma_pcs_mdio_dis_force_en                b-     2829 |  1885 | 941
+i pld_pcs_mdio_dis_cvp_en                  b-   1996 | 1052 | 108
+i pcs8g_mdio_dis_cvp_en                    b-   2652 | 1708 | 764
+i pma_pcs_mdio_dis_cvp_en                  b-     2828 |  1884 | 940
+i rx_pcs_pma_if                            m:2  2688 2689 | 1744 1745 | 800 801
+  0 default !
+  3 pcs8g
+i rx_pcs_pma_if_clkslip_sel                m:1  2690 | 1746 | 802
+  0 pld !
+  1 slip_pcs8g
+i tx_pcs_pma_if_block_sel                  m:2  2656 2657 | 1712 1713 | 768 769
+  0 default !
+  3 pcs8g
+i com_pcs_pma_if_g3pcs                     b-   2721 | 1777 | 833
+i com_pcs_pma_if_block_sel                 b-   2720 | 1776 | 832
+i com_pcs_pma_if_force_freqdet             m:2  2727 2728 | 1783 1784 | 839 840
+  0 off !
+  1 force0
+  2 force1
+i com_pcs_pma_if_ppmsel                    m:6
+  * 2729 2730 2731 2732 2733 2734
+  * 1785 1786 1787 1788 1789 1790
+  * 841 842 843 844 845 846
+  0  default !
+  1  ppm_100
+  2  ppm_125
+  3  ppm_62_5
+  4  ppm_200
+  8  ppm_300
+  9  ppm_250
+  16 ppm_500
+  32 ppm_1000
+  63 ppm_other
+i com_pcs_pma_if_ppm_cnt_rst               b-   2726 | 1782 | 838
+i com_pcs_pma_if_auto_speed_en             b-   2725 | 1781 | 837
+i com_pcs_pma_if_pm_gen1_2_cnt             m:1  2724 | 1780 | 836
+  0 cnt_32k !
+  1 cnt_64k
+i com_pcs_pma_if_ppm_post_eidle_dly        n:1  2723 | 1779 | 835
+  0 200 !
+  1 400
+i com_pcs_pma_if_ppm_early_deassert        b-    2735 | 1791 | 847
+i com_pcs_pma_if_pma_if_dft_en             b-    2736 | 1792 | 848
+i com_pcs_pma_if_pma_if_dft_val            r-:1  2737 | 1793 | 849
+i rx_pcs_pld_if_pcs_side_block_sel         m:2  1922 1923 | 978 979 | 34 35
+  0 default !
+  3 pcs8g
+i rx_pcs_pld_side_data_src                 m:1  1920 | 976 | 32
+  0 pld !
+  1 b_hip
+i tx_pcs_pld_side_data_src                 m:1  1888 | 944 | 0
+  0 pld !
+  1 b_hip
+i com_pcs_pld_side_data_src                m:1  1952 | 1008 | 64
+  0 pld !
+  1 b_hip
+i com_pcs_pld_if_hip_en                    b-   1953 | 1009 | 65
+i com_pcs_pld_if_testbuf_sel               m:2  1954 1955 | 1010 1011 | 66 67
+  0 pcs8g !
+  3 pma_if
+i com_pcs_pld_pld_side_res_src0            m:1  1956 | 1012 | 68
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src1            m:1  1957 | 1013 | 69
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src2            m:1  1958 | 1014 | 70
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src3            m:1  1959 | 1015 | 71
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src4            m:1  1960 | 1016 | 72
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src5            m:1  1961 | 1017 | 73
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src6            m:1  1962 | 1018 | 74
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src7            m:1  1963 | 1019 | 75
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src8            m:1  1964 | 1020 | 76
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src9            m:1  1965 | 1021 | 77
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src10           m:1  1966 | 1022 | 78
+  0 pld !
+  1 b_hip
+i com_pcs_pld_pld_side_res_src11           m:1  1967 | 1023 | 79
+  0 pld !
+  1 b_hip
+i com_pcs_pld_if_hrdrstctrl_cfg_en         b-   1968 | 1024 | 80
+i com_pcs_pld_if_hrdrstctrl_cfgusr_en      b-   1969 | 1025 | 81
+i com_pcs_pld_if_usrmode_sel4rst           m:1  1970 | 1026 | 82
+  0 usermode !
+  1 last_frz
+i pcs8g_pipe_intf_top_tx_pipe_en           b-   2559 | 1615 | 671
+i pcs8g_pipe_intf_top_rx_pipe_en           b-   2554 | 1610 | 666
+i pcs8g_pipe_intf_top_deserial_en          b-   2285 | 1341 | 397
+i pcs8g_pipe_intf_top_txswing_en           b-   2555 | 1611 | 667
+i pcs8g_pipe_intf_top_rxdetect_bypass_en   b-   2553 | 1609 | 665
+i pcs8g_pipe_intf_top_error_replace_pad    m:1  2203 | 1259 | 315
+  0 edb !
+  1 pad
+i pcs8g_pipe_intf_top_ind_error_reporting  b-   2552 | 1608 | 664
+i pcs8g_pipe_intf_top_phystatus_rst_toggle b-   2548 | 1604 | 660
+i pcs9g_pipe_intf_top_elecidle_delay       r-:3 2556 2557 2558 | 1612 1613 1614 | 668 669 670 
+i pcs9g_pipe_intf_top_phy_status_delay     r-:3 2549 2550 2551 | 1605 1606 1607 | 661 662 663 
+i pcs8g_pipe_intf_top_rpre_emph_settings   r-:30
+  * 2578 2579 2580 2581 2582 2583 2584 2585 2586 2587 2588 2589 2590 2591 2560 2561 2562 2563 2564 2565 2566 2567 2568 2569 2570 2571 2572 2573 2574 2575
+  * 1634 1635 1636 1637 1638 1639 1640 1641 1642 1643 1644 1645 1646 1647 1616 1617 1618 1619 1620 1621 1622 1623 1624 1625 1626 1627 1628 1629 1630 1631
+  * 690 691 692 693 694 695 696 697 698 699 700 701 702 703 672 673 674 675 676 677 678 679 680 681 682 683 684 685 686 687
+i pcs8g_pipe_intf_top_rvod_sel_settings    r-:30
+  * 2610 2611 2612 2613 2614 2615 2616 2617 2618 2619 2620 2621 2622 2623 2592 2593 2594 2595 2596 2597 2598 2599 2600 2601 2602 2603 2604 2605 2606 2607
+  * 1666 1667 1668 1669 1670 1671 1672 1673 1674 1675 1676 1677 1678 1679 1648 1649 1650 1651 1652 1653 1654 1655 1656 1657 1658 1659 1660 1661 1662 1663
+  * 722 723 724 725 726 727 728 729 730 731 732 733 734 735 704 705 706 707 708 709 710 711 712 713 714 715 716 717 718 719
+i pcs8g_digi_tx_pma_dw                     n:3  2029 2058 2059 | 1085 1114 1115 | 141 170 171 
+  0 8  !
+  2 16
+  4 10
+  7 20
+i pcs8g_digi_tx_pcs_bypass_en              b-   2016 | 1072 | 128
+i pcs8g_digi_tx_phase_compensation_fifo    m:4
+  * 2013 2008 2011 2061
+  * 1069 1064 1067 1117
+  * 125 120 123 173
+  0 normal_latency !
+  2 pid_ctrl_normal_latency
+  4 low_latency
+  6 pid_ctrl_low_latency
+  8 register_fifo
+i pcs8g_digi_tx_cc_disparity_en            b-   2559 | 1615 | 671
+i pcs8g_digi_tx_force_kchar_en             b-   2015 | 1071 | 127
+i pcs8g_digi_tx_force_echar_en             b-   2014 | 1070 | 126
+i pcs8g_digi_tx_byte_serializer_en         b-:2 2010 2053 | 1066 1109 | 122 165
+i pcs8g_digi_tx_8b10b_encoder_input        m:2  2054 2009 | 1110 1065 | 166 121
+  0 xaui_sm !
+  1 normal_data_path
+  3 gige_idle_conversion 
+i pcs8g_digi_tx_8b10b_disp_ctrl            m:2  2012 2000 | 1068 1056 | 124 112
+  0 off !
+  1 on_ib
+  2 on
+i pcs8g_digi_tx_8b10b_encoder              m:2  2030 2031 | 1086 1087 | 142 143
+  0 off !
+  1 ibm
+  2 sgx
+i pcs8g_digi_tx_prbs_gen                   m:4
+  * 2022 2023 2024 2025
+  * 1078 1079 1080 1081
+  * 134 135 136 137
+  00 disable !
+  08 prbs_7_dw_8_10
+  09 prbs_23_dw_hf_sw
+  0a prbs_7_sw_hf_dw_lf_sw
+  0b prbs_lf_dw_mf_sw
+  0c prbs_23_sw_mf_dw
+  0d prbs_15
+  0e prbs_31
+i pcs8g_digi_tx_cid_pattern                r-:9
+  * 2033 2034 2035 2036 2037 2038 2039 2040 2041
+  * 1089 1090 1091 1092 1093 1094 1095 1096 1097
+  * 145 146 147 148 149 150 151 152 153
+i pcs8g_digi_tx_bist_gen                   m:5
+  * 2017 2018 2019 2020 2021
+  * 1073 1074 1075 1076 1077
+  * 129 130 131 132 133
+  0  disable !
+  16 incremental
+  20 cjpat
+  24 crpat
+i pcs8g_digi_tx_bit_reversal_en            b-   2026 | 1082 | 138
+i pcs8g_digi_tx_symbol_swap_en             b-   2028 | 1084 | 140
+i pcs8g_digi_tx_polarity_inversion_en      b-   2027 | 1083 | 139
+i pcs8g_digi_tx_bitslip_en                 b-   2060 | 1116 | 172
+i pcs8g_digi_tx_agc_block_sel              m:1  2052 | 1108 | 164
+  0 same !
+  1 other
+i pcs8g_digi_tx_plane_bonding_consumption  m:2  2055 2056 | 1111 1112 | 167 168
+  0 individual !
+  1 bundled_master
+  2 slave_above
+  3 slave_below
+i pcs8g_digi_tx_plane_bonding_master       b-   2044 | 1100 | 156
+i pcs8g_digi_tx_plane_bonding_comp_en      b-   2043 | 1099 | 155
+i pcs8g_digi_tx_bypass_pipeline_reg_en     b-   2062 | 1118 | 174
+i pcs8g_digi_tx_loopback                   b-   2001 | 1057 | 113
+i pcs8g_digi_tx_phfifo_write_clk_sel       m:1  2003 | 1059 | 115
+  0 pld !
+  1 tx_clk
+i pcs8g_digi_tx_phfifo_refclk_b_sel        m:1  2002 | 1058 | 114
+  0 refclk !
+  1 tx_pma
+i pcs8g_digi_tx_bs_clock_gate_en           b-   2042 | 1098 | 154
+i pcs8g_digi_tx_prbs_clock_gate_en         b-   2057 | 1113 | 169
+i pcs8g_digi_tx_bist_clock_gate_en         b-   2051 | 1107 | 163
+i pcs8g_digi_tx_fifowr_clock_gate_en       b-   2050 | 1106 | 162
+i pcs8g_digi_tx_fiford_clock_gate_en       b-   2048 | 1104 | 160
+i pcs8g_digi_tx_dynamic_clock_switch_en    b-   2032 | 1088 | 144
+i pcs8g_digi_tx_g2_frequency_scaling       m:3  2063 2256 2257 | 1119 1312 1313 | 175 368 369
+  0 off !
+  6 on
+i pcs8g_digi_tx_txclk_freerun_en           b-   2004 | 1060 | 116
+i pcs8g_digi_tx_pcfifo_urst_en             b-   2007 | 1063 | 119
+i pcs8g_digi_tx_txpcs_urst_en              b-   2005 | 1061 | 117
+i pcs8g_digi_rx_pcs_bypass_en              b-   2080 | 1136 | 192
+i pcs8g_digi_rx_pma_dw                     n:4  2146 2177 2263 2264 | 1202 1233 1319 1320 | 258 289 375 376 
+  0  8  !
+  4  16
+  9  10
+  15 20
+i pcs8g_digi_rx_pipe_if_en                 b-   2554 | 1610 | 666
+i pcs8g_digi_rx_wa_boundary_lock           m:3  2477 2491 2181 | 1533 1547 1237 | 589 603 293
+  0 auto_align_pld_ctrl !
+  1 sync_sm
+  2 deterministic_latency
+  4 bit_slip
+i pcs8g_digi_rx_wa_pld_controlled          m:4  2110 2111 2159 2109 | 1166 1167 1215 1165 | 222 223 271 221 
+  0 level_sensitive !
+  4 pid_ctrl_sw
+  8 rising_edge_sensitive
+i pcs8g_digi_rx_wa_pd                      r-:43
+  * 2128 2129 2130 2131 2132 2133 2134 2135 2136 2137 2138 2139 2140 2141 2142 2143 2112 2113 2114 2115 2116 2117 2118 2119 2120 2121 2122 2123 2124 2125 2126 2127 2096 2097 2098 2099 2100 2101 2102 2103 2104 2105 2106
+  * 1184 1185 1186 1187 1188 1189 1190 1191 1192 1193 1194 1195 1196 1197 1198 1199 1168 1169 1170 1171 1172 1173 1174 1175 1176 1177 1178 1179 1180 1181 1182 1183 1152 1153 1154 1155 1156 1157 1158 1159 1160 1161 1162
+  * 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 208 209 210 211 212 213 214 215 216 217 218
+i pcs8g_digi_rx_wa_sync_sm_ctrl            r-:38
+  * 2464 2465 2466 2467 2468 2469 2470 2471 2472 2473 2474 2475 2476 2149 2147 2148 2168 2169 2170 2171 2172 2173 2174 2175 2151 2152 2153 2154 2155 2156 2160 2161 2162 2163 2164 2165 2166 2167
+  * 1520 1521 1522 1523 1524 1525 1526 1527 1528 1529 1530 1531 1532 1205 1203 1204 1224 1225 1226 1227 1228 1229 1230 1231 1207 1208 1209 1210 1211 1212 1216 1217 1218 1219 1220 1221 1222 1223
+  * 576 577 578 579 580 581 582 583 584 585 586 587 588 261 259 260 280 281 282 283 284 285 286 287 263 264 265 266 267 268 272 273 274 275 276 277 278 279
+i pcs8g_digi_rx_wa_kchar_en                b-   2150 | 1206 | 262
+i pcs8g_digi_rx_wa_det_latency_sync_status m:1  2490 | 1546 | 602
+  0 delayed !
+  1 immediate
+i pcs8g_digi_rx_wa_clk_slip_spacing        r-:10
+  * 2480 2481 2482 2483 2484 2485 2486 2487 2488 2489
+  * 1536 1537 1538 1539 1540 1541 1542 1543 1544 1545
+  * 592 593 594 595 596 597 598 599 600 601
+i pcs8g_digi_rx_bit_reversal_en            b-   2144 | 1200 | 256
+i pcs8g_digi_rx_symbol_swap_en             b-   2185 | 1241 | 297
+i pcs8g_digi_rx_wa_disp_err_flag_en        b-   2108 | 1164 | 220
+i pcs8g_digi_rx_runlength_check            r-:7
+  * 2186 2187 2188 2189 2190 2191 2182
+  * 1242 1243 1244 1245 1246 1247 1238
+  * 298 299 300 301 302 303 294
+i pcs8g_digi_rx_deskew                     m:15
+  * 2448 2449 2450 2451 2452 2453 2454 2455 2456 2457 2460 2461 2462 2463 2459
+  * 1504 1505 1506 1507 1508 1509 1510 1511 1512 1513 1516 1517 1518 1519 1515
+  * 560 561 562 563 564 565 566 567 568 569 572 573 574 575 571
+  0000 disable !
+  00c3 xaui
+  57a4 srio_v2p1
+i pcs8g_digi_rx_deskew_prog_pat_only_en    b-   2458 | 1514 | 570
+i pcs8g_digi_rx_rather_match               r-:68
+  * 2206 2265 2269 2270 2271 2240 2241 2242 2243 2244 2245 2246 2247 2248 2249 2250 2251 2252 2253 2254 2266 2267 2268 2204 2205 2255 2224 2225 2226 2227 2228 2229 2230 2231 2232 2233 2235 2236 2237 2238 2239 2219 2220 2221 2222 2223 2192 2193 2194 2195 2196 2197 2198 2199 2200 2201 2208 2209 2210 2211 2212 2213 2214 2215 2216 2217 2202 2207
+  * 1262 1321 1325 1326 1327 1296 1297 1298 1299 1300 1301 1302 1303 1304 1305 1306 1307 1308 1309 1310 1322 1323 1324 1260 1261 1311 1280 1281 1282 1283 1284 1285 1286 1287 1288 1289 1291 1292 1293 1294 1295 1275 1276 1277 1278 1279 1248 1249 1250 1251 1252 1253 1254 1255 1256 1257 1264 1265 1266 1267 1268 1269 1270 1271 1272 1273 1258 1263
+  * 318 377 381 382 383 352 353 354 355 356 357 358 359 360 361 362 363 364 365 366 378 379 380 316 317 367 336 337 338 339 340 341 342 343 344 345 347 348 349 350 351 331 332 333 334 335 304 305 306 307 308 309 310 311 312 313 320 321 322 323 324 325 326 327 328 329 314 319
+i pcs8g_digi_rx_8b10b_decoder              m:3  2178 2179 2180 | 1234 1235 1236 | 290 291 292 
+  0 off !
+  5 sgx
+  7 ibm
+i pcs8g_digi_rx_err_flags_sel              m:1  2367 | 1423 | 479
+  0 flags_8b10b !
+  1 flags_wa
+i pcs8g_digi_rx_polinv_8b10b_dec_en        b-   2176 | 1232 | 288
+i pcs8g_digi_rx_8b10b_decoder_output_sel   m:1  2300 | 1356 | 412
+  0 data_8b10b !
+  1 data_xaui_sm
+i pcs8g_digi_rx_invalid_code_flag_only_en  b-   2282 | 1338 | 394
+i pcs8g_digi_rx_auto_error_replace_en      b-   2276 | 1332 | 388
+i pcs8g_digi_rx_pad_edb_error_replace      m:2  2410 2203 | 1466 1259 | 522 315
+  0 edb !
+  1 pad
+  2 edb_dynamic
+i pcs8g_digi_rx_byte_deserializer          m:3  2298 2285 2299 | 1354 1341 1355 | 410 397 411
+  0 disable !
+  2 bds_by_2
+  3 bds_by_2_det
+i pcs8g_digi_rx_byte_order                 r-:23
+  * 2304 2305 2306 2307 2308 2309 2310 2311 2312 2313 2288 2289 2290 2291 2292 2293 2294 2295 2296 2297 2278 2279 2280
+  * 1360 1361 1362 1363 1364 1365 1366 1367 1368 1369 1344 1345 1346 1347 1348 1349 1350 1351 1352 1353 1334 1335 1336
+  * 416 417 418 419 420 421 422 423 424 425 400 401 402 403 404 405 406 407 408 409 390 391 392
+i pcs8g_digi_rx_1_2_symbol_bo              r-:12
+  * 2281 2352 2353 2354 2355 2356 2357 2358 2359 2360 2361 2362
+  * 1337 1408 1409 1410 1411 1412 1413 1414 1415 1416 1417 1418
+  * 393 464 465 466 467 468 469 470 471 472 473 474
+i pcs8g_digi_rx_re_bo_on_wa_en             b-   2363 | 1419 | 475
+i pcs8g_digi_rx_phase_compensation_fifo    m:4
+  * 2287 2277 2286 2431
+  * 1343 1333 1342 1487
+  * 399 389 398 543
+  0 normal_latency !
+  2 pid_ctrl_normal_latency
+  4 low_latency
+  6 pid_ctrl_low_latency
+  8 register_fifo
+i pcs8g_digi_rx_parallel_loopback_en       b-   2183 | 1239 | 295
+i pcs8g_digi_rx_prbs_ver                   m:5
+  * 2081 2022 2023 2024 2085
+  * 1137 1078 1079 1080 1141
+  * 193 134 135 136 197
+  00 disable !
+  10 prbs_7_dw_8_10
+  12 prbs_23_dw_hf_sw
+  14 prbs_7_sw_hf_dw_lf_sw
+  16 prbs_lf_dw_mf_sw
+  18 prbs_23_sw_mf_dw
+  1a prbs_15
+  1c prbs_31
+i pcs8g_digi_rx_prbs_clr_flag_en           b-   2084 | 1140 | 196
+i pcs8g_digi_rx_cid_pattern                r-:8
+  * 2401 2402 2403 2404 2405 2406 2407 2408 2409
+  * 1457 1458 1459 1460 1461 1462 1463 1464 1465
+  * 513 514 515 516 517 518 519 520 521
+i pcs8g_digi_rx_bist_ver                   m:5
+  * 2017 2018 2019 2020 2083
+  * 1073 1074 1075 1076 1139
+  * 129 130 131 132 195
+  00 disable !
+  10 incremental
+  14 cjpat
+  18 crpat
+i pcs8g_digi_rx_bist_clr_flag_en           b-   2082 | 1138 | 194
+i pcs8g_digi_rx_cdr_ctrl                   r-:30
+  * 2384 2385 2386 2387 2388 2389 2390 2391 2392 2393 2432 2433 2434 2435 2436 2437 2438 2439 2440 2441 2368 2369 2370 2371 2372 2373 2374 2375 2430 2365
+  * 1440 1441 1442 1443 1444 1445 1446 1447 1448 1449 1488 1489 1490 1491 1492 1493 1494 1495 1496 1497 1424 1425 1426 1427 1428 1429 1430 1431 1486 1421
+  * 496 497 498 499 500 501 502 503 504 505 544 545 546 547 548 549 550 551 552 553 480 481 482 483 484 485 486 487 542 477
+i pcs8g_digi_rx_valid_mask_en              b-   2429 | 1485 | 541
+i pcs8g_digi_rx_auto_speed_nego            r-:40
+  * 2428 2394 2395 2396 2397 2398 2399 2447 2416 2417 2418 2419 2420 2421 2422 2423 2424 2425 2426 2336 2337 2338 2339 2340 2341 2342 2343 2344 2345 2346 2347 2348 2349 2350 2351 2260 2261 2256 2257 2262
+  * 1484 1450 1451 1452 1453 1454 1455 1503 1472 1473 1474 1475 1476 1477 1478 1479 1480 1481 1482 1392 1393 1394 1395 1396 1397 1398 1399 1400 1401 1402 1403 1404 1405 1406 1407 1316 1317 1312 1313 1318
+  * 540 506 507 508 509 510 511 559 528 529 530 531 532 533 534 535 536 537 538 448 449 450 451 452 453 454 455 456 457 458 459 460 461 462 463 372 373 368 369 374
+i pcs8g_digi_rx_eidle_entry_sd_en          b-   2442 | 1498 | 554
+i pcs8g_digi_rx_eidle_eios_en              b-   2443 | 1499 | 555
+i pcs8g_digi_rx_eidle_entry_iei_en         b-:3  2326 2327 2329 | 1382 1383 1385 | 438 439 441
+i pcs8g_digi_tx_plane_bonding_consumption  m:2  2314 2315 | 1370 1371 | 426 427
+  0 individual !
+  1 bundled_master
+  2 slave_above
+  3 slave_below
+i pcs8g_digi_rx_plane_bonding_master       b-   2303 | 1359 | 415
+i pcs8g_digi_rx_plane_bonding_comp_en      b-   2302 | 1358 | 414
+i pcs8g_digi_rx_agc_block_sel              m:1  2301 | 1357 | 413
+  0 same !
+  1 other
+i pcs8g_digi_rx_rcvd_clk                   m:1  2091 | 1147 | 203
+  0 rcvd_clk !
+  1 tx_pma
+i pcs8g_digi_rx_clk1                       m:2  2089 2090 | 1145 1146 | 201 202
+  0 clk1 !
+  1 tx_pma
+  2 agg
+  3 agg_top_or_bottom
+i pcs8g_digi_rx_clk2                       m:2  2087 2088 | 1143 1144 | 199 200
+  0 rcvd_clk !
+  1 tx_pma
+  2 refclk_dig2
+i pcs8g_digi_rx_wr_clk                     m:1  2092 | 1148 | 204
+  0 rx_clk2 !
+  1 txfifo_rd_clk
+i pcs8g_digi_rx_refclk_sel_en              b-   2095 | 1151 | 207
+i pcs8g_digi_rx_rd_clk                     m:1  2086 | 1142 | 198
+  0 rx_clk !
+  1 pld
+i pcs8g_digi_rx_pcs_urst_en                b-   2094 | 1150 | 206
+i pcs8g_digi_rx_clk_free_runnning_en       b-   2093 | 1149 | 205
+i pcs8g_digi_rx_bist_clock_gating_en       b-   2492 | 1548 | 604
+i pcs8g_digi_rx_wa_clock_gating_en         b-   2511 | 1567 | 623
+i pcs8g_digi_rx_dw_wa_clock_gating_en      b-   2510 | 1566 | 622
+i pcs8g_digi_rx_sw_deskew_wrclk_gating_en  b-   2509 | 1565 | 621
+i pcs8g_digi_rx_dw_deskew_wrclk_gating_en  b-   2508 | 1564 | 620
+i pcs8g_digi_rx_prbs_clock_gating_en       b-   2507 | 1563 | 619
+i pcs8g_digi_rx_eidle_clock_gating_en      b-   2506 | 1562 | 618
+i pcs8g_digi_rx_deskew_rdclk_gating_en     b-   2505 | 1561 | 617
+i pcs8g_digi_rx_sw_rm_wrclk_gating_en      b-   2504 | 1560 | 616
+i pcs8g_digi_rx_dw_rm_wrclk_gating_en      b-   2503 | 1559 | 615
+i pcs8g_digi_rx_sw_rm_rdclk_gating_en      b-   2502 | 1558 | 614
+i pcs8g_digi_rx_dw_rm_rdclk_gating_en      b-   2501 | 1557 | 613
+i pcs8g_digi_rx_bds_dec_clock_gating_en    b-   2500 | 1556 | 612
+i pcs8g_digi_rx_byteorder_clock_gating_en  b-   2499 | 1555 | 611
+i pcs8g_digi_rx_sw_pc_wrclk_gating_en      b-   2498 | 1554 | 610
+i pcs8g_digi_rx_dw_pc_wrclk_gating_en      b-   2497 | 1553 | 609
+i pcs8g_digi_rx_pc_rdclk_gating_en         b-   2496 | 1552 | 608
+i pcs8g_digi_rx_cfifo_rst_pld_ctrl_en      b-   2283 | 1339 | 395
+i pcs8g_digi_rx_pcfifo_rst_pld_ctrl_en     b-   2284 | 1340 | 396
+i pcs8g_digi_rx_test_bus_sel               m:4
+  * 2272 2273 2274 2275
+  * 1328 1329 1330 1331
+  * 384 385 386 387
+  0 prbs_bist !
+  1 tx
+  2 tx_ctrl_plane
+  3 wa
+  4 deskew
+  5 rm
+  6 rx_ctrl
+  7 pcie_ctrl
+  8 rx_ctrl_plane
+  9 agg
+i pcs8g_digi_rx_polarity_inversion_en      b-   2145 | 1201 | 257
+g pcs8g_aggregate_pcs_dw_bonding           m:19 1846 1847 1848 1849 1850 1851 1852 1853 1810 1811 1812 1813 1814 1815 1816 1817 1839 1840 1841
+  00000 disable !
+g pcs8g_aggregate_xaui_sm                  m:4  1845 1844 1809 1808
+  0 xaui_legacy_sm !
+  5 xaui_sm
+  a disable
+g pcs8g_aggregate_dskw_sm_operation        m:14 1824 1825 1826 1827 1828 1829 1830 1831 1832 1833 1834 1835 1836 1837
+  0000 xaui_sm !
+  3404 srio_sm
+g pcs8g_aggregate_dskw_control             m:1  1836
+  0 write !
+  1 read
+g pcs8g_aggregate_refclk_dig_sel_en        b-   1843
+g pcs8g_aggregate_powerdown_en             b-   1854

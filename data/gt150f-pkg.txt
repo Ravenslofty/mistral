@@ -1,0 +1,3025 @@
+f23 width:22 height:22 widthmm:23 heightmm:23
+   0  0 A1   f:RREF_TL t:gxp-reference-resistor
+   0  1 B1   f:GND t:vss
+   0  2 C1   gpio:000.034.0 hssi_input:11 ioblock:B1L
+   0  3 D1   f:GND t:vss
+   0  4 E1   gpio:000.027.0 hssi_output:8 ioblock:B1L
+   0  5 F1   f:GND t:vss
+   0  6 G1   gpio:000.030.0 hssi_input:13 ioblock:B1L
+   0  7 H1   f:GND t:vss
+   0  8 J1   gpio:000.023.0 hssi_output:10 ioblock:B1L
+   0  9 K1   f:GND t:vss
+   0 10 L1   gpio:000.026.0 hssi_input:15 ioblock:B1L
+   0 11 M1   f:GND t:vss
+   0 12 N1   gpio:000.019.0 hssi_output:12 ioblock:B0L
+   0 13 P1   f:GND t:vss
+   0 14 R1   gpio:000.022.0 hssi_input:17 ioblock:B0L
+   0 15 T1   f:GND t:vss
+   0 16 U1   gpio:000.015.0 hssi_output:14 ioblock:B0L
+   0 17 V1   f:GND t:vss
+   0 18 W1   gpio:000.018.0 hssi_input:19 ioblock:B0L
+   0 19 Y1   f:GND t:vss
+   0 20 AA1  gpio:000.014.0 hssi_input:21 ioblock:B0L
+   0 21 AB1  f:GND t:vss
+   1  0 A2   gpio:011.081.2 dedicated_programming_pad:12 ioblock:9A r:0.65566 c:1.33e-12 l:6.54e-09 len:0.01031 d:93
+   1  1 B2   f:GND t:vss
+   1  2 C2   gpio:000.034.1 hssi_input:10 ioblock:B1L
+   1  3 D2   f:GND t:vss
+   1  4 E2   gpio:000.027.1 hssi_output:9 ioblock:B1L
+   1  5 F2   f:GND t:vss
+   1  6 G2   gpio:000.030.1 hssi_input:12 ioblock:B1L
+   1  7 H2   f:GND t:vss
+   1  8 J2   gpio:000.023.1 hssi_output:11 ioblock:B1L
+   1  9 K2   f:GND t:vss
+   1 10 L2   gpio:000.026.1 hssi_input:14 ioblock:B1L
+   1 11 M2   f:GND t:vss
+   1 12 N2   gpio:000.019.1 hssi_output:13 ioblock:B0L
+   1 13 P2   f:GND t:vss
+   1 14 R2   gpio:000.022.1 hssi_input:16 ioblock:B0L
+   1 15 T2   f:GND t:vss
+   1 16 U2   gpio:000.015.1 hssi_output:15 ioblock:B0L
+   1 17 V2   f:GND t:vss
+   1 18 W2   gpio:000.018.1 hssi_input:18 ioblock:B0L
+   1 19 Y2   f:GND t:vss
+   1 20 AA2  gpio:000.014.1 hssi_input:20 ioblock:B0L
+   1 21 AB2  f:GND t:vss
+   2  0 A3   f:VCCBAT t:vcc
+   2  1 B3   f:DNU t:do-not-use
+   2  2 C3   f:GND t:vss
+   2  3 D3   gpio:000.031.0 hssi_output:6 ioblock:B1L
+   2  4 E3   f:GND t:vss
+   2  5 F3   gpio:013.081.1 dedicated_programming_pad:15 ioblock:9A r:0.63558 c:9.7e-13 l:5.74e-09 len:0.01005 d:74
+   2  6 G3   f:GND t:vss
+   2  7 H3   f:GND t:vss
+   2  8 J3   f:GND t:vss
+   2  9 K3   f:VCCL_GXBL t:vcc
+   2 10 L3   f:GND t:vss
+   2 11 M3   f:VCCH_GXBL t:vcc
+   2 12 N3   f:GND t:vss
+   2 13 P3   f:VCCL_GXBL t:vcc
+   2 14 R3   f:GND t:vss
+   2 15 T3   f:VCCH_GXBL t:vcc
+   2 16 U3   f:GND t:vss
+   2 17 V3   gpio:015.000.0 dedicated_programming_pad:4 ioblock:3A r:0.53684 c:9.2e-13 l:4.77e-09 len:0.00862 d:66
+   2 18 W3   f:GND t:vss
+   2 19 Y3   gpio:000.011.0 hssi_output:16 ioblock:B0L
+   2 20 AA3  f:GND t:vss
+   2 21 AB3  gpio:013.000.3 dedicated_programming_pad:3 ioblock:3A r:0.63751 c:1.08e-12 l:6.06e-09 len:0.01001 d:81
+   3  0 A4   gpio:013.081.0 dedicated_programming_pad:14 ioblock:9A r:0.44972 c:1.17e-12 l:5.21e-09 len:0.00789 d:78
+   3  1 B4   f:DNU t:do-not-use
+   3  2 C4   f:GND t:vss
+   3  3 D4   gpio:000.031.1 hssi_output:7 ioblock:B1L
+   3  4 E4   f:GND t:vss
+   3  5 F4   f:VCCA_FPLL t:vcc
+   3  6 G4   gpio:000.031.3 hssi_input:9 ioblock:B1L
+   3  7 H4   f:GND t:vss
+   3  8 J4   f:VCCE_GXBL t:vcc
+   3  9 K4   f:GND t:vss
+   3 10 L4   f:VCCE_GXBL t:vcc
+   3 11 M4   f:GND t:vss
+   3 12 N4   f:VCCE_GXBL t:vcc
+   3 13 P4   f:GND t:vss
+   3 14 R4   gpio:011.000.1 dedicated_programming_pad:0 ioblock:3A r:0.83358 c:1.4e-12 l:7.81e-09 len:0.01357 d:105
+   3 15 T4   gpio:011.000.3 dedicated_programming_pad:1 ioblock:3A r:0.80129 c:1.46e-12 l:7.09e-09 len:0.01286 d:102
+   3 16 U4   gpio:000.019.2 hssi_input:23 ioblock:B0L
+   3 17 V4   gpio:000.019.3 hssi_input:22 ioblock:B0L
+   3 18 W4   f:GND t:vss
+   3 19 Y4   gpio:000.011.1 hssi_output:17 ioblock:B0L
+   3 20 AA4  f:GND t:vss
+   3 21 AB4  gpio:015.000.1 dedicated_programming_pad:5 ioblock:3A r:0.57051 c:1.25e-12 l:5.02e-09 len:0.00916 d:79
+   4  0 A5   gpio:034.081.2 ioblock:8A r:0.88205 c:1.62e-12 l:6.38e-09 len:0.01224 d:102
+   4  1 B5   gpio:034.081.3 ioblock:8A r:0.84829 c:1.34e-12 l:7.06e-09 len:0.01251 d:97
+   4  2 C5   f:GND t:vss gpio:083.081.0 dedicated_programming_pad:16 ioblock:9A r:0.38375 c:5.4e-13 l:4.52e-09 len:0.00625 d:49
+   4  3 D5   f:GND t:vss
+   4  4 E5   gpio:011.081.3 dedicated_programming_pad:13 ioblock:9A r:0.50918 c:9.1e-13 l:5e-09 len:0.00806 d:68
+   4  5 F5   gpio:000.031.2 hssi_input:8 ioblock:B1L
+   4  6 G5   gpio:011.081.1 dedicated_programming_pad:11 ioblock:9A r:0.69465 c:1.16e-12 l:7.08e-09 len:0.01079 d:91
+   4  7 H5   gpio:011.081.0 dedicated_programming_pad:10 ioblock:9A r:0.72414 c:1.16e-12 l:7.65e-09 len:0.01168 d:94
+   4  8 J5   f:GND t:vss
+   4  9 K5   f:VCCE_GXBL t:vcc
+   4 10 L5   f:GND t:vss
+   4 11 M5   gpio:011.000.0 jtag:0 ioblock:3A r:0.80274 c:1.53e-12 l:7.37e-09 len:0.01358 d:106
+   4 12 N5   f:GND t:vss
+   4 13 P5   gpio:011.000.2 jtag:1 ioblock:3A r:0.65045 c:1.18e-12 l:6.37e-09 len:0.01096 d:87
+   4 14 R5   gpio:002.000.0 ioblock:3A r:0.43434 c:8.6e-13 l:4e-09 len:0.0077 d:59
+   4 15 T5   f:VCCA_FPLL t:vcc
+   4 16 U5   f:GND t:vss
+   4 17 V5   gpio:013.000.0 jtag:2 ioblock:3A r:0.64085 c:1.49e-12 l:5.7e-09 len:0.01037 d:92
+   4 18 W5   gpio:013.000.2 jtag:3 ioblock:3A r:0.35269 c:6.3e-13 l:3.31e-09 len:0.00591 d:46
+   4 19 Y5   f:GND t:vss
+   4 20 AA5  gpio:013.000.1 dedicated_programming_pad:2 ioblock:3A r:0.50817 c:1.2e-12 l:4.71e-09 len:0.00821 d:75
+   4 21 AB5  gpio:026.000.2 ioblock:3B r:0.86317 c:1.74e-12 l:6.93e-09 len:0.0127 d:110
+   5  0 A6   f:VCCIO8A t:vccn
+   5  1 B6   gpio:032.081.2 ioblock:8A r:0.7692 c:1.16e-12 l:6.41e-09 len:0.01135 d:86
+   5  2 C6   gpio:030.081.2 ioblock:8A r:0.67033 c:1e-12 l:5.88e-09 len:0.01015 d:77
+   5  3 D6   gpio:030.081.3 ioblock:8A r:0.70231 c:1.07e-12 l:6.13e-09 len:0.01058 d:81
+   5  4 E6   f:VCC_AUX t:vcc
+   5  5 F6   f:GND t:vss
+   5  6 G6   gpio:026.081.0 ioblock:8A r:0.97287 c:1.47e-12 l:7.44e-09 len:0.01444 d:105
+   5  7 H6   gpio:026.081.1 ioblock:8A r:0.89852 c:1.47e-12 l:8.11e-09 len:0.01409 d:109
+   5  8 J6   gpio:009.081.3 dedicated_programming_pad:9 ioblock:9A r:0.82827 c:1.35e-12 l:6.79e-09 len:0.01273 d:96
+   5  9 K6   gpio:009.081.2 dedicated_programming_pad:8 ioblock:9A r:0.89937 c:1.58e-12 l:7.75e-09 len:0.01405 d:111
+   5 10 L6   gpio:009.081.1 dedicated_programming_pad:7 ioblock:9A r:0.99935 c:1.65e-12 l:8.43e-09 len:0.01544 d:118
+   5 11 M6   gpio:008.000.1 ioblock:3A r:0.57895 c:9.4e-13 l:5.98e-09 len:0.01008 d:75
+   5 12 N6   gpio:004.000.0 ioblock:3A r:0.48553 c:9.8e-13 l:4.21e-09 len:0.00851 d:64
+   5 13 P6   gpio:004.000.1 ioblock:3A r:0.45273 c:8.9e-13 l:3.92e-09 len:0.00776 d:59
+   5 14 R6   gpio:002.000.1 ioblock:3A r:0.4365 c:8.5e-13 l:3.69e-09 len:0.00746 d:56
+   5 15 T6   f:VCCIO3A t:vccn
+   5 16 U6   gpio:006.000.3 ioblock:3A r:0.77002 c:1.41e-12 l:7.08e-09 len:0.01279 d:100
+   5 17 V6   gpio:006.000.2 ioblock:3A r:0.79053 c:1.44e-12 l:7.06e-09 len:0.01274 d:101
+   5 18 W6   f:VCCPD3A t:vccpd
+   5 19 Y6   f:DNU t:do-not-use
+   5 20 AA6  f:GND t:vss
+   5 21 AB6  gpio:026.000.3 ioblock:3B r:0.80944 c:1.57e-12 l:6.98e-09 len:0.01221 d:105
+   6  0 A7   gpio:030.081.1 ioblock:8A r:0.51026 c:9.5e-13 l:4.4e-09 len:0.00763 d:65
+   6  1 B7   gpio:032.081.3 ioblock:8A r:0.73652 c:1.11e-12 l:5.72e-09 len:0.0106 d:80
+   6  2 C7   f:VCCIO8A t:vccn
+   6  3 D7   gpio:028.081.2 ioblock:8A r:0.6005 c:1.21e-12 l:5.47e-09 len:0.00918 d:81
+   6  4 E7   gpio:026.081.3 ioblock:8A r:0.77612 c:1.24e-12 l:6.67e-09 len:0.01148 d:91
+   6  5 F7   gpio:026.081.2 ioblock:8A r:0.75384 c:1.21e-12 l:6.43e-09 len:0.01126 d:88
+   6  6 G7   f:VCCIO8A t:vccn
+   6  7 H7   f:GND t:vss
+   6  8 J7   gpio:038.081.0 ioblock:8A r:1.15157 c:1.93e-12 l:1.064e-08 len:0.01899 d:143
+   6  9 K7   gpio:040.081.3 ioblock:8A r:1.32121 c:2.15e-12 l:1.13e-08 len:0.02021 d:156
+   6 10 L7   gpio:040.081.2 ioblock:8A r:1.31297 c:2.21e-12 l:1.213e-08 len:0.02082 d:164
+   6 11 M7   gpio:008.000.0 ioblock:3A r:0.55862 c:9.4e-13 l:6.12e-09 len:0.00978 d:76
+   6 12 N7   f:GND t:vss
+   6 13 P7   gpio:008.000.2 ioblock:3A r:0.68411 c:1.15e-12 l:7.24e-09 len:0.01142 d:91
+   6 14 R7   gpio:008.000.3 ioblock:3A r:0.65506 c:1.08e-12 l:6.75e-09 len:0.01072 d:86
+   6 15 T7   gpio:006.000.1 ioblock:3A r:0.25728 c:9.1e-13 l:2.53e-09 len:0.00508 d:48
+   6 16 U7   gpio:002.000.3 ioblock:3A r:0.51821 c:8e-13 l:6.24e-09 len:0.00838 d:71
+   6 17 V7   f:GND t:vss
+   6 18 W7   f:VCC_AUX t:vcc
+   6 19 Y7   f:VREFB3AN0 t:vref
+   6 20 AA7  gpio:028.000.3 ioblock:3B r:0.83444 c:1.85e-12 l:6.64e-09 len:0.01272 d:111
+   6 21 AB7  gpio:028.000.2 ioblock:3B r:0.82384 c:1.6e-12 l:6.77e-09 len:0.01193 d:104
+   7  0 A8   gpio:030.081.0 ioblock:8A r:0.53246 c:9e-13 l:4.32e-09 len:0.0077 d:62
+   7  1 B8   f:VREFB8AN0 t:vref
+   7  2 C8   gpio:028.081.3 ioblock:8A r:0.6084 c:8.3e-13 l:5.47e-09 len:0.00904 d:68
+   7  3 D8   f:VCCPD7A8A t:vccpd
+   7  4 E8   f:VCCIO8A t:vccn
+   7  5 F8   f:VCCPGM t:vcc
+   7  6 G8   gpio:038.081.3 ioblock:8A r:0.97152 c:1.57e-12 l:8.68e-09 len:0.0156 d:117
+   7  7 H8   gpio:038.081.2 ioblock:8A r:1.04165 c:1.72e-12 l:8.69e-09 len:0.01624 d:122
+   7  8 J8   gpio:038.081.1 ioblock:8A r:1.11465 c:2e-12 l:9.55e-09 len:0.01823 d:138
+   7  9 K8   f:GND t:vss
+   7 10 L8   gpio:052.081.2 ioblock:7A r:1.18861 c:1.98e-12 l:1.073e-08 len:0.01841 d:146
+   7 11 M8   gpio:032.000.1 ioblock:3B r:0.57211 c:1.16e-12 l:4.94e-09 len:0.00996 d:76
+   7 12 N8   gpio:028.000.0 ioblock:3B r:0.65057 c:1.19e-12 l:6.78e-09 len:0.01072 d:90
+   7 13 P8   gpio:028.000.1 ioblock:3B r:0.59692 c:1.08e-12 l:5.72e-09 len:0.00994 d:79
+   7 14 R8   f:VCCIO3B t:vccn
+   7 15 T8   gpio:006.000.0 ioblock:3A r:0.23873 c:8.3e-13 l:2.23e-09 len:0.00457 d:43
+   7 16 U8   gpio:002.000.2 ioblock:3A r:0.4829 c:7.8e-13 l:4.94e-09 len:0.00771 d:62
+   7 17 V8   f:VCCPGM t:vcc
+   7 18 W8   gpio:004.000.3 ioblock:3A r:0.48746 c:8.1e-13 l:4.74e-09 len:0.00777 d:62
+   7 19 Y8   f:VCCIO3A t:vccn
+   7 20 AA8  gpio:030.000.3 ioblock:3B r:0.8046 c:1.56e-12 l:6.98e-09 len:0.01253 d:104
+   7 21 AB8  gpio:030.000.2 ioblock:3B r:0.82729 c:1.61e-12 l:6.51e-09 len:0.01178 d:102
+   8  0 A9   gpio:036.081.3 ioblock:8A r:0.62507 c:8.2e-13 l:4.83e-09 len:0.00853 d:63
+   8  1 B9   f:GND t:vss
+   8  2 C9   gpio:034.081.1 ioblock:8A r:0.38597 c:8.3e-13 l:3.28e-09 len:0.00598 d:52
+   8  3 D9   gpio:028.081.1 ioblock:8A r:0.41695 c:6.7e-13 l:3.49e-09 len:0.00655 d:48
+   8  4 E9   gpio:028.081.0 ioblock:8A r:0.42243 c:1.07e-12 l:3.51e-09 len:0.00706 d:61
+   8  5 F9   gpio:032.081.1 ioblock:8A r:0.3708 c:6.6e-13 l:3.27e-09 len:0.00585 d:46
+   8  6 G9   f:GND t:vss
+   8  7 H9   gpio:036.081.1 ioblock:8A r:0.51566 c:9e-13 l:5.48e-09 len:0.00856 d:70
+   8  8 J9   gpio:036.081.0 ioblock:8A r:0.54497 c:8.9e-13 l:6.86e-09 len:0.00929 d:78
+   8  9 K9   gpio:052.081.3 ioblock:7A r:1.14794 c:1.92e-12 l:1.01e-08 len:0.01763 d:139 dq
+   8 10 L9   f:DNU t:do-not-use
+   8 11 M9   gpio:032.000.0 ioblock:3B r:0.56731 c:1.14e-12 l:5.05e-09 len:0.01001 d:76
+   8 12 N9   gpio:040.000.0 ioblock:3B r:0.56371 c:1.04e-12 l:5.27e-09 len:0.00968 d:74
+   8 13 P9   gpio:040.000.1 ioblock:3B r:0.55538 c:1.06e-12 l:4.9e-09 len:0.00927 d:72
+   8 14 R9   gpio:034.000.0 ioblock:3B r:0.79392 c:1.29e-12 l:7.48e-09 len:0.01297 d:98
+   8 15 T9   gpio:030.000.1 ioblock:3B r:0.68031 c:1.08e-12 l:6.23e-09 len:0.01071 d:82
+   8 16 U9   f:GND t:vss
+   8 17 V9   gpio:026.000.1 ioblock:3B r:0.42734 c:8.9e-13 l:4.04e-09 len:0.007 d:60
+   8 18 W9   gpio:004.000.2 ioblock:3A r:0.42434 c:8.6e-13 l:4.58e-09 len:0.00747 d:63
+   8 19 Y9   gpio:034.000.2 ioblock:3B r:0.74076 c:1.1e-12 l:6.83e-09 len:0.01127 d:87
+   8 20 AA9  gpio:032.000.2 ioblock:3B r:0.66193 c:9.5e-13 l:5.65e-09 len:0.00972 d:73
+   8 21 AB9  f:GND t:vss
+   9  0 A10  gpio:036.081.2 ioblock:8A r:0.57259 c:1.18e-12 l:4.74e-09 len:0.00828 d:75
+   9  1 B10  gpio:034.081.0 ioblock:8A r:0.42956 c:5.9e-13 l:4.11e-09 len:0.00665 d:49
+   9  2 C10  f:VCCPD7A8A t:vccpd
+   9  3 D10  f:GND t:vss
+   9  4 E10  gpio:032.081.0 ioblock:8A r:0.29796 c:7e-13 l:3.29e-09 len:0.0053 d:48
+   9  5 F10  gpio:040.081.1 ioblock:8A r:0.39921 c:5.6e-13 l:5.18e-09 len:0.00645 d:54
+   9  6 G10  gpio:040.081.0 ioblock:8A r:0.39146 c:6.4e-13 l:4.72e-09 len:0.00668 d:55
+   9  7 H10  gpio:058.081.3 ioblock:7A r:0.92224 c:1.62e-12 l:8.43e-09 len:0.01481 d:117
+   9  8 J10  f:VCC t:vcc
+   9  9 K10  f:GND t:vss
+   9 10 L10  f:VCC t:vcc
+   9 11 M10  f:GND t:vss
+   9 12 N10  f:VCC t:vcc
+   9 13 P10  f:GND t:vss
+   9 14 R10  gpio:038.000.1 ioblock:3B r:0.88762 c:1.26e-12 l:8.51e-09 len:0.01391 d:104
+   9 15 T10  gpio:034.000.1 ioblock:3B r:0.77284 c:1.23e-12 l:7.77e-09 len:0.01222 d:98
+   9 16 U10  gpio:030.000.0 ioblock:3B r:0.6396 c:1e-12 l:5.67e-09 len:0.01005 d:75
+   9 17 V10  gpio:026.000.0 ioblock:3B r:0.43291 c:7.2e-13 l:3.99e-09 len:0.00697 d:54
+   9 18 W10  f:VCCIO3B t:vccn
+   9 19 Y10  gpio:034.000.3 ioblock:3B r:0.71298 c:1.04e-12 l:6.56e-09 len:0.01057 d:83
+   9 20 AA10 gpio:032.000.3 ioblock:3B r:0.64271 c:8.9e-13 l:5.17e-09 len:0.00889 d:68
+   9 21 AB10 gpio:038.000.3 ioblock:3B r:0.6533 c:1.59e-12 l:5.62e-09 len:0.01029 d:95
+  10  0 A11  f:GND t:vss
+  10  1 B11  gpio:050.081.3 ioblock:7A r:0.58624 c:7.5e-13 l:5.34e-09 len:0.00847 d:63
+  10  2 C11  gpio:050.081.2 ioblock:7A r:0.56334 c:7.3e-13 l:4.62e-09 len:0.00787 d:58 dq
+  10  3 D11  f:VCC_AUX t:vcc
+  10  4 E11  f:VCCPD7A8A t:vccpd
+  10  5 F11  f:VCCIO7A t:vccn
+  10  6 G11  gpio:056.081.2 ioblock:7A r:0.95333 c:1.69e-12 l:8.92e-09 len:0.01533 d:123
+  10  7 H11  gpio:052.081.0 ioblock:7A r:0.51683 c:9.6e-13 l:4.05e-09 len:0.00843 d:62 dq dqs
+  10  8 J11  gpio:058.081.2 ioblock:7A r:0.92302 c:1.61e-12 l:8.87e-09 len:0.0153 d:119 dq
+  10  9 K11  f:VCC t:vcc
+  10 10 L11  f:GND t:vss
+  10 11 M11  f:VCC t:vcc
+  10 12 N11  f:GND t:vss
+  10 13 P11  f:VCC t:vcc
+  10 14 R11  gpio:038.000.0 ioblock:3B r:0.84823 c:1.23e-12 l:7.92e-09 len:0.01311 d:99
+  10 15 T11  f:VCCIO3B t:vccn
+  10 16 U11  gpio:036.000.1 ioblock:3B r:0.24083 c:5.7e-13 l:2.24e-09 len:0.00458 d:36
+  10 17 V11  f:DNU t:do-not-use
+  10 18 W11  f:VCCPD3B4A t:vccpd
+  10 19 Y11  gpio:040.000.3 ioblock:3B r:0.68378 c:9e-13 l:6.83e-09 len:0.01009 d:78
+  10 20 AA11 f:GND t:vss
+  10 21 AB11 gpio:038.000.2 ioblock:3B r:0.66112 c:1.08e-12 l:5.37e-09 len:0.0095 d:76
+  11  0 A12  gpio:054.081.3 ioblock:7A r:0.5968 c:7.5e-13 l:4.69e-09 len:0.00787 d:59
+  11  1 B12  gpio:054.081.2 ioblock:7A r:0.61014 c:8e-13 l:5.37e-09 len:0.00862 d:65 dq
+  11  2 C12  f:VCCIO7A t:vccn
+  11  3 D12  gpio:050.081.0 ioblock:7A r:0.42334 c:6.6e-13 l:3.45e-09 len:0.00621 d:48 dq
+  11  4 E12  gpio:050.081.1 ioblock:7A r:0.46227 c:6.2e-13 l:3.86e-09 len:0.00697 d:49 dq
+  11  5 F12  gpio:056.081.3 ioblock:7A r:1.03834 c:1.62e-12 l:8.65e-09 len:0.01563 d:118 dq
+  11  6 G12  gpio:052.081.1 ioblock:7A r:0.45434 c:1.18e-12 l:3.78e-09 len:0.00765 d:67 dq dqsb
+  11  7 H12  f:GND t:vss
+  11  8 J12  f:VCC t:vcc
+  11  9 K12  f:GND t:vss
+  11 10 L12  f:VCC t:vcc
+  11 11 M12  f:GND t:vss
+  11 12 N12  f:VCC t:vcc
+  11 13 P12  gpio:036.000.2 ioblock:3B r:0.92467 c:1.45e-12 l:1.058e-08 len:0.01417 d:124
+  11 14 R12  gpio:036.000.3 ioblock:3B r:0.94406 c:1.54e-12 l:8.95e-09 len:0.01459 d:117
+  11 15 T12  gpio:052.000.1 ioblock:4A r:0.24575 c:5.2e-13 l:2.48e-09 len:0.00481 d:36 dq dqsb
+  11 16 U12  gpio:036.000.0 ioblock:3B r:0.25159 c:4.5e-13 l:2.44e-09 len:0.00461 d:33
+  11 17 V12  f:GND t:vss
+  11 18 W12  f:VCCPD3B4A t:vccpd
+  11 19 Y12  f:VREFB3BN0 t:vref
+  11 20 AA12 gpio:040.000.2 ioblock:3B r:0.66342 c:7.4e-13 l:7.42e-09 len:0.00933 d:74
+  11 21 AB12 gpio:050.000.2 ioblock:4A r:0.62339 c:1.17e-12 l:6.63e-09 len:0.00997 d:88 dq
+  12  0 A13  gpio:060.081.3 ioblock:7A r:0.53902 c:1.22e-12 l:4.82e-09 len:0.00841 d:77 dq
+  12  1 B13  gpio:060.081.2 ioblock:7A r:0.59696 c:9.3e-13 l:5.37e-09 len:0.00913 d:71
+  12  2 C13  gpio:054.081.1 ioblock:7A r:0.41269 c:5.9e-13 l:3.64e-09 len:0.00648 d:46 dq
+  12  3 D13  gpio:054.081.0 ioblock:7A r:0.44039 c:6.8e-13 l:3.76e-09 len:0.00709 d:50 dq
+  12  4 E13  f:GND t:vss
+  12  5 F13  gpio:058.081.1 ioblock:7A r:0.47866 c:8.1e-13 l:4.32e-09 len:0.00778 d:59 dq
+  12  6 G13  gpio:056.081.1 ioblock:7A r:0.46406 c:8e-13 l:4.12e-09 len:0.00715 d:57
+  12  7 H13  gpio:056.081.0 ioblock:7A r:0.49078 c:9e-13 l:4.1e-09 len:0.00796 d:61
+  12  8 J13  gpio:060.081.1 ioblock:7A r:0.50528 c:9.2e-13 l:4.5e-09 len:0.00874 d:64 dq dqsb
+  12  9 K13  f:VCC t:vcc
+  12 10 L13  f:GND t:vss
+  12 11 M13  f:VCC t:vcc
+  12 12 N13  f:GND t:vss
+  12 13 P13  f:VCC t:vcc
+  12 14 R13  f:GND t:vss
+  12 15 T13  gpio:052.000.0 ioblock:4A r:0.20178 c:6.1e-13 l:1.97e-09 len:0.0044 d:35 dq dqs
+  12 16 U13  gpio:050.000.0 ioblock:4A r:0.5831 c:1e-12 l:5.51e-09 len:0.00936 d:74 dq
+  12 17 V13  gpio:050.000.1 ioblock:4A r:0.54081 c:9e-13 l:5.15e-09 len:0.00863 d:68 dq
+  12 18 W13  f:VCC_AUX t:vcc
+  12 19 Y13  f:VCCIO3B t:vccn
+  12 20 AA13 gpio:052.000.2 ioblock:4A r:0.59486 c:8.5e-13 l:5.52e-09 len:0.00888 d:69
+  12 21 AB13 gpio:050.000.3 ioblock:4A r:0.67292 c:1.06e-12 l:5.21e-09 len:0.00926 d:74
+  13  0 A14  gpio:066.081.3 ioblock:7A r:0.53358 c:1.21e-12 l:5.16e-09 len:0.00833 d:79
+  13  1 B14  f:GND t:vss
+  13  2 C14  f:VREFB7AN0 t:vref
+  13  3 D14  f:VCCPD7A8A t:vccpd
+  13  4 E14  gpio:058.081.0 ioblock:7A r:0.48044 c:6.7e-13 l:4.28e-09 len:0.0072 d:53 dq
+  13  5 F14  gpio:062.081.3 ioblock:7A r:0.72037 c:1.14e-12 l:6.42e-09 len:0.01141 d:86
+  13  6 G14  f:VCCIO7A t:vccn
+  13  7 H14  gpio:060.081.0 ioblock:7A r:0.46189 c:8.7e-13 l:3.94e-09 len:0.00808 d:59 dq dqs
+  13  8 J14  f:VCC t:vcc
+  13  9 K14  f:GND t:vss
+  13 10 L14  f:VCC t:vcc
+  13 11 M14  f:GND t:vss
+  13 12 N14  f:VCC t:vcc
+  13 13 P14  gpio:068.000.1 ioblock:4A r:0.39318 c:7.3e-13 l:3.93e-09 len:0.00706 d:54 dq dqsb
+  13 14 R14  gpio:068.000.0 ioblock:4A r:0.3515 c:6.9e-13 l:3.02e-09 len:0.00628 d:46 dq dqs
+  13 15 T14  gpio:060.000.1 ioblock:4A r:0.24183 c:8.5e-13 l:2.3e-09 len:0.00485 d:44 dq dqsb
+  13 16 U14  f:VCCIO4A t:vccn
+  13 17 V14  gpio:056.000.1 ioblock:4A r:0.27631 c:7.4e-13 l:2.34e-09 len:0.00457 d:42
+  13 18 W14  f:VCCPD3B4A t:vccpd
+  13 19 Y14  gpio:054.000.1 ioblock:4A r:0.4123 c:7e-13 l:3.77e-09 len:0.0065 d:51 dq
+  13 20 AA14 gpio:052.000.3 ioblock:4A r:0.61268 c:6.8e-13 l:4.72e-09 len:0.00831 d:57 dq
+  13 21 AB14 f:GND t:vss
+  14  0 A15  gpio:066.081.2 ioblock:7A r:0.60329 c:9.1e-13 l:4.42e-09 len:0.00795 d:64 dq
+  14  1 B15  gpio:062.081.1 ioblock:7A r:0.50818 c:8.2e-13 l:4.3e-09 len:0.00765 d:59 dq
+  14  2 C15  gpio:062.081.0 ioblock:7A r:0.4933 c:6.6e-13 l:4.18e-09 len:0.00718 d:52 dq
+  14  3 D15  f:VCCIO7A t:vccn
+  14  4 E15  gpio:066.081.0 ioblock:7A r:0.52134 c:7.9e-13 l:3.48e-09 len:0.00725 d:53 dq
+  14  5 F15  gpio:066.081.1 ioblock:7A r:0.57589 c:7.3e-13 l:4.04e-09 len:0.00794 d:54 dq
+  14  6 G15  gpio:062.081.2 ioblock:7A r:0.80989 c:1.23e-12 l:6.32e-09 len:0.01215 d:88 dq
+  14  7 H15  gpio:064.081.1 ioblock:7A r:0.56634 c:9.6e-13 l:4.16e-09 len:0.00872 d:63
+  14  8 J15  f:GND t:vss
+  14  9 K15  f:VCC t:vcc
+  14 10 L15  f:GND t:vss
+  14 11 M15  f:VCC t:vcc
+  14 12 N15  f:GND t:vss
+  14 13 P15  f:VCC t:vcc
+  14 14 R15  gpio:089.006.1 ioblock:5A r:0.47113 c:9.3e-13 l:4.03e-09 len:0.008 d:61
+  14 15 T15  gpio:089.006.0 ioblock:5A r:0.49542 c:9.6e-13 l:4.31e-09 len:0.00845 d:64
+  14 16 U15  gpio:060.000.0 ioblock:4A r:0.23638 c:7.8e-13 l:2.21e-09 len:0.00447 d:41 dq dqs
+  14 17 V15  gpio:056.000.0 ioblock:4A r:0.29039 c:8e-13 l:2.58e-09 len:0.00502 d:46
+  14 18 W15  f:VCCIO4A t:vccn
+  14 19 Y15  gpio:054.000.0 ioblock:4A r:0.38639 c:9.5e-13 l:3.49e-09 len:0.00618 d:57 dq
+  14 20 AA15 gpio:054.000.2 ioblock:4A r:0.64744 c:8.1e-13 l:4.71e-09 len:0.00899 d:62 dq
+  14 21 AB15 gpio:054.000.3 ioblock:4A r:0.57268 c:1.12e-12 l:4.96e-09 len:0.00823 d:75
+  15  0 A16  f:VCCIO7A t:vccn
+  15  1 B16  gpio:072.081.2 ioblock:7A r:0.49836 c:7.9e-13 l:4.41e-09 len:0.00738 d:59
+  15  2 C16  gpio:072.081.3 ioblock:7A r:0.4778 c:7.4e-13 l:3.95e-09 len:0.00683 d:54 dq
+  15  3 D16  f:VCCPD7A8A t:vccpd
+  15  4 E16  gpio:070.081.1 ioblock:7A r:0.56047 c:7.8e-13 l:4.33e-09 len:0.00783 d:58 dq
+  15  5 F16  f:GND t:vss
+  15  6 G16  gpio:070.081.3 ioblock:7A r:0.96565 c:1.62e-12 l:8.56e-09 len:0.01512 d:118
+  15  7 H16  gpio:064.081.0 ioblock:7A r:0.54993 c:1.02e-12 l:4.62e-09 len:0.00927 d:69
+  15  8 J16  f:VCC t:vcc
+  15  9 K16  gpio:064.081.3 ioblock:7A r:1.08787 c:1.66e-12 l:8.19e-09 len:0.016 d:116 dq
+  15 10 L16  f:VCC t:vcc
+  15 11 M16  gpio:089.035.1 ioblock:5B r:0.21464 c:5.5e-13 l:1.96e-09 len:0.00421 d:33
+  15 12 N16  gpio:089.035.0 ioblock:5B r:0.23312 c:5.9e-13 l:2.06e-09 len:0.0045 d:35
+  15 13 P16  gpio:089.009.0 ioblock:5A r:0.39175 c:7.4e-13 l:3.52e-09 len:0.00679 d:51
+  15 14 R16  gpio:089.008.0 ioblock:5A r:0.40848 c:7.8e-13 l:3.77e-09 len:0.00682 d:54
+  15 15 T16  f:GND t:vss
+  15 16 U16  gpio:072.000.1 ioblock:4A r:0.22318 c:7.2e-13 l:2.02e-09 len:0.00425 d:38
+  15 17 V16  gpio:064.000.1 ioblock:4A r:0.33476 c:5.1e-13 l:2.69e-09 len:0.00541 d:37
+  15 18 W16  gpio:064.000.0 ioblock:4A r:0.29698 c:8.5e-13 l:2.75e-09 len:0.00546 d:48
+  15 19 Y16  gpio:058.000.1 ioblock:4A r:0.49134 c:7.2e-13 l:4.29e-09 len:0.00727 d:56 dq
+  15 20 AA16 f:VCCIO4A t:vccn
+  15 21 AB16 f:VREFB4AN0 t:vref
+  16  0 A17  gpio:074.081.1 ioblock:7A r:0.52537 c:1.03e-12 l:4.02e-09 len:0.00711 d:64 dq
+  16  1 B17  gpio:084.081.3 ioblock:7A r:0.61331 c:9.1e-13 l:4.94e-09 len:0.00895 d:67 dq
+  16  2 C17  f:GND t:vss
+  16  3 D17  gpio:070.081.0 ioblock:7A r:0.48498 c:1.12e-12 l:3.89e-09 len:0.00741 d:66 dq
+  16  4 E17  f:DNU t:do-not-use
+  16  5 F17  f:GND t:vss gpio:009.081.0 dedicated_programming_pad:6 ioblock:7A r:0.47233 c:7.7e-13 l:4.32e-09 len:0.00781 d:58
+  16  6 G17  gpio:070.081.2 ioblock:7A r:0.97716 c:1.6e-12 l:8.16e-09 len:0.01495 d:114 dq
+  16  7 H17  f:VCCIO7A t:vccn
+  16  8 J17  gpio:064.081.2 ioblock:7A r:1.00776 c:1.66e-12 l:7.87e-09 len:0.01538 d:114
+  16  9 K17  gpio:089.037.0 ioblock:5B r:0.2339 c:6.6e-13 l:2.75e-09 len:0.0053 d:43
+  16 10 L17  gpio:089.037.1 ioblock:5B r:0.24337 c:5e-13 l:2.69e-09 len:0.0046 d:37
+  16 11 M17  f:VCCPD5B t:vccpd
+  16 12 N17  f:GND t:vss
+  16 13 P17  gpio:089.009.1 ioblock:5A r:0.34048 c:6.3e-13 l:3.34e-09 len:0.00602 d:46
+  16 14 R17  gpio:089.008.1 ioblock:5A r:0.37762 c:7.1e-13 l:3.48e-09 len:0.0063 d:50
+  16 15 T17  gpio:089.004.1 ioblock:5A r:0.31374 c:7.2e-13 l:3.19e-09 len:0.00596 d:48
+  16 16 U17  gpio:072.000.0 ioblock:4A r:0.30295 c:4.9e-13 l:2.34e-09 len:0.00502 d:34
+  16 17 V17  f:GND t:vss
+  16 18 W17  f:VCCPD3B4A t:vccpd
+  16 19 Y17  gpio:058.000.0 ioblock:4A r:0.4626 c:7.3e-13 l:3.84e-09 len:0.00722 d:53 dq
+  16 20 AA17 gpio:060.000.3 ioblock:4A r:0.56046 c:9.5e-13 l:4.62e-09 len:0.00821 d:66 dq
+  16 21 AB17 gpio:056.000.3 ioblock:4A r:0.69348 c:1.23e-12 l:5.49e-09 len:0.00937 d:82 dq
+  17  0 A18  gpio:074.081.0 ioblock:7A r:0.52222 c:9e-13 l:4.5e-09 len:0.00774 d:64 dq
+  17  1 B18  gpio:084.081.2 ioblock:7A r:0.55327 c:9e-13 l:5.29e-09 len:0.00859 d:69
+  17  2 C18  gpio:078.081.1 ioblock:7A r:0.4738 c:6.8e-13 l:3.87e-09 len:0.00722 d:51 dq
+  17  3 D18  f:VCC_AUX t:vcc
+  17  4 E18  f:VCCIO7A t:vccn
+  17  5 F18  gpio:076.081.1 ioblock:7A r:0.57068 c:9.9e-13 l:4.24e-09 len:0.00854 d:65 dq dqsb
+  17  6 G18  gpio:068.081.0 ioblock:7A r:0.60963 c:1.14e-12 l:4.65e-09 len:0.00955 d:73 dq dqs
+  17  7 H18  gpio:068.081.1 ioblock:7A r:0.6376 c:1.19e-12 l:5.04e-09 len:0.01029 d:78 dq dqsb
+  17  8 J18  gpio:068.081.3 ioblock:7A r:1.15734 c:1.97e-12 l:9.01e-09 len:0.01791 d:133 dq
+  17  9 K18  f:VCCIO5B t:vccn
+  17 10 L18  gpio:089.038.1 ioblock:5B r:0.43418 c:7e-13 l:4.32e-09 len:0.00706 d:55
+  17 11 M18  gpio:089.036.1 ioblock:5B r:0.42259 c:6.9e-13 l:3.73e-09 len:0.00673 d:51
+  17 12 N18  f:VCCPD5B t:vccpd
+  17 13 P18  gpio:089.009.3 ioblock:5A r:0.55152 c:8.9e-13 l:5.85e-09 len:0.00886 d:72
+  17 14 R18  f:VCCIO5A t:vccn
+  17 15 T18  gpio:089.004.0 ioblock:5A r:0.30545 c:8.5e-13 l:2.84e-09 len:0.00538 d:49
+  17 16 U18  f:VCCA_FPLL t:vcc
+  17 17 V18  gpio:070.000.0 ioblock:4A r:0.78746 c:9.8e-13 l:5.32e-09 len:0.01011 d:72 dq
+  17 18 W18  f:VCC_AUX t:vcc
+  17 19 Y18  f:GND t:vss
+  17 20 AA18 gpio:060.000.2 ioblock:4A r:0.56423 c:1.2e-12 l:5.06e-09 len:0.00899 d:78
+  17 21 AB18 gpio:056.000.2 ioblock:4A r:0.74564 c:1.05e-12 l:6.23e-09 len:0.01006 d:81
+  18  0 A19  gpio:074.081.3 ioblock:7A r:0.78921 c:1.12e-12 l:7.84e-09 len:0.01115 d:94
+  18  1 B19  f:VCCIO7A t:vccn
+  18  2 C19  gpio:078.081.0 ioblock:7A r:0.50235 c:7.9e-13 l:4.21e-09 len:0.00788 d:58 dq
+  18  3 D19  gpio:086.081.1 ioblock:7A r:0.59337 c:9.8e-13 l:5e-09 len:0.00916 d:70 dq
+  18  4 E19  gpio:086.081.0 ioblock:7A r:0.60833 c:1.04e-12 l:5.18e-09 len:0.00952 d:73 dq
+  18  5 F19  gpio:076.081.0 ioblock:7A r:0.56103 c:1.13e-12 l:4.36e-09 len:0.00885 d:70 dq dqs
+  18  6 G19  f:GND t:vss
+  18  7 H19  f:VCCA_FPLL t:vcc
+  18  8 J19  gpio:068.081.2 ioblock:7A r:1.11161 c:1.93e-12 l:9.08e-09 len:0.0179 d:132
+  18  9 K19  gpio:072.081.1 ioblock:7A r:1.01243 c:1.89e-12 l:7.78e-09 len:0.0155 d:121
+  18 10 L19  gpio:089.038.0 ioblock:5B r:0.41147 c:6.6e-13 l:3.75e-09 len:0.00638 d:50
+  18 11 M19  f:VCCIO5B t:vccn
+  18 12 N19  gpio:089.036.0 ioblock:5B r:0.33874 c:1.01e-12 l:3.28e-09 len:0.00613 d:58
+  18 13 P19  gpio:089.009.2 ioblock:5A r:0.5468 c:9.2e-13 l:4.79e-09 len:0.00866 d:67
+  18 14 R19  f:VCCPGM t:vcc
+  18 15 T19  gpio:089.004.2 ioblock:5A r:0.47703 c:7.6e-13 l:4.17e-09 len:0.00728 d:56
+  18 16 U19  f:VCCIO4A t:vccn
+  18 17 V19  gpio:070.000.1 ioblock:4A r:0.82097 c:9.3e-13 l:4.96e-09 len:0.00983 d:68 dq
+  18 18 W19  gpio:062.000.0 ioblock:4A r:0.78982 c:1.4e-12 l:5.98e-09 len:0.01196 d:92 dq
+  18 19 Y19  gpio:066.000.0 ioblock:4A r:0.63015 c:1.33e-12 l:4.84e-09 len:0.00917 d:80 dq
+  18 20 AA19 gpio:062.000.3 ioblock:4A r:0.76262 c:1.15e-12 l:6.63e-09 len:0.01112 d:87
+  18 21 AB19 f:GND t:vss
+  19  0 A20  gpio:074.081.2 ioblock:7A r:0.86382 c:1.18e-12 l:7.19e-09 len:0.0117 d:92 dq
+  19  1 B20  gpio:086.081.3 ioblock:7A r:0.61395 c:1.27e-12 l:5.63e-09 len:0.00936 d:85
+  19  2 C20  gpio:086.081.2 ioblock:7A r:0.66585 c:1.1e-12 l:5.29e-09 len:0.00962 d:76 dq
+  19  3 D20  f:GND t:vss
+  19  4 E20  gpio:076.081.2 ioblock:7A r:1.05271 c:1.61e-12 l:8.43e-09 len:0.01498 d:116
+  19  5 F20  gpio:076.081.3 ioblock:7A r:1.03971 c:1.67e-12 l:8.49e-09 len:0.01575 d:119 dq
+  19  6 G20  gpio:080.081.0 ioblock:7A r:0.7045 c:1.28e-12 l:5.31e-09 len:0.01098 d:82
+  19  7 H20  gpio:080.081.1 ioblock:7A r:0.74147 c:1.41e-12 l:5.67e-09 len:0.01176 d:89
+  19  8 J20  f:GND t:vss
+  19  9 K20  gpio:072.081.0 ioblock:7A r:0.99022 c:1.8e-12 l:8.27e-09 len:0.01496 d:122
+  19 10 L20  f:VREFB5BN0 t:vref
+  19 11 M20  gpio:089.037.2 ioblock:5B r:0.42275 c:9.8e-13 l:4.21e-09 len:0.00678 d:64
+  19 12 N20  gpio:089.035.2 ioblock:5B r:0.46568 c:9.9e-13 l:4.17e-09 len:0.00724 d:64
+  19 13 P20  f:VCCIO5A t:vccn
+  19 14 R20  f:VREFB5AN0 t:vref
+  19 15 T20  gpio:089.004.3 ioblock:5A r:0.41812 c:1.04e-12 l:3.77e-09 len:0.00697 d:63
+  19 16 U20  gpio:072.000.2 ioblock:4A r:1.08717 c:1.61e-12 l:6.68e-09 len:0.01374 d:104
+  19 17 V20  gpio:062.000.1 ioblock:4A r:0.83942 c:1.42e-12 l:6.33e-09 len:0.01271 d:95 dq
+  19 18 W20  f:VCCIO4A t:vccn
+  19 19 Y20  gpio:066.000.1 ioblock:4A r:0.73917 c:1.41e-12 l:4.99e-09 len:0.00996 d:84 dq
+  19 20 AA20 gpio:062.000.2 ioblock:4A r:0.80284 c:1.38e-12 l:6.56e-09 len:0.01189 d:95 dq
+  19 21 AB20 gpio:058.000.3 ioblock:4A r:0.86794 c:1.2e-12 l:7.46e-09 len:0.01206 d:95
+  20  0 A21  f:GND t:vss
+  20  1 B21  gpio:082.081.1 ioblock:7A r:0.64166 c:1.49e-12 l:5.25e-09 len:0.01015 d:88 dq
+  20  2 C21  gpio:082.081.0 ioblock:7A r:0.74778 c:1.18e-12 l:5.57e-09 len:0.01061 d:81 dq
+  20  3 D21  gpio:088.081.3 ioblock:7A r:0.75906 c:1.43e-12 l:5.69e-09 len:0.01044 d:90 dq
+  20  4 E21  gpio:088.081.2 ioblock:7A r:0.76612 c:1.42e-12 l:6.34e-09 len:0.01118 d:95
+  20  5 F21  f:VCCIO7A t:vccn
+  20  6 G21  gpio:088.081.1 ioblock:7A r:0.69505 c:1.66e-12 l:5.24e-09 len:0.01101 d:93
+  20  7 H21  gpio:088.081.0 ioblock:7A r:0.74986 c:1.43e-12 l:5.67e-09 len:0.01179 d:90
+  20  8 J21  gpio:084.081.0 ioblock:7A r:0.89934 c:2.02e-12 l:6.76e-09 len:0.01414 d:117 dq dqs
+  20  9 K21  gpio:089.038.2 ioblock:5B r:0.50298 c:8e-13 l:4.28e-09 len:0.00745 d:59
+  20 10 L21  f:GND t:vss
+  20 11 M21  gpio:089.037.3 ioblock:5B r:0.428 c:9.8e-13 l:4.03e-09 len:0.00685 d:63
+  20 12 N21  gpio:089.035.3 ioblock:5B r:0.44487 c:9.9e-13 l:3.98e-09 len:0.00703 d:63
+  20 13 P21  f:VCCPD5A t:vccpd
+  20 14 R21  gpio:089.008.2 ioblock:5A r:0.36141 c:9.4e-13 l:3.54e-09 len:0.00615 d:58
+  20 15 T21  f:GND t:vss
+  20 16 U21  gpio:072.000.3 ioblock:4A r:1.56353 c:1.53e-12 l:6.26e-09 len:0.01381 d:98 dq
+  20 17 V21  gpio:070.000.2 ioblock:4A r:1.40231 c:1.54e-12 l:7.84e-09 len:0.01465 d:110 dq
+  20 18 W21  gpio:068.000.2 ioblock:4A r:1.23253 c:1.48e-12 l:7.53e-09 len:0.01401 d:106
+  20 19 Y21  gpio:068.000.3 ioblock:4A r:0.9035 c:1.41e-12 l:7.8e-09 len:0.01323 d:105 dq
+  20 20 AA21 f:VCCIO4A t:vccn
+  20 21 AB21 gpio:058.000.2 ioblock:4A r:1.00268 c:1.34e-12 l:6.85e-09 len:0.01286 d:96 dq
+  21  0 A22  gpio:078.081.3 ioblock:7A r:0.82928 c:1.78e-12 l:7.06e-09 len:0.01285 d:112
+  21  1 B22  gpio:078.081.2 ioblock:7A r:0.8707 c:1.73e-12 l:6.83e-09 len:0.01283 d:109 dq
+  21  2 C22  f:VCCIO7A t:vccn
+  21  3 D22  gpio:080.081.3 ioblock:7A r:1.04508 c:2.02e-12 l:8.06e-09 len:0.01528 d:128 dq
+  21  4 E22  gpio:080.081.2 ioblock:7A r:1.02356 c:2.09e-12 l:8.43e-09 len:0.01542 d:133
+  21  5 F22  gpio:082.081.3 ioblock:7A r:1.04779 c:2.1e-12 l:8.78e-09 len:0.01572 d:136
+  21  6 G22  gpio:082.081.2 ioblock:7A r:1.10329 c:2.16e-12 l:8.61e-09 len:0.01621 d:136 dq
+  21  7 H22  f:GND t:vss
+  21  8 J22  gpio:084.081.1 ioblock:7A r:0.88794 c:2e-12 l:6.58e-09 len:0.01385 d:115 dq dqsb
+  21  9 K22  gpio:089.038.3 ioblock:5B r:0.51067 c:1.11e-12 l:4.46e-09 len:0.00792 d:70
+  21 10 L22  gpio:089.036.3 ioblock:5B r:0.4427 c:1.04e-12 l:4.42e-09 len:0.00725 d:68
+  21 11 M22  gpio:089.036.2 ioblock:5B r:0.42972 c:9.5e-13 l:3.96e-09 len:0.00671 d:61
+  21 12 N22  f:GND t:vss
+  21 13 P22  gpio:089.008.3 ioblock:5A r:0.37074 c:8.6e-13 l:3.51e-09 len:0.0067 d:55
+  21 14 R22  gpio:089.006.3 ioblock:5A r:0.42031 c:1.07e-12 l:3.93e-09 len:0.00705 d:65
+  21 15 T22  gpio:089.006.2 ioblock:5A r:0.4282 c:1.05e-12 l:3.79e-09 len:0.00697 d:63
+  21 16 U22  gpio:070.000.3 ioblock:4A r:1.09414 c:1.69e-12 l:8.24e-09 len:0.01541 d:118
+  21 17 V22  f:GND t:vss
+  21 18 W22  gpio:066.000.2 ioblock:4A r:1.18277 c:1.91e-12 l:7.3e-09 len:0.01458 d:118 dq
+  21 19 Y22  gpio:066.000.3 ioblock:4A r:0.99525 c:1.89e-12 l:7.97e-09 len:0.01436 d:123
+  21 20 AA22 gpio:064.000.2 ioblock:4A r:0.90488 c:1.79e-12 l:7.48e-09 len:0.01316 d:116
+  21 21 AB22 gpio:064.000.3 ioblock:4A r:0.91626 c:1.79e-12 l:7.32e-09 len:0.01315 d:114 dq
+f31 width:30 height:30 widthmm:31 heightmm:31
+   0  1 B1   f:GND t:vss
+   0  2 C1   f:RREF_TL t:gxp-reference-resistor
+   0  3 D1   f:GND t:vss
+   0  4 E1   f:NC t:nc
+   0  5 F1   f:GND t:vss
+   0  6 G1   f:NC t:nc
+   0  7 H1   f:GND t:vss
+   0  8 J1   f:NC t:nc
+   0  9 K1   f:GND t:vss
+   0 10 L1   gpio:000.046.0 hssi_input:1 ioblock:B2L
+   0 11 M1   f:GND t:vss
+   0 12 N1   gpio:000.042.0 hssi_input:3 ioblock:B2L
+   0 13 P1   f:GND t:vss
+   0 14 R1   gpio:000.038.0 hssi_input:5 ioblock:B2L
+   0 15 T1   f:GND t:vss
+   0 16 U1   gpio:000.034.0 hssi_input:11 ioblock:B1L
+   0 17 V1   f:GND t:vss
+   0 18 W1   gpio:000.030.0 hssi_input:13 ioblock:B1L
+   0 19 Y1   f:GND t:vss
+   0 20 AA1  gpio:000.026.0 hssi_input:15 ioblock:B1L
+   0 21 AB1  f:GND t:vss
+   0 22 AC1  gpio:000.022.0 hssi_input:17 ioblock:B0L
+   0 23 AD1  f:GND t:vss
+   0 24 AE1  gpio:000.018.0 hssi_input:19 ioblock:B0L
+   0 25 AF1  f:GND t:vss
+   0 26 AG1  gpio:000.014.0 hssi_input:21 ioblock:B0L
+   0 27 AH1  f:GND t:vss
+   0 28 AJ1  gpio:020.000.2 ioblock:3B r:1.39845 c:2.42e-12 l:1.002e-08 len:0.01964 d:156
+   1  0 A2   gpio:012.081.3 ioblock:8A r:1.24694 c:2.15e-12 l:1.095e-08 len:0.01839 d:153
+   1  1 B2   f:GND t:vss
+   1  2 C2   f:GND t:vss
+   1  3 D2   f:GND t:vss
+   1  4 E2   f:NC t:nc
+   1  5 F2   f:GND t:vss
+   1  6 G2   f:NC t:nc
+   1  7 H2   f:GND t:vss
+   1  8 J2   f:NC t:nc
+   1  9 K2   f:GND t:vss
+   1 10 L2   gpio:000.046.1 hssi_input:0 ioblock:B2L
+   1 11 M2   f:GND t:vss
+   1 12 N2   gpio:000.042.1 hssi_input:2 ioblock:B2L
+   1 13 P2   f:GND t:vss
+   1 14 R2   gpio:000.038.1 hssi_input:4 ioblock:B2L
+   1 15 T2   f:GND t:vss
+   1 16 U2   gpio:000.034.1 hssi_input:10 ioblock:B1L
+   1 17 V2   f:GND t:vss
+   1 18 W2   gpio:000.030.1 hssi_input:12 ioblock:B1L
+   1 19 Y2   f:GND t:vss
+   1 20 AA2  gpio:000.026.1 hssi_input:14 ioblock:B1L
+   1 21 AB2  f:GND t:vss
+   1 22 AC2  gpio:000.022.1 hssi_input:16 ioblock:B0L
+   1 23 AD2  f:GND t:vss
+   1 24 AE2  gpio:000.018.1 hssi_input:18 ioblock:B0L
+   1 25 AF2  f:GND t:vss
+   1 26 AG2  gpio:000.014.1 hssi_input:20 ioblock:B0L
+   1 27 AH2  f:GND t:vss
+   1 28 AJ2  gpio:020.000.3 ioblock:3B r:1.32757 c:2.22e-12 l:1.209e-08 len:0.01902 d:164
+   1 29 AK2  f:GND t:vss
+   2  0 A3   gpio:012.081.2 ioblock:8A r:1.16288 c:2.07e-12 l:9.82e-09 len:0.01767 d:143
+   2  1 B3   f:DNU t:do-not-use
+   2  2 C3   f:GND t:vss
+   2  3 D3   f:NC t:nc
+   2  4 E3   f:GND t:vss
+   2  5 F3   f:NC t:nc
+   2  6 G3   f:GND t:vss
+   2  7 H3   f:NC t:nc
+   2  8 J3   f:GND t:vss
+   2  9 K3   gpio:000.043.0 hssi_output:0 ioblock:B2L
+   2 10 L3   f:GND t:vss
+   2 11 M3   gpio:000.039.0 hssi_output:2 ioblock:B2L
+   2 12 N3   f:GND t:vss
+   2 13 P3   gpio:000.035.0 hssi_output:4 ioblock:B2L
+   2 14 R3   f:GND t:vss
+   2 15 T3   gpio:000.031.0 hssi_output:6 ioblock:B1L
+   2 16 U3   f:GND t:vss
+   2 17 V3   gpio:000.027.0 hssi_output:8 ioblock:B1L
+   2 18 W3   f:GND t:vss
+   2 19 Y3   gpio:000.023.0 hssi_output:10 ioblock:B1L
+   2 20 AA3  f:GND t:vss
+   2 21 AB3  gpio:000.019.0 hssi_output:12 ioblock:B0L
+   2 22 AC3  f:GND t:vss
+   2 23 AD3  gpio:000.015.0 hssi_output:14 ioblock:B0L
+   2 24 AE3  f:GND t:vss
+   2 25 AF3  gpio:000.011.0 hssi_output:16 ioblock:B0L
+   2 26 AG3  f:GND t:vss
+   2 27 AH3  f:GND t:vss
+   2 28 AJ3  gpio:022.000.2 ioblock:3B r:1.28632 c:2.5e-12 l:8.88e-09 len:0.01807 d:149
+   2 29 AK3  gpio:022.000.3 ioblock:3B r:1.29441 c:2.48e-12 l:9.28e-09 len:0.01825 d:152
+   3  0 A4   gpio:022.081.3 ioblock:8A r:1.16774 c:2.49e-12 l:9.65e-09 len:0.01793 d:155
+   3  1 B4   f:DNU t:do-not-use
+   3  2 C4   f:GND t:vss
+   3  3 D4   f:NC t:nc
+   3  4 E4   f:GND t:vss
+   3  5 F4   f:NC t:nc
+   3  6 G4   f:GND t:vss
+   3  7 H4   f:NC t:nc
+   3  8 J4   f:GND t:vss
+   3  9 K4   gpio:000.043.1 hssi_output:1 ioblock:B2L
+   3 10 L4   f:GND t:vss
+   3 11 M4   gpio:000.039.1 hssi_output:3 ioblock:B2L
+   3 12 N4   f:GND t:vss
+   3 13 P4   gpio:000.035.1 hssi_output:5 ioblock:B2L
+   3 14 R4   f:GND t:vss
+   3 15 T4   gpio:000.031.1 hssi_output:7 ioblock:B1L
+   3 16 U4   f:GND t:vss
+   3 17 V4   gpio:000.027.1 hssi_output:9 ioblock:B1L
+   3 18 W4   f:GND t:vss
+   3 19 Y4   gpio:000.023.1 hssi_output:11 ioblock:B1L
+   3 20 AA4  f:GND t:vss
+   3 21 AB4  gpio:000.019.1 hssi_output:13 ioblock:B0L
+   3 22 AC4  f:GND t:vss
+   3 23 AD4  gpio:000.015.1 hssi_output:15 ioblock:B0L
+   3 24 AE4  f:GND t:vss
+   3 25 AF4  gpio:000.011.1 hssi_output:17 ioblock:B0L
+   3 26 AG4  f:GND t:vss
+   3 27 AH4  gpio:014.000.0 ioblock:3A r:1.05076 c:2.17e-12 l:7.96e-09 len:0.01593 d:131
+   3 28 AJ4  gpio:024.000.2 ioblock:3B r:1.21184 c:2.44e-12 l:9.05e-09 len:0.01752 d:149
+   3 29 AK4  f:VCCIO3B t:vccn
+   4  0 A5   gpio:022.081.2 ioblock:8A r:1.1813 c:2.31e-12 l:9.36e-09 len:0.01747 d:147
+   4  1 B5   f:VCCIO8A t:vccn
+   4  2 C5   gpio:013.081.0 dedicated_programming_pad:14 ioblock:9A r:0.84581 c:1.74e-12 l:6.69e-09 len:0.01303 d:108
+   4  3 D5   f:GND t:vss
+   4  4 E5   f:GND t:vss gpio:083.081.0 dedicated_programming_pad:16 ioblock:9A r:0.72268 c:1.43e-12 l:5.99e-09 len:0.01129 d:92
+   4  5 F5   f:GND t:vss
+   4  6 G5   gpio:011.081.2 dedicated_programming_pad:12 ioblock:9A r:0.67747 c:1.06e-12 l:5.84e-09 len:0.01069 d:79
+   4  7 H5   f:GND t:vss
+   4  8 J5   f:VCCE_GXBL t:vcc
+   4  9 K5   f:GND t:vss
+   4 10 L5   f:VCCL_GXBL t:vcc
+   4 11 M5   f:GND t:vss
+   4 12 N5   f:VCCE_GXBL t:vcc
+   4 13 P5   f:GND t:vss
+   4 14 R5   f:VCCL_GXBL t:vcc
+   4 15 T5   f:GND t:vss
+   4 16 U5   f:VCCE_GXBL t:vcc
+   4 17 V5   f:GND t:vss
+   4 18 W5   f:VCCL_GXBL t:vcc
+   4 19 Y5   f:GND t:vss
+   4 20 AA5  f:VCCE_GXBL t:vcc
+   4 21 AB5  f:GND t:vss
+   4 22 AC5  f:VCCL_GXBL t:vcc
+   4 23 AD5  f:GND t:vss
+   4 24 AE5  gpio:013.000.3 dedicated_programming_pad:3 ioblock:3A r:0.68801 c:1.67e-12 l:6.15e-09 len:0.01152 d:101
+   4 25 AF5  f:GND t:vss
+   4 26 AG5  gpio:015.000.1 dedicated_programming_pad:5 ioblock:3A r:0.71159 c:1.58e-12 l:5.82e-09 len:0.01112 d:96
+   4 27 AH5  gpio:014.000.1 ioblock:3A r:1.04182 c:2.21e-12 l:7.76e-09 len:0.01568 d:131
+   4 28 AJ5  gpio:024.000.3 ioblock:3B r:1.19894 c:2.33e-12 l:8.5e-09 len:0.01687 d:141
+   4 29 AK5  gpio:026.000.2 ioblock:3B r:1.16161 c:1.95e-12 l:8.44e-09 len:0.01667 d:128
+   5  0 A6   gpio:028.081.3 ioblock:8A r:1.30472 c:2.21e-12 l:9.44e-09 len:0.01786 d:144
+   5  1 B6   gpio:028.081.2 ioblock:8A r:1.19163 c:2.26e-12 l:9.52e-09 len:0.01738 d:147
+   5  2 C6   gpio:026.081.3 ioblock:8A r:1.1563 c:2.12e-12 l:9.05e-09 len:0.01675 d:139
+   5  3 D6   gpio:010.081.3 ioblock:8A r:0.82281 c:1.78e-12 l:6.9e-09 len:0.01262 d:111
+   5  4 E6   gpio:008.081.3 ioblock:8A r:0.8047 c:1.69e-12 l:6.31e-09 len:0.01204 d:103
+   5  5 F6   gpio:004.081.3 ioblock:8A r:0.87673 c:1.47e-12 l:7.05e-09 len:0.01313 d:102
+   5  6 G6   gpio:004.081.2 ioblock:8A r:0.88209 c:1.47e-12 l:7.45e-09 len:0.01332 d:105
+   5  7 H6   gpio:011.081.1 dedicated_programming_pad:11 ioblock:9A r:0.62955 c:1.05e-12 l:5.34e-09 len:0.00976 d:75
+   5  8 J6   f:GND t:vss
+   5  9 K6   f:VCCH_GXBL t:vcc
+   5 10 L6   f:GND t:vss
+   5 11 M6   f:VCCE_GXBL t:vcc
+   5 12 N6   f:GND t:vss
+   5 13 P6   f:VCCH_GXBL t:vcc
+   5 14 R6   f:GND t:vss
+   5 15 T6   f:VCCE_GXBL t:vcc
+   5 16 U6   f:GND t:vss
+   5 17 V6   f:VCCH_GXBL t:vcc
+   5 18 W6   f:GND t:vss
+   5 19 Y6   f:VCCE_GXBL t:vcc
+   5 20 AA6  f:GND t:vss
+   5 21 AB6  f:VCCH_GXBL t:vcc
+   5 22 AC6  f:GND t:vss
+   5 23 AD6  f:VCCE_GXBL t:vcc
+   5 24 AE6  f:GND t:vss
+   5 25 AF6  gpio:008.000.3 ioblock:3A r:0.94271 c:1.57e-12 l:7.23e-09 len:0.01414 d:106
+   5 26 AG6  gpio:010.000.0 ioblock:3A r:0.96866 c:1.84e-12 l:7.45e-09 len:0.01462 d:117
+   5 27 AH6  gpio:010.000.1 ioblock:3A r:0.97603 c:2.06e-12 l:7.53e-09 len:0.01492 d:125
+   5 28 AJ6  f:GND t:vss
+   5 29 AK6  gpio:026.000.3 ioblock:3B r:1.13734 c:1.9e-12 l:8.78e-09 len:0.01626 d:129
+   6  0 A7   f:VCCIO8A t:vccn
+   6  1 B7   gpio:030.081.2 ioblock:8A r:1.22575 c:1.83e-12 l:9.59e-09 len:0.01711 d:132
+   6  2 C7   gpio:026.081.2 ioblock:8A r:1.10794 c:2.03e-12 l:9.06e-09 len:0.01646 d:136
+   6  3 D7   gpio:010.081.2 ioblock:8A r:0.81876 c:1.73e-12 l:6.5e-09 len:0.01224 d:106
+   6  4 E7   gpio:008.081.2 ioblock:8A r:0.76732 c:1.67e-12 l:6.54e-09 len:0.01174 d:104
+   6  5 F7   f:VCCIO8A t:vccn
+   6  6 G7   gpio:002.081.3 ioblock:8A r:0.78187 c:1.25e-12 l:6.14e-09 len:0.01152 d:88
+   6  7 H7   gpio:020.081.3 ioblock:8A r:1.40454 c:2.52e-12 l:1.081e-08 len:0.02148 d:165
+   6  8 J7   gpio:020.081.2 ioblock:8A r:1.35869 c:2.53e-12 l:1.124e-08 len:0.02137 d:169
+   6  9 K7   gpio:011.081.0 dedicated_programming_pad:10 ioblock:9A r:0.65986 c:1.1e-12 l:5.93e-09 len:0.01023 d:81
+   6 10 L7   f:NC t:nc
+   6 11 M7   gpio:013.081.1 dedicated_programming_pad:15 ioblock:9A r:0.51797 c:9.6e-13 l:4.85e-09 len:0.00878 d:68
+   6 12 N7   gpio:000.043.2 hssi_input:7 ioblock:B2L
+   6 13 P7   gpio:011.081.3 dedicated_programming_pad:13 ioblock:9A r:0.64399 c:1.37e-12 l:5.18e-09 len:0.01118 d:84
+   6 14 R7   gpio:000.031.2 hssi_input:8 ioblock:B1L
+   6 15 T7   gpio:015.000.0 dedicated_programming_pad:4 ioblock:3A r:0.87342 c:1.64e-12 l:7.55e-09 len:0.01415 d:111
+   6 16 U7   gpio:013.000.2 jtag:3 ioblock:3A r:0.85842 c:1.67e-12 l:7.11e-09 len:0.01361 d:109
+   6 17 V7   gpio:011.000.2 jtag:1 ioblock:3A r:0.5477 c:1.09e-12 l:5.69e-09 len:0.00953 d:79
+   6 18 W7   gpio:000.019.2 hssi_input:23 ioblock:B0L
+   6 19 Y7   f:GND t:vss
+   6 20 AA7  gpio:011.000.1 dedicated_programming_pad:0 ioblock:3A r:0.56235 c:8.9e-13 l:6.33e-09 len:0.00917 d:75
+   6 21 AB7  gpio:011.000.3 dedicated_programming_pad:1 ioblock:3A r:0.54387 c:9.2e-13 l:5.5e-09 len:0.00877 d:71
+   6 22 AC7  gpio:013.000.0 jtag:2 ioblock:3A r:0.46849 c:1.34e-12 l:4.9e-09 len:0.00825 d:81
+   6 23 AD7  f:GND t:vss
+   6 24 AE7  gpio:013.000.1 dedicated_programming_pad:2 ioblock:3A r:0.49587 c:1.26e-12 l:4.97e-09 len:0.00828 d:79
+   6 25 AF7  gpio:008.000.2 ioblock:3A r:0.8999 c:1.5e-12 l:7.18e-09 len:0.01362 d:104
+   6 26 AG7  gpio:016.000.2 ioblock:3A r:0.83441 c:1.67e-12 l:6.77e-09 len:0.0125 d:106
+   6 27 AH7  gpio:016.000.3 ioblock:3A r:0.78766 c:1.57e-12 l:6.6e-09 len:0.01176 d:102
+   6 28 AJ7  gpio:028.000.2 ioblock:3B r:1.03864 c:1.81e-12 l:8.57e-09 len:0.0154 d:125
+   6 29 AK7  gpio:028.000.3 ioblock:3B r:1.05172 c:2.03e-12 l:7.92e-09 len:0.01481 d:127
+   7  0 A8   gpio:030.081.3 ioblock:8A r:1.21281 c:1.88e-12 l:1.01e-08 len:0.01753 d:138
+   7  1 B8   gpio:032.081.3 ioblock:8A r:1.11263 c:1.87e-12 l:9.11e-09 len:0.01602 d:130
+   7  2 C8   f:VCCIO8A t:vccn
+   7  3 D8   gpio:014.081.3 ioblock:8A r:0.82267 c:1.42e-12 l:6.95e-09 len:0.01234 d:99
+   7  4 E8   gpio:014.081.2 ioblock:8A r:0.87913 c:1.51e-12 l:6.94e-09 len:0.01301 d:102
+   7  5 F8   gpio:016.081.3 ioblock:8A r:1.06372 c:1.79e-12 l:8.09e-09 len:0.01589 d:120
+   7  6 G8   gpio:002.081.2 ioblock:8A r:0.74539 c:1.21e-12 l:5.96e-09 len:0.01109 d:85
+   7  7 H8   f:GND t:vss
+   7  8 J8   f:VCCA_FPLL t:vcc
+   7  9 K8   f:NC t:nc
+   7 10 L8   gpio:009.081.2 dedicated_programming_pad:8 ioblock:9A r:0.77819 c:1.28e-12 l:7.06e-09 len:0.01218 d:95
+   7 11 M8   gpio:036.081.1 ioblock:8A r:0.8419 c:1.55e-12 l:8e-09 len:0.01396 d:112
+   7 12 N8   f:GND t:vss
+   7 13 P8   gpio:000.043.3 hssi_input:6 ioblock:B2L
+   7 14 R8   gpio:000.031.3 hssi_input:9 ioblock:B1L
+   7 15 T8   gpio:009.081.1 dedicated_programming_pad:7 ioblock:9A r:0.74924 c:1.52e-12 l:6.92e-09 len:0.01298 d:103
+   7 16 U8   gpio:012.000.1 ioblock:3A r:0.84038 c:1.49e-12 l:8.06e-09 len:0.01388 d:109
+   7 17 V8   f:GND t:vss
+   7 18 W8   gpio:000.019.3 hssi_input:22 ioblock:B0L
+   7 19 Y8   f:VCCA_FPLL t:vcc
+   7 20 AA8  gpio:014.000.2 ioblock:3A r:1.16433 c:1.77e-12 l:9.39e-09 len:0.01752 d:129
+   7 21 AB8  gpio:014.000.3 ioblock:3A r:1.13926 c:1.89e-12 l:9.98e-09 len:0.01727 d:137
+   7 22 AC8  f:VCCIO3A t:vccn
+   7 23 AD8  f:DNU t:do-not-use
+   7 24 AE8  f:VREFB3AN0 t:vref
+   7 25 AF8  gpio:012.000.2 ioblock:3A r:0.71412 c:1.49e-12 l:6.49e-09 len:0.01067 d:98
+   7 26 AG8  gpio:012.000.3 ioblock:3A r:0.70247 c:1.4e-12 l:5.83e-09 len:0.01007 d:90
+   7 27 AH8  f:GND t:vss
+   7 28 AJ8  gpio:030.000.2 ioblock:3B r:1.00744 c:1.63e-12 l:8.07e-09 len:0.01463 d:115
+   7 29 AK8  gpio:030.000.3 ioblock:3B r:0.97786 c:1.97e-12 l:8.4e-09 len:0.01468 d:129
+   8  0 A9   gpio:034.081.3 ioblock:8A r:1.06364 c:1.98e-12 l:9.84e-09 len:0.01563 d:140
+   8  1 B9   f:VREFB8AN0 t:vref
+   8  2 C9   gpio:032.081.2 ioblock:8A r:1.10862 c:1.69e-12 l:9.99e-09 len:0.01641 d:130
+   8  3 D9   gpio:036.081.2 ioblock:8A r:1.2289 c:1.95e-12 l:1.095e-08 len:0.01822 d:146
+   8  4 E9   f:GND t:vss
+   8  5 F9   gpio:038.081.2 ioblock:8A r:1.27582 c:1.86e-12 l:1.126e-08 len:0.01974 d:145
+   8  6 G9   gpio:016.081.2 ioblock:8A r:1.10123 c:1.87e-12 l:8.49e-09 len:0.01664 d:126
+   8  7 H9   gpio:018.081.3 ioblock:8A r:1.12243 c:1.92e-12 l:9.03e-09 len:0.01711 d:132
+   8  8 J9   gpio:018.081.2 ioblock:8A r:1.16584 c:2.01e-12 l:9.25e-09 len:0.01781 d:136
+   8  9 K9   f:GND t:vss
+   8 10 L9   gpio:024.081.1 ioblock:8A r:0.69946 c:1.08e-12 l:7.25e-09 len:0.01161 d:89
+   8 11 M9   gpio:036.081.0 ioblock:8A r:0.80368 c:1.44e-12 l:7.8e-09 len:0.01328 d:106
+   8 12 N9   gpio:004.081.1 ioblock:8A r:0.48172 c:1.01e-12 l:4.64e-09 len:0.00864 d:68
+   8 13 P9   gpio:009.081.3 dedicated_programming_pad:9 ioblock:9A r:0.5239 c:1.14e-12 l:4.43e-09 len:0.00903 d:71
+   8 14 R9   f:GND t:vss
+   8 15 T9   gpio:012.000.0 ioblock:3A r:0.88489 c:1.61e-12 l:9.65e-09 len:0.01456 d:125
+   8 16 U9   gpio:016.000.1 ioblock:3A r:0.77178 c:1.44e-12 l:8.03e-09 len:0.01275 d:107
+   8 17 V9   gpio:006.000.2 ioblock:3A r:0.83197 c:1.49e-12 l:8.27e-09 len:0.01352 d:111
+   8 18 W9   gpio:011.000.0 jtag:0 ioblock:3A r:0.38682 c:7e-13 l:3.84e-09 len:0.00684 d:52
+   8 19 Y9   f:VCCIO3A t:vccn
+   8 20 AA9  gpio:010.000.2 ioblock:3A r:0.97037 c:1.53e-12 l:8.34e-09 len:0.01432 d:113
+   8 21 AB9  gpio:010.000.3 ioblock:3A r:0.90645 c:1.37e-12 l:8.15e-09 len:0.01359 d:106
+   8 22 AC9  gpio:004.000.2 ioblock:3A r:0.49264 c:7e-13 l:5.12e-09 len:0.00809 d:60
+   8 23 AD9  gpio:004.000.3 ioblock:3A r:0.489 c:7.8e-13 l:4.53e-09 len:0.00751 d:59
+   8 24 AE9  f:GND t:vss
+   8 25 AF9  gpio:032.000.2 ioblock:3B r:1.2158 c:1.98e-12 l:1.033e-08 len:0.01821 d:143
+   8 26 AG9  gpio:032.000.3 ioblock:3B r:1.20379 c:1.87e-12 l:1.04e-08 len:0.0178 d:139
+   8 27 AH9  gpio:034.000.2 ioblock:3B r:0.98338 c:1.62e-12 l:8.53e-09 len:0.01505 d:117
+   8 28 AJ9  gpio:034.000.3 ioblock:3B r:0.96356 c:1.58e-12 l:7.9e-09 len:0.01434 d:112
+   8 29 AK9  f:VCCIO3B t:vccn
+   9  0 A10  gpio:034.081.2 ioblock:8A r:1.16379 c:1.72e-12 l:9.81e-09 len:0.01613 d:130
+   9  1 B10  f:GND t:vss
+   9  2 C10  gpio:036.081.3 ioblock:8A r:1.22223 c:1.87e-12 l:1.035e-08 len:0.01775 d:139
+   9  3 D10  gpio:026.081.1 ioblock:8A r:0.77941 c:1.24e-12 l:6.54e-09 len:0.01212 d:90
+   9  4 E10  gpio:038.081.3 ioblock:8A r:1.28251 c:2.13e-12 l:1.027e-08 len:0.01941 d:148
+   9  5 F10  f:VCCPGM t:vcc
+   9  6 G10  f:VCCIO8A t:vccn
+   9  7 H10  f:VCCBAT t:vcc
+   9  8 J10  gpio:006.081.3 ioblock:8A r:0.72747 c:1.07e-12 l:6.55e-09 len:0.0115 d:84
+   9  9 K10  gpio:006.081.2 ioblock:8A r:0.7002 c:8.2e-13 l:5.65e-09 len:0.01075 d:68
+   9 10 L10  gpio:024.081.0 ioblock:8A r:0.70119 c:1.19e-12 l:6.65e-09 len:0.01195 d:89
+   9 11 M10  f:GND t:vss
+   9 12 N10  gpio:004.081.0 ioblock:8A r:0.4444 c:9.8e-13 l:3.69e-09 len:0.00798 d:60
+   9 13 P10  gpio:010.081.0 ioblock:8A r:0.81993 c:1.5e-12 l:8.03e-09 len:0.01368 d:110
+   9 14 R10  gpio:006.000.1 ioblock:3A r:0.77631 c:1.48e-12 l:7.03e-09 len:0.01304 d:102
+   9 15 T10  gpio:016.000.0 ioblock:3A r:0.77861 c:1.47e-12 l:7.02e-09 len:0.01294 d:101
+   9 16 U10  f:VCCIO3A t:vccn
+   9 17 V10  gpio:008.000.1 ioblock:3A r:0.60067 c:1.17e-12 l:5.71e-09 len:0.01007 d:82
+   9 18 W10  gpio:006.000.3 ioblock:3A r:0.80111 c:1.28e-12 l:8.15e-09 len:0.01305 d:102
+   9 19 Y10  gpio:002.000.2 ioblock:3A r:0.689 c:1.19e-12 l:5.44e-09 len:0.01066 d:80
+   9 20 AA10 gpio:002.000.3 ioblock:3A r:0.66503 c:1.11e-12 l:5.45e-09 len:0.01049 d:78
+   9 21 AB10 f:GND t:vss
+   9 22 AC10 f:VCC_AUX t:vcc
+   9 23 AD10 f:VCCPD3A t:vccpd
+   9 24 AE10 gpio:018.000.2 ioblock:3B r:0.96455 c:1.43e-12 l:6.89e-09 len:0.01354 d:99
+   9 25 AF10 gpio:018.000.3 ioblock:3B r:0.83692 c:1.35e-12 l:7.52e-09 len:0.01276 d:101
+   9 26 AG10 f:VCCIO3B t:vccn
+   9 27 AH10 gpio:034.000.0 ioblock:3B r:0.85784 c:1.57e-12 l:6.79e-09 len:0.01331 d:103
+   9 28 AJ10 gpio:034.000.1 ioblock:3B r:0.87789 c:1.58e-12 l:7.07e-09 len:0.01364 d:106
+   9 29 AK10 gpio:036.000.2 ioblock:3B r:0.96509 c:1.6e-12 l:9.2e-09 len:0.01492 d:121
+  10  0 A11  gpio:040.081.3 ioblock:8A r:1.04812 c:1.9e-12 l:8.02e-09 len:0.01501 d:123
+  10  1 B11  gpio:040.081.2 ioblock:8A r:1.0211 c:1.91e-12 l:7.74e-09 len:0.01481 d:121
+  10  2 C11  gpio:050.081.2 ioblock:7A r:1.10058 c:1.6e-12 l:9.34e-09 len:0.01618 d:122 dq
+  10  3 D11  f:VCCIO8A t:vccn
+  10  4 E11  gpio:026.081.0 ioblock:8A r:0.79075 c:1.23e-12 l:6e-09 len:0.01138 d:86
+  10  5 F11  f:VCCPD7A8A t:vccpd
+  10  6 G11  f:VCC_AUX t:vcc
+  10  7 H11  f:GND t:vss
+  10  8 J11  f:GND t:vss
+  10  9 K11  gpio:018.081.1 ioblock:8A r:0.71318 c:1.04e-12 l:5.4e-09 len:0.01074 d:75
+  10 10 L11  gpio:018.081.0 ioblock:8A r:0.74311 c:1.24e-12 l:5.85e-09 len:0.01149 d:85
+  10 11 M11  gpio:002.081.1 ioblock:8A r:0.48455 c:1.25e-12 l:4.1e-09 len:0.00817 d:72
+  10 12 N11  gpio:010.081.1 ioblock:8A r:0.78645 c:1.44e-12 l:7.41e-09 len:0.0131 d:103
+  10 13 P11  f:GND t:vss
+  10 14 R11  gpio:008.081.1 ioblock:8A r:0.50206 c:1.08e-12 l:4.84e-09 len:0.00904 d:72
+  10 15 T11  gpio:006.000.0 ioblock:3A r:0.77859 c:1.58e-12 l:7.31e-09 len:0.01294 d:107
+  10 16 U11  gpio:002.000.0 ioblock:3A r:0.44403 c:1.28e-12 l:3.78e-09 len:0.00806 d:70
+  10 17 V11  gpio:008.000.0 ioblock:3A r:0.5737 c:1e-12 l:6.06e-09 len:0.00928 d:78
+  10 18 W11  f:GND t:vss
+  10 19 Y11  gpio:004.000.1 ioblock:3A r:0.44677 c:6.2e-13 l:4.72e-09 len:0.0074 d:54
+  10 20 AA11 gpio:004.000.0 ioblock:3A r:0.4484 c:6.4e-13 l:5.25e-09 len:0.00758 d:58
+  10 21 AB11 f:VCCPD3A t:vccpd
+  10 22 AC11 f:VCCPGM t:vcc
+  10 23 AD11 f:VCCIO3A t:vccn
+  10 24 AE11 f:VCCPD3B4A t:vccpd
+  10 25 AF11 gpio:030.000.0 ioblock:3B r:0.82711 c:1.46e-12 l:7.13e-09 len:0.01312 d:102
+  10 26 AG11 gpio:030.000.1 ioblock:3B r:0.77607 c:1.34e-12 l:6.89e-09 len:0.01235 d:96
+  10 27 AH11 gpio:038.000.2 ioblock:3B r:0.88369 c:1.37e-12 l:7.67e-09 len:0.01304 d:103
+  10 28 AJ11 f:GND t:vss
+  10 29 AK11 gpio:036.000.3 ioblock:3B r:1.0055 c:1.64e-12 l:8.55e-09 len:0.01492 d:118
+  11  0 A12  f:GND t:vss
+  11  1 B12  gpio:050.081.3 ioblock:7A r:1.05165 c:1.6e-12 l:8.98e-09 len:0.01557 d:120
+  11  2 C12  gpio:054.081.3 ioblock:7A r:1.04306 c:1.81e-12 l:8.99e-09 len:0.01593 d:128
+  11  3 D12  gpio:054.081.2 ioblock:7A r:1.0606 c:1.75e-12 l:8.57e-09 len:0.01586 d:122 dq
+  11  4 E12  gpio:030.081.0 ioblock:8A r:0.75606 c:1.11e-12 l:5.33e-09 len:0.01033 d:77
+  11  5 F12  f:GND t:vss
+  11  6 G12  gpio:014.081.1 ioblock:8A r:0.42113 c:6.3e-13 l:3.34e-09 len:0.00627 d:46
+  11  7 H12  gpio:014.081.0 ioblock:8A r:0.45811 c:6.9e-13 l:3.62e-09 len:0.00644 d:50
+  11  8 J12  gpio:006.081.1 ioblock:8A r:0.38384 c:6.5e-13 l:3.44e-09 len:0.00627 d:47
+  11  9 K12  gpio:006.081.0 ioblock:8A r:0.36829 c:6.2e-13 l:3.49e-09 len:0.00601 d:47
+  11 10 L12  f:VCCIO8A t:vccn
+  11 11 M12  gpio:002.081.0 ioblock:8A r:0.50073 c:1.32e-12 l:4.13e-09 len:0.00848 d:74
+  11 12 N12  gpio:016.081.1 ioblock:8A r:0.46815 c:9.6e-13 l:3.85e-09 len:0.0083 d:61
+  11 13 P12  gpio:016.081.0 ioblock:8A r:0.51986 c:1.04e-12 l:4.57e-09 len:0.00885 d:69
+  11 14 R12  gpio:008.081.0 ioblock:8A r:0.46569 c:9.9e-13 l:4.39e-09 len:0.0085 d:66
+  11 15 T12  f:GND t:vss
+  11 16 U12  gpio:002.000.1 ioblock:3A r:0.48223 c:1.32e-12 l:4.07e-09 len:0.00872 d:73
+  11 17 V12  gpio:020.000.0 ioblock:3B r:0.48752 c:1e-12 l:4.39e-09 len:0.00849 d:66
+  11 18 W12  gpio:020.000.1 ioblock:3B r:0.46627 c:9.4e-13 l:3.97e-09 len:0.00791 d:61
+  11 19 Y12  gpio:028.000.0 ioblock:3B r:0.43351 c:8.6e-13 l:4.4e-09 len:0.00771 d:61
+  11 20 AA12 f:VCCIO3B t:vccn
+  11 21 AB12 gpio:024.000.0 ioblock:3B r:0.36489 c:6.3e-13 l:3.89e-09 len:0.00631 d:49
+  11 22 AC12 f:VCCPD3B4A t:vccpd
+  11 23 AD12 gpio:018.000.0 ioblock:3B r:0.39422 c:8.7e-13 l:3.52e-09 len:0.00632 d:55
+  11 24 AE12 gpio:022.000.0 ioblock:3B r:0.44938 c:7e-13 l:4.26e-09 len:0.00721 d:55
+  11 25 AF12 f:GND t:vss
+  11 26 AG12 gpio:026.000.1 ioblock:3B r:0.5266 c:8.8e-13 l:4.55e-09 len:0.0083 d:63
+  11 27 AH12 gpio:038.000.3 ioblock:3B r:0.86539 c:1.36e-12 l:8.46e-09 len:0.01311 d:107
+  11 28 AJ12 gpio:040.000.2 ioblock:3B r:0.90847 c:1.44e-12 l:7e-09 len:0.01298 d:100
+  11 29 AK12 gpio:040.000.3 ioblock:3B r:0.91812 c:1.41e-12 l:7.11e-09 len:0.01293 d:100
+  12  0 A13  gpio:052.081.3 ioblock:7A r:0.87987 c:1.78e-12 l:7.56e-09 len:0.01332 d:116 dq
+  12  1 B13  gpio:052.081.2 ioblock:7A r:0.8669 c:1.89e-12 l:7.66e-09 len:0.01339 d:120
+  12  2 C13  f:GND t:vss
+  12  3 D13  gpio:030.081.1 ioblock:8A r:0.6369 c:9.6e-13 l:5.2e-09 len:0.00964 d:71
+  12  4 E13  gpio:024.081.3 ioblock:8A r:0.54558 c:6.9e-13 l:4.87e-09 len:0.00807 d:58
+  12  5 F13  gpio:024.081.2 ioblock:8A r:0.54979 c:7.9e-13 l:4.98e-09 len:0.00844 d:63
+  12  6 G13  f:VCCPD7A8A t:vccpd
+  12  7 H13  f:VCCIO8A t:vccn
+  12  8 J13  gpio:012.081.1 ioblock:8A r:0.35775 c:5.4e-13 l:4.37e-09 len:0.006 d:49
+  12  9 K13  gpio:012.081.0 ioblock:8A r:0.34959 c:5.4e-13 l:3.93e-09 len:0.0058 d:46
+  12 10 L13  gpio:032.081.1 ioblock:8A r:0.50008 c:8e-13 l:4.86e-09 len:0.00813 d:62
+  12 11 M13  f:VCC t:vcc
+  12 12 N13  f:GND t:vss
+  12 13 P13  f:VCC t:vcc
+  12 14 R13  f:GND t:vss
+  12 15 T13  f:VCC t:vcc
+  12 16 U13  f:GND t:vss
+  12 17 V13  f:VCC t:vcc
+  12 18 W13  f:GND t:vss
+  12 19 Y13  gpio:036.000.0 ioblock:3B r:0.33978 c:6.5e-13 l:3.36e-09 len:0.00602 d:47
+  12 20 AA13 gpio:028.000.1 ioblock:3B r:0.43585 c:8.2e-13 l:4.47e-09 len:0.00792 d:61
+  12 21 AB13 gpio:024.000.1 ioblock:3B r:0.34877 c:5.6e-13 l:4.31e-09 len:0.00578 d:49
+  12 22 AC13 f:GND t:vss
+  12 23 AD13 gpio:018.000.1 ioblock:3B r:0.36426 c:1.04e-12 l:3.57e-09 len:0.00637 d:61
+  12 24 AE13 gpio:022.000.1 ioblock:3B r:0.41009 c:6.5e-13 l:3.78e-09 len:0.00648 d:50
+  12 25 AF13 gpio:026.000.0 ioblock:3B r:0.4855 c:7.6e-13 l:4.53e-09 len:0.00756 d:59
+  12 26 AG13 gpio:038.000.0 ioblock:3B r:0.61944 c:8.2e-13 l:6.15e-09 len:0.00957 d:71
+  12 27 AH13 f:VCCIO3B t:vccn
+  12 28 AJ13 f:VREFB3BN0 t:vref
+  12 29 AK13 gpio:050.000.3 ioblock:4A r:0.88417 c:1.38e-12 l:7.2e-09 len:0.01255 d:100
+  13  0 A14  gpio:056.081.3 ioblock:7A r:0.89659 c:1.53e-12 l:7.4e-09 len:0.01294 d:107 dq
+  13  1 B14  gpio:056.081.2 ioblock:7A r:0.8511 c:1.67e-12 l:7.53e-09 len:0.01316 d:112
+  13  2 C14  gpio:060.081.3 ioblock:7A r:1.15272 c:1.76e-12 l:8.3e-09 len:0.01625 d:121 dq
+  13  3 D14  gpio:060.081.2 ioblock:7A r:1.09358 c:1.59e-12 l:8.64e-09 len:0.01585 d:117
+  13  4 E14  f:VCCIO8A t:vccn
+  13  5 F14  gpio:022.081.1 ioblock:8A r:0.37111 c:7.6e-13 l:3.09e-09 len:0.00579 d:48
+  13  6 G14  gpio:022.081.0 ioblock:8A r:0.33776 c:7.6e-13 l:3e-09 len:0.00534 d:48
+  13  7 H14  gpio:020.081.1 ioblock:8A r:0.24081 c:6.1e-13 l:2.5e-09 len:0.00427 d:39
+  13  8 J14  gpio:020.081.0 ioblock:8A r:0.26947 c:6.5e-13 l:2.93e-09 len:0.00451 d:44
+  13  9 K14  f:GND t:vss
+  13 10 L14  gpio:032.081.0 ioblock:8A r:0.49934 c:9.1e-13 l:3.86e-09 len:0.008 d:59
+  13 11 M14  f:GND t:vss
+  13 12 N14  f:VCC t:vcc
+  13 13 P14  f:GND t:vss
+  13 14 R14  f:VCC t:vcc
+  13 15 T14  f:GND t:vss
+  13 16 U14  f:VCC t:vcc
+  13 17 V14  f:GND t:vss
+  13 18 W14  f:VCC t:vcc
+  13 19 Y14  f:GND t:vss
+  13 20 AA14 gpio:036.000.1 ioblock:3B r:0.29899 c:5.8e-13 l:2.94e-09 len:0.00541 d:41
+  13 21 AB14 gpio:032.000.0 ioblock:3B r:0.25742 c:7.8e-13 l:2.74e-09 len:0.00482 d:46
+  13 22 AC14 gpio:032.000.1 ioblock:3B r:0.24704 c:7.2e-13 l:2.51e-09 len:0.00447 d:42
+  13 23 AD14 f:DNU t:do-not-use
+  13 24 AE14 f:VCCIO3B t:vccn
+  13 25 AF14 gpio:056.000.3 ioblock:4A r:0.82951 c:9.8e-13 l:5.29e-09 len:0.01068 d:72 dq
+  13 26 AG14 gpio:038.000.1 ioblock:3B r:0.55385 c:8.5e-13 l:5.53e-09 len:0.00888 d:68
+  13 27 AH14 gpio:052.000.2 ioblock:4A r:0.73175 c:1.11e-12 l:6.1e-09 len:0.01083 d:82
+  13 28 AJ14 gpio:050.000.2 ioblock:4A r:0.87483 c:1.29e-12 l:7.04e-09 len:0.01204 d:95 dq
+  13 29 AK14 f:GND t:vss
+  14  0 A15  gpio:058.081.3 ioblock:7A r:0.85356 c:1.67e-12 l:7.31e-09 len:0.01242 d:111
+  14  1 B15  f:VCCIO7A t:vccn
+  14  2 C15  gpio:050.081.1 ioblock:7A r:0.64645 c:9.1e-13 l:5.63e-09 len:0.00992 d:72 dq
+  14  3 D15  f:DNU t:do-not-use
+  14  4 E15  gpio:034.081.1 ioblock:8A r:0.51263 c:8.4e-13 l:3.85e-09 len:0.0068 d:57
+  14  5 F15  gpio:034.081.0 ioblock:8A r:0.49026 c:1.09e-12 l:3.84e-09 len:0.0069 d:65
+  14  6 G15  f:GND t:vss
+  14  7 H15  gpio:028.081.1 ioblock:8A r:0.25083 c:6.8e-13 l:2.28e-09 len:0.00424 d:39
+  14  8 J15  gpio:028.081.0 ioblock:8A r:0.2745 c:6.1e-13 l:3.04e-09 len:0.00452 d:43
+  14  9 K15  gpio:040.081.1 ioblock:8A r:0.38821 c:6.6e-13 l:3.71e-09 len:0.00655 d:50
+  14 10 L15  gpio:040.081.0 ioblock:8A r:0.40073 c:6.6e-13 l:3.86e-09 len:0.00679 d:51
+  14 11 M15  f:VCC t:vcc
+  14 12 N15  f:GND t:vss
+  14 13 P15  f:VCC t:vcc
+  14 14 R15  f:GND t:vss
+  14 15 T15  f:VCC t:vcc
+  14 16 U15  f:GND t:vss
+  14 17 V15  f:VCC t:vcc
+  14 18 W15  f:GND t:vss
+  14 19 Y15  gpio:040.000.0 ioblock:3B r:0.23608 c:8.6e-13 l:2.23e-09 len:0.00475 d:44
+  14 20 AA15 gpio:040.000.1 ioblock:3B r:0.22423 c:8e-13 l:2.14e-09 len:0.00441 d:41
+  14 21 AB15 f:VCCIO4A t:vccn
+  14 22 AC15 gpio:056.000.1 ioblock:4A r:0.40022 c:5.4e-13 l:3.76e-09 len:0.00619 d:45
+  14 23 AD15 f:VCCPD3B4A t:vccpd
+  14 24 AE15 gpio:056.000.2 ioblock:4A r:0.75423 c:1.15e-12 l:6.19e-09 len:0.01142 d:84
+  14 25 AF15 gpio:050.000.1 ioblock:4A r:0.45189 c:6.2e-13 l:4.06e-09 len:0.00694 d:50 dq
+  14 26 AG15 f:GND t:vss
+  14 27 AH15 gpio:052.000.3 ioblock:4A r:0.68498 c:1.42e-12 l:5.62e-09 len:0.01026 d:89 dq
+  14 28 AJ15 gpio:054.000.2 ioblock:4A r:0.79808 c:1.05e-12 l:5.32e-09 len:0.01085 d:75 dq
+  14 29 AK15 gpio:054.000.3 ioblock:4A r:0.7977 c:1.56e-12 l:6.12e-09 len:0.01159 d:98
+  15  0 A16  gpio:058.081.2 ioblock:7A r:0.81771 c:1.52e-12 l:6.4e-09 len:0.01172 d:99 dq
+  15  1 B16  f:VREFB7AN0 t:vref
+  15  2 C16  gpio:050.081.0 ioblock:7A r:0.65574 c:1.32e-12 l:5.65e-09 len:0.00994 d:86 dq
+  15  3 D16  f:GND t:vss
+  15  4 E16  gpio:038.081.1 ioblock:8A r:0.51014 c:8.7e-13 l:3.63e-09 len:0.00661 d:56
+  15  5 F16  gpio:038.081.0 ioblock:8A r:0.42996 c:9.8e-13 l:3.95e-09 len:0.0066 d:62
+  15  6 G16  f:VCCPD7A8A t:vccpd
+  15  7 H16  f:VCC_AUX t:vcc
+  15  8 J16  f:VCCIO8A t:vccn
+  15  9 K16  gpio:060.081.0 ioblock:7A r:0.28622 c:5.8e-13 l:2.42e-09 len:0.00517 d:37 dq dqs
+  15 10 L16  gpio:060.081.1 ioblock:7A r:0.29838 c:6.2e-13 l:2.5e-09 len:0.00542 d:39 dq dqsb
+  15 11 M16  f:GND t:vss
+  15 12 N16  f:VCC t:vcc
+  15 13 P16  f:GND t:vss
+  15 14 R16  f:VCC t:vcc
+  15 15 T16  f:GND t:vss
+  15 16 U16  f:VCC t:vcc
+  15 17 V16  f:GND t:vss
+  15 18 W16  f:VCC t:vcc
+  15 19 Y16  gpio:052.000.0 ioblock:4A r:0.25609 c:8.6e-13 l:2.22e-09 len:0.00486 d:44 dq dqs
+  15 20 AA16 gpio:052.000.1 ioblock:4A r:0.2247 c:8e-13 l:2.06e-09 len:0.00437 d:41 dq dqsb
+  15 21 AB16 gpio:056.000.0 ioblock:4A r:0.3333 c:5e-13 l:3.74e-09 len:0.00579 d:43
+  15 22 AC16 f:VCC_AUX t:vcc
+  15 23 AD16 f:GND t:vss
+  15 24 AE16 gpio:050.000.0 ioblock:4A r:0.46738 c:7.2e-13 l:4.28e-09 len:0.00704 d:55 dq
+  15 25 AF16 gpio:062.000.0 ioblock:4A r:0.56164 c:8.8e-13 l:4.88e-09 len:0.00923 d:66 dq
+  15 26 AG16 gpio:062.000.1 ioblock:4A r:0.61938 c:9e-13 l:6.39e-09 len:0.01001 d:76 dq
+  15 27 AH16 f:VREFB4AN0 t:vref
+  15 28 AJ16 f:VCCIO4A t:vccn
+  15 29 AK16 gpio:058.000.0 ioblock:4A r:0.73462 c:1.6e-12 l:5.83e-09 len:0.01139 d:97 dq
+  16  0 A17  f:GND t:vss
+  16  1 B17  gpio:058.081.1 ioblock:7A r:0.65014 c:9.9e-13 l:6.77e-09 len:0.01016 d:82 dq
+  16  2 C17  gpio:058.081.0 ioblock:7A r:0.61125 c:9.5e-13 l:5.96e-09 len:0.00987 d:75 dq
+  16  3 D17  gpio:054.081.1 ioblock:7A r:0.53407 c:7.8e-13 l:5.23e-09 len:0.0083 d:64 dq
+  16  4 E17  gpio:054.081.0 ioblock:7A r:0.50759 c:6.9e-13 l:5.04e-09 len:0.00773 d:59 dq
+  16  5 F17  f:VCCIO7A t:vccn
+  16  6 G17  gpio:056.081.1 ioblock:7A r:0.38177 c:6.3e-13 l:4.51e-09 len:0.00652 d:53
+  16  7 H17  gpio:056.081.0 ioblock:7A r:0.34659 c:5.6e-13 l:4.02e-09 len:0.0058 d:48
+  16  8 J17  gpio:052.081.1 ioblock:7A r:0.16117 c:7e-13 l:1.81e-09 len:0.00361 d:36 dq dqsb
+  16  9 K17  gpio:052.081.0 ioblock:7A r:0.15139 c:6.2e-13 l:1.67e-09 len:0.00326 d:32 dq dqs
+  16 10 L17  f:GND t:vss
+  16 11 M17  f:VCC t:vcc
+  16 12 N17  f:GND t:vss
+  16 13 P17  f:VCC t:vcc
+  16 14 R17  f:GND t:vss
+  16 15 T17  f:VCC t:vcc
+  16 16 U17  f:GND t:vss
+  16 17 V17  f:VCC t:vcc
+  16 18 W17  f:GND t:vss
+  16 19 Y17  gpio:060.000.0 ioblock:4A r:0.23687 c:8.4e-13 l:2.12e-09 len:0.00466 d:42 dq dqs
+  16 20 AA17 f:GND t:vss
+  16 21 AB17 gpio:064.000.0 ioblock:4A r:0.25201 c:7.8e-13 l:2.61e-09 len:0.00477 d:45
+  16 22 AC17 f:VCCPD3B4A t:vccpd
+  16 23 AD17 gpio:054.000.0 ioblock:4A r:0.3848 c:5.3e-13 l:4.67e-09 len:0.00622 d:50 dq
+  16 24 AE17 gpio:054.000.1 ioblock:4A r:0.40066 c:5.8e-13 l:4.14e-09 len:0.00666 d:49 dq
+  16 25 AF17 f:VCCIO4A t:vccn
+  16 26 AG17 gpio:058.000.2 ioblock:4A r:0.59357 c:1.28e-12 l:5.25e-09 len:0.0089 d:82 dq
+  16 27 AH17 gpio:058.000.3 ioblock:4A r:0.63885 c:1.25e-12 l:5.53e-09 len:0.00941 d:83
+  16 28 AJ17 gpio:060.000.2 ioblock:4A r:0.69804 c:1.4e-12 l:6.05e-09 len:0.01048 d:92
+  16 29 AK17 gpio:058.000.1 ioblock:4A r:0.70373 c:1.57e-12 l:5.64e-09 len:0.01104 d:94 dq
+  17  0 A18  gpio:062.081.3 ioblock:7A r:0.81865 c:1.53e-12 l:6.42e-09 len:0.01106 d:99
+  17  1 B18  gpio:062.081.2 ioblock:7A r:0.79459 c:1.39e-12 l:6.02e-09 len:0.01094 d:91 dq
+  17  2 C18  f:VCCIO7A t:vccn
+  17  3 D18  gpio:066.081.1 ioblock:7A r:0.60375 c:9.9e-13 l:4.89e-09 len:0.0085 d:70 dq
+  17  4 E18  gpio:070.081.1 ioblock:7A r:0.49209 c:6.3e-13 l:3.62e-09 len:0.00707 d:48 dq
+  17  5 F18  gpio:062.081.1 ioblock:7A r:0.38265 c:7.6e-13 l:3.83e-09 len:0.00578 d:54 dq
+  17  6 G18  gpio:062.081.0 ioblock:7A r:0.35018 c:8.2e-13 l:3.11e-09 len:0.00558 d:51 dq
+  17  7 H18  f:GND t:vss
+  17  8 J18  gpio:064.081.1 ioblock:7A r:0.29175 c:7.3e-13 l:2.45e-09 len:0.00459 d:42
+  17  9 K18  gpio:068.081.1 ioblock:7A r:0.36578 c:7.3e-13 l:3.78e-09 len:0.00642 d:53 dq dqsb
+  17 10 L18  gpio:068.081.0 ioblock:7A r:0.30447 c:1e-12 l:2.57e-09 len:0.00583 d:51 dq dqs
+  17 11 M18  f:GND t:vss
+  17 12 N18  f:VCC t:vcc
+  17 13 P18  f:GND t:vss
+  17 14 R18  f:VCC t:vcc
+  17 15 T18  f:GND t:vss
+  17 16 U18  f:VCC t:vcc
+  17 17 V18  f:GND t:vss
+  17 18 W18  f:VCC t:vcc
+  17 19 Y18  gpio:060.000.1 ioblock:4A r:0.29603 c:6e-13 l:2.41e-09 len:0.0053 d:38 dq dqsb
+  17 20 AA18 gpio:072.000.0 ioblock:4A r:0.20093 c:7.2e-13 l:2e-09 len:0.00405 d:38
+  17 21 AB18 gpio:064.000.1 ioblock:4A r:0.28244 c:4.3e-13 l:3.24e-09 len:0.00478 d:37
+  17 22 AC18 f:VCCIO4A t:vccn
+  17 23 AD18 gpio:066.000.0 ioblock:4A r:0.32653 c:7e-13 l:3.22e-09 len:0.00543 d:48 dq
+  17 24 AE18 gpio:066.000.1 ioblock:4A r:0.35345 c:7.4e-13 l:3.77e-09 len:0.00555 d:53 dq
+  17 25 AF18 gpio:070.000.0 ioblock:4A r:0.47143 c:5e-13 l:4.3e-09 len:0.00699 d:47 dq
+  17 26 AG18 gpio:074.000.0 ioblock:4A r:0.54499 c:8.5e-13 l:4.56e-09 len:0.00854 d:62 dq
+  17 27 AH18 f:GND t:vss
+  17 28 AJ18 gpio:060.000.3 ioblock:4A r:0.72343 c:1.14e-12 l:5.22e-09 len:0.01008 d:77 dq
+  17 29 AK18 gpio:062.000.3 ioblock:4A r:0.74952 c:1.45e-12 l:6.16e-09 len:0.0109 d:94
+  18  0 A19  gpio:064.081.3 ioblock:7A r:0.80597 c:1.46e-12 l:5.83e-09 len:0.01097 d:92 dq
+  18  1 B19  gpio:064.081.2 ioblock:7A r:0.77503 c:1.42e-12 l:6.09e-09 len:0.01078 d:93
+  18  2 C19  gpio:074.081.1 ioblock:7A r:0.68784 c:8.9e-13 l:5.6e-09 len:0.00967 d:71 dq
+  18  3 D19  gpio:066.081.0 ioblock:7A r:0.65148 c:1.01e-12 l:4.43e-09 len:0.00795 d:67 dq
+  18  4 E19  f:GND t:vss
+  18  5 F19  gpio:070.081.0 ioblock:7A r:0.49726 c:5.8e-13 l:3.89e-09 len:0.00695 d:47 dq
+  18  6 G19  f:VCCPD7A8A t:vccpd
+  18  7 H19  gpio:064.081.0 ioblock:7A r:0.32068 c:4.8e-13 l:3.04e-09 len:0.00513 d:38
+  18  8 J19  gpio:076.081.1 ioblock:7A r:0.24474 c:4.5e-13 l:2.17e-09 len:0.0042 d:31 dq dqsb
+  18  9 K19  f:VCCIO7A t:vccn
+  18 10 L19  gpio:084.081.1 ioblock:7A r:0.51479 c:9.7e-13 l:4.26e-09 len:0.0086 d:64 dq dqsb
+  18 11 M19  f:VCC t:vcc
+  18 12 N19  f:GND t:vss
+  18 13 P19  f:VCC t:vcc
+  18 14 R19  f:GND t:vss
+  18 15 T19  f:VCC t:vcc
+  18 16 U19  f:GND t:vss
+  18 17 V19  f:VCC t:vcc
+  18 18 W19  f:GND t:vss
+  18 19 Y19  f:VCCIO4A t:vccn
+  18 20 AA19 gpio:072.000.1 ioblock:4A r:0.22252 c:8.2e-13 l:2.21e-09 len:0.00456 d:43
+  18 21 AB19 gpio:076.000.0 ioblock:4A r:0.25899 c:6.2e-13 l:3.12e-09 len:0.00449 d:44 dq dqs
+  18 22 AC19 gpio:076.000.1 ioblock:4A r:0.24387 c:6.1e-13 l:2.41e-09 len:0.00429 d:38 dq dqsb
+  18 23 AD19 gpio:078.000.0 ioblock:4A r:0.38563 c:5.7e-13 l:3.31e-09 len:0.00585 d:44 dq
+  18 24 AE19 f:GND t:vss
+  18 25 AF19 gpio:070.000.1 ioblock:4A r:0.43607 c:4.2e-13 l:4.93e-09 len:0.00682 d:45 dq
+  18 26 AG19 gpio:074.000.1 ioblock:4A r:0.59351 c:9.7e-13 l:5.02e-09 len:0.00886 d:70 dq
+  18 27 AH19 gpio:064.000.2 ioblock:4A r:0.72704 c:1.11e-12 l:5.86e-09 len:0.01068 d:81
+  18 28 AJ19 gpio:062.000.2 ioblock:4A r:0.75665 c:1.42e-12 l:5.61e-09 len:0.01058 d:89 dq
+  18 29 AK19 f:VCCIO4A t:vccn
+  19  0 A20  gpio:066.081.3 ioblock:7A r:0.76657 c:1.46e-12 l:6.48e-09 len:0.01117 d:97
+  19  1 B20  f:GND t:vss
+  19  2 C20  gpio:078.081.1 ioblock:7A r:0.83017 c:7.9e-13 l:5.2e-09 len:0.00912 d:64 dq
+  19  3 D20  gpio:074.081.0 ioblock:7A r:0.76088 c:9e-13 l:5.17e-09 len:0.00892 d:68 dq
+  19  4 E20  gpio:072.081.1 ioblock:7A r:0.48528 c:8.6e-13 l:4.2e-09 len:0.00827 d:60
+  19  5 F20  gpio:072.081.0 ioblock:7A r:0.48544 c:7.5e-13 l:3.79e-09 len:0.00789 d:53
+  19  6 G20  f:VCCIO7A t:vccn
+  19  7 H20  gpio:080.081.1 ioblock:7A r:0.27366 c:4.8e-13 l:2.49e-09 len:0.00471 d:35
+  19  8 J20  gpio:080.081.0 ioblock:7A r:0.24743 c:7.3e-13 l:2.43e-09 len:0.00441 d:42
+  19  9 K20  gpio:076.081.0 ioblock:7A r:0.21433 c:8.5e-13 l:2.06e-09 len:0.00449 d:42 dq dqs
+  19 10 L20  gpio:084.081.0 ioblock:7A r:0.47361 c:8.6e-13 l:3.97e-09 len:0.00809 d:58 dq dqs
+  19 11 M20  f:GND t:vss
+  19 12 N20  gpio:089.075.1 ioblock:6A r:0.2619 c:5.1e-13 l:2.96e-09 len:0.00487 d:39
+  19 13 P20  gpio:089.075.0 ioblock:6A r:0.30036 c:6.1e-13 l:2.95e-09 len:0.00561 d:42
+  19 14 R20  gpio:089.065.0 ioblock:6A r:0.52341 c:9.6e-13 l:4.29e-09 len:0.0087 d:64
+  19 15 T20  f:GND t:vss
+  19 16 U20  f:VCC t:vcc
+  19 17 V20  f:GND t:vss
+  19 18 W20  f:VCC t:vcc
+  19 19 Y20  gpio:068.000.0 ioblock:4A r:0.52594 c:9.2e-13 l:4.79e-09 len:0.00927 d:66 dq dqs
+  19 20 AA20 gpio:068.000.1 ioblock:4A r:0.52063 c:9.1e-13 l:5.25e-09 len:0.00894 d:69 dq dqsb
+  19 21 AB20 f:GND t:vss
+  19 22 AC20 f:VCCPD3B4A t:vccpd
+  19 23 AD20 gpio:084.000.1 ioblock:4A r:0.35076 c:5.7e-13 l:3.09e-09 len:0.00608 d:42 dq dqsb
+  19 24 AE20 gpio:078.000.1 ioblock:4A r:0.3564 c:8.7e-13 l:3.19e-09 len:0.00577 d:53 dq
+  19 25 AF20 gpio:082.000.0 ioblock:4A r:0.54731 c:9.1e-13 l:4.37e-09 len:0.00819 d:63 dq
+  19 26 AG20 f:VCCIO4A t:vccn
+  19 27 AH20 gpio:064.000.3 ioblock:4A r:0.76112 c:1.57e-12 l:5.63e-09 len:0.01096 d:94 dq
+  19 28 AJ20 gpio:066.000.2 ioblock:4A r:0.77218 c:1.33e-12 l:6.08e-09 len:0.01087 d:90 dq
+  19 29 AK20 gpio:066.000.3 ioblock:4A r:0.77717 c:1.42e-12 l:6.19e-09 len:0.01136 d:94
+  20  0 A21  gpio:066.081.2 ioblock:7A r:0.81956 c:1.57e-12 l:6.5e-09 len:0.01186 d:101 dq
+  20  1 B21  gpio:068.081.3 ioblock:7A r:0.8363 c:1.11e-12 l:6.61e-09 len:0.01185 d:85 dq
+  20  2 C21  gpio:078.081.0 ioblock:7A r:0.70278 c:8.4e-13 l:5.31e-09 len:0.00906 d:67 dq
+  20  3 D21  f:VCCIO7A t:vccn
+  20  4 E21  gpio:082.081.1 ioblock:7A r:0.51917 c:6.8e-13 l:5.14e-09 len:0.00724 d:59 dq
+  20  5 F21  f:VCCPD7A8A t:vccpd
+  20  6 G21  gpio:088.081.1 ioblock:7A r:0.32994 c:5.8e-13 l:3.05e-09 len:0.00559 d:42
+  20  7 H21  gpio:088.081.0 ioblock:7A r:0.34128 c:6.5e-13 l:3.06e-09 len:0.00584 d:45
+  20  8 J21  f:GND t:vss
+  20  9 K21  gpio:089.070.0 ioblock:6A r:0.54492 c:9.3e-13 l:4.59e-09 len:0.00875 d:65
+  20 10 L21  gpio:089.072.1 ioblock:6A r:0.34027 c:6.3e-13 l:3.11e-09 len:0.00586 d:44
+  20 11 M21  gpio:089.072.0 ioblock:6A r:0.33875 c:6.2e-13 l:2.95e-09 len:0.00581 d:43
+  20 12 N21  gpio:089.068.0 ioblock:6A r:0.34553 c:6.3e-13 l:3.12e-09 len:0.00601 d:44
+  20 13 P21  f:VCCIO6A t:vccn
+  20 14 R21  gpio:089.056.0 ioblock:6A r:0.3771 c:6.3e-13 l:4.08e-09 len:0.00654 d:51
+  20 15 T21  gpio:089.065.1 ioblock:6A r:0.54888 c:1.02e-12 l:4.67e-09 len:0.00922 d:69
+  20 16 U21  gpio:089.027.0 ioblock:5B r:0.21386 c:7.5e-13 l:2.04e-09 len:0.00428 d:39
+  20 17 V21  gpio:089.015.0 ioblock:5A r:0.15028 c:6.2e-13 l:1.57e-09 len:0.00322 d:31
+  20 18 W21  f:GND t:vss
+  20 19 Y21  gpio:089.004.1 ioblock:5A r:0.22706 c:8.4e-13 l:2.21e-09 len:0.0047 d:43
+  20 20 AA21 gpio:080.000.0 ioblock:4A r:0.40667 c:8.1e-13 l:3.47e-09 len:0.00725 d:53
+  20 21 AB21 gpio:080.000.1 ioblock:4A r:0.45311 c:9.1e-13 l:3.69e-09 len:0.00788 d:58
+  20 22 AC21 gpio:084.000.0 ioblock:4A r:0.32561 c:5e-13 l:3.36e-09 len:0.00536 d:41 dq dqs
+  20 23 AD21 f:VCCIO4A t:vccn
+  20 24 AE21 f:VCCPD3B4A t:vccpd
+  20 25 AF21 gpio:086.000.0 ioblock:4A r:0.6134 c:8.9e-13 l:5.08e-09 len:0.00932 d:67 dq
+  20 26 AG21 gpio:082.000.1 ioblock:4A r:0.57118 c:9.7e-13 l:4.4e-09 len:0.00888 d:65 dq
+  20 27 AH21 gpio:070.000.2 ioblock:4A r:0.93543 c:1.35e-12 l:6.39e-09 len:0.01243 d:93 dq
+  20 28 AJ21 f:GND t:vss
+  20 29 AK21 gpio:068.000.2 ioblock:4A r:0.83386 c:1.64e-12 l:6.58e-09 len:0.01206 d:104
+  21  0 A22  f:VCCIO7A t:vccn
+  21  1 B22  gpio:068.081.2 ioblock:7A r:0.79568 c:9.4e-13 l:6.57e-09 len:0.01134 d:79
+  21  2 C22  gpio:078.081.3 ioblock:7A r:0.70996 c:1.52e-12 l:6.04e-09 len:0.01026 d:96
+  21  3 D22  gpio:076.081.3 ioblock:7A r:0.68685 c:1.13e-12 l:5e-09 len:0.00861 d:75 dq
+  21  4 E22  gpio:082.081.0 ioblock:7A r:0.53837 c:6.2e-13 l:5.07e-09 len:0.00735 d:56 dq
+  21  5 F22  f:GND t:vss
+  21  6 G22  gpio:086.081.0 ioblock:7A r:0.46968 c:6.2e-13 l:3.57e-09 len:0.00677 d:47 dq
+  21  7 H22  f:VCC_AUX t:vcc
+  21  8 J22  gpio:089.077.0 ioblock:6A r:0.49743 c:8.2e-13 l:4.11e-09 len:0.00769 d:58
+  21  9 K22  gpio:089.070.1 ioblock:6A r:0.5869 c:9.7e-13 l:5.03e-09 len:0.0092 d:70
+  21 10 L22  f:VCCIO6A t:vccn
+  21 11 M22  gpio:089.068.1 ioblock:6A r:0.3516 c:6.4e-13 l:3.09e-09 len:0.00592 d:45
+  21 12 N22  gpio:089.060.0 ioblock:6A r:0.2625 c:7.9e-13 l:2.63e-09 len:0.00475 d:46
+  21 13 P22  gpio:089.050.0 ioblock:6A r:0.25122 c:6.6e-13 l:3.31e-09 len:0.00466 d:47
+  21 14 R22  gpio:089.056.1 ioblock:6A r:0.39548 c:6.6e-13 l:4.15e-09 len:0.00677 d:52
+  21 15 T22  f:GND t:vss
+  21 16 U22  gpio:089.027.1 ioblock:5B r:0.22393 c:3.9e-13 l:2.79e-09 len:0.00396 d:33
+  21 17 V22  gpio:089.015.1 ioblock:5A r:0.15527 c:6.9e-13 l:1.76e-09 len:0.00353 d:35
+  21 18 W22  gpio:089.004.0 ioblock:5A r:0.22816 c:4.3e-13 l:2.17e-09 len:0.00402 d:30
+  21 19 Y22  gpio:089.009.0 ioblock:5A r:0.36367 c:6.6e-13 l:3.79e-09 len:0.00622 d:50
+  21 20 AA22 f:VCCIO5A t:vccn
+  21 21 AB22 gpio:088.000.0 ioblock:4A r:0.38029 c:6.6e-13 l:3.77e-09 len:0.00632 d:50
+  21 22 AC22 gpio:088.000.1 ioblock:4A r:0.41094 c:7.8e-13 l:3.48e-09 len:0.00704 d:52
+  21 23 AD22 f:VCC_AUX t:vcc
+  21 24 AE22 gpio:086.000.2 ioblock:4A r:0.5835 c:8.6e-13 l:4.17e-09 len:0.00829 d:60 dq
+  21 25 AF22 f:GND t:vss
+  21 26 AG22 gpio:086.000.1 ioblock:4A r:0.58616 c:8.8e-13 l:5.09e-09 len:0.00969 d:67 dq
+  21 27 AH22 gpio:088.000.3 ioblock:4A r:0.69895 c:9.7e-13 l:6.1e-09 len:0.01067 d:77 dq
+  21 28 AJ22 gpio:070.000.3 ioblock:4A r:0.83532 c:1.61e-12 l:6.56e-09 len:0.01209 d:103
+  21 29 AK22 gpio:068.000.3 ioblock:4A r:0.94461 c:1.67e-12 l:6.42e-09 len:0.01277 d:104 dq
+  22  0 A23  gpio:070.081.3 ioblock:7A r:0.83033 c:1.47e-12 l:7.13e-09 len:0.01239 d:102
+  22  1 B23  gpio:070.081.2 ioblock:7A r:0.90112 c:1.66e-12 l:6.6e-09 len:0.01214 d:105 dq
+  22  2 C23  f:GND t:vss
+  22  3 D23  gpio:078.081.2 ioblock:7A r:0.75781 c:1.14e-12 l:5.63e-09 len:0.00985 d:80 dq
+  22  4 E23  gpio:076.081.2 ioblock:7A r:0.60437 c:1.33e-12 l:5.42e-09 len:0.00906 d:85
+  22  5 F23  f:VCCPD7A8A t:vccpd
+  22  6 G23  gpio:086.081.1 ioblock:7A r:0.56504 c:7.4e-13 l:3.94e-09 len:0.00748 d:54 dq
+  22  7 H23  f:VCCIO7A t:vccn
+  22  8 J23  gpio:089.077.1 ioblock:6A r:0.44367 c:1.03e-12 l:3.84e-09 len:0.00688 d:63
+  22  9 K23  f:VCCPD6A t:vccpd
+  22 10 L23  gpio:089.066.0 ioblock:6A r:0.46062 c:7e-13 l:4.47e-09 len:0.00715 d:56
+  22 11 M23  gpio:089.060.1 ioblock:6A r:0.24953 c:9e-13 l:2.44e-09 len:0.00489 d:47
+  22 12 N23  f:GND t:vss
+  22 13 P23  gpio:089.050.1 ioblock:6A r:0.23198 c:6.5e-13 l:2.65e-09 len:0.00444 d:42
+  22 14 R23  gpio:089.042.1 ioblock:6A r:0.24032 c:4.6e-13 l:2.55e-09 len:0.00437 d:34
+  22 15 T23  gpio:089.042.0 ioblock:6A r:0.19971 c:3.8e-13 l:2.41e-09 len:0.00388 d:30
+  22 16 U23  gpio:089.035.0 ioblock:5B r:0.21042 c:4e-13 l:2.64e-09 len:0.00396 d:33
+  22 17 V23  f:GND t:vss
+  22 18 W23  f:VCCPD5A t:vccpd
+  22 19 Y23  gpio:089.008.0 ioblock:5A r:0.27793 c:5.2e-13 l:2.83e-09 len:0.00486 d:38
+  22 20 AA23 gpio:089.009.1 ioblock:5A r:0.32773 c:6.7e-13 l:2.98e-09 len:0.00611 d:45
+  22 21 AB23 f:VCCA_FPLL t:vcc
+  22 22 AC23 f:GND t:vss
+  22 23 AD23 gpio:089.004.2 ioblock:5A r:0.57807 c:1.34e-12 l:4.69e-09 len:0.00911 d:79
+  22 24 AE23 gpio:089.011.2 ioblock:5A r:0.83968 c:1.34e-12 l:7.14e-09 len:0.01259 d:98
+  22 25 AF23 gpio:086.000.3 ioblock:4A r:0.58278 c:8.5e-13 l:4.36e-09 len:0.00831 d:61
+  22 26 AG23 gpio:088.000.2 ioblock:4A r:0.65498 c:1e-12 l:6.45e-09 len:0.01007 d:80
+  22 27 AH23 f:VCCIO4A t:vccn
+  22 28 AJ23 gpio:072.000.2 ioblock:4A r:0.92782 c:1.77e-12 l:6.53e-09 len:0.01277 d:108
+  22 29 AK23 gpio:072.000.3 ioblock:4A r:0.92773 c:1.58e-12 l:6.41e-09 len:0.01273 d:101 dq
+  23  0 A24  gpio:074.081.3 ioblock:7A r:1.11868 c:1.76e-12 l:6.91e-09 len:0.01367 d:110
+  23  1 B24  gpio:072.081.3 ioblock:7A r:0.93517 c:1.51e-12 l:6.64e-09 len:0.0125 d:100 dq
+  23  2 C24  gpio:072.081.2 ioblock:7A r:0.86671 c:1.57e-12 l:6.76e-09 len:0.01271 d:103
+  23  3 D24  f:VCCPD7A8A t:vccpd
+  23  4 E24  f:VCCIO7A t:vccn
+  23  5 F24  f:DNU t:do-not-use
+  23  6 G24  f:GND t:vss gpio:009.081.0 dedicated_programming_pad:6 ioblock:7A r:0.37374 c:9.6e-13 l:3.61e-09 len:0.00653 d:59
+  23  7 H24  gpio:089.077.2 ioblock:6A r:0.54861 c:1.12e-12 l:4.69e-09 len:0.00813 d:73
+  23  8 J24  f:VCCA_FPLL t:vcc
+  23  9 K24  f:GND t:vss
+  23 10 L24  gpio:089.066.1 ioblock:6A r:0.45962 c:6.9e-13 l:4.42e-09 len:0.00707 d:55
+  23 11 M24  f:VCCPD6A t:vccpd
+  23 12 N24  gpio:089.052.0 ioblock:6A r:0.37879 c:5.6e-13 l:4.17e-09 len:0.00636 d:48
+  23 13 P24  f:VCCPD6A t:vccpd
+  23 14 R24  f:VCCIO6A t:vccn
+  23 15 T24  gpio:089.035.1 ioblock:5B r:0.24887 c:4.6e-13 l:3.13e-09 len:0.00469 d:38
+  23 16 U24  f:VCCPD5B t:vccpd
+  23 17 V24  gpio:089.020.0 ioblock:5B r:0.37052 c:6e-13 l:4.26e-09 len:0.00614 d:50
+  23 18 W24  gpio:089.008.1 ioblock:5A r:0.23782 c:7.5e-13 l:2.64e-09 len:0.00441 d:44
+  23 19 Y24  f:GND t:vss
+  23 20 AA24 gpio:089.011.0 ioblock:5A r:0.4769 c:8.3e-13 l:4.92e-09 len:0.008 d:64
+  23 21 AB24 f:VCCPGM t:vcc
+  23 22 AC24 gpio:089.004.3 ioblock:5A r:0.58203 c:1.39e-12 l:4.83e-09 len:0.00933 d:82
+  23 23 AD24 gpio:089.006.2 ioblock:5A r:0.61366 c:1.08e-12 l:5.37e-09 len:0.01002 d:76
+  23 24 AE24 f:VCCIO5A t:vccn
+  23 25 AF24 gpio:089.011.3 ioblock:5A r:0.80632 c:1.69e-12 l:6.65e-09 len:0.01216 d:106
+  23 26 AG24 gpio:078.000.2 ioblock:4A r:0.85222 c:1.32e-12 l:6.77e-09 len:0.01202 d:95 dq
+  23 27 AH24 gpio:074.000.2 ioblock:4A r:0.83957 c:1.68e-12 l:6.64e-09 len:0.01289 d:106 dq
+  23 28 AJ24 gpio:074.000.3 ioblock:4A r:0.88771 c:1.56e-12 l:6.58e-09 len:0.01269 d:101
+  23 29 AK24 f:GND t:vss
+  24  0 A25  gpio:074.081.2 ioblock:7A r:1.06051 c:1.81e-12 l:6.79e-09 len:0.01384 d:111 dq
+  24  1 B25  f:VCCIO7A t:vccn
+  24  2 C25  gpio:080.081.3 ioblock:7A r:0.904 c:1.47e-12 l:6.2e-09 len:0.01189 d:96 dq
+  24  3 D25  gpio:080.081.2 ioblock:7A r:0.76086 c:1.39e-12 l:6.76e-09 len:0.0111 d:97
+  24  4 E25  gpio:088.081.3 ioblock:7A r:0.73624 c:1.28e-12 l:5.44e-09 len:0.01006 d:83 dq
+  24  5 F25  gpio:089.061.0 ioblock:6A r:0.89283 c:1.63e-12 l:7.09e-09 len:0.01405 d:107
+  24  6 G25  f:GND t:vss
+  24  7 H25  gpio:089.073.0 ioblock:6A r:0.55279 c:9e-13 l:5.47e-09 len:0.00888 d:70
+  24  8 J25  gpio:089.077.3 ioblock:6A r:0.60288 c:8.6e-13 l:6.32e-09 len:0.00882 d:74
+  24  9 K25  gpio:089.050.2 ioblock:6A r:0.91168 c:1.56e-12 l:7.85e-09 len:0.01433 d:111
+  24 10 L25  gpio:089.054.0 ioblock:6A r:0.50499 c:8.5e-13 l:4.22e-09 len:0.00799 d:60
+  24 11 M25  f:VCCIO6A t:vccn
+  24 12 N25  gpio:089.052.1 ioblock:6A r:0.36264 c:6e-13 l:3.11e-09 len:0.00634 d:43
+  24 13 P25  gpio:089.045.0 ioblock:6A r:0.38341 c:6e-13 l:4.08e-09 len:0.00651 d:50
+  24 14 R25  gpio:089.045.1 ioblock:6A r:0.41586 c:6.6e-13 l:4.76e-09 len:0.00711 d:56
+  24 15 T25  gpio:089.037.0 ioblock:5B r:0.50162 c:8.8e-13 l:5.31e-09 len:0.00872 d:68
+  24 16 U25  f:GND t:vss
+  24 17 V25  gpio:089.020.1 ioblock:5B r:0.3922 c:7.1e-13 l:4.43e-09 len:0.0069 d:56
+  24 18 W25  f:VCCPD5A t:vccpd
+  24 19 Y25  gpio:089.006.0 ioblock:5A r:0.40842 c:7.3e-13 l:3.81e-09 len:0.00708 d:53
+  24 20 AA25 gpio:089.011.1 ioblock:5A r:0.49092 c:8.8e-13 l:5.13e-09 len:0.00854 d:67
+  24 21 AB25 f:VCCIO5A t:vccn
+  24 22 AC25 f:VREFB5AN0 t:vref
+  24 23 AD25 gpio:089.006.3 ioblock:5A r:0.57825 c:1.03e-12 l:5.15e-09 len:0.00951 d:73
+  24 24 AE25 gpio:089.013.2 ioblock:5A r:0.81997 c:1.69e-12 l:6.77e-09 len:0.01222 d:107
+  24 25 AF25 gpio:089.015.2 ioblock:5A r:0.8442 c:1.77e-12 l:7.28e-09 len:0.01277 d:113
+  24 26 AG25 f:GND t:vss
+  24 27 AH25 gpio:078.000.3 ioblock:4A r:0.81761 c:1.78e-12 l:6.87e-09 len:0.01265 d:110
+  24 28 AJ25 gpio:076.000.2 ioblock:4A r:0.85725 c:1.64e-12 l:7.05e-09 len:0.01292 d:108
+  24 29 AK25 gpio:076.000.3 ioblock:4A r:0.93486 c:1.65e-12 l:7.11e-09 len:0.01364 d:108 dq
+  25  0 A26  gpio:082.081.3 ioblock:7A r:1.01222 c:1.93e-12 l:7.31e-09 len:0.01365 d:119
+  25  1 B26  gpio:082.081.2 ioblock:7A r:1.08101 c:1.89e-12 l:6.94e-09 len:0.01366 d:115 dq
+  25  2 C26  gpio:086.081.3 ioblock:7A r:0.86636 c:1.55e-12 l:6.71e-09 len:0.01257 d:102
+  25  3 D26  f:GND t:vss
+  25  4 E26  gpio:088.081.2 ioblock:7A r:0.7062 c:1.27e-12 l:5.79e-09 len:0.01006 d:86
+  25  5 F26  gpio:089.061.1 ioblock:6A r:0.89986 c:1.63e-12 l:7.3e-09 len:0.01426 d:109
+  25  6 G26  gpio:089.060.3 ioblock:6A r:0.92486 c:1.54e-12 l:8.02e-09 len:0.0142 d:111
+  25  7 H26  gpio:089.073.1 ioblock:6A r:0.52726 c:8.7e-13 l:4.81e-09 len:0.0085 d:64
+  25  8 J26  f:VCCIO6A t:vccn
+  25  9 K26  gpio:089.050.3 ioblock:6A r:0.90889 c:1.52e-12 l:7.56e-09 len:0.0139 d:107
+  25 10 L26  gpio:089.054.1 ioblock:6A r:0.49337 c:8.2e-13 l:4.32e-09 len:0.00786 d:59
+  25 11 M26  f:VREFB6AN0 t:vref
+  25 12 N26  gpio:089.051.0 ioblock:6A r:0.52135 c:8.6e-13 l:4.6e-09 len:0.0081 d:63
+  25 13 P26  f:GND t:vss
+  25 14 R26  gpio:089.037.1 ioblock:5B r:0.50075 c:8.5e-13 l:5.59e-09 len:0.00833 d:69
+  25 15 T26  f:VCCPD5B t:vccpd
+  25 16 U26  gpio:089.023.1 ioblock:5B r:0.38676 c:7.4e-13 l:3.51e-09 len:0.00669 d:51
+  25 17 V26  gpio:089.023.0 ioblock:5B r:0.42536 c:7.8e-13 l:4.32e-09 len:0.00743 d:58
+  25 18 W26  f:VCCIO5B t:vccn
+  25 19 Y26  gpio:089.006.1 ioblock:5A r:0.39716 c:7.1e-13 l:3.78e-09 len:0.00676 d:52
+  25 20 AA26 gpio:089.008.3 ioblock:5A r:0.51987 c:8.4e-13 l:4.6e-09 len:0.00822 d:62
+  25 21 AB26 gpio:089.008.2 ioblock:5A r:0.54877 c:9.2e-13 l:5.13e-09 len:0.00892 d:69
+  25 22 AC26 gpio:089.009.2 ioblock:5A r:0.6974 c:1.25e-12 l:5.91e-09 len:0.01142 d:86
+  25 23 AD26 f:GND t:vss
+  25 24 AE26 gpio:089.013.3 ioblock:5A r:0.78923 c:1.64e-12 l:6.97e-09 len:0.01184 d:107
+  25 25 AF26 gpio:089.015.3 ioblock:5A r:0.84842 c:1.69e-12 l:7.01e-09 len:0.01247 d:109
+  25 26 AG26 gpio:084.000.2 ioblock:4A r:0.77392 c:1.46e-12 l:6.39e-09 len:0.0115 d:96
+  25 27 AH26 gpio:084.000.3 ioblock:4A r:0.93164 c:1.58e-12 l:6.32e-09 len:0.01216 d:100 dq
+  25 28 AJ26 f:VCCIO4A t:vccn
+  25 29 AK26 gpio:080.000.3 ioblock:4A r:0.95199 c:1.85e-12 l:7.41e-09 len:0.01388 d:117 dq
+  26  0 A27  f:GND t:vss
+  26  1 B27  gpio:084.081.2 ioblock:7A r:0.95136 c:1.64e-12 l:8.08e-09 len:0.01411 d:115
+  26  2 C27  gpio:086.081.2 ioblock:7A r:0.91362 c:1.86e-12 l:7.37e-09 len:0.01328 d:117 dq
+  26  3 D27  gpio:089.075.3 ioblock:6A r:0.81822 c:1.67e-12 l:6.51e-09 len:0.01221 d:104
+  26  4 E27  gpio:089.075.2 ioblock:6A r:0.75847 c:1.59e-12 l:6.43e-09 len:0.01156 d:101
+  26  5 F27  f:VCCIO6A t:vccn
+  26  6 G27  gpio:089.054.2 ioblock:6A r:1.02148 c:1.7e-12 l:8.22e-09 len:0.01546 d:118
+  26  7 H27  gpio:089.060.2 ioblock:6A r:0.88587 c:1.48e-12 l:7.76e-09 len:0.01355 d:107
+  26  8 J27  gpio:089.058.1 ioblock:6A r:0.69853 c:1.23e-12 l:5.5e-09 len:0.01079 d:82
+  26  9 K27  gpio:089.058.0 ioblock:6A r:0.71079 c:1.24e-12 l:5.64e-09 len:0.01102 d:84
+  26 10 L27  f:GND t:vss
+  26 11 M27  gpio:089.046.2 ioblock:6A r:0.65886 c:1.03e-12 l:5.4e-09 len:0.00979 d:75
+  26 12 N27  gpio:089.051.1 ioblock:6A r:0.49868 c:8.3e-13 l:4.41e-09 len:0.00791 d:60
+  26 13 P27  f:VREFB5BN0 t:vref
+  26 14 R27  gpio:089.046.0 ioblock:6A r:0.51979 c:8.5e-13 l:4.62e-09 len:0.00812 d:63
+  26 15 T27  f:VCCIO5B t:vccn
+  26 16 U27  gpio:089.030.0 ioblock:5B r:0.51804 c:9.6e-13 l:5.27e-09 len:0.00903 d:71
+  26 17 V27  gpio:089.029.0 ioblock:5B r:0.64552 c:1.12e-12 l:5.38e-09 len:0.0104 d:78
+  26 18 W27  gpio:089.016.1 ioblock:5A r:0.52225 c:8.5e-13 l:5.28e-09 len:0.00833 d:67
+  26 19 Y27  gpio:089.016.0 ioblock:5A r:0.53287 c:8.7e-13 l:5.78e-09 len:0.00842 d:71
+  26 20 AA27 f:GND t:vss
+  26 21 AB27 gpio:089.032.2 ioblock:5B r:1.0467 c:1.73e-12 l:8.14e-09 len:0.01541 d:119
+  26 22 AC27 gpio:089.009.3 ioblock:5A r:0.69423 c:1.23e-12 l:6.32e-09 len:0.01142 d:88
+  26 23 AD27 gpio:089.013.1 ioblock:5A r:0.77344 c:1.65e-12 l:6.21e-09 len:0.01186 d:101
+  26 24 AE27 gpio:089.013.0 ioblock:5A r:0.79717 c:1.69e-12 l:6.23e-09 len:0.01217 d:103
+  26 25 AF27 f:VCCIO5A t:vccn
+  26 26 AG27 gpio:089.016.3 ioblock:5A r:0.98438 c:1.88e-12 l:7.81e-09 len:0.01443 d:121
+  26 27 AH27 gpio:089.016.2 ioblock:5A r:1.02642 c:1.66e-12 l:9.1e-09 len:0.015 d:123
+  26 28 AJ27 gpio:080.000.2 ioblock:4A r:1.00938 c:1.65e-12 l:7.94e-09 len:0.01463 d:114
+  26 29 AK27 gpio:082.000.2 ioblock:4A r:0.97612 c:1.91e-12 l:7.68e-09 len:0.01443 d:121 dq
+  27  0 A28  gpio:084.081.3 ioblock:7A r:1.19431 c:1.76e-12 l:7.18e-09 len:0.01464 d:113 dq
+  27  1 B28  gpio:089.072.2 ioblock:6A r:1.04616 c:1.77e-12 l:8.51e-09 len:0.0157 d:123
+  27  2 C28  f:VCCIO6A t:vccn
+  27  3 D28  gpio:089.073.2 ioblock:6A r:0.87201 c:1.8e-12 l:6.63e-09 len:0.01294 d:109
+  27  4 E28  gpio:089.068.3 ioblock:6A r:0.90654 c:1.45e-12 l:7.2e-09 len:0.01324 d:102
+  27  5 F28  gpio:089.068.2 ioblock:6A r:0.89713 c:1.43e-12 l:7.76e-09 len:0.0132 d:105
+  27  6 G28  gpio:089.054.3 ioblock:6A r:0.98585 c:1.67e-12 l:8.24e-09 len:0.01503 d:117
+  27  7 H28  f:GND t:vss
+  27  8 J28  gpio:089.056.2 ioblock:6A r:0.76141 c:1.27e-12 l:6.68e-09 len:0.01163 d:92
+  27  9 K28  gpio:089.045.3 ioblock:6A r:0.93685 c:1.57e-12 l:7.37e-09 len:0.01421 d:107
+  27 10 L28  gpio:089.045.2 ioblock:6A r:0.89269 c:1.5e-12 l:7.66e-09 len:0.01346 d:107
+  27 11 M28  gpio:089.046.3 ioblock:6A r:0.60123 c:1.33e-12 l:5.54e-09 len:0.00951 d:86
+  27 12 N28  f:VCCIO6A t:vccn
+  27 13 P28  gpio:089.042.2 ioblock:6A r:0.62284 c:1.35e-12 l:5.55e-09 len:0.00975 d:87
+  27 14 R28  gpio:089.046.1 ioblock:6A r:0.55909 c:9.2e-13 l:4.8e-09 len:0.00882 d:67
+  27 15 T28  gpio:089.036.0 ioblock:5B r:0.64553 c:1.54e-12 l:5.24e-09 len:0.0104 d:90
+  27 16 U28  gpio:089.030.1 ioblock:5B r:0.57794 c:1.06e-12 l:5.49e-09 len:0.00975 d:76
+  27 17 V28  f:GND t:vss
+  27 18 W28  gpio:089.029.1 ioblock:5B r:0.68664 c:1.18e-12 l:5.85e-09 len:0.01106 d:83
+  27 19 Y28  gpio:089.021.1 ioblock:5B r:0.6889 c:1.26e-12 l:5.98e-09 len:0.01139 d:87
+  27 20 AA28 gpio:089.021.0 ioblock:5B r:0.6847 c:1.2e-12 l:6.01e-09 len:0.01098 d:85
+  27 21 AB28 gpio:089.032.3 ioblock:5B r:1.01246 c:1.69e-12 l:7.89e-09 len:0.01486 d:115
+  27 22 AC28 f:VCCIO5B t:vccn
+  27 23 AD28 gpio:089.029.3 ioblock:5B r:0.96758 c:2.08e-12 l:8.04e-09 len:0.01504 d:129
+  27 24 AE28 gpio:089.029.2 ioblock:5B r:1.04033 c:2.15e-12 l:8.19e-09 len:0.01583 d:133
+  27 25 AF28 gpio:089.025.3 ioblock:5B r:1.05539 c:2.27e-12 l:8.68e-09 len:0.01632 d:140
+  27 26 AG28 gpio:089.025.2 ioblock:5B r:1.09926 c:2.29e-12 l:8.7e-09 len:0.01677 d:141
+  27 27 AH28 f:GND t:vss
+  27 28 AJ28 gpio:089.020.2 ioblock:5B r:1.13907 c:2.24e-12 l:9.17e-09 len:0.01702 d:143
+  27 29 AK28 gpio:082.000.3 ioblock:4A r:1.04831 c:1.71e-12 l:8.19e-09 len:0.0152 d:118
+  28  0 A29  gpio:089.072.3 ioblock:6A r:1.12074 c:1.83e-12 l:8.68e-09 len:0.01646 d:126
+  28  1 B29  gpio:089.070.3 ioblock:6A r:1.04382 c:2.08e-12 l:8.52e-09 len:0.01569 d:133
+  28  2 C29  gpio:089.070.2 ioblock:6A r:1.06914 c:2.05e-12 l:8.2e-09 len:0.01571 d:130
+  28  3 D29  gpio:089.073.3 ioblock:6A r:0.90357 c:1.57e-12 l:7.14e-09 len:0.01358 d:106
+  28  4 E29  f:GND t:vss
+  28  5 F29  gpio:089.065.3 ioblock:6A r:0.88016 c:1.82e-12 l:6.94e-09 len:0.01321 d:112
+  28  6 G29  gpio:089.065.2 ioblock:6A r:0.85976 c:1.68e-12 l:6.81e-09 len:0.01263 d:107
+  28  7 H29  gpio:089.058.2 ioblock:6A r:0.84175 c:1.36e-12 l:7.12e-09 len:0.01256 d:98
+  28  8 J29  gpio:089.056.3 ioblock:6A r:0.77855 c:1.25e-12 l:6.37e-09 len:0.01155 d:89
+  28  9 K29  f:VCCIO6A t:vccn
+  28 10 L29  gpio:089.051.2 ioblock:6A r:0.74474 c:1.56e-12 l:6.23e-09 len:0.01135 d:99
+  28 11 M29  gpio:089.043.2 ioblock:6A r:0.79476 c:1.29e-12 l:6.32e-09 len:0.01184 d:90
+  28 12 N29  gpio:089.042.3 ioblock:6A r:0.70214 c:1.14e-12 l:5.86e-09 len:0.01049 d:82
+  28 13 P29  gpio:089.043.0 ioblock:6A r:0.69225 c:1.55e-12 l:5.51e-09 len:0.0108 d:92
+  28 14 R29  f:GND t:vss
+  28 15 T29  gpio:089.036.1 ioblock:5B r:0.6626 c:1.56e-12 l:5.31e-09 len:0.01052 d:91
+  28 16 U29  gpio:089.038.2 ioblock:5B r:0.81765 c:1.34e-12 l:6.61e-09 len:0.01229 d:94
+  28 17 V29  gpio:089.037.2 ioblock:5B r:0.76274 c:1.29e-12 l:6.59e-09 len:0.0116 d:92
+  28 18 W29  gpio:089.037.3 ioblock:5B r:0.80713 c:1.28e-12 l:6.5e-09 len:0.01199 d:91
+  28 19 Y29  f:VCCIO5B t:vccn
+  28 20 AA29 gpio:089.032.0 ioblock:5B r:0.87001 c:1.56e-12 l:6.92e-09 len:0.01362 d:104
+  28 21 AB29 gpio:089.035.2 ioblock:5B r:1.00071 c:1.62e-12 l:7.87e-09 len:0.01478 d:113
+  28 22 AC29 gpio:089.030.3 ioblock:5B r:0.97528 c:1.91e-12 l:7.51e-09 len:0.01438 d:120
+  28 23 AD29 gpio:089.030.2 ioblock:5B r:0.99117 c:2.01e-12 l:8.04e-09 len:0.01509 d:127
+  28 24 AE29 f:GND t:vss
+  28 25 AF29 gpio:089.027.2 ioblock:5B r:1.07545 c:2.17e-12 l:8.72e-09 len:0.01621 d:138
+  28 26 AG29 gpio:089.021.3 ioblock:5B r:1.09395 c:2.28e-12 l:8.87e-09 len:0.01644 d:142
+  28 27 AH29 gpio:089.021.2 ioblock:5B r:1.1585 c:2.29e-12 l:8.97e-09 len:0.01704 d:143
+  28 28 AJ29 gpio:089.020.3 ioblock:5B r:1.19324 c:2.4e-12 l:9.19e-09 len:0.01769 d:148
+  28 29 AK29 f:GND t:vss
+  29  1 B30  f:GND t:vss
+  29  2 C30  gpio:089.066.3 ioblock:6A r:1.04045 c:2.21e-12 l:8.55e-09 len:0.01604 d:137
+  29  3 D30  gpio:089.066.2 ioblock:6A r:1.08945 c:1.8e-12 l:8.34e-09 len:0.01579 d:123
+  29  4 E30  gpio:089.061.3 ioblock:6A r:0.98533 c:1.63e-12 l:7.71e-09 len:0.01491 d:112
+  29  5 F30  gpio:089.061.2 ioblock:6A r:1.03654 c:1.72e-12 l:7.95e-09 len:0.0156 d:117
+  29  6 G30  f:VCCIO6A t:vccn
+  29  7 H30  gpio:089.058.3 ioblock:6A r:0.81511 c:1.68e-12 l:7.25e-09 len:0.01239 d:110
+  29  8 J30  gpio:089.052.3 ioblock:6A r:0.87554 c:1.76e-12 l:7.16e-09 len:0.01303 d:112
+  29  9 K30  gpio:089.052.2 ioblock:6A r:0.84107 c:1.73e-12 l:7.26e-09 len:0.01273 d:112
+  29 10 L30  gpio:089.051.3 ioblock:6A r:0.74009 c:1.53e-12 l:6.49e-09 len:0.01131 d:100
+  29 11 M30  f:GND t:vss
+  29 12 N30  gpio:089.043.3 ioblock:6A r:0.815 c:1.34e-12 l:6.79e-09 len:0.01215 d:95
+  29 13 P30  gpio:089.043.1 ioblock:6A r:0.71387 c:1.57e-12 l:5.71e-09 len:0.01108 d:95
+  29 14 R30  gpio:089.038.1 ioblock:5B r:0.70683 c:1.56e-12 l:5.65e-09 len:0.01097 d:94
+  29 15 T30  gpio:089.038.0 ioblock:5B r:0.74771 c:1.32e-12 l:6.39e-09 len:0.01142 d:92
+  29 16 U30  f:VCCIO5B t:vccn
+  29 17 V30  gpio:089.038.3 ioblock:5B r:0.82811 c:1.35e-12 l:6.65e-09 len:0.01244 d:95
+  29 18 W30  gpio:089.036.3 ioblock:5B r:0.86805 c:1.53e-12 l:7.43e-09 len:0.01325 d:106
+  29 19 Y30  gpio:089.036.2 ioblock:5B r:0.87884 c:1.5e-12 l:7.16e-09 len:0.01333 d:104
+  29 20 AA30 gpio:089.032.1 ioblock:5B r:0.89671 c:1.61e-12 l:7e-09 len:0.01403 d:106
+  29 21 AB30 f:GND t:vss
+  29 22 AC30 gpio:089.035.3 ioblock:5B r:1.03488 c:1.71e-12 l:7.92e-09 len:0.0155 d:116
+  29 23 AD30 gpio:089.025.1 ioblock:5B r:1.03467 c:2.2e-12 l:7.86e-09 len:0.01573 d:131
+  29 24 AE30 gpio:089.025.0 ioblock:5B r:1.04593 c:2.3e-12 l:7.9e-09 len:0.01606 d:135
+  29 25 AF30 gpio:089.027.3 ioblock:5B r:1.1411 c:2.22e-12 l:8.86e-09 len:0.01685 d:140
+  29 26 AG30 f:VCCIO5B t:vccn
+  29 27 AH30 gpio:089.023.3 ioblock:5B r:1.22104 c:2.36e-12 l:9.45e-09 len:0.01791 d:149
+  29 28 AJ30 gpio:089.023.2 ioblock:5B r:1.20661 c:2.6e-12 l:9.71e-09 len:0.01847 d:159
+m15 width:28 height:28 widthmm:15 heightmm:15
+   0  0 A1   f:GND t:vss
+   0  1 B1   f:RREF_TL t:gxp-reference-resistor
+   0  2 C1   f:GND t:vss
+   0  3 D1   f:DNU t:do-not-use
+   0  4 E1   f:GND t:vss
+   0  5 F1   f:DNU t:do-not-use
+   0  6 G1   f:GND t:vss
+   0  7 H1   gpio:000.019.1 hssi_output:13 ioblock:B0L
+   0  8 J1   gpio:000.019.0 hssi_output:12 ioblock:B0L
+   0  9 K1   f:GND t:vss
+   0 10 L1   gpio:000.022.1 hssi_input:16 ioblock:B0L
+   0 11 M1   gpio:000.022.0 hssi_input:17 ioblock:B0L
+   0 12 N1   f:GND t:vss
+   0 15 T1   f:GND t:vss
+   0 16 U1   gpio:000.015.0 hssi_output:14 ioblock:B0L
+   0 17 V1   gpio:000.015.1 hssi_output:15 ioblock:B0L
+   0 18 W1   f:GND t:vss
+   0 19 Y1   gpio:000.018.1 hssi_input:18 ioblock:B0L
+   0 20 AA1  gpio:000.018.0 hssi_input:19 ioblock:B0L
+   0 21 AB1  f:GND t:vss
+   0 22 AC1  gpio:000.011.0 hssi_output:16 ioblock:B0L
+   0 23 AD1  gpio:000.011.1 hssi_output:17 ioblock:B0L
+   0 24 AE1  f:GND t:vss
+   0 25 AF1  gpio:000.014.1 hssi_input:20 ioblock:B0L
+   0 26 AG1  gpio:000.014.0 hssi_input:21 ioblock:B0L
+   0 27 AH1  f:GND t:vss
+   1  0 A2   gpio:011.081.2 dedicated_programming_pad:12 ioblock:9A r:0.25522 c:8.1e-13 l:2.35e-09 len:0.00438 d:44
+   1 27 AH2  gpio:013.000.0 jtag:2 ioblock:3A r:0.37342 c:7.1e-13 l:3.88e-09 len:0.00473 d:53
+   2  0 A3   gpio:011.081.0 dedicated_programming_pad:10 ioblock:9A r:0.26212 c:8e-13 l:2.6e-09 len:0.00439 d:46
+   2  2 C3   gpio:011.081.1 dedicated_programming_pad:11 ioblock:9A r:0.30893 c:1e-12 l:3.17e-09 len:0.00566 d:56
+   2  3 D3   f:GND t:vss
+   2  4 E3   f:VCCA_FPLL t:vcc
+   2  6 G3   gpio:013.081.0 dedicated_programming_pad:14 ioblock:9A r:0.34824 c:1.13e-12 l:3.38e-09 len:0.00685 d:62
+   2  7 H3   f:GND t:vss
+   2  8 J3   f:GND t:vss
+   2  9 K3   f:NC t:nc
+   2 11 M3   f:GND t:vss
+   2 12 N3   f:NC t:nc
+   2 15 T3   f:VCCL_GXBL t:vcc
+   2 16 U3   f:GND t:vss
+   2 18 W3   f:VCCH_GXBL t:vcc
+   2 19 Y3   f:GND t:vss
+   2 20 AA3  gpio:000.019.2 hssi_input:23 ioblock:B0L
+   2 21 AB3  f:GND t:vss
+   2 23 AD3  f:GND t:vss
+   2 24 AE3  gpio:011.000.1 dedicated_programming_pad:0 ioblock:3A r:0.37258 c:8.9e-13 l:3.57e-09 len:0.00586 d:56
+   2 25 AF3  f:GND t:vss
+   2 27 AH3  gpio:011.000.3 dedicated_programming_pad:1 ioblock:3A r:0.29142 c:7.4e-13 l:2.91e-09 len:0.00409 d:46
+   3  0 A4   gpio:032.081.3 ioblock:8A r:0.37569 c:1e-12 l:3.57e-09 len:0.00645 d:60
+   3  2 C4   f:VCCBAT t:vcc
+   3  3 D4   gpio:009.081.2 dedicated_programming_pad:8 ioblock:9A r:0.30434 c:9.2e-13 l:2.77e-09 len:0.00593 d:51
+   3  4 E4   gpio:011.081.3 dedicated_programming_pad:13 ioblock:9A r:0.15409 c:6.4e-13 l:1.44e-09 len:0.00348 d:30
+   3  6 G4   f:GND t:vss gpio:083.081.0 dedicated_programming_pad:16 ioblock:9A r:0.34222 c:1e-12 l:3.41e-09 len:0.00683 d:58
+   3  7 H4   f:NC t:nc
+   3  8 J4   f:NC t:nc
+   3  9 K4   f:NC t:nc
+   3 11 M4   f:GND t:vss
+   3 12 N4   gpio:000.031.3 hssi_input:9 ioblock:B1L
+   3 15 T4   f:GND t:vss
+   3 16 U4   f:VCCE_GXBL t:vcc
+   3 18 W4   f:GND t:vss
+   3 19 Y4   f:VCCE_GXBL t:vcc
+   3 20 AA4  f:GND t:vss
+   3 21 AB4  gpio:000.019.3 hssi_input:22 ioblock:B0L
+   3 23 AD4  f:VCCA_FPLL t:vcc
+   3 24 AE4  gpio:011.000.0 jtag:0 ioblock:3A r:0.33701 c:8.1e-13 l:3.51e-09 len:0.00563 d:53
+   3 25 AF4  gpio:013.000.3 dedicated_programming_pad:3 ioblock:3A r:0.29951 c:7.7e-13 l:3.26e-09 len:0.00488 d:50
+   3 27 AH4  gpio:013.000.1 dedicated_programming_pad:2 ioblock:3A r:0.2231 c:5.2e-13 l:2.38e-09 len:0.00334 d:35
+   4  0 A5   gpio:032.081.2 ioblock:8A r:0.35966 c:9.6e-13 l:3.52e-09 len:0.00617 d:58
+   4  2 C5   f:GND t:vss
+   4  3 D5   f:VCC_AUX t:vcc
+   4  4 E5   gpio:013.081.1 dedicated_programming_pad:15 ioblock:9A r:0.11595 c:5e-13 l:1.11e-09 len:0.00265 d:24
+   4  6 G5   f:NC t:nc
+   4  7 H5   f:GND t:vss
+   4  8 J5   f:NC t:nc
+   4  9 K5   f:GND t:vss
+   4 11 M5   gpio:000.031.2 hssi_input:8 ioblock:B1L
+   4 12 N5   f:NC t:nc
+   4 15 T5   f:NC t:nc
+   4 16 U5   f:GND t:vss
+   4 18 W5   gpio:015.000.0 dedicated_programming_pad:4 ioblock:3A r:0.24747 c:1e-12 l:2.21e-09 len:0.00525 d:47
+   4 19 Y5   f:GND t:vss
+   4 20 AA5  f:DNU t:do-not-use
+   4 21 AB5  f:GND t:vss
+   4 23 AD5  gpio:015.000.1 dedicated_programming_pad:5 ioblock:3A r:0.32961 c:8.7e-13 l:3.24e-09 len:0.00576 d:53
+   4 24 AE5  f:VCCIO3A t:vccn
+   4 25 AF5  f:VCC_AUX t:vcc
+   4 27 AH5  f:VCCPGM t:vcc
+   5  6 G6   f:NC t:nc
+   5  7 H6   gpio:028.081.3 ioblock:8A r:0.42325 c:1.13e-12 l:3.61e-09 len:0.00734 d:64
+   5  8 J6   gpio:028.081.2 ioblock:8A r:0.43451 c:1.26e-12 l:3.91e-09 len:0.00773 d:70
+   5  9 K6   gpio:030.081.3 ioblock:8A r:0.44835 c:1.48e-12 l:4.12e-09 len:0.00823 d:78
+   5 11 M6   f:NC t:nc
+   5 12 N6   f:NC t:nc
+   5 15 T6   gpio:006.000.0 ioblock:3A r:0.32433 c:1.2e-12 l:2.92e-09 len:0.00681 d:59
+   5 16 U6   gpio:006.000.1 ioblock:3A r:0.30283 c:1.22e-12 l:2.73e-09 len:0.00636 d:58
+   5 18 W6   gpio:004.000.2 ioblock:3A r:0.35415 c:1.23e-12 l:3.29e-09 len:0.00682 d:64
+   5 19 Y6   f:GND t:vss
+   5 20 AA6  gpio:013.000.2 jtag:3 ioblock:3A r:0.21335 c:7.4e-13 l:1.91e-09 len:0.00413 d:37
+   5 21 AB6  gpio:011.000.2 jtag:1 ioblock:3A r:0.20425 c:5.8e-13 l:1.94e-09 len:0.00367 d:34
+   6  0 A7   f:VREFB8AN0 t:vref
+   6  2 C7   gpio:036.081.3 ioblock:8A r:0.35028 c:8.4e-13 l:3.44e-09 len:0.00644 d:54
+   6  3 D7   f:VCCPGM t:vcc
+   6  4 E7   f:VCCIO8A t:vccn
+   6  5 F7   gpio:009.081.1 dedicated_programming_pad:7 ioblock:9A r:0.13202 c:5.9e-13 l:1.24e-09 len:0.003 d:27
+   6  6 G7   gpio:009.081.3 dedicated_programming_pad:9 ioblock:9A r:0.15621 c:6.6e-13 l:1.46e-09 len:0.00352 d:31
+   6  7 H7   gpio:026.081.1 ioblock:8A r:0.31754 c:1.02e-12 l:2.88e-09 len:0.00591 d:54
+   6  8 J7   f:GND t:vss
+   6  9 K7   gpio:030.081.2 ioblock:8A r:0.46037 c:1.35e-12 l:3.93e-09 len:0.0082 d:73
+   6 11 M7   f:NC t:nc
+   6 12 N7   f:GND t:vss
+   6 15 T7   gpio:008.000.0 ioblock:3A r:0.32409 c:1.23e-12 l:2.97e-09 len:0.00668 d:60
+   6 16 U7   gpio:008.000.1 ioblock:3A r:0.30226 c:1.14e-12 l:2.77e-09 len:0.00615 d:56
+   6 18 W7   gpio:004.000.3 ioblock:3A r:0.37775 c:1.2e-12 l:3.39e-09 len:0.0071 d:64
+   6 19 Y7   gpio:002.000.0 ioblock:3A r:0.24174 c:7.8e-13 l:2.23e-09 len:0.00457 d:42
+   6 20 AA7  gpio:002.000.1 ioblock:3A r:0.20969 c:7.4e-13 l:1.93e-09 len:0.00408 d:38
+   6 21 AB7  f:GND t:vss
+   6 22 AC7  f:VCCPD3A t:vccpd
+   6 23 AD7  gpio:002.000.2 ioblock:3A r:0.34236 c:9.5e-13 l:3.29e-09 len:0.00614 d:56
+   6 24 AE7  gpio:002.000.3 ioblock:3A r:0.30788 c:8.6e-13 l:3.01e-09 len:0.00542 d:51
+   6 25 AF7  f:VREFB3AN0 t:vref
+   6 27 AH7  f:GND t:vss
+   7  0 A8   f:GND t:vss
+   7  2 C8   gpio:040.081.3 ioblock:8A r:0.37418 c:8.9e-13 l:3.86e-09 len:0.007 d:59
+   7  3 D8   gpio:036.081.2 ioblock:8A r:0.34669 c:9.6e-13 l:3.4e-09 len:0.00654 d:57
+   7  4 E8   gpio:026.081.3 ioblock:8A r:0.31056 c:6.8e-13 l:3.1e-09 len:0.00535 d:46
+   7  5 F8   gpio:026.081.2 ioblock:8A r:0.34756 c:9.8e-13 l:3.08e-09 len:0.00597 d:55
+   7  6 G8   f:VCCIO8A t:vccn
+   7  7 H8   gpio:026.081.0 ioblock:8A r:0.30817 c:1.03e-12 l:2.75e-09 len:0.00596 d:53
+   7  8 J8   gpio:028.081.1 ioblock:8A r:0.26908 c:9.6e-13 l:2.34e-09 len:0.00541 d:47
+   7  9 K8   gpio:028.081.0 ioblock:8A r:0.29047 c:1.01e-12 l:2.53e-09 len:0.00595 d:50
+   7 11 M8   f:GND t:vss
+   7 12 N8   gpio:032.081.0 ioblock:8A r:0.35318 c:1.31e-12 l:3.09e-09 len:0.00733 d:64
+   7 15 T8   gpio:030.000.0 ioblock:3B r:0.42875 c:1.35e-12 l:3.71e-09 len:0.00824 d:71
+   7 16 U8   gpio:030.000.1 ioblock:3B r:0.40378 c:1.27e-12 l:3.63e-09 len:0.00771 d:68
+   7 18 W8   f:GND t:vss
+   7 19 Y8   gpio:026.000.0 ioblock:3B r:0.33085 c:1.02e-12 l:2.88e-09 len:0.00616 d:54
+   7 20 AA8  gpio:028.000.2 ioblock:3B r:0.39109 c:1.15e-12 l:3.57e-09 len:0.00688 d:64
+   7 21 AB8  gpio:004.000.0 ioblock:3A r:0.171 c:6.5e-13 l:1.65e-09 len:0.00362 d:33
+   7 22 AC8  gpio:004.000.1 ioblock:3A r:0.15008 c:4.8e-13 l:1.42e-09 len:0.00287 d:26
+   7 23 AD8  f:GND t:vss
+   7 24 AE8  gpio:006.000.2 ioblock:3A r:0.23152 c:6.9e-13 l:2.3e-09 len:0.00435 d:40
+   7 25 AF8  gpio:006.000.3 ioblock:3A r:0.20926 c:6.1e-13 l:2.19e-09 len:0.00364 d:37
+   7 27 AH8  gpio:008.000.2 ioblock:3A r:0.26261 c:4.9e-13 l:3.26e-09 len:0.00362 d:40
+   8  0 A9   gpio:034.081.3 ioblock:8A r:0.26755 c:6.6e-13 l:2.59e-09 len:0.00433 d:41
+   8  2 C9   gpio:040.081.2 ioblock:8A r:0.33765 c:9.1e-13 l:3.24e-09 len:0.00622 d:54
+   8  3 D9   f:VCCIO8A t:vccn
+   8  4 E9   gpio:034.081.1 ioblock:8A r:0.25989 c:7.9e-13 l:2.4e-09 len:0.00514 d:44
+   8  5 F9   f:VCCPD7A8A t:vccpd
+   8  6 G9   gpio:050.081.1 ioblock:7A r:0.49793 c:1.63e-12 l:4.46e-09 len:0.00998 d:85 dq
+   8  7 H9   f:GND t:vss
+   8  8 J9   gpio:036.081.1 ioblock:8A r:0.28343 c:1.05e-12 l:2.49e-09 len:0.0059 d:51
+   8  9 K9   gpio:036.081.0 ioblock:8A r:0.30036 c:1.12e-12 l:2.58e-09 len:0.00608 d:54
+   8 11 M9   gpio:032.081.1 ioblock:8A r:0.32092 c:1.21e-12 l:2.8e-09 len:0.00669 d:58
+   8 12 N9   gpio:040.081.0 ioblock:8A r:0.36878 c:1.37e-12 l:3.18e-09 len:0.00771 d:66
+   8 15 T9   f:GND t:vss
+   8 16 U9   gpio:028.000.0 ioblock:3B r:0.30514 c:1.23e-12 l:2.69e-09 len:0.00645 d:58
+   8 18 W9   gpio:028.000.1 ioblock:3B r:0.29511 c:1.2e-12 l:2.59e-09 len:0.00616 d:56
+   8 19 Y9   gpio:026.000.1 ioblock:3B r:0.34995 c:1.08e-12 l:3.11e-09 len:0.0064 d:58
+   8 20 AA9  f:GND t:vss
+   8 21 AB9  gpio:028.000.3 ioblock:3B r:0.37938 c:1.1e-12 l:3.15e-09 len:0.00618 d:59
+   8 22 AC9  gpio:034.000.3 ioblock:3B r:0.39596 c:1.05e-12 l:3.69e-09 len:0.00698 d:62
+   8 23 AD9  gpio:032.000.2 ioblock:3B r:0.3925 c:8.9e-13 l:3.96e-09 len:0.00689 d:59
+   8 24 AE9  gpio:026.000.2 ioblock:3B r:0.32996 c:7.5e-13 l:3.04e-09 len:0.00531 d:48
+   8 25 AF9  f:VCCIO3A t:vccn
+   8 27 AH9  gpio:008.000.3 ioblock:3A r:0.21375 c:5.1e-13 l:2.3e-09 len:0.00321 d:34
+   9  0 A10  gpio:034.081.2 ioblock:8A r:0.26745 c:5.3e-13 l:2.59e-09 len:0.004 d:37
+   9  2 C10  gpio:030.081.1 ioblock:8A r:0.19524 c:5.6e-13 l:1.84e-09 len:0.00337 d:32
+   9  3 D10  gpio:030.081.0 ioblock:8A r:0.20174 c:6.2e-13 l:1.91e-09 len:0.00366 d:34
+   9  4 E10  gpio:034.081.0 ioblock:8A r:0.2459 c:7.2e-13 l:2.34e-09 len:0.00462 d:41
+   9  5 F10  f:GND t:vss
+   9  6 G10  gpio:050.081.0 ioblock:7A r:0.47595 c:1.61e-12 l:4.07e-09 len:0.00939 d:81 dq
+   9  7 H10  gpio:052.081.1 ioblock:7A r:0.42234 c:1.56e-12 l:3.78e-09 len:0.00883 d:77 dq dqsb
+   9  8 J10  gpio:052.081.0 ioblock:7A r:0.41818 c:1.53e-12 l:3.72e-09 len:0.00856 d:75 dq dqs
+   9  9 K10  f:GND t:vss
+   9 11 M10  gpio:040.081.1 ioblock:8A r:0.34217 c:1.29e-12 l:2.98e-09 len:0.00716 d:62
+   9 12 N10  f:GND t:vss
+   9 15 T10  f:VCC t:vcc
+   9 16 U10  f:GND t:vss
+   9 18 W10  gpio:032.000.0 ioblock:3B r:0.27679 c:1.06e-12 l:2.46e-09 len:0.00572 d:51
+   9 19 Y10  gpio:034.000.0 ioblock:3B r:0.36377 c:1.01e-12 l:3.53e-09 len:0.00693 d:60
+   9 20 AA10 gpio:034.000.1 ioblock:3B r:0.33063 c:9.9e-13 l:3.23e-09 len:0.00639 d:57
+   9 21 AB10 gpio:034.000.2 ioblock:3B r:0.38018 c:9.7e-13 l:3.97e-09 len:0.00705 d:62
+   9 22 AC10 f:VCCIO3B t:vccn
+   9 23 AD10 gpio:032.000.3 ioblock:3B r:0.36146 c:8.7e-13 l:3.46e-09 len:0.00626 d:55
+   9 24 AE10 gpio:026.000.3 ioblock:3B r:0.35959 c:6.5e-13 l:4.17e-09 len:0.00583 d:52
+   9 25 AF10 gpio:030.000.2 ioblock:3B r:0.30899 c:6.2e-13 l:3.28e-09 len:0.005 d:45
+   9 27 AH10 gpio:030.000.3 ioblock:3B r:0.3015 c:6.8e-13 l:3.24e-09 len:0.00469 d:47
+  10 10 L11  f:VCC t:vcc
+  10 11 M11  f:GND t:vss
+  10 12 N11  f:VCC t:vcc
+  10 15 T11  f:GND t:vss
+  10 16 U11  f:VCC t:vcc
+  10 17 V11  f:GND t:vss
+  11  0 A12  gpio:038.081.3 ioblock:8A r:0.22595 c:4.7e-13 l:2.58e-09 len:0.00381 d:35
+  11  2 C12  f:VCCIO8A t:vccn
+  11  3 D12  gpio:038.081.0 ioblock:8A r:0.21318 c:5.8e-13 l:2.34e-09 len:0.0039 d:37
+  11  4 E12  gpio:050.081.2 ioblock:7A r:0.36234 c:9.5e-13 l:3.33e-09 len:0.00633 d:56 dq
+  11  5 F12  gpio:052.081.3 ioblock:7A r:0.39686 c:9.2e-13 l:4.02e-09 len:0.0073 d:61 dq
+  11  6 G12  f:GND t:vss
+  11  7 H12  f:DNU t:do-not-use
+  11  8 J12  gpio:054.081.2 ioblock:7A r:0.47123 c:1.32e-12 l:4.62e-09 len:0.00897 d:78 dq
+  11  9 K12  gpio:056.081.3 ioblock:7A r:0.52677 c:1.41e-12 l:5.03e-09 len:0.00971 d:84 dq
+  11 10 L12  f:GND t:vss
+  11 11 M12  f:VCC t:vcc
+  11 12 N12  f:GND t:vss
+  11 15 T12  f:VCC t:vcc
+  11 16 U12  f:GND t:vss
+  11 17 V12  f:VCC t:vcc
+  11 18 W12  gpio:032.000.1 ioblock:3B r:0.27419 c:1.05e-12 l:2.46e-09 len:0.00578 d:51
+  11 19 Y12  f:VCCIO3B t:vccn
+  11 20 AA12 gpio:036.000.0 ioblock:3B r:0.22921 c:9e-13 l:2.03e-09 len:0.00467 d:43
+  11 21 AB12 gpio:036.000.1 ioblock:3B r:0.21754 c:8.7e-13 l:1.97e-09 len:0.00468 d:41
+  11 22 AC12 gpio:038.000.2 ioblock:3B r:0.35608 c:9.4e-13 l:3.64e-09 len:0.00632 d:58
+  11 23 AD12 f:VCCPD3B4A t:vccpd
+  11 24 AE12 f:VCCIO3B t:vccn
+  11 25 AF12 gpio:036.000.2 ioblock:3B r:0.2555 c:6.7e-13 l:2.57e-09 len:0.00429 d:42
+  11 27 AH12 gpio:036.000.3 ioblock:3B r:0.23445 c:5.7e-13 l:2.48e-09 len:0.00372 d:37
+  12  0 A13  gpio:038.081.2 ioblock:8A r:0.2138 c:5.4e-13 l:2.09e-09 len:0.00324 d:33
+  12  2 C13  gpio:038.081.1 ioblock:8A r:0.17811 c:5.5e-13 l:1.7e-09 len:0.00325 d:30
+  12  3 D13  gpio:050.081.3 ioblock:7A r:0.34386 c:7.6e-13 l:3.61e-09 len:0.00596 d:52
+  12  4 E13  f:GND t:vss
+  12  5 F13  gpio:052.081.2 ioblock:7A r:0.35418 c:9.9e-13 l:3.37e-09 len:0.00654 d:58
+  12  6 G13  f:VCCPD7A8A t:vccpd
+  12  7 H13  gpio:054.081.3 ioblock:7A r:0.45206 c:1.13e-12 l:4.86e-09 len:0.00871 d:74
+  12  8 J13  f:VCCIO7A t:vccn
+  12  9 K13  gpio:056.081.2 ioblock:7A r:0.50858 c:1.31e-12 l:5.15e-09 len:0.0096 d:82
+  12 10 L13  f:VCC t:vcc
+  12 11 M13  f:GND t:vss
+  12 12 N13  f:VCC t:vcc
+  12 15 T13  f:GND t:vss
+  12 16 U13  f:VCC t:vcc
+  12 17 V13  f:GND t:vss
+  12 18 W13  f:VREFB3BN0 t:vref
+  12 19 Y13  gpio:040.000.2 ioblock:3B r:0.42206 c:1.18e-12 l:4.09e-09 len:0.0075 d:70
+  12 20 AA13 gpio:040.000.3 ioblock:3B r:0.41041 c:1.03e-12 l:4.34e-09 len:0.00735 d:67
+  12 21 AB13 f:GND t:vss
+  12 22 AC13 f:VCCPD3B4A t:vccpd
+  12 23 AD13 gpio:038.000.3 ioblock:3B r:0.31406 c:7.7e-13 l:3.62e-09 len:0.00578 d:53
+  12 24 AE13 gpio:038.000.0 ioblock:3B r:0.23153 c:6.7e-13 l:2.37e-09 len:0.00422 d:40
+  12 25 AF13 gpio:038.000.1 ioblock:3B r:0.19721 c:5.7e-13 l:2.09e-09 len:0.00349 d:35
+  12 27 AH13 f:VCCIO3B t:vccn
+  15  0 A16  f:GND t:vss
+  15  2 C16  f:VCC_AUX t:vcc
+  15  3 D16  gpio:054.081.0 ioblock:7A r:0.19022 c:6e-13 l:1.78e-09 len:0.00372 d:33 dq
+  15  4 E16  gpio:058.081.1 ioblock:7A r:0.33099 c:9.1e-13 l:3.04e-09 len:0.0061 d:53 dq
+  15  5 F16  f:VCCIO7A t:vccn
+  15  6 G16  gpio:056.081.1 ioblock:7A r:0.18362 c:6e-13 l:1.73e-09 len:0.00394 d:32
+  15  7 H16  gpio:056.081.0 ioblock:7A r:0.19999 c:7.5e-13 l:1.77e-09 len:0.00411 d:36
+  15  8 J16  gpio:060.081.1 ioblock:7A r:0.23714 c:8.7e-13 l:2.03e-09 len:0.00485 d:42 dq dqsb
+  15  9 K16  gpio:060.081.0 ioblock:7A r:0.2576 c:9.2e-13 l:2.16e-09 len:0.00523 d:45 dq dqs
+  15 10 L16  f:GND t:vss
+  15 11 M16  f:VCC t:vcc
+  15 12 N16  f:GND t:vss
+  15 15 T16  f:VCC t:vcc
+  15 16 U16  f:GND t:vss
+  15 17 V16  f:VCC t:vcc
+  15 18 W16  f:DNU t:do-not-use
+  15 19 Y16  gpio:040.000.0 ioblock:3B r:0.23725 c:9.3e-13 l:2.2e-09 len:0.0051 d:45
+  15 20 AA16 gpio:040.000.1 ioblock:3B r:0.22613 c:8.6e-13 l:2.1e-09 len:0.00486 d:43
+  15 21 AB16 gpio:050.000.2 ioblock:4A r:0.39956 c:8.1e-13 l:4.53e-09 len:0.00725 d:61 dq
+  15 22 AC16 gpio:050.000.0 ioblock:4A r:0.35651 c:8.3e-13 l:3.87e-09 len:0.00659 d:57 dq
+  15 23 AD16 f:GND t:vss
+  15 24 AE16 gpio:054.000.3 ioblock:4A r:0.32049 c:8.7e-13 l:3.18e-09 len:0.00584 d:52
+  15 25 AF16 f:VCC_AUX t:vcc
+  15 27 AH16 gpio:052.000.3 ioblock:4A r:0.20809 c:5.4e-13 l:1.97e-09 len:0.00323 d:33 dq
+  16  0 A17  f:VREFB7AN0 t:vref
+  16  2 C17  gpio:054.081.1 ioblock:7A r:0.19295 c:6e-13 l:1.71e-09 len:0.00367 d:32 dq
+  16  3 D17  f:VCCIO7A t:vccn
+  16  4 E17  gpio:058.081.0 ioblock:7A r:0.29686 c:8.5e-13 l:3.03e-09 len:0.00568 d:51 dq
+  16  5 F17  gpio:058.081.3 ioblock:7A r:0.32942 c:9.2e-13 l:3.29e-09 len:0.00616 d:55
+  16  6 G17  gpio:058.081.2 ioblock:7A r:0.37675 c:8.1e-13 l:3.96e-09 len:0.00694 d:56 dq
+  16  7 H17  f:GND t:vss
+  16  8 J17  gpio:064.081.1 ioblock:7A r:0.23846 c:1.01e-12 l:2.03e-09 len:0.00507 d:45
+  16  9 K17  gpio:064.081.0 ioblock:7A r:0.24654 c:9.9e-13 l:2.17e-09 len:0.00538 d:46
+  16 10 L17  f:VCC t:vcc
+  16 11 M17  f:GND t:vss
+  16 12 N17  f:VCC t:vcc
+  16 15 T17  f:GND t:vss
+  16 16 U17  f:VCC t:vcc
+  16 17 V17  f:GND t:vss
+  16 18 W17  gpio:052.000.0 ioblock:4A r:0.24984 c:9.3e-13 l:2.15e-09 len:0.00503 d:45 dq dqs
+  16 19 Y17  gpio:052.000.1 ioblock:4A r:0.23706 c:9.3e-13 l:2.14e-09 len:0.00493 d:44 dq dqsb
+  16 20 AA17 f:GND t:vss
+  16 21 AB17 gpio:050.000.3 ioblock:4A r:0.42551 c:8.4e-13 l:4.87e-09 len:0.00776 d:64
+  16 22 AC17 gpio:050.000.1 ioblock:4A r:0.3839 c:1.04e-12 l:4.08e-09 len:0.00705 d:65 dq
+  16 23 AD17 f:VCCPD3B4A t:vccpd
+  16 24 AE17 gpio:054.000.2 ioblock:4A r:0.34197 c:7.7e-13 l:3.67e-09 len:0.00608 d:53 dq
+  16 25 AF17 f:VCCIO4A t:vccn
+  16 27 AH17 gpio:052.000.2 ioblock:4A r:0.22958 c:4.6e-13 l:2.57e-09 len:0.0036 d:34
+  17 10 L18  f:GND t:vss
+  17 11 M18  f:VCC t:vcc
+  17 12 N18  f:GND t:vss
+  17 15 T18  f:VCC t:vcc
+  17 16 U18  f:GND t:vss
+  17 17 V18  f:VCC t:vcc
+  18  0 A19  gpio:062.081.3 ioblock:7A r:0.19744 c:5.5e-13 l:2.01e-09 len:0.00325 d:33
+  18  2 C19  gpio:062.081.1 ioblock:7A r:0.13847 c:4.8e-13 l:1.41e-09 len:0.00269 d:26 dq
+  18  3 D19  f:VCCPD7A8A t:vccpd
+  18  4 E19  f:VCCIO7A t:vccn
+  18  5 F19  gpio:068.081.1 ioblock:7A r:0.15158 c:6.2e-13 l:1.4e-09 len:0.00337 d:29 dq dqsb
+  18  6 G19  gpio:068.081.0 ioblock:7A r:0.18741 c:6.9e-13 l:1.71e-09 len:0.00402 d:34 dq dqs
+  18  7 H19  gpio:089.056.0 ioblock:6A r:0.25648 c:1.02e-12 l:2.35e-09 len:0.00544 d:49
+  18  8 J19  gpio:089.042.0 ioblock:6A r:0.31706 c:1.13e-12 l:2.86e-09 len:0.00647 d:57
+  18  9 K19  f:GND t:vss
+  18 11 M19  f:GND t:vss
+  18 12 N19  f:VCC t:vcc
+  18 15 T19  f:GND t:vss
+  18 16 U19  gpio:056.000.0 ioblock:4A r:0.29403 c:1.08e-12 l:2.67e-09 len:0.00614 d:54
+  18 18 W19  gpio:060.000.0 ioblock:4A r:0.2643 c:1e-12 l:2.38e-09 len:0.00548 d:49 dq dqs
+  18 19 Y19  gpio:054.000.0 ioblock:4A r:0.35959 c:1.02e-12 l:3.59e-09 len:0.00715 d:61 dq
+  18 20 AA19 gpio:056.000.2 ioblock:4A r:0.40713 c:9.5e-13 l:4.48e-09 len:0.0076 d:65
+  18 21 AB19 gpio:056.000.3 ioblock:4A r:0.38111 c:9.7e-13 l:3.73e-09 len:0.00689 d:60 dq
+  18 22 AC19 f:GND t:vss
+  18 23 AD19 f:VREFB4AN0 t:vref
+  18 24 AE19 gpio:062.000.0 ioblock:4A r:0.19973 c:5.4e-13 l:2.13e-09 len:0.00329 d:34 dq
+  18 25 AF19 gpio:062.000.1 ioblock:4A r:0.17643 c:4.9e-13 l:1.86e-09 len:0.00273 d:30 dq
+  18 27 AH19 gpio:058.000.1 ioblock:4A r:0.2484 c:6.2e-13 l:2.59e-09 len:0.00405 d:40 dq
+  19  0 A20  gpio:062.081.2 ioblock:7A r:0.226 c:4.7e-13 l:2.26e-09 len:0.00369 d:33 dq
+  19  2 C20  f:VCCIO7A t:vccn
+  19  3 D20  gpio:062.081.0 ioblock:7A r:0.174 c:5.5e-13 l:1.7e-09 len:0.00337 d:30 dq
+  19  4 E20  gpio:072.081.1 ioblock:7A r:0.14381 c:4.9e-13 l:1.4e-09 len:0.00311 d:26
+  19  5 F20  gpio:072.081.0 ioblock:7A r:0.16427 c:7e-13 l:1.48e-09 len:0.00336 d:32
+  19  6 G20  f:GND t:vss
+  19  7 H20  gpio:089.056.1 ioblock:6A r:0.25266 c:9e-13 l:2.26e-09 len:0.00512 d:45
+  19  8 J20  gpio:089.045.0 ioblock:6A r:0.26883 c:1e-12 l:2.49e-09 len:0.00562 d:50
+  19  9 K20  gpio:089.042.1 ioblock:6A r:0.27401 c:1.05e-12 l:2.45e-09 len:0.00569 d:51
+  19 11 M20  f:VCCIO5B t:vccn
+  19 12 N20  f:GND t:vss
+  19 15 T20  gpio:089.035.0 ioblock:5B r:0.21823 c:8.9e-13 l:1.94e-09 len:0.0046 d:41
+  19 16 U20  gpio:056.000.1 ioblock:4A r:0.30629 c:1.11e-12 l:2.81e-09 len:0.00642 d:56
+  19 18 W20  gpio:060.000.1 ioblock:4A r:0.28251 c:1.15e-12 l:2.48e-09 len:0.00613 d:53 dq dqsb
+  19 19 Y20  f:VCCIO4A t:vccn
+  19 20 AA20 gpio:054.000.1 ioblock:4A r:0.39395 c:1.09e-12 l:4.04e-09 len:0.00778 d:67 dq
+  19 21 AB20 gpio:068.000.0 ioblock:4A r:0.18039 c:5.7e-13 l:1.68e-09 len:0.00347 d:31 dq dqs
+  19 22 AC20 gpio:068.000.1 ioblock:4A r:0.15609 c:4.9e-13 l:1.43e-09 len:0.00304 d:27 dq dqsb
+  19 23 AD20 f:VCCPD3B4A t:vccpd
+  19 24 AE20 f:GND t:vss
+  19 25 AF20 gpio:058.000.0 ioblock:4A r:0.28931 c:6.9e-13 l:3.14e-09 len:0.00461 d:47 dq
+  19 27 AH20 gpio:058.000.3 ioblock:4A r:0.28308 c:6.3e-13 l:3.24e-09 len:0.00426 d:45
+  20  0 A21  gpio:066.081.1 ioblock:7A r:0.19128 c:5.8e-13 l:1.73e-09 len:0.00337 d:32 dq
+  20  2 C21  gpio:060.081.3 ioblock:7A r:0.31416 c:8.6e-13 l:2.91e-09 len:0.00567 d:50 dq
+  20  3 D21  f:GND t:vss
+  20  4 E21  f:VCCPD7A8A t:vccpd
+  20  5 F21  gpio:070.081.1 ioblock:7A r:0.27064 c:8.4e-13 l:2.3e-09 len:0.00489 d:44 dq
+  20  6 G21  gpio:070.081.0 ioblock:7A r:0.27107 c:9e-13 l:2.41e-09 len:0.00524 d:47 dq
+  20  7 H21  gpio:089.060.0 ioblock:6A r:0.21656 c:8.7e-13 l:1.9e-09 len:0.00449 d:41
+  20  8 J21  f:GND t:vss
+  20  9 K21  gpio:089.045.1 ioblock:6A r:0.23388 c:8.8e-13 l:2.17e-09 len:0.00485 d:44
+  20 11 M21  gpio:089.037.1 ioblock:5B r:0.23396 c:8.5e-13 l:2.2e-09 len:0.00493 d:43
+  20 12 N21  gpio:089.037.0 ioblock:5B r:0.21962 c:8.2e-13 l:2.04e-09 len:0.00461 d:41
+  20 15 T21  f:VCCIO5B t:vccn
+  20 16 U21  gpio:089.035.1 ioblock:5B r:0.18917 c:7.6e-13 l:1.74e-09 len:0.00396 d:36
+  20 18 W21  f:NC t:nc
+  20 19 Y21  gpio:064.000.0 ioblock:4A r:0.25209 c:8.3e-13 l:2.24e-09 len:0.00483 d:43
+  20 20 AA21 gpio:064.000.1 ioblock:4A r:0.22147 c:8.6e-13 l:2e-09 len:0.00465 d:42
+  20 21 AB21 f:GND t:vss
+  20 22 AC21 gpio:066.000.0 ioblock:4A r:0.30986 c:9.8e-13 l:2.74e-09 len:0.00566 d:52 dq
+  20 23 AD21 gpio:060.000.2 ioblock:4A r:0.34621 c:1.02e-12 l:3.3e-09 len:0.00607 d:58
+  20 24 AE21 gpio:060.000.3 ioblock:4A r:0.32403 c:9.1e-13 l:3.01e-09 len:0.00555 d:52 dq
+  20 25 AF21 gpio:058.000.2 ioblock:4A r:0.31868 c:7.4e-13 l:3.07e-09 len:0.00506 d:48 dq
+  20 27 AH21 f:VCCIO4A t:vccn
+  21  0 A22  gpio:066.081.0 ioblock:7A r:0.23459 c:6.5e-13 l:2.43e-09 len:0.00407 d:40 dq
+  21  2 C22  gpio:060.081.2 ioblock:7A r:0.32483 c:8.2e-13 l:3.57e-09 len:0.00611 d:54
+  21  3 D22  gpio:070.081.3 ioblock:7A r:0.27405 c:6.9e-13 l:2.47e-09 len:0.00457 d:41
+  21  4 E22  gpio:070.081.2 ioblock:7A r:0.29835 c:8.2e-13 l:2.55e-09 len:0.00511 d:46 dq
+  21  5 F22  f:VCCIO7A t:vccn
+  21  6 G22  gpio:072.081.3 ioblock:7A r:0.34978 c:9.8e-13 l:3.04e-09 len:0.00618 d:55 dq
+  21  7 H22  gpio:089.060.1 ioblock:6A r:0.20279 c:8.4e-13 l:1.84e-09 len:0.00436 d:39
+  21  8 J22  f:VCCPD6A t:vccpd
+  21  9 K22  f:GND t:vss
+  21 11 M22  gpio:089.038.1 ioblock:5B r:0.44921 c:1.11e-12 l:4.67e-09 len:0.00799 d:72
+  21 12 N22  gpio:089.038.0 ioblock:5B r:0.4194 c:1.13e-12 l:4.3e-09 len:0.00742 d:70
+  21 15 T22  gpio:089.035.3 ioblock:5B r:0.37359 c:8.8e-13 l:3.76e-09 len:0.00661 d:57
+  21 16 U22  gpio:089.035.2 ioblock:5B r:0.36245 c:8.3e-13 l:3.71e-09 len:0.00636 d:55
+  21 18 W22  f:GND t:vss
+  21 19 Y22  f:VCCPD5A t:vccpd
+  21 20 AA22 gpio:072.000.0 ioblock:4A r:0.22189 c:7.7e-13 l:2.08e-09 len:0.0041 d:40
+  21 21 AB22 gpio:072.000.1 ioblock:4A r:0.20331 c:7.7e-13 l:1.91e-09 len:0.00404 d:38
+  21 22 AC22 gpio:066.000.1 ioblock:4A r:0.28134 c:8.8e-13 l:2.49e-09 len:0.00492 d:47 dq
+  21 23 AD22 f:VCCIO4A t:vccn
+  21 24 AE22 f:VCC_AUX t:vcc
+  21 25 AF22 gpio:062.000.2 ioblock:4A r:0.34004 c:8.1e-13 l:3.28e-09 len:0.00552 d:51 dq
+  21 27 AH22 gpio:062.000.3 ioblock:4A r:0.31794 c:6.5e-13 l:3.44e-09 len:0.00514 d:47
+  22  6 G23  gpio:072.081.2 ioblock:7A r:0.35384 c:9.3e-13 l:3.01e-09 len:0.00617 d:53
+  22  7 H23  f:GND t:vss
+  22  8 J23  gpio:089.046.1 ioblock:6A r:0.30211 c:9.7e-13 l:2.71e-09 len:0.00579 d:51
+  22  9 K23  gpio:089.046.0 ioblock:6A r:0.29226 c:9.2e-13 l:2.71e-09 len:0.0055 d:50
+  22 11 M23  f:VREFB5BN0 t:vref
+  22 12 N23  f:VCCIO5B t:vccn
+  22 15 T23  gpio:089.038.2 ioblock:5B r:0.37737 c:7.3e-13 l:4.02e-09 len:0.00654 d:54
+  22 16 U23  f:VCCPD5B t:vccpd
+  22 18 W23  gpio:089.009.0 ioblock:5A r:0.15502 c:5e-13 l:1.54e-09 len:0.00298 d:28
+  22 19 Y23  gpio:089.008.0 ioblock:5A r:0.13877 c:4.9e-13 l:1.33e-09 len:0.00275 d:26
+  22 20 AA23 f:GND t:vss
+  22 21 AB23 gpio:089.006.0 ioblock:5A r:0.15565 c:5.7e-13 l:1.62e-09 len:0.00295 d:30
+  23  0 A24  f:GND t:vss
+  23  2 C24  f:VCC_AUX t:vcc
+  23  3 D24  gpio:064.081.3 ioblock:7A r:0.36506 c:9.5e-13 l:3.77e-09 len:0.00674 d:60 dq
+  23  4 E24  gpio:064.081.2 ioblock:7A r:0.37405 c:9.7e-13 l:3.92e-09 len:0.00691 d:62
+  23  6 G24  f:GND t:vss
+  23  7 H24  gpio:089.061.0 ioblock:6A r:0.25054 c:8.3e-13 l:2.27e-09 len:0.00483 d:43
+  23  8 J24  gpio:089.058.0 ioblock:6A r:0.27709 c:9.2e-13 l:2.5e-09 len:0.00534 d:48
+  23  9 K24  f:GND t:vss
+  23 11 M24  gpio:089.043.0 ioblock:6A r:0.309 c:7e-13 l:3.5e-09 len:0.00603 d:50
+  23 12 N24  f:VCCPD5B t:vccpd
+  23 15 T24  gpio:089.038.3 ioblock:5B r:0.3381 c:8.6e-13 l:3.38e-09 len:0.00584 d:54
+  23 16 U24  f:GND t:vss
+  23 18 W24  gpio:089.009.1 ioblock:5A r:0.13015 c:4.3e-13 l:1.33e-09 len:0.00256 d:24
+  23 19 Y24  gpio:089.008.1 ioblock:5A r:0.13175 c:4.1e-13 l:1.38e-09 len:0.00231 d:24
+  23 20 AA24 gpio:089.006.1 ioblock:5A r:0.14127 c:5.3e-13 l:1.39e-09 len:0.00246 d:27
+  23 21 AB24 gpio:089.004.0 ioblock:5A r:0.12933 c:5.3e-13 l:1.24e-09 len:0.00244 d:26
+  23 23 AD24 gpio:070.000.0 ioblock:4A r:0.29538 c:8.5e-13 l:2.86e-09 len:0.00493 d:49 dq
+  23 24 AE24 gpio:070.000.1 ioblock:4A r:0.29624 c:8.6e-13 l:2.9e-09 len:0.00481 d:50 dq
+  23 25 AF24 f:GND t:vss
+  23 27 AH24 gpio:064.000.2 ioblock:4A r:0.32249 c:7.7e-13 l:3.3e-09 len:0.00508 d:50
+  24  0 A25  gpio:066.081.3 ioblock:7A r:0.34554 c:8.3e-13 l:3.64e-09 len:0.00576 d:55
+  24  2 C25  f:DNU t:do-not-use
+  24  3 D25  f:GND t:vss gpio:009.081.0 dedicated_programming_pad:6 ioblock:7A r:0.17828 c:4.6e-13 l:1.83e-09 len:0.00351 d:29
+  24  4 E25  f:GND t:vss
+  24  6 G25  f:VCCA_FPLL t:vcc
+  24  7 H25  gpio:089.061.1 ioblock:6A r:0.22357 c:7.3e-13 l:2.1e-09 len:0.00427 d:39
+  24  8 J25  gpio:089.058.1 ioblock:6A r:0.26699 c:8.7e-13 l:2.44e-09 len:0.00521 d:46
+  24  9 K25  gpio:089.043.2 ioblock:6A r:0.36523 c:8.7e-13 l:4e-09 len:0.00643 d:59
+  24 11 M25  f:VCCIO6A t:vccn
+  24 12 N25  gpio:089.043.1 ioblock:6A r:0.2811 c:8.1e-13 l:2.66e-09 len:0.00538 d:47
+  24 15 T25  gpio:089.036.0 ioblock:5B r:0.25491 c:7.3e-13 l:2.46e-09 len:0.00436 d:42
+  24 16 U25  gpio:089.036.1 ioblock:5B r:0.23224 c:6.7e-13 l:2.2e-09 len:0.00395 d:38
+  24 18 W25  gpio:089.009.2 ioblock:5A r:0.28741 c:6.6e-13 l:3.12e-09 len:0.00505 d:45
+  24 19 Y25  f:GND t:vss
+  24 20 AA25 f:VREFB5AN0 t:vref
+  24 21 AB25 gpio:089.004.1 ioblock:5A r:0.11594 c:4.8e-13 l:1.22e-09 len:0.00234 d:24
+  24 23 AD25 f:VCCA_FPLL t:vcc
+  24 24 AE25 gpio:072.000.2 ioblock:4A r:0.4295 c:1.22e-12 l:4.09e-09 len:0.00731 d:71
+  24 25 AF25 gpio:070.000.2 ioblock:4A r:0.45174 c:1.25e-12 l:4.04e-09 len:0.00727 d:71 dq
+  24 27 AH25 gpio:064.000.3 ioblock:4A r:0.36032 c:8.2e-13 l:3.56e-09 len:0.00571 d:54 dq
+  25  0 A26  gpio:066.081.2 ioblock:7A r:0.33756 c:9.2e-13 l:2.83e-09 len:0.00569 d:51 dq
+  25  2 C26  f:GND t:vss
+  25  3 D26  gpio:089.056.3 ioblock:6A r:0.41362 c:9.2e-13 l:4.22e-09 len:0.00684 d:62
+  25  4 E26  gpio:089.056.2 ioblock:6A r:0.35523 c:9e-13 l:3.63e-09 len:0.00625 d:57
+  25  6 G26  gpio:089.060.2 ioblock:6A r:0.25829 c:6.6e-13 l:2.59e-09 len:0.0044 d:41
+  25  7 H26  f:VREFB6AN0 t:vref
+  25  8 J26  f:VCCIO6A t:vccn
+  25  9 K26  gpio:089.043.3 ioblock:6A r:0.31175 c:8.1e-13 l:3.15e-09 len:0.00565 d:51
+  25 11 M26  gpio:089.042.3 ioblock:6A r:0.29309 c:7.4e-13 l:2.71e-09 len:0.00498 d:45
+  25 12 N26  gpio:089.042.2 ioblock:6A r:0.28736 c:6.2e-13 l:3.07e-09 len:0.00481 d:44
+  25 15 T26  f:VCCIO5B t:vccn
+  25 16 U26  gpio:089.036.2 ioblock:5B r:0.31187 c:7.1e-13 l:3.1e-09 len:0.00483 d:47
+  25 18 W26  gpio:089.009.3 ioblock:5A r:0.26248 c:6.9e-13 l:2.87e-09 len:0.00443 d:44
+  25 19 Y26  gpio:089.006.3 ioblock:5A r:0.23397 c:6.5e-13 l:2.49e-09 len:0.00386 d:40
+  25 20 AA26 gpio:089.006.2 ioblock:5A r:0.26923 c:7.3e-13 l:2.79e-09 len:0.0046 d:45
+  25 21 AB26 f:VCCIO5A t:vccn
+  25 23 AD26 f:VCCPGM t:vcc
+  25 24 AE26 f:VCCIO4A t:vccn
+  25 25 AF26 gpio:072.000.3 ioblock:4A r:0.42009 c:1.27e-12 l:3.59e-09 len:0.00712 d:67 dq
+  25 27 AH26 gpio:070.000.3 ioblock:4A r:0.40398 c:1.14e-12 l:3.86e-09 len:0.00652 d:66
+  26  0 A27  gpio:068.081.3 ioblock:7A r:0.36121 c:1.09e-12 l:3e-09 len:0.00608 d:57 dq
+  26 27 AH27 f:VCCIO4A t:vccn
+  27  0 A28  gpio:068.081.2 ioblock:7A r:0.37374 c:1.04e-12 l:3.32e-09 len:0.0065 d:59
+  27  1 B28  gpio:089.058.3 ioblock:6A r:0.38891 c:1.05e-12 l:3.81e-09 len:0.00686 d:63
+  27  2 C28  gpio:089.058.2 ioblock:6A r:0.39162 c:9.9e-13 l:3.72e-09 len:0.00633 d:61
+  27  3 D28  f:GND t:vss
+  27  4 E28  gpio:089.061.3 ioblock:6A r:0.30646 c:6.7e-13 l:2.82e-09 len:0.00458 d:43
+  27  5 F28  gpio:089.061.2 ioblock:6A r:0.2865 c:7e-13 l:2.47e-09 len:0.00427 d:42
+  27  6 G28  gpio:089.060.3 ioblock:6A r:0.27833 c:6.8e-13 l:2.54e-09 len:0.0045 d:42
+  27  7 H28  f:GND t:vss
+  27  8 J28  gpio:089.046.3 ioblock:6A r:0.26182 c:6e-13 l:2.81e-09 len:0.00397 d:41
+  27  9 K28  gpio:089.046.2 ioblock:6A r:0.26887 c:5.9e-13 l:2.74e-09 len:0.00409 d:40
+  27 10 L28  gpio:089.045.3 ioblock:6A r:0.23297 c:5.6e-13 l:2.29e-09 len:0.00348 d:36
+  27 11 M28  gpio:089.045.2 ioblock:6A r:0.2293 c:4.5e-13 l:2.54e-09 len:0.0037 d:34
+  27 12 N28  f:GND t:vss
+  27 15 T28  gpio:089.037.3 ioblock:5B r:0.24838 c:5.6e-13 l:2.43e-09 len:0.00345 d:37
+  27 16 U28  gpio:089.037.2 ioblock:5B r:0.25616 c:4.8e-13 l:2.76e-09 len:0.00374 d:36
+  27 17 V28  gpio:089.036.3 ioblock:5B r:0.32115 c:5.9e-13 l:3.53e-09 len:0.00416 d:46
+  27 18 W28  f:VCCIO5A t:vccn
+  27 19 Y28  gpio:089.008.3 ioblock:5A r:0.19588 c:5.4e-13 l:2.02e-09 len:0.00299 d:33
+  27 20 AA28 gpio:089.008.2 ioblock:5A r:0.21488 c:4.6e-13 l:2.77e-09 len:0.00344 d:36
+  27 21 AB28 gpio:089.004.3 ioblock:5A r:0.20515 c:6.4e-13 l:2.11e-09 len:0.0034 d:37
+  27 22 AC28 gpio:089.004.2 ioblock:5A r:0.20484 c:6.3e-13 l:2.12e-09 len:0.00365 d:37
+  27 23 AD28 f:GND t:vss
+  27 24 AE28 gpio:068.000.2 ioblock:4A r:0.50106 c:1.42e-12 l:4.84e-09 len:0.00807 d:83
+  27 25 AF28 gpio:068.000.3 ioblock:4A r:0.49853 c:1.42e-12 l:4.62e-09 len:0.00787 d:81 dq
+  27 26 AG28 gpio:066.000.2 ioblock:4A r:0.46714 c:1.16e-12 l:4.55e-09 len:0.00703 d:73 dq
+  27 27 AH28 gpio:066.000.3 ioblock:4A r:0.49816 c:8.7e-13 l:5.53e-09 len:0.00681 d:70
+f27 width:26 height:26 widthmm:27 heightmm:27
+   0  1 B1   f:RREF_TL t:gxp-reference-resistor
+   0  2 C1   f:GND t:vss
+   0  3 D1   f:GND t:vss
+   0  4 E1   f:GND t:vss
+   0  5 F1   f:GND t:vss
+   0  6 G1   f:GND t:vss
+   0  7 H1   f:GND t:vss
+   0  8 J1   f:GND t:vss
+   0  9 K1   f:DNU t:do-not-use
+   0 10 L1   f:GND t:vss
+   0 11 M1   f:GND t:vss
+   0 12 N1   f:GND t:vss
+   0 13 P1   f:DNU t:do-not-use
+   0 14 R1   f:GND t:vss
+   0 15 T1   f:GND t:vss
+   0 16 U1   f:GND t:vss
+   0 17 V1   f:GND t:vss
+   0 18 W1   f:GND t:vss
+   0 19 Y1   f:GND t:vss
+   0 20 AA1  f:GND t:vss
+   0 21 AB1  f:GND t:vss
+   0 22 AC1  f:GND t:vss
+   0 23 AD1  f:GND t:vss
+   0 24 AE1  f:GND t:vss
+   1  0 A2   gpio:011.081.2 dedicated_programming_pad:12 ioblock:9A r:0.87102 c:1.58e-12 l:7.18e-09 len:0.01436 d:107
+   1  1 B2   f:GND t:vss
+   1  2 C2   f:GND t:vss
+   1  3 D2   f:GND t:vss
+   1  4 E2   f:GND t:vss
+   1  5 F2   f:GND t:vss
+   1  6 G2   f:GND t:vss
+   1  7 H2   f:GND t:vss
+   1  8 J2   f:GND t:vss
+   1  9 K2   f:DNU t:do-not-use
+   1 10 L2   f:GND t:vss
+   1 11 M2   f:GND t:vss
+   1 12 N2   f:GND t:vss
+   1 13 P2   f:DNU t:do-not-use
+   1 14 R2   f:GND t:vss
+   1 15 T2   f:GND t:vss
+   1 16 U2   f:GND t:vss
+   1 17 V2   f:GND t:vss
+   1 18 W2   f:GND t:vss
+   1 19 Y2   f:GND t:vss
+   1 20 AA2  f:GND t:vss
+   1 21 AB2  f:GND t:vss
+   1 22 AC2  f:GND t:vss
+   1 23 AD2  f:GND t:vss
+   1 24 AE2  f:GND t:vss
+   1 25 AF2  f:GND t:vss
+   2  0 A3   f:DNU t:do-not-use
+   2  1 B3   f:GND t:vss
+   2  2 C3   f:DNU t:do-not-use
+   2  3 D3   f:GND t:vss
+   2  4 E3   f:DNU t:do-not-use
+   2  5 F3   f:GND t:vss
+   2  6 G3   f:DNU t:do-not-use
+   2  7 H3   f:GND t:vss
+   2  8 J3   f:VCC t:vcc
+   2  9 K3   f:GND t:vss
+   2 10 L3   f:VCCA_FPLL t:vcc
+   2 11 M3   f:GND t:vss
+   2 12 N3   f:VCC t:vcc
+   2 13 P3   f:GND t:vss
+   2 14 R3   f:VCCA_FPLL t:vcc
+   2 15 T3   f:GND t:vss
+   2 16 U3   f:VCC t:vcc
+   2 17 V3   f:GND t:vss
+   2 18 W3   f:DNU t:do-not-use
+   2 19 Y3   f:GND t:vss
+   2 20 AA3  f:DNU t:do-not-use
+   2 21 AB3  f:GND t:vss
+   2 22 AC3  f:DNU t:do-not-use
+   2 23 AD3  f:GND t:vss
+   2 24 AE3  f:DNU t:do-not-use
+   2 25 AF3  f:GND t:vss
+   3  0 A4   f:DNU t:do-not-use
+   3  1 B4   f:GND t:vss
+   3  2 C4   f:DNU t:do-not-use
+   3  3 D4   f:GND t:vss
+   3  4 E4   f:DNU t:do-not-use
+   3  5 F4   f:GND t:vss
+   3  6 G4   f:DNU t:do-not-use
+   3  7 H4   f:GND t:vss
+   3  8 J4   f:GND t:vss
+   3  9 K4   f:VCC t:vcc
+   3 10 L4   f:GND t:vss
+   3 11 M4   f:VCC t:vcc
+   3 12 N4   f:GND t:vss
+   3 13 P4   f:VCC t:vcc
+   3 14 R4   f:GND t:vss
+   3 15 T4   f:VCCA_FPLL t:vcc
+   3 16 U4   f:GND t:vss
+   3 17 V4   f:GND t:vss
+   3 18 W4   f:DNU t:do-not-use
+   3 19 Y4   f:GND t:vss
+   3 20 AA4  f:DNU t:do-not-use
+   3 21 AB4  f:GND t:vss
+   3 22 AC4  f:DNU t:do-not-use
+   3 23 AD4  f:GND t:vss
+   3 24 AE4  f:DNU t:do-not-use
+   3 25 AF4  f:GND t:vss
+   4  0 A5   gpio:040.081.2 ioblock:8A r:1.13178 c:2.12e-12 l:8.15e-09 len:0.01577 d:131
+   4  1 B5   gpio:011.081.0 dedicated_programming_pad:10 ioblock:9A r:0.6636 c:1.4e-12 l:5.65e-09 len:0.01031 d:89
+   4  2 C5   f:GND t:vss
+   4  3 D5   gpio:011.081.1 dedicated_programming_pad:11 ioblock:9A r:0.59902 c:9.6e-13 l:5.26e-09 len:0.00921 d:71
+   4  4 E5   f:GND t:vss
+   4  5 F5   gpio:013.081.0 dedicated_programming_pad:14 ioblock:9A r:0.50531 c:9.2e-13 l:4.5e-09 len:0.00808 d:64
+   4  6 G5   f:GND t:vss
+   4  7 H5   f:GND t:vss gpio:083.081.0 dedicated_programming_pad:16 ioblock:9A r:0.58091 c:1.01e-12 l:5.35e-09 len:0.00951 d:74
+   4  8 J5   gpio:013.081.1 dedicated_programming_pad:15 ioblock:9A r:0.49132 c:9.6e-13 l:4.61e-09 len:0.0086 d:67
+   4  9 K5   gpio:011.081.3 dedicated_programming_pad:13 ioblock:9A r:0.51616 c:1.02e-12 l:4.77e-09 len:0.00902 d:70
+   4 10 L5   f:GND t:vss
+   4 11 M5   f:GND t:vss
+   4 12 N5   f:VCC t:vcc
+   4 13 P5   f:GND t:vss
+   4 14 R5   f:VCC t:vcc
+   4 15 T5   f:GND t:vss
+   4 16 U5   f:VCC t:vcc
+   4 17 V5   f:GND t:vss
+   4 18 W5   f:GND t:vss
+   4 19 Y5   gpio:013.000.0 jtag:2 ioblock:3A r:0.65999 c:1.2e-12 l:6.25e-09 len:0.01081 d:87
+   4 20 AA5  f:GND t:vss
+   4 21 AB5  gpio:013.000.1 dedicated_programming_pad:2 ioblock:3A r:0.49218 c:1.2e-12 l:5.1e-09 len:0.00823 d:78
+   4 22 AC5  f:GND t:vss
+   4 23 AD5  gpio:013.000.3 dedicated_programming_pad:3 ioblock:3A r:0.61888 c:1.25e-12 l:5.87e-09 len:0.00998 d:86
+   4 24 AE5  f:GND t:vss
+   4 25 AF5  gpio:015.000.1 dedicated_programming_pad:5 ioblock:3A r:0.74343 c:1.26e-12 l:6.01e-09 len:0.0111 d:87
+   5  0 A6   gpio:009.081.2 dedicated_programming_pad:8 ioblock:9A r:0.72016 c:1.53e-12 l:6.19e-09 len:0.01131 d:97
+   5  1 B6   gpio:040.081.3 ioblock:8A r:1.11103 c:2.14e-12 l:7.66e-09 len:0.01534 d:128
+   5  2 C6   f:VCCIO8A t:vccn
+   5  3 D6   gpio:036.081.2 ioblock:8A r:1.09053 c:1.92e-12 l:8.74e-09 len:0.01623 d:130
+   5  4 E6   gpio:036.081.3 ioblock:8A r:1.13647 c:1.94e-12 l:8.84e-09 len:0.0167 d:131
+   5  5 F6   gpio:032.081.2 ioblock:8A r:1.07944 c:1.91e-12 l:8.88e-09 len:0.01642 d:130
+   5  6 G6   gpio:032.081.3 ioblock:8A r:1.10856 c:1.86e-12 l:8.72e-09 len:0.01681 d:127
+   5  7 H6   f:GND t:vss
+   5  8 J6   f:VCCA_FPLL t:vcc
+   5  9 K6   gpio:026.081.1 ioblock:8A r:0.99817 c:1.71e-12 l:1.01e-08 len:0.01633 d:131
+   5 10 L6   gpio:009.081.3 dedicated_programming_pad:9 ioblock:9A r:0.57417 c:1.21e-12 l:4.88e-09 len:0.01011 d:77
+   5 11 M6   f:GND t:vss
+   5 12 N6   f:GND t:vss
+   5 13 P6   f:GND t:vss
+   5 14 R6   gpio:011.000.2 jtag:1 ioblock:3A r:0.57967 c:1.21e-12 l:5.1e-09 len:0.01031 d:79
+   5 15 T6   gpio:013.000.2 jtag:3 ioblock:3A r:0.50523 c:9.6e-13 l:5.23e-09 len:0.00862 d:71
+   5 16 U6   gpio:011.000.3 dedicated_programming_pad:1 ioblock:3A r:0.86045 c:1.55e-12 l:8.1e-09 len:0.0142 d:112
+   5 17 V6   f:GND t:vss
+   5 18 W6   f:GND t:vss
+   5 19 Y6   gpio:011.000.1 dedicated_programming_pad:0 ioblock:3A r:0.52116 c:7.9e-13 l:6.19e-09 len:0.00864 d:70
+   5 20 AA6  gpio:004.000.2 ioblock:3A r:0.89009 c:1.5e-12 l:8.66e-09 len:0.01392 d:114
+   5 21 AB6  gpio:004.000.3 ioblock:3A r:0.88436 c:1.3e-12 l:8.37e-09 len:0.0133 d:104
+   5 22 AC6  f:VCCIO3A t:vccn
+   5 23 AD6  gpio:008.000.3 ioblock:3A r:0.76172 c:1.24e-12 l:8.23e-09 len:0.0114 d:101
+   5 24 AE6  gpio:040.000.2 ioblock:3B r:1.0807 c:2.17e-12 l:8.34e-09 len:0.01626 d:134
+   5 25 AF6  gpio:040.000.3 ioblock:3B r:1.1991 c:2.1e-12 l:7.46e-09 len:0.01551 d:125
+   6  0 A7   gpio:038.081.2 ioblock:8A r:1.00317 c:1.98e-12 l:7.61e-09 len:0.01449 d:123
+   6  1 B7   gpio:038.081.3 ioblock:8A r:0.91999 c:1.94e-12 l:7.53e-09 len:0.01384 d:121
+   6  2 C7   gpio:034.081.3 ioblock:8A r:0.92843 c:1.58e-12 l:7.87e-09 len:0.01376 d:111
+   6  3 D7   gpio:034.081.2 ioblock:8A r:1.00472 c:1.6e-12 l:8.03e-09 len:0.01438 d:114
+   6  4 E7   f:GND t:vss
+   6  5 F7   gpio:030.081.3 ioblock:8A r:0.94302 c:1.61e-12 l:7.79e-09 len:0.01421 d:112
+   6  6 G7   gpio:030.081.2 ioblock:8A r:1.01066 c:1.72e-12 l:8.13e-09 len:0.01495 d:118
+   6  7 H7   gpio:028.081.2 ioblock:8A r:1.00336 c:1.69e-12 l:8.91e-09 len:0.01542 d:123
+   6  8 J7   gpio:028.081.3 ioblock:8A r:1.06615 c:1.79e-12 l:9.31e-09 len:0.0161 d:129
+   6  9 K7   f:VCCIO8A t:vccn
+   6 10 L7   gpio:026.081.0 ioblock:8A r:0.98378 c:1.74e-12 l:9.05e-09 len:0.01604 d:125
+   6 11 M7   gpio:009.081.1 dedicated_programming_pad:7 ioblock:9A r:0.56002 c:1.19e-12 l:4.84e-09 len:0.0096 d:76
+   6 12 N7   f:GND t:vss
+   6 13 P7   f:GND t:vss
+   6 14 R7   f:GND t:vss
+   6 15 T7   gpio:002.000.1 ioblock:3A r:0.47597 c:9.5e-13 l:4.38e-09 len:0.0084 d:64
+   6 16 U7   gpio:002.000.3 ioblock:3A r:1.06004 c:1.8e-12 l:8.89e-09 len:0.01668 d:127
+   6 17 V7   gpio:011.000.0 jtag:0 ioblock:3A r:0.32057 c:6.5e-13 l:3.4e-09 len:0.00589 d:47
+   6 18 W7   f:VCCA_FPLL t:vcc
+   6 19 Y7   f:VCCIO3A t:vccn
+   6 20 AA7  gpio:006.000.3 ioblock:3A r:0.87818 c:1.55e-12 l:8.19e-09 len:0.01392 d:113
+   6 21 AB7  f:DNU t:do-not-use
+   6 22 AC7  f:VREFB3AN0 t:vref
+   6 23 AD7  gpio:008.000.2 ioblock:3A r:0.75866 c:1.27e-12 l:7.81e-09 len:0.01141 d:99
+   6 24 AE7  f:GND t:vss
+   6 25 AF7  gpio:038.000.2 ioblock:3B r:0.92649 c:1.85e-12 l:7.42e-09 len:0.01381 d:117
+   7  0 A8   gpio:066.081.2 ioblock:7A r:1.24311 c:1.49e-12 l:1.244e-08 len:0.01822 d:136
+   7  1 B8   f:GND t:vss
+   7  2 C8   f:VREFB8AN0 t:vref
+   7  3 D8   gpio:026.081.2 ioblock:8A r:0.71604 c:1.34e-12 l:5.55e-09 len:0.00993 d:86
+   7  4 E8   f:VCCBAT t:vcc
+   7  5 F8   f:VCCPGM t:vcc
+   7  6 G8   f:VCCIO8A t:vccn
+   7  7 H8   gpio:038.081.0 ioblock:8A r:0.97066 c:1.71e-12 l:7.31e-09 len:0.01516 d:112
+   7  8 J8   gpio:030.081.1 ioblock:8A r:0.90102 c:1.59e-12 l:7.92e-09 len:0.01438 d:112
+   7  9 K8   gpio:030.081.0 ioblock:8A r:0.92063 c:1.59e-12 l:8.31e-09 len:0.01493 d:115
+   7 10 L8   gpio:032.081.0 ioblock:8A r:0.55847 c:1.11e-12 l:5.08e-09 len:0.0097 d:75
+   7 11 M8   f:GND t:vss
+   7 12 N8   gpio:015.000.0 dedicated_programming_pad:4 ioblock:3A r:0.65281 c:1.28e-12 l:5.56e-09 len:0.01117 d:84
+   7 13 P8   gpio:008.000.0 ioblock:3A r:0.76442 c:1.48e-12 l:6.39e-09 len:0.01294 d:97
+   7 14 R8   gpio:008.000.1 ioblock:3A r:0.75397 c:1.53e-12 l:6.31e-09 len:0.01274 d:98
+   7 15 T8   gpio:002.000.0 ioblock:3A r:0.42639 c:9.1e-13 l:3.88e-09 len:0.00763 d:59
+   7 16 U8   f:VCCIO3B t:vccn
+   7 17 V8   gpio:002.000.2 ioblock:3A r:1.06456 c:1.9e-12 l:8.88e-09 len:0.01698 d:130
+   7 18 W8   gpio:004.000.1 ioblock:3A r:0.38748 c:6.4e-13 l:4.3e-09 len:0.0064 d:52
+   7 19 Y8   gpio:006.000.2 ioblock:3A r:0.90173 c:1.56e-12 l:8.03e-09 len:0.01394 d:112
+   7 20 AA8  f:VCC_AUX t:vcc
+   7 21 AB8  f:GND t:vss
+   7 22 AC8  gpio:030.000.3 ioblock:3B r:0.86491 c:1.28e-12 l:6.68e-09 len:0.01189 d:92
+   7 23 AD8  gpio:034.000.0 ioblock:3B r:0.84316 c:1.49e-12 l:6.51e-09 len:0.01274 d:98
+   7 24 AE8  gpio:034.000.1 ioblock:3B r:0.80011 c:1.74e-12 l:6.09e-09 len:0.01194 d:103
+   7 25 AF8  gpio:038.000.3 ioblock:3B r:0.8785 c:1.77e-12 l:7.63e-09 len:0.01327 d:116
+   8  0 A9   gpio:066.081.3 ioblock:7A r:1.22546 c:1.9e-12 l:1.141e-08 len:0.01821 d:147
+   8  1 B9   gpio:064.081.3 ioblock:7A r:1.3389 c:2.18e-12 l:1.101e-08 len:0.01927 d:155
+   8  2 C9   gpio:064.081.2 ioblock:7A r:1.32598 c:2.23e-12 l:1.101e-08 len:0.01929 d:157
+   8  3 D9   f:VCCIO8A t:vccn
+   8  4 E9   gpio:026.081.3 ioblock:8A r:0.74098 c:1.04e-12 l:6.46e-09 len:0.01058 d:82
+   8  5 F9   f:VCCPD7A8A t:vccpd
+   8  6 G9   f:VCC_AUX t:vcc
+   8  7 H9   gpio:038.081.1 ioblock:8A r:0.95577 c:1.66e-12 l:7.05e-09 len:0.0146 d:108
+   8  8 J9   f:GND t:vss
+   8  9 K9   gpio:032.081.1 ioblock:8A r:0.52927 c:1.08e-12 l:4.81e-09 len:0.00937 d:72
+   8 10 L9   gpio:036.081.1 ioblock:8A r:0.53238 c:1.1e-12 l:4.85e-09 len:0.00944 d:73
+   8 11 M9   gpio:036.081.0 ioblock:8A r:0.54314 c:1.12e-12 l:4.97e-09 len:0.00972 d:75
+   8 12 N9   gpio:040.081.0 ioblock:8A r:0.63586 c:1.36e-12 l:5.66e-09 len:0.01099 d:88
+   8 13 P9   f:GND t:vss
+   8 14 R9   gpio:006.000.0 ioblock:3A r:0.58348 c:1.58e-12 l:4.92e-09 len:0.01008 d:88
+   8 15 T9   gpio:026.000.2 ioblock:3B r:1.0005 c:1.66e-12 l:9.33e-09 len:0.01578 d:125
+   8 16 U9   gpio:026.000.3 ioblock:3B r:0.94466 c:1.52e-12 l:9.35e-09 len:0.01498 d:119
+   8 17 V9   gpio:034.000.3 ioblock:3B r:1.46989 c:2.44e-12 l:1.175e-08 len:0.02176 d:169
+   8 18 W9   f:GND t:vss
+   8 19 Y9   gpio:004.000.0 ioblock:3A r:0.36347 c:5.8e-13 l:5.11e-09 len:0.00589 d:54
+   8 20 AA9  f:VCCPGM t:vcc
+   8 21 AB9  f:VCCPD3A t:vccpd
+   8 22 AC9  gpio:030.000.2 ioblock:3B r:0.8531 c:1.28e-12 l:6.23e-09 len:0.01179 d:89
+   8 23 AD9  f:VCCIO3B t:vccn
+   8 24 AE9  gpio:036.000.2 ioblock:3B r:0.7378 c:1.54e-12 l:6.72e-09 len:0.01143 d:102
+   8 25 AF9  gpio:036.000.3 ioblock:3B r:0.77612 c:1.46e-12 l:6.38e-09 len:0.01145 d:97
+   9  0 A10  f:VCCIO7A t:vccn
+   9  1 B10  gpio:060.081.2 ioblock:7A r:1.13984 c:1.84e-12 l:1.021e-08 len:0.01663 d:137
+   9  2 C10  gpio:062.081.3 ioblock:7A r:1.30357 c:2.12e-12 l:1.093e-08 len:0.01853 d:152
+   9  3 D10  gpio:062.081.2 ioblock:7A r:1.33145 c:2.14e-12 l:1.066e-08 len:0.01901 d:151
+   9  4 E10  gpio:058.081.2 ioblock:7A r:1.21036 c:1.82e-12 l:1.011e-08 len:0.01747 d:136
+   9  5 F10  f:GND t:vss
+   9  6 G10  gpio:034.081.1 ioblock:8A r:0.62606 c:1e-12 l:5.75e-09 len:0.00984 d:76
+   9  7 H10  gpio:034.081.0 ioblock:8A r:0.68656 c:1.07e-12 l:6.02e-09 len:0.01057 d:80
+   9  8 J10  gpio:028.081.1 ioblock:8A r:0.50321 c:8.4e-13 l:4.31e-09 len:0.00822 d:60
+   9  9 K10  gpio:028.081.0 ioblock:8A r:0.54274 c:8.6e-13 l:5.61e-09 len:0.00893 d:69
+   9 10 L10  f:GND t:vss
+   9 11 M10  gpio:040.081.1 ioblock:8A r:0.65598 c:1.34e-12 l:6.06e-09 len:0.01128 d:90
+   9 12 N10  gpio:036.000.0 ioblock:3B r:0.64039 c:1.32e-12 l:5.89e-09 len:0.01114 d:88
+   9 13 P10  gpio:036.000.1 ioblock:3B r:0.58813 c:1.26e-12 l:4.91e-09 len:0.01036 d:79
+   9 14 R10  gpio:006.000.1 ioblock:3A r:0.54665 c:1.59e-12 l:4.68e-09 len:0.0098 d:86
+   9 15 T10  f:GND t:vss
+   9 16 U10  gpio:038.000.0 ioblock:3B r:0.86703 c:1.35e-12 l:7.21e-09 len:0.01368 d:99
+   9 17 V10  gpio:034.000.2 ioblock:3B r:1.49164 c:2.41e-12 l:1.124e-08 len:0.02129 d:165
+   9 18 W10  gpio:032.000.2 ioblock:3B r:1.35615 c:2.21e-12 l:9.24e-09 len:0.01923 d:143
+   9 19 Y10  gpio:032.000.3 ioblock:3B r:1.23595 c:2.08e-12 l:9.33e-09 len:0.01854 d:139
+   9 20 AA10 f:VCCIO3B t:vccn
+   9 21 AB10 gpio:028.000.2 ioblock:3B r:0.77626 c:1.17e-12 l:7.49e-09 len:0.01139 d:93
+   9 22 AC10 gpio:028.000.3 ioblock:3B r:0.81304 c:1.12e-12 l:6.55e-09 len:0.01119 d:85
+   9 23 AD10 gpio:054.000.2 ioblock:4A r:1.00038 c:1.56e-12 l:8.06e-09 len:0.01455 d:112
+   9 24 AE10 gpio:054.000.3 ioblock:4A r:1.0655 c:1.49e-12 l:8.12e-09 len:0.01388 d:110
+   9 25 AF10 f:GND t:vss
+  10  0 A11  gpio:060.081.3 ioblock:7A r:1.11413 c:1.71e-12 l:8.99e-09 len:0.01591 d:124
+  10  1 B11  gpio:054.081.3 ioblock:7A r:0.74307 c:1.17e-12 l:7.42e-09 len:0.01113 d:93
+  10  2 C11  f:GND t:vss
+  10  3 D11  gpio:050.081.2 ioblock:7A r:0.68739 c:9.7e-13 l:7.46e-09 len:0.01064 d:85
+  10  4 E11  gpio:058.081.3 ioblock:7A r:1.22566 c:1.85e-12 l:9.73e-09 len:0.01665 d:134
+  10  5 F11  f:VCCPD7A8A t:vccpd
+  10  6 G11  gpio:056.081.1 ioblock:7A r:0.5411 c:9.5e-13 l:5e-09 len:0.00912 d:69
+  10  7 H11  f:VCCIO7A t:vccn
+  10  8 J11  gpio:076.081.1 ioblock:7A r:0.55065 c:1.01e-12 l:5.52e-09 len:0.00967 d:75
+  10  9 K11  gpio:068.081.1 ioblock:7A r:0.57369 c:1.18e-12 l:5.71e-09 len:0.0103 d:82
+  10 10 L11  gpio:052.081.1 ioblock:7A r:0.53547 c:1.1e-12 l:4.46e-09 len:0.00946 d:70
+  10 11 M11  gpio:052.081.0 ioblock:7A r:0.5337 c:1.04e-12 l:4.97e-09 len:0.00962 d:72
+  10 12 N11  f:GND t:vss
+  10 13 P11  gpio:040.000.0 ioblock:3B r:0.57664 c:1.18e-12 l:5.71e-09 len:0.01031 d:82
+  10 14 R11  gpio:028.000.0 ioblock:3B r:0.42063 c:1.35e-12 l:3.43e-09 len:0.00797 d:68
+  10 15 T11  gpio:028.000.1 ioblock:3B r:0.40246 c:1.21e-12 l:3.31e-09 len:0.00734 d:63
+  10 16 U11  gpio:038.000.1 ioblock:3B r:0.77875 c:1.31e-12 l:7.1e-09 len:0.01295 d:96
+  10 17 V11  f:VCCIO3B t:vccn
+  10 18 W11  gpio:026.000.0 ioblock:3B r:0.70471 c:9.1e-13 l:5.8e-09 len:0.01049 d:73
+  10 19 Y11  gpio:026.000.1 ioblock:3B r:0.6058 c:8.6e-13 l:6.36e-09 len:0.00969 d:74
+  10 20 AA11 f:VCCPD3B4A t:vccpd
+  10 21 AB11 gpio:030.000.1 ioblock:3B r:0.44553 c:6.3e-13 l:4.14e-09 len:0.0064 d:51
+  10 22 AC11 f:GND t:vss
+  10 23 AD11 gpio:050.000.2 ioblock:4A r:0.88159 c:1.26e-12 l:7.13e-09 len:0.01241 d:95
+  10 24 AE11 gpio:050.000.3 ioblock:4A r:0.83896 c:1.57e-12 l:6.48e-09 len:0.01224 d:101
+  10 25 AF11 gpio:056.000.2 ioblock:4A r:0.78866 c:1.6e-12 l:7.66e-09 len:0.01238 d:111
+  11  0 A12  gpio:054.081.2 ioblock:7A r:0.81739 c:1.14e-12 l:7e-09 len:0.01187 d:89
+  11  1 B12  gpio:056.081.2 ioblock:7A r:0.7788 c:1.55e-12 l:6.34e-09 len:0.01115 d:99
+  11  2 C12  gpio:052.081.3 ioblock:7A r:0.7066 c:8e-13 l:6.23e-09 len:0.0099 d:71
+  11  3 D12  gpio:050.081.3 ioblock:7A r:0.67576 c:9.7e-13 l:6.94e-09 len:0.01027 d:82
+  11  4 E12  f:VCCIO7A t:vccn
+  11  5 F12  gpio:054.081.1 ioblock:7A r:0.66382 c:1.07e-12 l:5.95e-09 len:0.01057 d:80
+  11  6 G12  gpio:054.081.0 ioblock:7A r:0.64713 c:1.03e-12 l:5.51e-09 len:0.01068 d:75
+  11  7 H12  gpio:056.081.0 ioblock:7A r:0.59796 c:9.6e-13 l:5.22e-09 len:0.00939 d:71
+  11  8 J12  gpio:076.081.0 ioblock:7A r:0.51458 c:8e-13 l:6.33e-09 len:0.00901 d:71
+  11  9 K12  f:GND t:vss
+  11 10 L12  gpio:068.081.0 ioblock:7A r:0.60449 c:1.23e-12 l:5.7e-09 len:0.01078 d:84
+  11 11 M12  gpio:060.081.1 ioblock:7A r:0.53774 c:1.11e-12 l:5.14e-09 len:0.00959 d:76
+  11 12 N12  gpio:060.081.0 ioblock:7A r:0.57356 c:1.17e-12 l:4.97e-09 len:0.01009 d:76
+  11 13 P12  gpio:040.000.1 ioblock:3B r:0.60434 c:1.2e-12 l:6.08e-09 len:0.01052 d:85
+  11 14 R12  f:GND t:vss
+  11 15 T12  gpio:032.000.1 ioblock:3B r:0.56291 c:1.05e-12 l:5.74e-09 len:0.00978 d:78
+  11 16 U12  gpio:056.000.0 ioblock:4A r:0.59263 c:1e-12 l:5.94e-09 len:0.01001 d:77
+  11 17 V12  gpio:056.000.1 ioblock:4A r:0.60583 c:1.07e-12 l:6.31e-09 len:0.01038 d:82
+  11 18 W12  gpio:054.000.0 ioblock:4A r:0.50489 c:8.1e-13 l:5.59e-09 len:0.00777 d:67
+  11 19 Y12  f:GND t:vss
+  11 20 AA12 f:DNU t:do-not-use
+  11 21 AB12 gpio:030.000.0 ioblock:3B r:0.46813 c:6e-13 l:3.72e-09 len:0.00614 d:47
+  11 22 AC12 f:VREFB3BN0 t:vref
+  11 23 AD12 gpio:052.000.3 ioblock:4A r:0.716 c:1.02e-12 l:5.13e-09 len:0.01002 d:72
+  11 24 AE12 f:VCCIO4A t:vccn
+  11 25 AF12 gpio:056.000.3 ioblock:4A r:0.75871 c:1.22e-12 l:7.42e-09 len:0.01187 d:95
+  12  0 A13  gpio:056.081.3 ioblock:7A r:0.70151 c:1.47e-12 l:5.72e-09 len:0.01036 d:92
+  12  1 B13  f:VCCIO7A t:vccn
+  12  2 C13  gpio:052.081.2 ioblock:7A r:0.60498 c:1.06e-12 l:5.57e-09 len:0.00912 d:77
+  12  3 D13  gpio:050.081.1 ioblock:7A r:0.44104 c:6.1e-13 l:4.14e-09 len:0.0068 d:50
+  12  4 E13  gpio:050.081.0 ioblock:7A r:0.45664 c:6.3e-13 l:4.38e-09 len:0.00721 d:53
+  12  5 F13  f:VCCPD7A8A t:vccpd
+  12  6 G13  f:GND t:vss
+  12  7 H13  gpio:072.081.1 ioblock:7A r:0.55767 c:8.3e-13 l:4.98e-09 len:0.00835 d:64
+  12  8 J13  f:VCC t:vcc
+  12  9 K13  f:GND t:vss
+  12 10 L13  f:VCC t:vcc
+  12 11 M13  f:GND t:vss
+  12 12 N13  f:VCC t:vcc
+  12 13 P13  f:GND t:vss
+  12 14 R13  f:VCC t:vcc
+  12 15 T13  gpio:032.000.0 ioblock:3B r:0.5975 c:1.04e-12 l:6.31e-09 len:0.01017 d:81
+  12 16 U13  f:GND t:vss
+  12 17 V13  gpio:052.000.0 ioblock:4A r:0.3251 c:6.1e-13 l:2.78e-09 len:0.0055 d:41
+  12 18 W13  gpio:052.000.1 ioblock:4A r:0.28486 c:5.5e-13 l:2.55e-09 len:0.00511 d:38
+  12 19 Y13  gpio:054.000.1 ioblock:4A r:0.42607 c:6.8e-13 l:4.62e-09 len:0.00704 d:56
+  12 20 AA13 f:VCCPD3B4A t:vccpd
+  12 21 AB13 f:VCCIO4A t:vccn
+  12 22 AC13 gpio:058.000.3 ioblock:4A r:0.55829 c:8.5e-13 l:6.31e-09 len:0.00889 d:73
+  12 23 AD13 gpio:052.000.2 ioblock:4A r:0.70488 c:9.7e-13 l:5.32e-09 len:0.00981 d:72
+  12 24 AE13 gpio:060.000.2 ioblock:4A r:0.73551 c:1.15e-12 l:6.68e-09 len:0.01111 d:88
+  12 25 AF13 gpio:060.000.3 ioblock:4A r:0.77082 c:1.22e-12 l:6.98e-09 len:0.01187 d:92
+  13  0 A14  gpio:070.081.2 ioblock:7A r:1.094 c:1.37e-12 l:8.92e-09 len:0.01428 d:110
+  13  1 B14  gpio:070.081.3 ioblock:7A r:0.9508 c:1.45e-12 l:8.19e-09 len:0.01372 d:109
+  13  2 C14  gpio:066.081.0 ioblock:7A r:0.56927 c:9.4e-13 l:4.83e-09 len:0.0089 d:67
+  13  3 D14  f:GND t:vss
+  13  4 E14  f:VCC_AUX t:vcc
+  13  5 F14  f:DNU t:do-not-use
+  13  6 G14  gpio:064.081.1 ioblock:7A r:0.42194 c:6.7e-13 l:3.68e-09 len:0.00651 d:50
+  13  7 H14  gpio:072.081.0 ioblock:7A r:0.53315 c:7.6e-13 l:5.15e-09 len:0.00777 d:63
+  13  8 J14  f:GND t:vss
+  13  9 K14  f:VCC t:vcc
+  13 10 L14  f:GND t:vss
+  13 11 M14  f:VCC t:vcc
+  13 12 N14  f:GND t:vss
+  13 13 P14  f:VCC t:vcc
+  13 14 R14  f:GND t:vss
+  13 15 T14  f:VCC t:vcc
+  13 16 U14  gpio:060.000.0 ioblock:4A r:0.35082 c:7.2e-13 l:2.97e-09 len:0.0062 d:46
+  13 17 V14  gpio:060.000.1 ioblock:4A r:0.30848 c:6.5e-13 l:2.71e-09 len:0.00561 d:42
+  13 18 W14  f:VCCIO4A t:vccn
+  13 19 Y14  gpio:050.000.0 ioblock:4A r:0.56902 c:8.7e-13 l:5.75e-09 len:0.00876 d:71
+  13 20 AA14 gpio:050.000.1 ioblock:4A r:0.52601 c:7.9e-13 l:4.46e-09 len:0.00802 d:60
+  13 21 AB14 f:VCC_AUX t:vcc
+  13 22 AC14 gpio:058.000.2 ioblock:4A r:0.65731 c:8e-13 l:5.86e-09 len:0.00864 d:68
+  13 23 AD14 f:GND t:vss
+  13 24 AE14 gpio:062.000.2 ioblock:4A r:0.71835 c:1.12e-12 l:5.98e-09 len:0.01083 d:82
+  13 25 AF14 gpio:062.000.3 ioblock:4A r:0.72974 c:1.18e-12 l:6.24e-09 len:0.01115 d:86
+  14  0 A15  f:GND t:vss
+  14  1 B15  gpio:068.081.2 ioblock:7A r:0.84818 c:1.2e-12 l:5.9e-09 len:0.01129 d:84
+  14  2 C15  gpio:068.081.3 ioblock:7A r:0.82035 c:1.13e-12 l:6e-09 len:0.0114 d:82
+  14  3 D15  gpio:066.081.1 ioblock:7A r:0.59841 c:9.5e-13 l:5.86e-09 len:0.0094 d:74
+  14  4 E15  gpio:058.081.1 ioblock:7A r:0.49049 c:5.4e-13 l:3.51e-09 len:0.0064 d:44
+  14  5 F15  f:VCCIO7A t:vccn
+  14  6 G15  gpio:064.081.0 ioblock:7A r:0.43527 c:9e-13 l:2.99e-09 len:0.00607 d:52
+  14  7 H15  gpio:088.081.0 ioblock:7A r:0.5932 c:8.1e-13 l:7.02e-09 len:0.00944 d:76
+  14  8 J15  f:VCC t:vcc
+  14  9 K15  f:GND t:vss
+  14 10 L15  f:VCC t:vcc
+  14 11 M15  f:GND t:vss
+  14 12 N15  f:VCC t:vcc
+  14 13 P15  f:GND t:vss
+  14 14 R15  f:VCC t:vcc
+  14 15 T15  f:GND t:vss
+  14 16 U15  gpio:080.000.0 ioblock:4A r:0.40139 c:8.5e-13 l:3.36e-09 len:0.00719 d:53
+  14 17 V15  gpio:068.000.0 ioblock:4A r:0.43599 c:7.6e-13 l:4.93e-09 len:0.00754 d:61
+  14 18 W15  gpio:068.000.1 ioblock:4A r:0.43159 c:7.9e-13 l:4.2e-09 len:0.0074 d:58
+  14 19 Y15  gpio:064.000.0 ioblock:4A r:0.27362 c:4.2e-13 l:3.44e-09 len:0.0048 d:38
+  14 20 AA15 f:GND t:vss
+  14 21 AB15 gpio:058.000.0 ioblock:4A r:0.36654 c:7.9e-13 l:3.48e-09 len:0.00602 d:52
+  14 22 AC15 gpio:058.000.1 ioblock:4A r:0.34796 c:6.9e-13 l:3.54e-09 len:0.00553 d:49
+  14 23 AD15 f:VREFB4AN0 t:vref
+  14 24 AE15 gpio:074.000.1 ioblock:4A r:0.61342 c:9.7e-13 l:6.21e-09 len:0.00968 d:78
+  14 25 AF15 f:VCCIO4A t:vccn
+  15  0 A16  gpio:074.081.3 ioblock:7A r:0.77091 c:1.18e-12 l:7.44e-09 len:0.01124 d:94
+  15  1 B16  f:VREFB7AN0 t:vref
+  15  2 C16  f:VCCIO7A t:vccn
+  15  3 D16  gpio:062.081.1 ioblock:7A r:0.38152 c:7.5e-13 l:3.51e-09 len:0.00561 d:51
+  15  4 E16  gpio:062.081.0 ioblock:7A r:0.36784 c:6.9e-13 l:3.06e-09 len:0.00551 d:46
+  15  5 F16  gpio:058.081.0 ioblock:7A r:0.51601 c:5.4e-13 l:4.43e-09 len:0.00686 d:49
+  15  6 G16  gpio:080.081.0 ioblock:7A r:0.3444 c:4.9e-13 l:4.58e-09 len:0.00548 d:48
+  15  7 H16  f:GND t:vss
+  15  8 J16  gpio:088.081.1 ioblock:7A r:0.55119 c:7.9e-13 l:6.86e-09 len:0.00894 d:74
+  15  9 K16  f:VCC t:vcc
+  15 10 L16  f:GND t:vss
+  15 11 M16  f:VCC t:vcc
+  15 12 N16  f:GND t:vss
+  15 13 P16  f:VCC t:vcc
+  15 14 R16  f:GND t:vss
+  15 15 T16  f:VCC t:vcc
+  15 16 U16  gpio:080.000.1 ioblock:4A r:0.37038 c:7.8e-13 l:3.16e-09 len:0.00663 d:50
+  15 17 V16  f:GND t:vss
+  15 18 W16  gpio:076.000.0 ioblock:4A r:0.38353 c:6e-13 l:4.3e-09 len:0.00637 d:51
+  15 19 Y16  gpio:064.000.1 ioblock:4A r:0.29193 c:4.1e-13 l:3.71e-09 len:0.00491 d:39
+  15 20 AA16 gpio:062.000.0 ioblock:4A r:0.40962 c:6.1e-13 l:4.1e-09 len:0.00663 d:50
+  15 21 AB16 gpio:062.000.1 ioblock:4A r:0.40387 c:5.1e-13 l:4.15e-09 len:0.00631 d:46
+  15 22 AC16 f:VCCIO4A t:vccn
+  15 23 AD16 gpio:066.000.1 ioblock:4A r:0.46064 c:7.1e-13 l:4.9e-09 len:0.00735 d:59
+  15 24 AE16 gpio:074.000.0 ioblock:4A r:0.57007 c:8.6e-13 l:6.19e-09 len:0.00889 d:73
+  15 25 AF16 gpio:078.000.1 ioblock:4A r:0.60648 c:8.8e-13 l:5.97e-09 len:0.00966 d:73
+  16  0 A17  gpio:074.081.2 ioblock:7A r:0.74967 c:1.13e-12 l:6.96e-09 len:0.01062 d:89
+  16  1 B17  gpio:072.081.3 ioblock:7A r:0.78628 c:8.5e-13 l:5.03e-09 len:0.00955 d:65
+  16  2 C17  gpio:072.081.2 ioblock:7A r:0.66695 c:8.9e-13 l:5.11e-09 len:0.009 d:67
+  16  3 D17  gpio:074.081.1 ioblock:7A r:0.47553 c:5.8e-13 l:4.67e-09 len:0.0063 d:52
+  16  4 E17  f:GND t:vss
+  16  5 F17  f:VCCPD7A8A t:vccpd
+  16  6 G17  gpio:080.081.1 ioblock:7A r:0.33839 c:4.4e-13 l:3.83e-09 len:0.00512 d:41
+  16  7 H17  gpio:084.081.1 ioblock:7A r:0.34622 c:5.1e-13 l:4.14e-09 len:0.0056 d:46
+  16  8 J17  f:VCC t:vcc
+  16  9 K17  f:GND t:vss
+  16 10 L17  f:VCC t:vcc
+  16 11 M17  f:GND t:vss
+  16 12 N17  f:VCC t:vcc
+  16 13 P17  f:GND t:vss
+  16 14 R17  f:VCC t:vcc
+  16 15 T17  gpio:072.000.0 ioblock:4A r:0.43399 c:8.8e-13 l:4.39e-09 len:0.008 d:62
+  16 16 U17  gpio:072.000.1 ioblock:4A r:0.48086 c:1e-12 l:4.48e-09 len:0.00838 d:67
+  16 17 V17  gpio:084.000.1 ioblock:4A r:0.42155 c:7e-13 l:4.48e-09 len:0.00685 d:56
+  16 18 W17  gpio:076.000.1 ioblock:4A r:0.3408 c:5.9e-13 l:3.37e-09 len:0.00591 d:45
+  16 19 Y17  f:VCCIO4A t:vccn
+  16 20 AA17 f:VCCPD3B4A t:vccpd
+  16 21 AB17 gpio:070.000.0 ioblock:4A r:0.334 c:7.1e-13 l:3.69e-09 len:0.00557 d:51
+  16 22 AC17 gpio:070.000.1 ioblock:4A r:0.3538 c:7.9e-13 l:4.36e-09 len:0.00578 d:59
+  16 23 AD17 gpio:066.000.0 ioblock:4A r:0.44127 c:5.6e-13 l:4.7e-09 len:0.00686 d:51
+  16 24 AE17 f:GND t:vss
+  16 25 AF17 gpio:078.000.0 ioblock:4A r:0.58236 c:7.6e-13 l:6.17e-09 len:0.00917 d:68
+  17  0 A18  gpio:076.081.3 ioblock:7A r:0.73846 c:1.33e-12 l:5.46e-09 len:0.00985 d:85
+  17  1 B18  f:GND t:vss
+  17  2 C18  gpio:078.081.3 ioblock:7A r:0.7975 c:8.8e-13 l:5.18e-09 len:0.00908 d:68
+  17  3 D18  gpio:074.081.0 ioblock:7A r:0.37965 c:7.8e-13 l:3.8e-09 len:0.00579 d:54
+  17  4 E18  gpio:070.081.0 ioblock:7A r:0.4962 c:6.4e-13 l:4.59e-09 len:0.00722 d:54
+  17  5 F18  gpio:070.081.1 ioblock:7A r:0.4932 c:6.9e-13 l:4.44e-09 len:0.00757 d:55
+  17  6 G18  f:VCCIO7A t:vccn
+  17  7 H18  gpio:084.081.0 ioblock:7A r:0.36602 c:5.4e-13 l:4.48e-09 len:0.00591 d:49
+  17  8 J18  f:GND t:vss
+  17  9 K18  f:VCC t:vcc
+  17 10 L18  f:GND t:vss
+  17 11 M18  f:VCC t:vcc
+  17 12 N18  f:GND t:vss
+  17 13 P18  f:VCC t:vcc
+  17 14 R18  f:GND t:vss
+  17 15 T18  f:VCC t:vcc
+  17 16 U18  f:VCCIO4A t:vccn
+  17 17 V18  gpio:084.000.0 ioblock:4A r:0.39531 c:7.2e-13 l:3.92e-09 len:0.0069 d:53
+  17 18 W18  gpio:088.000.1 ioblock:4A r:0.21847 c:7.8e-13 l:2.08e-09 len:0.00432 d:40
+  17 19 Y18  gpio:082.000.0 ioblock:4A r:0.50567 c:6.3e-13 l:6.07e-09 len:0.00777 d:62
+  17 20 AA18 gpio:082.000.1 ioblock:4A r:0.50758 c:6.4e-13 l:4.73e-09 len:0.00792 d:55
+  17 21 AB18 f:GND t:vss
+  17 22 AC18 gpio:066.000.2 ioblock:4A r:0.89095 c:1.27e-12 l:6.47e-09 len:0.01196 d:91
+  17 23 AD18 gpio:066.000.3 ioblock:4A r:0.77753 c:1.21e-12 l:6.95e-09 len:0.01135 d:92
+  17 24 AE18 gpio:064.000.2 ioblock:4A r:0.61782 c:1.26e-12 l:5.55e-09 len:0.00937 d:84
+  17 25 AF18 gpio:064.000.3 ioblock:4A r:0.64299 c:1.28e-12 l:5.42e-09 len:0.00951 d:83
+  18  0 A19  gpio:076.081.2 ioblock:7A r:0.73746 c:1.19e-12 l:5.49e-09 len:0.00934 d:81
+  18  1 B19  gpio:080.081.3 ioblock:7A r:0.81152 c:8.5e-13 l:4.46e-09 len:0.00903 d:62
+  18  2 C19  gpio:078.081.2 ioblock:7A r:0.78948 c:8.8e-13 l:4.8e-09 len:0.00893 d:65
+  18  3 D19  f:VCCIO7A t:vccn
+  18  4 E19  gpio:078.081.1 ioblock:7A r:0.46993 c:6.1e-13 l:5.06e-09 len:0.00688 d:55
+  18  5 F19  f:VCCPD7A8A t:vccpd
+  18  6 G19  f:VCC_AUX t:vcc
+  18  7 H19  gpio:089.066.0 ioblock:6A r:0.64454 c:1.11e-12 l:6.28e-09 len:0.01057 d:84
+  18  8 J19  f:VCC t:vcc
+  18  9 K19  f:GND t:vss
+  18 10 L19  f:VCC t:vcc
+  18 11 M19  f:GND t:vss
+  18 12 N19  f:VCC t:vcc
+  18 13 P19  f:GND t:vss
+  18 14 R19  f:VCC t:vcc
+  18 15 T19  gpio:089.009.0 ioblock:5A r:0.21126 c:7.7e-13 l:2.15e-09 len:0.0044 d:41
+  18 16 U19  gpio:089.004.0 ioblock:5A r:0.29832 c:5.9e-13 l:3.58e-09 len:0.00557 d:46
+  18 17 V19  gpio:088.000.0 ioblock:4A r:0.24164 c:9.3e-13 l:2.27e-09 len:0.00508 d:46
+  18 18 W19  f:GND t:vss
+  18 19 Y19  gpio:086.000.1 ioblock:4A r:0.51644 c:7.4e-13 l:5.35e-09 len:0.00842 d:63
+  18 20 AA19 f:VCCPD3B4A t:vccpd
+  18 21 AB19 gpio:086.000.2 ioblock:4A r:0.54209 c:6.5e-13 l:4.06e-09 len:0.00699 d:51
+  18 22 AC19 gpio:086.000.3 ioblock:4A r:0.4639 c:5.8e-13 l:3.95e-09 len:0.00661 d:48
+  18 23 AD19 f:VCCIO4A t:vccn
+  18 24 AE19 gpio:068.000.2 ioblock:4A r:0.68809 c:1.31e-12 l:5.62e-09 len:0.00979 d:86
+  18 25 AF19 gpio:068.000.3 ioblock:4A r:0.76261 c:1.34e-12 l:5.52e-09 len:0.0102 d:86
+  19  0 A20  f:VCCIO7A t:vccn
+  19  1 B20  gpio:082.081.3 ioblock:7A r:0.59881 c:1.13e-12 l:5.26e-09 len:0.00908 d:77
+  19  2 C20  gpio:080.081.2 ioblock:7A r:0.66372 c:1e-12 l:5.08e-09 len:0.00872 d:71
+  19  3 D20  gpio:082.081.1 ioblock:7A r:0.50466 c:6.2e-13 l:4.72e-09 len:0.00737 d:54
+  19  4 E20  gpio:078.081.0 ioblock:7A r:0.45566 c:5.7e-13 l:4.1e-09 len:0.00689 d:48
+  19  5 F20  f:GND t:vss
+  19  6 G20  gpio:089.070.0 ioblock:6A r:0.6175 c:1e-12 l:5.29e-09 len:0.00952 d:73
+  19  7 H20  gpio:089.066.1 ioblock:6A r:0.60134 c:1.04e-12 l:5.76e-09 len:0.00995 d:77
+  19  8 J20  gpio:089.068.0 ioblock:6A r:0.31352 c:5e-13 l:4.24e-09 len:0.0056 d:46
+  19  9 K20  f:VCC t:vcc
+  19 10 L20  f:GND t:vss
+  19 11 M20  f:VCC t:vcc
+  19 12 N20  gpio:089.042.0 ioblock:6A r:0.18124 c:3.8e-13 l:2.34e-09 len:0.00367 d:30
+  19 13 P20  gpio:089.035.1 ioblock:5B r:0.17887 c:3.2e-13 l:2.17e-09 len:0.00356 d:26
+  19 14 R20  gpio:089.035.0 ioblock:5B r:0.20657 c:3.8e-13 l:2.09e-09 len:0.00409 d:28
+  19 15 T20  f:GND t:vss
+  19 16 U20  gpio:089.009.1 ioblock:5A r:0.16307 c:7.5e-13 l:1.92e-09 len:0.00389 d:38
+  19 17 V20  gpio:089.004.1 ioblock:5A r:0.35233 c:6.9e-13 l:3.74e-09 len:0.00635 d:51
+  19 18 W20  gpio:089.006.0 ioblock:5A r:0.37822 c:6.2e-13 l:3.67e-09 len:0.00595 d:48
+  19 19 Y20  gpio:086.000.0 ioblock:4A r:0.57596 c:9.3e-13 l:5.31e-09 len:0.00912 d:70
+  19 20 AA20 f:VCCIO4A t:vccn
+  19 21 AB20 f:VCC_AUX t:vcc
+  19 22 AC20 gpio:074.000.2 ioblock:4A r:0.71953 c:1.1e-12 l:5.76e-09 len:0.01054 d:80
+  19 23 AD20 gpio:074.000.3 ioblock:4A r:0.75027 c:1.05e-12 l:5.96e-09 len:0.01033 d:79
+  19 24 AE20 gpio:072.000.2 ioblock:4A r:0.7215 c:1.38e-12 l:5.54e-09 len:0.01015 d:87
+  19 25 AF20 f:GND t:vss
+  20  0 A21  gpio:084.081.3 ioblock:7A r:0.78086 c:1.64e-12 l:6.25e-09 len:0.01165 d:101
+  20  1 B21  gpio:082.081.2 ioblock:7A r:0.67358 c:1.3e-12 l:4.89e-09 len:0.00899 d:80
+  20  2 C21  f:GND t:vss
+  20  3 D21  gpio:082.081.0 ioblock:7A r:0.49327 c:6.7e-13 l:5.17e-09 len:0.00745 d:59
+  20  4 E21  gpio:089.070.2 ioblock:6A r:0.83955 c:1.34e-12 l:6.87e-09 len:0.01262 d:96
+  20  5 F21  gpio:089.070.1 ioblock:6A r:0.60105 c:9.9e-13 l:5.09e-09 len:0.0093 d:71
+  20  6 G21  f:VCCA_FPLL t:vcc
+  20  7 H21  f:VCCIO6A t:vccn
+  20  8 J21  gpio:089.068.1 ioblock:6A r:0.29261 c:4.9e-13 l:3.48e-09 len:0.00519 d:41
+  20  9 K21  gpio:089.065.1 ioblock:6A r:0.31361 c:4.9e-13 l:3.16e-09 len:0.00536 d:39
+  20 10 L21  f:VCCPD6A t:vccpd
+  20 11 M21  gpio:089.042.1 ioblock:6A r:0.23413 c:4e-13 l:2.91e-09 len:0.00398 d:34
+  20 12 N21  f:GND t:vss
+  20 13 P21  gpio:089.037.0 ioblock:5B r:0.27834 c:4.2e-13 l:2.93e-09 len:0.00507 d:35
+  20 14 R21  f:VCCPD5B t:vccpd
+  20 15 T21  gpio:089.027.0 ioblock:5B r:0.24045 c:4.5e-13 l:3e-09 len:0.00471 d:37
+  20 16 U21  f:VCCPD5A t:vccpd
+  20 17 V21  f:VCCIO5A t:vccn
+  20 18 W21  gpio:089.006.1 ioblock:5A r:0.3549 c:6.7e-13 l:3.51e-09 len:0.00615 d:48
+  20 19 Y21  f:VCCA_FPLL t:vcc
+  20 20 AA21 gpio:088.000.3 ioblock:4A r:0.60818 c:8.6e-13 l:5.42e-09 len:0.0089 d:68
+  20 21 AB21 f:VCCPD3B4A t:vccpd
+  20 22 AC21 f:GND t:vss
+  20 23 AD21 gpio:076.000.3 ioblock:4A r:0.68258 c:1.36e-12 l:5.74e-09 len:0.0101 d:88
+  20 24 AE21 gpio:072.000.3 ioblock:4A r:0.74851 c:1.45e-12 l:5.49e-09 len:0.01044 d:89
+  20 25 AF21 gpio:070.000.2 ioblock:4A r:0.7995 c:1.63e-12 l:6.7e-09 len:0.01175 d:104
+  21  0 A22  gpio:086.081.3 ioblock:7A r:0.83855 c:1.73e-12 l:6.3e-09 len:0.01157 d:104
+  21  1 B22  gpio:084.081.2 ioblock:7A r:0.75187 c:1.49e-12 l:6.47e-09 len:0.01098 d:98
+  21  2 C22  gpio:088.081.3 ioblock:7A r:0.65729 c:1.18e-12 l:5.24e-09 len:0.00918 d:79
+  21  3 D22  gpio:089.068.2 ioblock:6A r:0.8951 c:1.56e-12 l:7.66e-09 len:0.01367 d:109
+  21  4 E22  f:VCCIO6A t:vccn
+  21  5 F22  gpio:089.070.3 ioblock:6A r:0.78023 c:1.24e-12 l:6.59e-09 len:0.01191 d:90
+  21  6 G22  gpio:089.054.3 ioblock:6A r:0.81337 c:1.32e-12 l:7.33e-09 len:0.01267 d:98
+  21  7 H22  gpio:089.054.0 ioblock:6A r:0.616 c:9.3e-13 l:6.25e-09 len:0.00925 d:76
+  21  8 J22  f:VCCPD6A t:vccpd
+  21  9 K22  f:GND t:vss
+  21 10 L22  gpio:089.065.0 ioblock:6A r:0.34146 c:5.4e-13 l:3.31e-09 len:0.00608 d:42
+  21 11 M22  gpio:089.045.1 ioblock:6A r:0.36354 c:6.7e-13 l:3.85e-09 len:0.00639 d:51
+  21 12 N22  f:VCCPD5B t:vccpd
+  21 13 P22  gpio:089.037.1 ioblock:5B r:0.29487 c:5e-13 l:3.26e-09 len:0.00535 d:40
+  21 14 R22  f:VCCIO5B t:vccn
+  21 15 T22  gpio:089.027.1 ioblock:5B r:0.26333 c:4.8e-13 l:3.07e-09 len:0.00499 d:38
+  21 16 U22  gpio:089.008.1 ioblock:5A r:0.36356 c:6.4e-13 l:4.12e-09 len:0.00618 d:51
+  21 17 V22  gpio:089.008.0 ioblock:5A r:0.36495 c:6.7e-13 l:3.97e-09 len:0.00643 d:52
+  21 18 W22  f:VCCPGM t:vcc
+  21 19 Y22  f:GND t:vss
+  21 20 AA22 gpio:089.006.2 ioblock:5A r:0.62192 c:1.46e-12 l:5.1e-09 len:0.00987 d:86
+  21 21 AB22 gpio:088.000.2 ioblock:4A r:0.58294 c:8.1e-13 l:6.53e-09 len:0.00851 d:73
+  21 22 AC22 gpio:089.004.2 ioblock:5A r:0.66268 c:1.46e-12 l:5.36e-09 len:0.01016 d:89
+  21 23 AD22 gpio:076.000.2 ioblock:4A r:0.69148 c:1.4e-12 l:6.05e-09 len:0.01035 d:92
+  21 24 AE22 f:VCCIO4A t:vccn
+  21 25 AF22 gpio:070.000.3 ioblock:4A r:0.8135 c:1.65e-12 l:7.3e-09 len:0.01216 d:110
+  22  0 A23  gpio:086.081.2 ioblock:7A r:0.84717 c:1.47e-12 l:6.09e-09 len:0.01132 d:95
+  22  1 B23  f:VCCIO7A t:vccn
+  22  2 C23  gpio:088.081.2 ioblock:7A r:0.65114 c:1.27e-12 l:5.63e-09 len:0.00944 d:85
+  22  3 D23  f:GND t:vss gpio:009.081.0 dedicated_programming_pad:6 ioblock:7A r:0.54397 c:1.26e-12 l:4.7e-09 len:0.0089 d:77
+  22  4 E23  gpio:089.068.3 ioblock:6A r:0.91565 c:1.49e-12 l:7.43e-09 len:0.01344 d:105
+  22  5 F23  gpio:089.054.2 ioblock:6A r:0.868 c:1.37e-12 l:7.17e-09 len:0.01295 d:99
+  22  6 G23  f:GND t:vss
+  22  7 H23  gpio:089.052.2 ioblock:6A r:0.76206 c:1.32e-12 l:6.64e-09 len:0.01203 d:94
+  22  8 J23  gpio:089.054.1 ioblock:6A r:0.55364 c:8.5e-13 l:5.82e-09 len:0.00861 d:70
+  22  9 K23  gpio:089.051.1 ioblock:6A r:0.46795 c:6.7e-13 l:6.03e-09 len:0.00702 d:64
+  22 10 L23  gpio:089.052.0 ioblock:6A r:0.45042 c:7.9e-13 l:4.24e-09 len:0.00789 d:58
+  22 11 M23  f:VCCIO6A t:vccn
+  22 12 N23  gpio:089.045.0 ioblock:6A r:0.36547 c:6.2e-13 l:4.07e-09 len:0.00638 d:50
+  22 13 P23  gpio:089.030.1 ioblock:5B r:0.36157 c:6.3e-13 l:3.34e-09 len:0.00651 d:46
+  22 14 R23  gpio:089.030.0 ioblock:5B r:0.37897 c:6e-13 l:4.17e-09 len:0.00644 d:50
+  22 15 T23  gpio:089.029.0 ioblock:5B r:0.40851 c:6.7e-13 l:3.71e-09 len:0.00647 d:50
+  22 16 U23  f:GND t:vss
+  22 17 V23  gpio:089.027.2 ioblock:5B r:0.5334 c:1.11e-12 l:4.94e-09 len:0.00831 d:74
+  22 18 W23  f:VREFB5AN0 t:vref
+  22 19 Y23  gpio:089.009.2 ioblock:5A r:0.53627 c:1.31e-12 l:4.76e-09 len:0.00879 d:79
+  22 20 AA23 gpio:089.006.3 ioblock:5A r:0.61764 c:1.42e-12 l:5.25e-09 len:0.0097 d:86
+  22 21 AB23 f:VCCIO5A t:vccn
+  22 22 AC23 gpio:089.004.3 ioblock:5A r:0.68558 c:1.51e-12 l:5.57e-09 len:0.01053 d:92
+  22 23 AD23 gpio:078.000.2 ioblock:4A r:0.90941 c:1.55e-12 l:6.1e-09 len:0.01163 d:97
+  22 24 AE23 gpio:078.000.3 ioblock:4A r:0.77417 c:1.55e-12 l:6.59e-09 len:0.01156 d:101
+  22 25 AF23 gpio:080.000.3 ioblock:4A r:0.98729 c:1.71e-12 l:7.04e-09 len:0.01301 d:110
+  23  0 A24  gpio:086.081.1 ioblock:7A r:0.80686 c:1.16e-12 l:8.03e-09 len:0.01246 d:97
+  23  1 B24  gpio:086.081.0 ioblock:7A r:0.74087 c:1.14e-12 l:7.26e-09 len:0.01167 d:91
+  23  2 C24  f:DNU t:do-not-use
+  23  3 D24  f:GND t:vss
+  23  4 E24  gpio:089.050.2 ioblock:6A r:1.10606 c:1.97e-12 l:9.01e-09 len:0.01663 d:133
+  23  5 F24  gpio:089.051.2 ioblock:6A r:0.98362 c:1.69e-12 l:7.76e-09 len:0.01452 d:115
+  23  6 G24  gpio:089.051.3 ioblock:6A r:0.92565 c:1.59e-12 l:7.59e-09 len:0.014 d:110
+  23  7 H24  gpio:089.052.3 ioblock:6A r:0.74034 c:1.21e-12 l:6.17e-09 len:0.01147 d:87
+  23  8 J24  f:VCCIO6A t:vccn
+  23  9 K24  gpio:089.051.0 ioblock:6A r:0.47455 c:7.7e-13 l:4.69e-09 len:0.0076 d:60
+  23 10 L24  gpio:089.052.1 ioblock:6A r:0.49698 c:8.5e-13 l:4.56e-09 len:0.00844 d:62
+  23 11 M24  gpio:089.043.1 ioblock:6A r:0.43479 c:7.1e-13 l:3.71e-09 len:0.0069 d:51
+  23 12 N24  gpio:089.043.0 ioblock:6A r:0.43049 c:7.2e-13 l:3.72e-09 len:0.00686 d:52
+  23 13 P24  f:GND t:vss
+  23 14 R24  gpio:089.032.0 ioblock:5B r:0.48024 c:8.2e-13 l:4.14e-09 len:0.00781 d:58
+  23 15 T24  gpio:089.029.1 ioblock:5B r:0.44609 c:7.3e-13 l:3.97e-09 len:0.0071 d:54
+  23 16 U24  gpio:089.032.2 ioblock:5B r:0.63033 c:1.32e-12 l:5.32e-09 len:0.00952 d:84
+  23 17 V24  gpio:089.027.3 ioblock:5B r:0.54794 c:1.14e-12 l:4.75e-09 len:0.00827 d:74
+  23 18 W24  f:VCCIO5B t:vccn
+  23 19 Y24  gpio:089.009.3 ioblock:5A r:0.54263 c:1.18e-12 l:4.92e-09 len:0.00864 d:76
+  23 20 AA24 gpio:089.029.2 ioblock:5B r:0.85357 c:1.64e-12 l:7.02e-09 len:0.01273 d:107
+  23 21 AB24 gpio:089.008.3 ioblock:5A r:0.73449 c:1.57e-12 l:5.92e-09 len:0.01121 d:96
+  23 22 AC24 gpio:089.008.2 ioblock:5A r:0.754 c:1.66e-12 l:6.23e-09 len:0.01162 d:102
+  23 23 AD24 f:GND t:vss
+  23 24 AE24 gpio:080.000.2 ioblock:4A r:0.85424 c:1.72e-12 l:7.29e-09 len:0.0128 d:112
+  23 25 AF24 gpio:082.000.3 ioblock:4A r:0.91504 c:1.84e-12 l:7.73e-09 len:0.01363 d:119
+  24  0 A25  f:GND t:vss
+  24  1 B25  gpio:089.065.2 ioblock:6A r:1.00303 c:2.11e-12 l:7.83e-09 len:0.01527 d:129
+  24  2 C25  gpio:089.066.3 ioblock:6A r:0.87152 c:1.8e-12 l:7.36e-09 len:0.01313 d:115
+  24  3 D25  gpio:089.066.2 ioblock:6A r:0.89739 c:1.81e-12 l:7.14e-09 len:0.01322 d:114
+  24  4 E25  gpio:089.050.3 ioblock:6A r:1.09208 c:1.85e-12 l:8.58e-09 len:0.01596 d:126
+  24  5 F25  f:VCCIO6A t:vccn
+  24  6 G25  gpio:089.045.2 ioblock:6A r:0.8782 c:1.98e-12 l:7.34e-09 len:0.01372 d:121
+  24  7 H25  gpio:089.045.3 ioblock:6A r:0.88842 c:1.87e-12 l:7e-09 len:0.01335 d:114
+  24  8 J25  gpio:089.042.2 ioblock:6A r:0.77858 c:1.83e-12 l:6.81e-09 len:0.01263 d:112
+  24  9 K25  gpio:089.050.0 ioblock:6A r:0.59725 c:1.06e-12 l:5.92e-09 len:0.01009 d:79
+  24 10 L25  f:GND t:vss
+  24 11 M25  gpio:089.046.0 ioblock:6A r:0.51113 c:8.6e-13 l:4.53e-09 len:0.0081 d:62
+  24 12 N25  gpio:089.038.0 ioblock:5B r:0.53145 c:1.27e-12 l:4.53e-09 len:0.00854 d:76
+  24 13 P25  f:VREFB5BN0 t:vref
+  24 14 R25  gpio:089.032.1 ioblock:5B r:0.48876 c:8.2e-13 l:4.32e-09 len:0.00791 d:60
+  24 15 T25  f:VCCIO5B t:vccn
+  24 16 U25  gpio:089.038.2 ioblock:5B r:0.79309 c:1.73e-12 l:6.48e-09 len:0.01227 d:106
+  24 17 V25  gpio:089.032.3 ioblock:5B r:0.66351 c:1.33e-12 l:5.6e-09 len:0.0099 d:86
+  24 18 W25  gpio:089.037.2 ioblock:5B r:0.8554 c:1.93e-12 l:7.42e-09 len:0.01343 d:120
+  24 19 Y25  gpio:089.036.2 ioblock:5B r:0.88727 c:1.77e-12 l:7.39e-09 len:0.01341 d:114
+  24 20 AA25 f:GND t:vss
+  24 21 AB25 gpio:089.029.3 ioblock:5B r:0.86454 c:1.68e-12 l:7.53e-09 len:0.01327 d:113
+  24 22 AC25 gpio:089.030.3 ioblock:5B r:1.03795 c:1.98e-12 l:8.09e-09 len:0.01526 d:126
+  24 23 AD25 gpio:089.030.2 ioblock:5B r:1.00765 c:1.95e-12 l:8.36e-09 len:0.01527 d:128
+  24 24 AE25 gpio:082.000.2 ioblock:4A r:0.91636 c:1.78e-12 l:7.27e-09 len:0.01333 d:114
+  24 25 AF25 f:GND t:vss
+  25  1 B26  gpio:089.065.3 ioblock:6A r:1.0235 c:2.07e-12 l:7.99e-09 len:0.01521 d:129
+  25  2 C26  f:VCCIO6A t:vccn
+  25  3 D26  gpio:089.046.2 ioblock:6A r:1.08016 c:2.15e-12 l:8.56e-09 len:0.01605 d:136
+  25  4 E26  gpio:089.046.3 ioblock:6A r:1.03038 c:2.15e-12 l:8.66e-09 len:0.0156 d:136
+  25  5 F26  gpio:089.043.2 ioblock:6A r:0.9706 c:1.98e-12 l:7.79e-09 len:0.01452 d:124
+  25  6 G26  gpio:089.043.3 ioblock:6A r:0.93935 c:2.01e-12 l:7.86e-09 len:0.0143 d:126
+  25  7 H26  f:GND t:vss
+  25  8 J26  gpio:089.042.3 ioblock:6A r:0.84414 c:1.7e-12 l:6.77e-09 len:0.01267 d:107
+  25  9 K26  gpio:089.050.1 ioblock:6A r:0.5807 c:1.08e-12 l:5.83e-09 len:0.01027 d:79
+  25 10 L26  f:VREFB6AN0 t:vref
+  25 11 M26  gpio:089.046.1 ioblock:6A r:0.55261 c:9.5e-13 l:4.98e-09 len:0.0089 d:69
+  25 12 N26  f:VCCIO5B t:vccn
+  25 13 P26  gpio:089.038.1 ioblock:5B r:0.57243 c:1.29e-12 l:4.93e-09 len:0.00901 d:80
+  25 14 R26  gpio:089.036.1 ioblock:5B r:0.60596 c:1.35e-12 l:5.22e-09 len:0.0095 d:84
+  25 15 T26  gpio:089.036.0 ioblock:5B r:0.64744 c:1.42e-12 l:5.65e-09 len:0.01015 d:89
+  25 16 U26  gpio:089.038.3 ioblock:5B r:0.77401 c:1.56e-12 l:6.33e-09 len:0.0115 d:99
+  25 17 V26  f:GND t:vss
+  25 18 W26  gpio:089.037.3 ioblock:5B r:0.8862 c:1.78e-12 l:7.19e-09 len:0.01317 d:113
+  25 19 Y26  gpio:089.036.3 ioblock:5B r:0.89733 c:1.88e-12 l:7.71e-09 len:0.01369 d:120
+  25 20 AA26 gpio:089.035.3 ioblock:5B r:0.96836 c:1.92e-12 l:7.63e-09 len:0.01436 d:121
+  25 21 AB26 gpio:089.035.2 ioblock:5B r:0.99274 c:1.94e-12 l:7.79e-09 len:0.01461 d:123
+  25 22 AC26 f:GND t:vss
+  25 23 AD26 gpio:084.000.2 ioblock:4A r:0.9057 c:1.65e-12 l:7.36e-09 len:0.01322 d:110
+  25 24 AE26 gpio:084.000.3 ioblock:4A r:1.07132 c:1.74e-12 l:6.98e-09 len:0.0136 d:110
+u19 width:22 height:22 widthmm:19 heightmm:19
+   0  0 A1   f:RREF_TL t:gxp-reference-resistor
+   0  1 B1   f:GND t:vss
+   0  2 C1   f:NC t:nc
+   0  3 D1   f:GND t:vss
+   0  4 E1   f:NC t:nc
+   0  5 F1   f:GND t:vss
+   0  6 G1   f:NC t:nc
+   0  7 H1   f:GND t:vss
+   0  8 J1   f:NC t:nc
+   0  9 K1   f:GND t:vss
+   0 10 L1   f:NC t:nc
+   0 11 M1   f:GND t:vss
+   0 12 N1   f:NC t:nc
+   0 13 P1   f:GND t:vss
+   0 14 R1   f:NC t:nc
+   0 15 T1   f:GND t:vss
+   0 16 U1   f:NC t:nc
+   0 17 V1   f:GND t:vss
+   0 18 W1   f:NC t:nc
+   0 19 Y1   f:GND t:vss
+   0 20 AA1  f:NC t:nc
+   0 21 AB1  f:GND t:vss
+   1  0 A2   gpio:011.081.2 dedicated_programming_pad:12 ioblock:9A r:0.45524 c:9.5e-13 l:4.38e-09 len:0.00769 d:65
+   1  1 B2   f:GND t:vss
+   1  2 C2   f:NC t:nc
+   1  3 D2   f:GND t:vss
+   1  4 E2   f:NC t:nc
+   1  5 F2   f:GND t:vss
+   1  6 G2   f:NC t:nc
+   1  7 H2   f:GND t:vss
+   1  8 J2   f:NC t:nc
+   1  9 K2   f:GND t:vss
+   1 10 L2   f:NC t:nc
+   1 11 M2   f:GND t:vss
+   1 12 N2   f:NC t:nc
+   1 13 P2   f:GND t:vss
+   1 14 R2   f:NC t:nc
+   1 15 T2   f:GND t:vss
+   1 16 U2   f:NC t:nc
+   1 17 V2   f:GND t:vss
+   1 18 W2   f:NC t:nc
+   1 19 Y2   f:GND t:vss
+   1 20 AA2  f:NC t:nc
+   1 21 AB2  f:GND t:vss
+   2  0 A3   f:VCCBAT t:vcc
+   2  1 B3   f:DNU t:do-not-use
+   2  2 C3   f:GND t:vss
+   2  3 D3   f:NC t:nc
+   2  4 E3   f:GND t:vss
+   2  5 F3   f:GND t:vss gpio:083.081.0 dedicated_programming_pad:16 ioblock:9A r:0.57325 c:8.8e-13 l:6.36e-09 len:0.00939 d:75
+   2  6 G3   f:GND t:vss
+   2  7 H3   f:GND t:vss
+   2  8 J3   f:GND t:vss
+   2  9 K3   f:VCC t:vcc
+   2 10 L3   f:GND t:vss
+   2 11 M3   f:VCCA_FPLL t:vcc
+   2 12 N3   f:GND t:vss
+   2 13 P3   f:VCC t:vcc
+   2 14 R3   f:GND t:vss
+   2 15 T3   f:VCCA_FPLL t:vcc
+   2 16 U3   f:GND t:vss
+   2 17 V3   gpio:011.000.0 jtag:0 ioblock:3A r:0.36045 c:6.1e-13 l:4.19e-09 len:0.00595 d:51
+   2 18 W3   f:GND t:vss
+   2 19 Y3   f:NC t:nc
+   2 20 AA3  f:GND t:vss
+   2 21 AB3  f:DNU t:do-not-use
+   3  0 A4   gpio:013.081.0 dedicated_programming_pad:14 ioblock:9A r:0.37463 c:8.4e-13 l:3.94e-09 len:0.00609 d:58
+   3  1 B4   f:DNU t:do-not-use
+   3  2 C4   f:GND t:vss
+   3  3 D4   f:NC t:nc
+   3  4 E4   f:GND t:vss
+   3  5 F4   f:VCCA_FPLL t:vcc
+   3  6 G4   f:GND t:vss
+   3  7 H4   f:GND t:vss
+   3  8 J4   f:VCC t:vcc
+   3  9 K4   f:GND t:vss
+   3 10 L4   f:VCC t:vcc
+   3 11 M4   f:GND t:vss
+   3 12 N4   f:VCC t:vcc
+   3 13 P4   f:GND t:vss
+   3 14 R4   gpio:011.000.2 jtag:1 ioblock:3A r:0.46936 c:8.4e-13 l:4e-09 len:0.00766 d:58
+   3 15 T4   f:VCCA_FPLL t:vcc
+   3 16 U4   f:GND t:vss
+   3 17 V4   f:GND t:vss
+   3 18 W4   f:GND t:vss
+   3 19 Y4   f:NC t:nc
+   3 20 AA4  f:GND t:vss
+   3 21 AB4  gpio:015.000.1 dedicated_programming_pad:5 ioblock:3A r:0.3812 c:8.6e-13 l:3.62e-09 len:0.0058 d:56
+   4  0 A5   f:GND t:vss
+   4  1 B5   gpio:030.081.3 ioblock:8A r:0.57473 c:1.05e-12 l:6.02e-09 len:0.00939 d:79
+   4  2 C5   gpio:013.081.1 dedicated_programming_pad:15 ioblock:9A r:0.28419 c:7.6e-13 l:2.72e-09 len:0.0047 d:46
+   4  3 D5   f:GND t:vss
+   4  4 E5   gpio:011.081.3 dedicated_programming_pad:13 ioblock:9A r:0.46284 c:1.04e-12 l:3.89e-09 len:0.00732 d:64
+   4  5 F5   f:GND t:vss
+   4  6 G5   gpio:011.081.0 dedicated_programming_pad:10 ioblock:9A r:0.54171 c:9e-13 l:5.34e-09 len:0.00839 d:69
+   4  7 H5   gpio:011.081.1 dedicated_programming_pad:11 ioblock:9A r:0.62308 c:1.1e-12 l:4.97e-09 len:0.00933 d:74
+   4  8 J5   f:GND t:vss
+   4  9 K5   f:VCC t:vcc
+   4 10 L5   f:GND t:vss
+   4 11 M5   gpio:015.000.0 dedicated_programming_pad:4 ioblock:3A r:0.58469 c:1.08e-12 l:5e-09 len:0.00971 d:73
+   4 12 N5   f:GND t:vss
+   4 13 P5   gpio:013.000.2 jtag:3 ioblock:3A r:0.50859 c:8.9e-13 l:4.45e-09 len:0.00811 d:63
+   4 14 R5   gpio:004.000.3 ioblock:3A r:0.70038 c:1.12e-12 l:5.94e-09 len:0.01061 d:81
+   4 15 T5   gpio:013.000.1 dedicated_programming_pad:2 ioblock:3A r:0.525 c:8.9e-13 l:5.19e-09 len:0.00832 d:68
+   4 16 U5   f:GND t:vss
+   4 17 V5   gpio:013.000.0 jtag:2 ioblock:3A r:0.57171 c:1.16e-12 l:5.36e-09 len:0.00878 d:79
+   4 18 W5   gpio:013.000.3 dedicated_programming_pad:3 ioblock:3A r:0.55269 c:1.19e-12 l:5.01e-09 len:0.00858 d:77
+   4 19 Y5   f:GND t:vss
+   4 20 AA5  gpio:011.000.3 dedicated_programming_pad:1 ioblock:3A r:0.2656 c:7.4e-13 l:3.27e-09 len:0.0047 d:49
+   4 21 AB5  f:VCC_AUX t:vcc
+   5  0 A6   f:VCCIO8A t:vccn
+   5  1 B6   gpio:030.081.2 ioblock:8A r:0.66561 c:9.5e-13 l:5.37e-09 len:0.00912 d:71
+   5  2 C6   gpio:034.081.2 ioblock:8A r:0.70714 c:1.12e-12 l:7.55e-09 len:0.01099 d:92
+   5  3 D6   f:VCC_AUX t:vcc
+   5  4 E6   gpio:026.081.2 ioblock:8A r:0.8093 c:1.35e-12 l:8.94e-09 len:0.01283 d:110
+   5  5 F6   f:GND t:vss
+   5  6 G6   gpio:026.081.1 ioblock:8A r:0.69466 c:1.04e-12 l:6.36e-09 len:0.01101 d:81
+   5  7 H6   gpio:026.081.0 ioblock:8A r:0.73214 c:1.19e-12 l:6.78e-09 len:0.01167 d:90
+   5  8 J6   gpio:009.081.2 dedicated_programming_pad:8 ioblock:9A r:0.63133 c:1.04e-12 l:6e-09 len:0.01005 d:79
+   5  9 K6   gpio:009.081.3 dedicated_programming_pad:9 ioblock:9A r:0.48276 c:9.1e-13 l:5.31e-09 len:0.00826 d:69
+   5 10 L6   gpio:009.081.1 dedicated_programming_pad:7 ioblock:9A r:0.55047 c:1.02e-12 l:6.08e-09 len:0.00918 d:79
+   5 11 M6   gpio:004.000.1 ioblock:3A r:0.70069 c:1.23e-12 l:5.98e-09 len:0.01116 d:86
+   5 12 N6   gpio:002.000.0 ioblock:3A r:0.55554 c:1.05e-12 l:4.52e-09 len:0.00887 d:69
+   5 13 P6   gpio:002.000.1 ioblock:3A r:0.51047 c:9.5e-13 l:4.1e-09 len:0.00821 d:62
+   5 14 R6   gpio:004.000.2 ioblock:3A r:0.67191 c:1.36e-12 l:5.79e-09 len:0.01039 d:89
+   5 15 T6   f:VCCIO3A t:vccn
+   5 16 U6   gpio:002.000.2 ioblock:3A r:0.62369 c:9.4e-13 l:6.88e-09 len:0.00984 d:81
+   5 17 V6   f:VCCPD3A t:vccpd
+   5 18 W6   f:VREFB3AN0 t:vref
+   5 19 Y6   f:VCCPGM t:vcc
+   5 20 AA6  f:VCCIO3A t:vccn
+   5 21 AB6  gpio:011.000.1 dedicated_programming_pad:0 ioblock:3A r:0.52635 c:7.6e-13 l:6.38e-09 len:0.00821 d:69
+   6  0 A7   gpio:038.081.3 ioblock:8A r:0.52713 c:7.6e-13 l:5.93e-09 len:0.00816 d:67
+   6  1 B7   f:VCCPGM t:vcc
+   6  2 C7   f:GND t:vss
+   6  3 D7   gpio:034.081.3 ioblock:8A r:0.79726 c:1.19e-12 l:6.01e-09 len:0.01093 d:85
+   6  4 E7   gpio:036.081.3 ioblock:8A r:0.7803 c:1.27e-12 l:7.62e-09 len:0.01259 d:98
+   6  5 F7   gpio:026.081.3 ioblock:8A r:0.87455 c:1.34e-12 l:9.38e-09 len:0.01335 d:112
+   6  6 G7   gpio:028.081.1 ioblock:8A r:0.4245 c:8e-13 l:3.55e-09 len:0.00689 d:53
+   6  7 H7   f:VCCIO8A t:vccn
+   6  8 J7   gpio:032.081.1 ioblock:8A r:0.52425 c:1.28e-12 l:4.07e-09 len:0.00836 d:72
+   6  9 K7   gpio:032.081.0 ioblock:8A r:0.55439 c:1.38e-12 l:4.26e-09 len:0.0089 d:77
+   6 10 L7   gpio:006.000.3 ioblock:3A r:0.81157 c:1.4e-12 l:7.85e-09 len:0.01282 d:105
+   6 11 M7   gpio:004.000.0 ioblock:3A r:0.73634 c:1.29e-12 l:6.14e-09 len:0.01144 d:89
+   6 12 N7   f:GND t:vss
+   6 13 P7   gpio:008.000.3 ioblock:3A r:0.71285 c:1.5e-12 l:5.85e-09 len:0.01108 d:94
+   6 14 R7   gpio:006.000.1 ioblock:3A r:0.44376 c:1.11e-12 l:4.01e-09 len:0.00745 d:67
+   6 15 T7   gpio:006.000.0 ioblock:3A r:0.40551 c:1.01e-12 l:3.69e-09 len:0.00679 d:61
+   6 16 U7   gpio:002.000.3 ioblock:3A r:0.66922 c:1.07e-12 l:7.69e-09 len:0.01061 d:91
+   6 17 V7   f:VCCIO3B t:vccn
+   6 18 W7   gpio:030.000.2 ioblock:3B r:0.59488 c:9.7e-13 l:5.94e-09 len:0.00933 d:76
+   6 19 Y7   gpio:030.000.3 ioblock:3B r:0.54666 c:9e-13 l:5.8e-09 len:0.00868 d:72
+   6 20 AA7  gpio:028.000.3 ioblock:3B r:0.48126 c:7.5e-13 l:5.21e-09 len:0.00743 d:63
+   6 21 AB7  gpio:028.000.2 ioblock:3B r:0.45031 c:6.9e-13 l:5.78e-09 len:0.00717 d:63
+   7  0 A8   gpio:038.081.2 ioblock:8A r:0.64102 c:7.4e-13 l:5.2e-09 len:0.00818 d:62
+   7  1 B8   gpio:028.081.3 ioblock:8A r:0.41028 c:5.1e-13 l:4.39e-09 len:0.00583 d:47
+   7  2 C8   gpio:028.081.2 ioblock:8A r:0.42549 c:6.1e-13 l:4.67e-09 len:0.00653 d:54
+   7  3 D8   gpio:030.081.1 ioblock:8A r:0.38855 c:5.8e-13 l:3.11e-09 len:0.00574 d:43
+   7  4 E8   f:VCCIO8A t:vccn
+   7  5 F8   gpio:036.081.2 ioblock:8A r:0.79634 c:1.4e-12 l:7.36e-09 len:0.01329 d:102
+   7  6 G8   gpio:052.081.1 ioblock:7A r:0.54365 c:8.6e-13 l:5.18e-09 len:0.00884 d:67
+   7  7 H8   gpio:028.081.0 ioblock:8A r:0.38559 c:1e-12 l:3.13e-09 len:0.00636 d:56
+   7  8 J8   gpio:036.081.1 ioblock:8A r:0.50473 c:1.18e-12 l:3.87e-09 len:0.008 d:68
+   7  9 K8   f:GND t:vss
+   7 10 L8   gpio:006.000.2 ioblock:3A r:0.83325 c:1.41e-12 l:8.46e-09 len:0.01278 d:109
+   7 11 M8   gpio:026.000.0 ioblock:3B r:0.79305 c:1.31e-12 l:6.82e-09 len:0.01157 d:94
+   7 12 N8   gpio:026.000.1 ioblock:3B r:0.72581 c:1.17e-12 l:7.09e-09 len:0.01081 d:91
+   7 13 P8   gpio:008.000.2 ioblock:3A r:0.70107 c:1.48e-12 l:5.84e-09 len:0.01095 d:93
+   7 14 R8   f:VCCIO3B t:vccn
+   7 15 T8   gpio:008.000.1 ioblock:3A r:0.4019 c:6.9e-13 l:3.82e-09 len:0.00669 d:51
+   7 16 U8   gpio:030.000.1 ioblock:3B r:0.46869 c:7.6e-13 l:4.15e-09 len:0.00743 d:56
+   7 17 V8   gpio:026.000.3 ioblock:3B r:0.52262 c:1.1e-12 l:4.99e-09 len:0.00823 d:74
+   7 18 W8   gpio:026.000.2 ioblock:3B r:0.59102 c:9.2e-13 l:4.96e-09 len:0.00897 d:67
+   7 19 Y8   f:GND t:vss
+   7 20 AA8  gpio:032.000.2 ioblock:3B r:0.50168 c:7.3e-13 l:4.98e-09 len:0.00767 d:60
+   7 21 AB8  gpio:032.000.3 ioblock:3B r:0.48348 c:7.5e-13 l:5.01e-09 len:0.00753 d:61
+   8  0 A9   gpio:032.081.3 ioblock:8A r:0.37869 c:7.8e-13 l:3.39e-09 len:0.00544 d:51
+   8  1 B9   f:VCCIO8A t:vccn
+   8  2 C9   gpio:034.081.1 ioblock:8A r:0.32276 c:4.3e-13 l:2.76e-09 len:0.00471 d:35
+   8  3 D9   gpio:030.081.0 ioblock:8A r:0.43388 c:6.5e-13 l:2.85e-09 len:0.00558 d:43
+   8  4 E9   f:VCCPD7A8A t:vccpd
+   8  5 F9   f:VCCPD7A8A t:vccpd
+   8  6 G9   f:GND t:vss
+   8  7 H9   gpio:052.081.0 ioblock:7A r:0.51298 c:9.7e-13 l:4.35e-09 len:0.00839 d:65
+   8  8 J9   gpio:036.081.0 ioblock:8A r:0.46985 c:1.11e-12 l:3.58e-09 len:0.00748 d:63
+   8  9 K9   f:VCC t:vcc
+   8 10 L9   gpio:036.000.1 ioblock:3B r:0.61975 c:1.2e-12 l:4.85e-09 len:0.00997 d:76
+   8 11 M9   f:GND t:vss
+   8 12 N9   gpio:028.000.1 ioblock:3B r:0.51033 c:9.1e-13 l:4.92e-09 len:0.00817 d:67
+   8 13 P9   gpio:032.000.0 ioblock:3B r:0.49395 c:9e-13 l:3.74e-09 len:0.00759 d:58
+   8 14 R9   gpio:032.000.1 ioblock:3B r:0.41791 c:7e-13 l:5.28e-09 len:0.00681 d:61
+   8 15 T9   gpio:008.000.0 ioblock:3A r:0.44115 c:7.7e-13 l:4.61e-09 len:0.00725 d:60
+   8 16 U9   f:GND t:vss
+   8 17 V9   gpio:030.000.0 ioblock:3B r:0.50872 c:7.1e-13 l:4.46e-09 len:0.00752 d:56
+   8 18 W9   f:VCCPD3B4A t:vccpd
+   8 19 Y9   gpio:034.000.0 ioblock:3B r:0.31352 c:7.7e-13 l:2.73e-09 len:0.00487 d:46
+   8 20 AA9  gpio:034.000.1 ioblock:3B r:0.29803 c:7.6e-13 l:2.71e-09 len:0.00474 d:45
+   8 21 AB9  f:VCCIO3B t:vccn
+   9  0 A10  gpio:032.081.2 ioblock:8A r:0.37864 c:7.2e-13 l:3.58e-09 len:0.00544 d:51
+   9  1 B10  f:VREFB8AN0 t:vref
+   9  2 C10  gpio:034.081.0 ioblock:8A r:0.32145 c:7.7e-13 l:2.56e-09 len:0.00473 d:44
+   9  3 D10  f:GND t:vss
+   9  4 E10  f:DNU t:do-not-use
+   9  5 F10  gpio:040.081.1 ioblock:8A r:0.30115 c:8.5e-13 l:2.52e-09 len:0.00508 d:46
+   9  6 G10  gpio:040.081.0 ioblock:8A r:0.35434 c:9e-13 l:2.88e-09 len:0.00583 d:51
+   9  7 H10  gpio:056.081.0 ioblock:7A r:0.52872 c:9.7e-13 l:4.45e-09 len:0.00846 d:66
+   9  8 J10  f:VCC t:vcc
+   9  9 K10  f:GND t:vss
+   9 10 L10  f:VCC t:vcc
+   9 11 M10  gpio:036.000.0 ioblock:3B r:0.62123 c:1.19e-12 l:4.82e-09 len:0.00997 d:76
+   9 12 N10  gpio:028.000.0 ioblock:3B r:0.5072 c:9.2e-13 l:4.45e-09 len:0.00811 d:64
+   9 13 P10  f:GND t:vss
+   9 14 R10  gpio:040.000.0 ioblock:3B r:0.36795 c:1.06e-12 l:3.16e-09 len:0.00656 d:58
+   9 15 T10  gpio:040.000.1 ioblock:3B r:0.37947 c:6.3e-13 l:3.72e-09 len:0.00601 d:49
+   9 16 U10  gpio:038.000.1 ioblock:3B r:0.447 c:6.9e-13 l:4.42e-09 len:0.00723 d:55
+   9 17 V10  f:VCCPD3B4A t:vccpd
+   9 18 W10  f:VCCIO3B t:vccn
+   9 19 Y10  gpio:034.000.3 ioblock:3B r:0.48259 c:7.1e-13 l:5.1e-09 len:0.00741 d:60
+   9 20 AA10 gpio:034.000.2 ioblock:3B r:0.45839 c:7e-13 l:4.66e-09 len:0.00726 d:57
+   9 21 AB10 gpio:038.000.3 ioblock:3B r:0.4024 c:5.9e-13 l:4.79e-09 len:0.0063 d:53
+  10  0 A11  f:GND t:vss
+  10  1 B11  gpio:040.081.3 ioblock:8A r:0.44631 c:5.7e-13 l:5.61e-09 len:0.00723 d:56
+  10  2 C11  gpio:040.081.2 ioblock:8A r:0.48686 c:6.2e-13 l:5.67e-09 len:0.00748 d:59
+  10  3 D11  gpio:038.081.0 ioblock:8A r:0.41123 c:4.9e-13 l:3.54e-09 len:0.0059 d:42
+  10  4 E11  gpio:038.081.1 ioblock:8A r:0.45891 c:6.1e-13 l:4.29e-09 len:0.00638 d:51
+  10  5 F11  f:GND t:vss
+  10  6 G11  gpio:056.081.1 ioblock:7A r:0.51478 c:8.9e-13 l:4.23e-09 len:0.00785 d:61
+  10  7 H11  f:VCC t:vcc
+  10  8 J11  f:GND t:vss
+  10  9 K11  f:VCC t:vcc
+  10 10 L11  f:GND t:vss
+  10 11 M11  f:VCC t:vcc
+  10 12 N11  f:GND t:vss
+  10 13 P11  f:VCC t:vcc
+  10 14 R11  gpio:040.000.3 ioblock:3B r:0.74023 c:1.19e-12 l:8.67e-09 len:0.01247 d:101
+  10 15 T11  f:GND t:vss
+  10 16 U11  gpio:038.000.0 ioblock:3B r:0.49016 c:7.1e-13 l:4.73e-09 len:0.00721 d:58
+  10 17 V11  f:DNU t:do-not-use
+  10 18 W11  gpio:036.000.3 ioblock:3B r:0.51576 c:7.8e-13 l:4.29e-09 len:0.00731 d:58
+  10 19 Y11  gpio:036.000.2 ioblock:3B r:0.50207 c:7.7e-13 l:4.63e-09 len:0.00732 d:60
+  10 20 AA11 f:GND t:vss
+  10 21 AB11 gpio:038.000.2 ioblock:3B r:0.35794 c:7.2e-13 l:3.48e-09 len:0.00558 d:50
+  11  0 A12  gpio:050.081.3 ioblock:7A r:0.36951 c:7.2e-13 l:3.98e-09 len:0.00572 d:53
+  11  1 B12  gpio:050.081.2 ioblock:7A r:0.38191 c:5.8e-13 l:3.37e-09 len:0.00557 d:44
+  11  2 C12  f:VCCIO7A t:vccn
+  11  3 D12  f:VCC_AUX t:vcc
+  11  4 E12  gpio:050.081.0 ioblock:7A r:0.45881 c:7.6e-13 l:4.65e-09 len:0.00741 d:60
+  11  5 F12  gpio:050.081.1 ioblock:7A r:0.52671 c:7.9e-13 l:5.68e-09 len:0.00818 d:67
+  11  6 G12  gpio:060.081.0 ioblock:7A r:0.39626 c:7.4e-13 l:3.31e-09 len:0.00646 d:49
+  11  7 H12  gpio:060.081.1 ioblock:7A r:0.43411 c:8e-13 l:4.19e-09 len:0.00717 d:58
+  11  8 J12  f:VCC t:vcc
+  11  9 K12  f:GND t:vss
+  11 10 L12  f:VCC t:vcc
+  11 11 M12  f:GND t:vss
+  11 12 N12  f:VCC t:vcc
+  11 13 P12  gpio:040.000.2 ioblock:3B r:0.7795 c:1.17e-12 l:8.97e-09 len:0.0126 d:102
+  11 14 R12  gpio:052.000.3 ioblock:4A r:0.77194 c:1.22e-12 l:7.96e-09 len:0.01236 d:99
+  11 15 T12  gpio:052.000.0 ioblock:4A r:0.39433 c:1.05e-12 l:3.27e-09 len:0.00666 d:58
+  11 16 U12  gpio:052.000.1 ioblock:4A r:0.35362 c:9.5e-13 l:3.09e-09 len:0.00608 d:54
+  11 17 V12  f:VCCIO4A t:vccn
+  11 18 W12  gpio:050.000.1 ioblock:4A r:0.34687 c:7.9e-13 l:3.25e-09 len:0.0056 d:51
+  11 19 Y12  gpio:050.000.0 ioblock:4A r:0.34687 c:3.8e-13 l:4.51e-09 len:0.00541 d:42
+  11 20 AA12 f:VCC_AUX t:vcc
+  11 21 AB12 f:VREFB3BN0 t:vref
+  12  0 A13  gpio:052.081.2 ioblock:7A r:0.49052 c:6.9e-13 l:4.92e-09 len:0.0072 d:58
+  12  1 B13  gpio:052.081.3 ioblock:7A r:0.52183 c:7.6e-13 l:5.04e-09 len:0.00779 d:62
+  12  2 C13  gpio:054.081.1 ioblock:7A r:0.27317 c:6.8e-13 l:2.66e-09 len:0.00443 d:43
+  12  3 D13  gpio:054.081.0 ioblock:7A r:0.33547 c:5.3e-13 l:3.13e-09 len:0.00536 d:41
+  12  4 E13  f:GND t:vss
+  12  5 F13  f:VCCPD7A8A t:vccpd
+  12  6 G13  gpio:064.081.0 ioblock:7A r:0.41347 c:7.7e-13 l:3.48e-09 len:0.00681 d:52
+  12  7 H13  f:VCC t:vcc
+  12  8 J13  f:GND t:vss
+  12  9 K13  f:VCC t:vcc
+  12 10 L13  f:GND t:vss
+  12 11 M13  f:VCC t:vcc
+  12 12 N13  f:GND t:vss
+  12 13 P13  f:VCC t:vcc
+  12 14 R13  f:GND t:vss
+  12 15 T13  gpio:052.000.2 ioblock:4A r:0.73979 c:1.11e-12 l:7.9e-09 len:0.01187 d:94
+  12 16 U13  gpio:056.000.0 ioblock:4A r:0.44152 c:8.3e-13 l:3.65e-09 len:0.00709 d:55
+  12 17 V13  gpio:054.000.0 ioblock:4A r:0.52826 c:5.5e-13 l:5.21e-09 len:0.00624 d:54
+  12 18 W13  gpio:054.000.1 ioblock:4A r:0.37428 c:5.6e-13 l:3.62e-09 len:0.00578 d:45
+  12 19 Y13  f:GND t:vss
+  12 20 AA13 gpio:050.000.3 ioblock:4A r:0.43211 c:5.7e-13 l:4.7e-09 len:0.00655 d:52
+  12 21 AB13 gpio:050.000.2 ioblock:4A r:0.42986 c:5.4e-13 l:4.54e-09 len:0.00634 d:49
+  13  0 A14  gpio:056.081.3 ioblock:7A r:0.41909 c:6e-13 l:4.32e-09 len:0.00641 d:51
+  13  1 B14  f:GND t:vss
+  13  2 C14  gpio:054.081.2 ioblock:7A r:0.59835 c:9e-13 l:5.57e-09 len:0.00946 d:71
+  13  3 D14  gpio:054.081.3 ioblock:7A r:0.57822 c:9.2e-13 l:5.53e-09 len:0.00942 d:71
+  13  4 E14  gpio:058.081.1 ioblock:7A r:0.41403 c:6.5e-13 l:4.19e-09 len:0.0067 d:52
+  13  5 F14  gpio:064.081.1 ioblock:7A r:0.3555 c:9.5e-13 l:3.01e-09 len:0.00603 d:53
+  13  6 G14  gpio:068.081.1 ioblock:7A r:0.42455 c:7.9e-13 l:3.88e-09 len:0.007 d:55
+  13  7 H14  f:GND t:vss
+  13  8 J14  f:VCC t:vcc
+  13  9 K14  f:GND t:vss
+  13 10 L14  f:VCC t:vcc
+  13 11 M14  f:GND t:vss
+  13 12 N14  f:VCC t:vcc
+  13 13 P14  gpio:060.000.1 ioblock:4A r:0.46115 c:8.7e-13 l:3.73e-09 len:0.00742 d:57
+  13 14 R14  gpio:060.000.0 ioblock:4A r:0.42389 c:8e-13 l:3.34e-09 len:0.00669 d:52
+  13 15 T14  gpio:056.000.1 ioblock:4A r:0.43919 c:8.2e-13 l:3.57e-09 len:0.00703 d:54
+  13 16 U14  f:GND t:vss
+  13 17 V14  f:VCCPD3B4A t:vccpd
+  13 18 W14  gpio:058.000.0 ioblock:4A r:0.33656 c:5.6e-13 l:3.03e-09 len:0.00531 d:41
+  13 19 Y14  gpio:058.000.1 ioblock:4A r:0.26835 c:7.2e-13 l:2.59e-09 len:0.00442 d:43
+  13 20 AA14 f:VREFB4AN0 t:vref
+  13 21 AB14 f:VCCIO4A t:vccn
+  14  0 A15  gpio:056.081.2 ioblock:7A r:0.43024 c:6.2e-13 l:4.67e-09 len:0.00671 d:54
+  14  1 B15  gpio:062.081.3 ioblock:7A r:0.3639 c:8e-13 l:3.55e-09 len:0.00558 d:53
+  14  2 C15  gpio:062.081.1 ioblock:7A r:0.2784 c:7.1e-13 l:2.64e-09 len:0.00456 d:43
+  14  3 D15  f:VCCIO7A t:vccn
+  14  4 E15  f:VCCPD7A8A t:vccpd
+  14  5 F15  gpio:058.081.0 ioblock:7A r:0.4425 c:7.5e-13 l:4.08e-09 len:0.00721 d:55
+  14  6 G15  gpio:068.081.0 ioblock:7A r:0.40604 c:7.7e-13 l:3.79e-09 len:0.00674 d:54
+  14  7 H15  f:VCC t:vcc
+  14  8 J15  f:GND t:vss
+  14  9 K15  gpio:089.030.1 ioblock:5B r:0.36763 c:1.06e-12 l:2.98e-09 len:0.00641 d:56
+  14 10 L15  gpio:089.030.0 ioblock:5B r:0.37317 c:1.04e-12 l:2.96e-09 len:0.00634 d:55
+  14 11 M15  f:VCC t:vcc
+  14 12 N15  f:GND t:vss
+  14 13 P15  f:VCC t:vcc
+  14 14 R15  gpio:064.000.1 ioblock:4A r:0.4352 c:1.09e-12 l:3.52e-09 len:0.00719 d:62
+  14 15 T15  gpio:064.000.0 ioblock:4A r:0.39023 c:1.01e-12 l:3.15e-09 len:0.0064 d:56
+  14 16 U15  gpio:062.000.1 ioblock:4A r:0.4411 c:7.2e-13 l:4.2e-09 len:0.00701 d:55
+  14 17 V15  gpio:062.000.0 ioblock:4A r:0.41221 c:7.1e-13 l:3.5e-09 len:0.0066 d:50
+  14 18 W15  f:VCCIO4A t:vccn
+  14 19 Y15  gpio:062.000.2 ioblock:4A r:0.46624 c:6e-13 l:4.33e-09 len:0.00642 d:51
+  14 20 AA15 gpio:062.000.3 ioblock:4A r:0.37031 c:7.4e-13 l:3.48e-09 len:0.00546 d:51
+  14 21 AB15 gpio:054.000.3 ioblock:4A r:0.4411 c:5.7e-13 l:4.52e-09 len:0.00667 d:51
+  15  0 A16  f:VCCIO7A t:vccn
+  15  1 B16  gpio:062.081.2 ioblock:7A r:0.37789 c:9e-13 l:3.41e-09 len:0.00597 d:55
+  15  2 C16  gpio:062.081.0 ioblock:7A r:0.31559 c:4.8e-13 l:2.86e-09 len:0.00495 d:37
+  15  3 D16  f:VREFB7AN0 t:vref
+  15  4 E16  gpio:066.081.0 ioblock:7A r:0.42186 c:9.9e-13 l:3.58e-09 len:0.00673 d:59
+  15  5 F16  f:GND t:vss
+  15  6 G16  gpio:072.081.1 ioblock:7A r:0.33225 c:9.4e-13 l:2.79e-09 len:0.00565 d:51
+  15  7 H16  gpio:072.081.0 ioblock:7A r:0.40329 c:7.3e-13 l:3.42e-09 len:0.00641 d:50
+  15  8 J16  gpio:089.037.1 ioblock:5B r:0.32293 c:9.8e-13 l:2.8e-09 len:0.0058 d:52
+  15  9 K16  gpio:089.037.0 ioblock:5B r:0.30718 c:9.3e-13 l:2.67e-09 len:0.00546 d:50
+  15 10 L16  f:GND t:vss
+  15 11 M16  gpio:089.027.0 ioblock:5B r:0.2975 c:8.9e-13 l:2.55e-09 len:0.00526 d:48
+  15 12 N16  gpio:089.020.1 ioblock:5B r:0.3054 c:8.8e-13 l:2.66e-09 len:0.00537 d:48
+  15 13 P16  gpio:089.020.0 ioblock:5B r:0.27669 c:8.2e-13 l:2.52e-09 len:0.00502 d:46
+  15 14 R16  gpio:089.008.0 ioblock:5A r:0.29896 c:8.7e-13 l:2.79e-09 len:0.00527 d:49
+  15 15 T16  f:VCCIO4A t:vccn
+  15 16 U16  gpio:068.000.1 ioblock:4A r:0.33265 c:9.1e-13 l:2.86e-09 len:0.00562 d:51
+  15 17 V16  f:VCCPD3B4A t:vccpd
+  15 18 W16  gpio:072.000.1 ioblock:4A r:0.23827 c:6.7e-13 l:2.12e-09 len:0.00398 d:38
+  15 19 Y16  gpio:066.000.1 ioblock:4A r:0.31459 c:6.1e-13 l:2.63e-09 len:0.00482 d:40
+  15 20 AA16 f:GND t:vss
+  15 21 AB16 gpio:054.000.2 ioblock:4A r:0.50115 c:7e-13 l:4.68e-09 len:0.00739 d:57
+  16  0 A17  gpio:060.081.3 ioblock:7A r:0.47953 c:7.2e-13 l:4.36e-09 len:0.00744 d:56
+  16  1 B17  gpio:058.081.3 ioblock:7A r:0.52843 c:8.3e-13 l:5.37e-09 len:0.00854 d:67
+  16  2 C17  f:GND t:vss
+  16  3 D17  gpio:066.081.1 ioblock:7A r:0.45387 c:7e-13 l:3.83e-09 len:0.0068 d:52
+  16  4 E17  gpio:070.081.1 ioblock:7A r:0.45017 c:7.2e-13 l:3.81e-09 len:0.00706 d:53
+  16  5 F17  f:GND t:vss gpio:009.081.0 dedicated_programming_pad:6 ioblock:7A r:0.54915 c:9.2e-13 l:4.78e-09 len:0.00863 d:66
+  16  6 G17  gpio:089.036.3 ioblock:5B r:0.76909 c:1.25e-12 l:6.91e-09 len:0.01163 d:93
+  16  7 H17  f:VCCIO7A t:vccn
+  16  8 J17  gpio:089.038.0 ioblock:5B r:0.49009 c:1.13e-12 l:4.11e-09 len:0.0077 d:68
+  16  9 K17  gpio:089.035.1 ioblock:5B r:0.29717 c:8.8e-13 l:2.6e-09 len:0.00524 d:48
+  16 10 L17  gpio:089.035.0 ioblock:5B r:0.30706 c:5.4e-13 l:2.78e-09 len:0.00475 d:39
+  16 11 M17  gpio:089.027.1 ioblock:5B r:0.27728 c:8.4e-13 l:2.44e-09 len:0.00491 d:45
+  16 12 N17  f:VCCIO5B t:vccn
+  16 13 P17  f:VCCPD5A t:vccpd
+  16 14 R17  gpio:089.008.1 ioblock:5A r:0.30671 c:9.1e-13 l:2.78e-09 len:0.00536 d:50
+  16 15 T17  gpio:089.006.0 ioblock:5A r:0.26184 c:7.7e-13 l:2.4e-09 len:0.00468 d:43
+  16 16 U17  gpio:068.000.0 ioblock:4A r:0.3546 c:9.7e-13 l:2.94e-09 len:0.00598 d:53
+  16 17 V17  f:GND t:vss
+  16 18 W17  gpio:072.000.0 ioblock:4A r:0.23971 c:7.2e-13 l:2.09e-09 len:0.00415 d:39
+  16 19 Y17  gpio:066.000.0 ioblock:4A r:0.33679 c:7.3e-13 l:2.82e-09 len:0.00522 d:45
+  16 20 AA17 gpio:068.000.3 ioblock:4A r:0.39978 c:5.8e-13 l:3.54e-09 len:0.00593 d:45
+  16 21 AB17 gpio:068.000.2 ioblock:4A r:0.38621 c:7.8e-13 l:3.53e-09 len:0.00579 d:53
+  17  0 A18  gpio:060.081.2 ioblock:7A r:0.5057 c:7.5e-13 l:5.34e-09 len:0.00779 d:63
+  17  1 B18  gpio:058.081.2 ioblock:7A r:0.57279 c:8.5e-13 l:5.56e-09 len:0.00867 d:69
+  17  2 C18  gpio:064.081.3 ioblock:7A r:0.62791 c:9.8e-13 l:5.89e-09 len:0.00981 d:76
+  17  3 D18  gpio:070.081.0 ioblock:7A r:0.40498 c:6.4e-13 l:3.53e-09 len:0.00631 d:48
+  17  4 E18  f:VCCIO7A t:vccn
+  17  5 F18  gpio:089.037.3 ioblock:5B r:0.68918 c:1.07e-12 l:6.42e-09 len:0.0105 d:83
+  17  6 G18  gpio:089.036.2 ioblock:5B r:0.73649 c:1.11e-12 l:6.63e-09 len:0.01094 d:86
+  17  7 H18  gpio:089.038.3 ioblock:5B r:0.55011 c:1.2e-12 l:4.6e-09 len:0.00848 d:74
+  17  8 J18  gpio:089.038.1 ioblock:5B r:0.47326 c:1.11e-12 l:4.03e-09 len:0.0075 d:67
+  17  9 K18  f:VCCIO5B t:vccn
+  17 10 L18  gpio:089.032.0 ioblock:5B r:0.36514 c:9.3e-13 l:3.2e-09 len:0.0061 d:55
+  17 11 M18  f:VCCPD5B t:vccpd
+  17 12 N18  gpio:089.023.1 ioblock:5B r:0.21501 c:7.3e-13 l:2.04e-09 len:0.0041 d:39
+  17 13 P18  gpio:089.023.0 ioblock:5B r:0.21486 c:4e-13 l:2.73e-09 len:0.0039 d:33
+  17 14 R18  f:VCCIO5A t:vccn
+  17 15 T18  gpio:089.006.1 ioblock:5A r:0.23466 c:4.9e-13 l:2.44e-09 len:0.0043 d:35
+  17 16 U18  f:VCCA_FPLL t:vcc
+  17 17 V18  gpio:070.000.1 ioblock:4A r:0.47738 c:7.8e-13 l:4.02e-09 len:0.00733 d:56
+  17 18 W18  gpio:070.000.0 ioblock:4A r:0.50476 c:6.5e-13 l:4.26e-09 len:0.00745 d:52
+  17 19 Y18  f:VCCIO4A t:vccn
+  17 20 AA18 gpio:056.000.2 ioblock:4A r:0.63257 c:1.02e-12 l:6.09e-09 len:0.00991 d:79
+  17 21 AB18 gpio:056.000.3 ioblock:4A r:0.61311 c:9.6e-13 l:5.83e-09 len:0.00949 d:75
+  18  0 A19  gpio:066.081.3 ioblock:7A r:0.52738 c:7.8e-13 l:5.5e-09 len:0.00797 d:65
+  18  1 B19  f:VCCIO7A t:vccn
+  18  2 C19  gpio:064.081.2 ioblock:7A r:0.61455 c:9.8e-13 l:6.21e-09 len:0.00973 d:78
+  18  3 D19  f:VCC_AUX t:vcc
+  18  4 E19  f:VCCA_FPLL t:vcc
+  18  5 F19  gpio:089.037.2 ioblock:5B r:0.67952 c:1.09e-12 l:6.01e-09 len:0.01022 d:81
+  18  6 G19  f:VCCIO5B t:vccn
+  18  7 H19  gpio:089.036.1 ioblock:5B r:0.51217 c:8e-13 l:5.25e-09 len:0.00778 d:65
+  18  8 J19  gpio:089.038.2 ioblock:5B r:0.52712 c:9.3e-13 l:4.8e-09 len:0.00823 d:67
+  18  9 K19  gpio:089.032.1 ioblock:5B r:0.36445 c:6.3e-13 l:3.95e-09 len:0.00607 d:50
+  18 10 L19  gpio:089.029.0 ioblock:5B r:0.35453 c:5.8e-13 l:3.19e-09 len:0.00558 d:43
+  18 11 M19  f:GND t:vss
+  18 12 N19  f:VCCPD5B t:vccpd
+  18 13 P19  gpio:089.009.1 ioblock:5A r:0.17294 c:7.4e-13 l:1.93e-09 len:0.00386 d:38
+  18 14 R19  gpio:089.009.0 ioblock:5A r:0.15042 c:5.9e-13 l:1.68e-09 len:0.00306 d:32
+  18 15 T19  gpio:089.006.2 ioblock:5A r:0.32478 c:5.4e-13 l:3.09e-09 len:0.00526 d:41
+  18 16 U19  f:GND t:vss
+  18 17 V19  gpio:089.004.1 ioblock:5A r:0.25985 c:4.7e-13 l:2.58e-09 len:0.00446 d:35
+  18 18 W19  f:VCC_AUX t:vcc
+  18 19 Y19  gpio:058.000.2 ioblock:4A r:0.69281 c:1.12e-12 l:6.91e-09 len:0.01118 d:88
+  18 20 AA19 gpio:058.000.3 ioblock:4A r:0.66076 c:1.08e-12 l:6.66e-09 len:0.01078 d:85
+  18 21 AB19 f:GND t:vss
+  19  0 A20  gpio:066.081.2 ioblock:7A r:0.53101 c:9.2e-13 l:5.18e-09 len:0.00856 d:69
+  19  1 B20  gpio:070.081.2 ioblock:7A r:0.58392 c:1.23e-12 l:4.64e-09 len:0.00857 d:75
+  19  2 C20  gpio:072.081.3 ioblock:7A r:0.63767 c:1.14e-12 l:4.88e-09 len:0.00941 d:75
+  19  3 D20  f:GND t:vss
+  19  4 E20  gpio:089.035.2 ioblock:5B r:0.66615 c:1.67e-12 l:5.67e-09 len:0.01107 d:97
+  19  5 F20  gpio:089.035.3 ioblock:5B r:0.71035 c:1.31e-12 l:6.03e-09 len:0.01092 d:89
+  19  6 G20  gpio:089.032.2 ioblock:5B r:0.64766 c:9.3e-13 l:6.43e-09 len:0.00921 d:77
+  19  7 H20  gpio:089.036.0 ioblock:5B r:0.4614 c:1.01e-12 l:4.63e-09 len:0.00719 d:68
+  19  8 J20  f:GND t:vss
+  19  9 K20  f:VREFB5BN0 t:vref
+  19 10 L20  gpio:089.029.1 ioblock:5B r:0.303 c:7.8e-13 l:2.81e-09 len:0.00495 d:47
+  19 11 M20  gpio:089.025.1 ioblock:5B r:0.29078 c:6.1e-13 l:3.06e-09 len:0.00541 d:43
+  19 12 N20  gpio:089.021.0 ioblock:5B r:0.28848 c:5.1e-13 l:2.63e-09 len:0.00469 d:37
+  19 13 P20  f:VCCIO5B t:vccn
+  19 14 R20  gpio:089.009.2 ioblock:5A r:0.30074 c:7.5e-13 l:2.96e-09 len:0.00498 d:47
+  19 15 T20  gpio:089.006.3 ioblock:5A r:0.25828 c:7.2e-13 l:2.79e-09 len:0.00447 d:45
+  19 16 U20  f:VCCPGM t:vcc
+  19 17 V20  gpio:089.004.0 ioblock:5A r:0.22999 c:7.8e-13 l:2.23e-09 len:0.00413 d:42
+  19 18 W20  f:GND t:vss
+  19 19 Y20  gpio:060.000.2 ioblock:4A r:0.71351 c:1.27e-12 l:5.88e-09 len:0.011 d:86
+  19 20 AA20 gpio:060.000.3 ioblock:4A r:0.69816 c:1.2e-12 l:5.71e-09 len:0.01059 d:83
+  19 21 AB20 gpio:064.000.3 ioblock:4A r:0.6202 c:1.58e-12 l:5.12e-09 len:0.01027 d:90
+  20  0 A21  f:GND t:vss
+  20  1 B21  gpio:070.081.3 ioblock:7A r:0.59048 c:1.3e-12 l:4.95e-09 len:0.00898 d:80
+  20  2 C21  gpio:072.081.2 ioblock:7A r:0.63764 c:1.37e-12 l:4.9e-09 len:0.00954 d:82
+  20  3 D21  f:DNU t:do-not-use
+  20  4 E21  gpio:089.027.2 ioblock:5B r:0.75777 c:1.34e-12 l:7.56e-09 len:0.01248 d:101
+  20  5 F21  f:GND t:vss
+  20  6 G21  gpio:089.030.3 ioblock:5B r:0.59072 c:1.23e-12 l:5.2e-09 len:0.00988 d:80
+  20  7 H21  gpio:089.032.3 ioblock:5B r:0.63305 c:8.7e-13 l:6.15e-09 len:0.00901 d:73
+  20  8 J21  gpio:089.029.3 ioblock:5B r:0.46035 c:6.8e-13 l:5.05e-09 len:0.00724 d:59
+  20  9 K21  gpio:089.029.2 ioblock:5B r:0.4419 c:6.2e-13 l:4.62e-09 len:0.00676 d:53
+  20 10 L21  f:VCCIO5B t:vccn
+  20 11 M21  gpio:089.025.0 ioblock:5B r:0.30458 c:7.7e-13 l:2.92e-09 len:0.00515 d:48
+  20 12 N21  gpio:089.021.1 ioblock:5B r:0.2672 c:7.6e-13 l:2.48e-09 len:0.0046 d:43
+  20 13 P21  gpio:089.020.2 ioblock:5B r:0.3489 c:5.4e-13 l:3.64e-09 len:0.00563 d:45
+  20 14 R21  gpio:089.009.3 ioblock:5A r:0.26493 c:6.8e-13 l:2.71e-09 len:0.00445 d:43
+  20 15 T21  f:VCCIO5A t:vccn
+  20 16 U21  gpio:089.004.3 ioblock:5A r:0.28247 c:7.2e-13 l:2.73e-09 len:0.00469 d:44
+  20 17 V21  f:VREFB5AN0 t:vref
+  20 18 W21  gpio:072.000.3 ioblock:4A r:0.69551 c:1.4e-12 l:5.44e-09 len:0.01028 d:87
+  20 19 Y21  gpio:070.000.2 ioblock:4A r:0.6738 c:1.38e-12 l:5.27e-09 len:0.00985 d:85
+  20 20 AA21 f:VCCIO4A t:vccn
+  20 21 AB21 gpio:064.000.2 ioblock:4A r:0.57631 c:1.64e-12 l:5.25e-09 len:0.01031 d:93
+  21  0 A22  gpio:068.081.3 ioblock:7A r:0.62816 c:1.22e-12 l:5.39e-09 len:0.01004 d:81
+  21  1 B22  gpio:068.081.2 ioblock:7A r:0.65305 c:1.29e-12 l:5.32e-09 len:0.01035 d:83
+  21  2 C22  f:GND t:vss
+  21  3 D22  gpio:089.027.3 ioblock:5B r:0.72698 c:1.24e-12 l:6.92e-09 len:0.01182 d:93
+  21  4 E22  gpio:089.025.3 ioblock:5B r:0.67852 c:1.22e-12 l:7e-09 len:0.01133 d:93
+  21  5 F22  gpio:089.025.2 ioblock:5B r:0.65359 c:1.1e-12 l:6.7e-09 len:0.01075 d:86
+  21  6 G22  gpio:089.030.2 ioblock:5B r:0.59569 c:1.36e-12 l:5.43e-09 len:0.00956 d:86
+  21  7 H22  f:VCCIO5B t:vccn
+  21  8 J22  gpio:089.023.3 ioblock:5B r:0.5421 c:8.6e-13 l:5.81e-09 len:0.00872 d:71
+  21  9 K22  gpio:089.023.2 ioblock:5B r:0.51547 c:7.9e-13 l:5.85e-09 len:0.00813 d:68
+  21 10 L22  gpio:089.021.3 ioblock:5B r:0.47501 c:7.2e-13 l:5.41e-09 len:0.00762 d:63
+  21 11 M22  gpio:089.021.2 ioblock:5B r:0.45107 c:7e-13 l:4.24e-09 len:0.00729 d:54
+  21 12 N22  f:GND t:vss
+  21 13 P22  gpio:089.020.3 ioblock:5B r:0.34276 c:7.4e-13 l:3.25e-09 len:0.00533 d:49
+  21 14 R22  gpio:089.008.3 ioblock:5A r:0.32268 c:5.2e-13 l:3.12e-09 len:0.00507 d:40
+  21 15 T22  gpio:089.008.2 ioblock:5A r:0.28115 c:4.8e-13 l:2.99e-09 len:0.0046 d:38
+  21 16 U22  gpio:089.004.2 ioblock:5A r:0.28258 c:7.6e-13 l:2.68e-09 len:0.00481 d:45
+  21 17 V22  f:GND t:vss
+  21 18 W22  gpio:072.000.2 ioblock:4A r:0.67365 c:1.45e-12 l:5.68e-09 len:0.0103 d:91
+  21 19 Y22  gpio:070.000.3 ioblock:4A r:0.67473 c:1.46e-12 l:5.49e-09 len:0.01022 d:90
+  21 20 AA22 gpio:066.000.2 ioblock:4A r:0.6296 c:1.53e-12 l:5.4e-09 len:0.0103 d:91
+  21 21 AB22 gpio:066.000.3 ioblock:4A r:0.63724 c:1.68e-12 l:5.8e-09 len:0.01095 d:99

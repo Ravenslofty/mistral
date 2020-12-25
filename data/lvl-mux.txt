@@ -1,0 +1,21 @@
+i delay_clk_sel                        m:1    28 | 4 | 12 | 20
+  0 core !
+  1 pll
+i core_inv_en                          b-     30 | 6 | 14 | 22
+i pll_sel                              n:2    24 25 | 0 1 | 8 9 | 16 17
+  0 1 !
+  1 2
+  2 3
+i clk_delay                            r-:2   26 27 | 2 3 | 10 11 | 18 19
+i clk_delay_pwr_svg_en                 b-     29 | 5 | 13 | 21
+i clk_gating_dis                       b-     31 | 7 | 15 | 23
+g dll_sel                              r-:1   42
+g addi_en                              b-     43
+g fbout0_delay                         r-:2   35 36
+g fbout0_delay_pwr_svg_en              b+     37
+g fbout1_delay                         r-:2   32 33
+g fbout1_delay_pwr_svg_en              b+     34
+g phyclk_sel_inv_en                    b-     38
+g phyclk_sel                           r-:2   39 40
+g phyclk_gating_dis                    b-     41
+g co_delay                             r+:2   44 45

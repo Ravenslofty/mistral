@@ -1,0 +1,239 @@
+i use_bus_hold                 b-   163 | 37 | 121 | 79
+i use_pci_diode_clamp          b-   151 | 25 | 109 | 67
+i use_open_drain               b-   159 | 33 | 117 | 75
+i output_duty_cycle_delay_ps   n:2  169 168 | 43 42 | 127 126 | 85 84
+  0 0 !
+  1 50
+  2 100
+  3 150
+i output_duty_cycle_delay_fall b-   167 | 41 | 125 | 83
+i output_duty_cycle_delay_rise b-   166 | 40 | 124 | 82
+i slew_rate_slow               b-:2 164 165 | 38 39 | 122 123 | 80 81
+g lvds_buffer_used             b-:2 21 22
+g use_lvds_termination         b-   20
+l use_pseudo_diff_output       b-   7 | 6
+g use_diff_output              b-   19
+g tx_enable_hc                 m:1  12
+  0 ioreg !
+  1 serdes
+g use_preemphasis              b-   18
+g vod_level                    m:2  15 14
+  0 low
+  1 med !
+  2 high
+g vos_level                    m:1  16
+  0 standard !
+  1 raised
+i pll_select                   m:1  11 | 8 | 10 | 9
+  0 codin !
+  1 pll
+s enable_serdes_loopback       b-   108
+i termination_control          m:1  157 | 31 | 115 | 73
+  0 regio !
+  1 rupdn
+i termination_mode             m:3  153 156 154 | 27 30 28 | 111 114 112 | 69 72 70
+  0 pds !
+  1 rs_static
+  2 rt_pds_dynamic
+  3 rt_rs_dynamic
+  4 rt_static
+i termination_control_shift    b-   155 | 29 | 113 | 71
+X drive_strength               m:20
+  * 190 189 188 187 186 185 184 183 182 181 180 179 178 177 176 175 174 173 172 171
+  * 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45
+  * 148 147 146 145 144 143 142 141 140 139 138 137 136 135 134 133 132 131 130 129
+  * 106 105 104 103 102 101 100 99 98 97 96 95 94 93 92 91 90 89 88 87
+  00000 off
+  000ff prog_gnd
+  3fc00 prog_pwr
+  02813 lvds_1r
+  168b0 lvds_3r
+  0f8c8 v3p0_pci_pcix
+  03820 v3p0_lvttl_4ma
+  06834 v3p0_lvttl_8ma
+  0a054 v3p0_lvttl_12ma
+  0d074 v3p0_lvttl_16ma
+  40100 v3p3_lvttl_4ma
+  07831 v3p0_lvcmos_4ma
+  0f076 v3p0_lvcmos_8ma
+  158ae v3p0_lvcmos_12ma
+  1f0fa v3p0_lvcmos_16ma
+  c0300 v3p3_lvttl_8ma_lvcmos_2ma
+  07016 v1p2_2ma
+  0c028 v1p2_4ma
+  1303c v1p2_6ma
+  1884f v1p2_8ma
+  05014 v1p5_2ma
+  07824 v1p5_4ma
+  0b836 v1p5_6ma
+  0fc44 v1p5_8ma
+  13052 v1p5_10ma
+  16c64 v1p5_12ma
+  0300e v1p8_2ma
+  0581e v1p8_4ma
+  0802a v1p8_6ma
+  0a038 v1p8_8ma
+  0c844 v1p8_10ma
+  0fc54 v1p8_12ma
+  0501e v2p5_4ma
+  08c3e v2p5_8ma
+  0d05e v2p5_12ma
+  1187e v2p5_16ma
+  2186a v1p2_25ohm
+  1a470 v1p5_25ohm
+  16479 v1p8_25ohm
+  11c91 v2p5_25ohm
+  10088 v3p0_25ohm
+  10834 v1p2_50ohm
+  0d438 v1p5_50ohm
+  0b03b v1p8_50ohm
+  09048 v2p5_50ohm
+  08044 v3p0_50ohm
+  1804c hsul12_34ohm
+  15042 hsul12_40ohm
+  11435 hsul12_48ohm
+  0dc2b hsul12_60ohm
+  0a420 hsul12_80ohm
+  1744d sstl125_34ohm
+  14041 sstl125_40ohm
+  15450 sstl135_34ohm
+  12043 sstl135_40ohm
+  13452 sstl15_34ohm
+  10846 sstl15_40ohm
+  0d82e hstl12_4ma
+  13040 hstl12_6ma
+  19854 hstl12_8ma
+  340ac hstl12_16ma
+  2006c hstl12_10ma
+  25481 hstl12_12ma
+  07820 hstl15_4ma
+  0a830 hstl15_6ma
+  0e83c hstl15_8ma
+  10c4c hstl15_10ma
+  1585c hstl15_12ma
+  1c87e hstl15_16ma
+  0982a sstl15_4ma
+  0e03f sstl15_6ma
+  1204f sstl15_8ma
+  1846a sstl15_10ma
+  1c880 sstl15_12ma
+  260b0 sstl15_16ma
+  06022 hstl18_4ma
+  0882c hstl18_6ma
+  0b040 hstl18_8ma
+  0e84b hstl18_10ma
+  11060 hstl18_12ma
+  1687c hstl18_16ma
+  07038 sstl18_4ma
+  0a858 sstl18_6ma
+  0d872 sstl18_8ma
+  11090 sstl18_10ma
+  144b0 sstl18_12ma
+  1e8a4 sstl18_16ma
+  05830 sstl2_8ma
+  06c3e sstl2_10ma
+  0804a sstl2_12ma
+  0f098 sstl2_16ma
+x drive_strength               m:20
+  * 190 189 188 187 186 185 184 183 182 181 180 179 178 177 176 175 174 173 172 171
+  * 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45
+  * 148 147 146 145 144 143 142 141 140 139 138 137 136 135 134 133 132 131 130 129
+  * 106 105 104 103 102 101 100 99 98 97 96 95 94 93 92 91 90 89 88 87
+  00000 off
+  000ff prog_gnd
+  3fc00 prog_pwr
+  02813 lvds_1r
+  168b0 lvds_3r
+  0f8c8 v3p0_pci_pcix
+  03820 v3p0_lvttl_4ma
+  06834 v3p0_lvttl_8ma
+  0a054 v3p0_lvttl_12ma
+  0d074 v3p0_lvttl_16ma
+  40100 v3p3_lvttl_4ma
+  80200 v3p3_lvttl_8ma
+  07831 v3p0_lvcmos_4ma
+  0f076 v3p0_lvcmos_8ma
+  158ae v3p0_lvcmos_12ma
+  1f0fa v3p0_lvcmos_16ma
+  c0300 v3p3_lvttl_16ma_lvcmos_2ma
+  07016 v1p2_2ma
+  0c028 v1p2_4ma
+  1303c v1p2_6ma
+  1884f v1p2_8ma
+  05014 v1p5_2ma
+  07824 v1p5_4ma
+  0b836 v1p5_6ma
+  0fc44 v1p5_8ma
+  13052 v1p5_10ma
+  16c64 v1p5_12ma
+  0300e v1p8_2ma
+  0581e v1p8_4ma
+  0802a v1p8_6ma
+  0a038 v1p8_8ma
+  0c844 v1p8_10ma
+  0fc54 v1p8_12ma
+  0501e v2p5_4ma
+  08c3e v2p5_8ma
+  0d05e v2p5_12ma
+  1187e v2p5_16ma
+  2186a v1p2_25ohm
+  1a470 v1p5_25ohm
+  16479 v1p8_25ohm
+  11c91 v2p5_25ohm
+  10088 v3p0_25ohm
+  10834 v1p2_50ohm
+  0d438 v1p5_50ohm
+  0b03b v1p8_50ohm
+  09048 v2p5_50ohm
+  08044 v3p0_50ohm
+  1804c hsul12_34ohm
+  15042 hsul12_40ohm
+  11435 hsul12_48ohm
+  0dc2b hsul12_60ohm
+  0a420 hsul12_80ohm
+  1744d sstl125_34ohm
+  14041 sstl125_40ohm
+  15450 sstl135_34ohm
+  12043 sstl135_40ohm
+  13452 sstl15_34ohm
+  10846 sstl15_40ohm
+  0d82e hstl12_4ma
+  13040 hstl12_6ma
+  19854 hstl12_8ma
+  2006c hstl12_10ma
+  25481 hstl12_12ma
+  340ac hstl12_16ma
+  07820 hstl15_4ma
+  0a830 hstl15_6ma
+  0e83c hstl15_8ma
+  10c4c hstl15_10ma
+  1585c hstl15_12ma
+  1c87e hstl15_16ma
+  0982a sstl15_4ma
+  0e03f sstl15_6ma
+  1204f sstl15_8ma
+  1846a sstl15_10ma
+  1c880 sstl15_12ma
+  260b0 sstl15_16ma
+  0e84b hstl18_10ma
+  11060 hstl18_12ma
+  06022 hstl18_4ma
+  0882c hstl18_6ma
+  0b040 hstl18_8ma
+  1687c hstl18_16ma
+  07038 sstl18_4ma
+  0a858 sstl18_6ma
+  0d872 sstl18_8ma
+  11090 sstl18_10ma
+  144b0 sstl18_12ma
+  1e8a4 sstl18_16ma
+  05830 sstl2_8ma
+  06c3e sstl2_10ma
+  0804a sstl2_12ma
+  0f098 sstl2_16ma
+i iocsr_std                    m:2  161 162 | 35 36 | 119 120 | 77 78
+  0 nvr_high !
+  1 nvr_low
+  2 vr
+  3 dis
+i use_weak_pullup              b    170 | 44 | 128 | 86

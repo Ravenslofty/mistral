@@ -1,0 +1,626 @@
+i tx_cgb_enable                 b-    776 | 8 | 392
+i tx_cgb_mux_power_down         b-    791 | 23 | 407
+i auto_negotiation              b-    1040 |  272 | 656
+i tx_mode_bits                  n:3   789 879 788 | 21 111 20 | 405 495 404
+  0  8 !
+  1 10
+  4 16
+  5 20
+  7 80
+i tx_cgb_x1_clock_source_sel    m:9
+  * 780 779 793 772 773 770 771 768 769
+  * 12 11 25 4 5 2 3 0 1
+  * 396 395 409 388 389 386 387 384 385
+  008 up_segmented !
+  088 down_segmented
+  108 ffpll
+  188 ch1_txpll_t
+  010 ch2_txpll_b
+  070 same_ch_txpll
+  034 hfclk_xn_up
+  036 hfclk_cn1_x6_dn
+  054 hfclk_xn_dn
+  055 hfclk_ch1_x6_up
+i tx_cgb_x1_div_m_sel           n:2   774 775 | 6 7 | 390 391
+  0 1 !
+  1 2
+  2 4
+  3 8
+i tx_cgb_xn_clock_source_sel    m:4
+  * 777 778 780 779
+  * 9 10 12 11
+  * 393 394 396 395
+  0 xn_up !
+  8 ch1_x6_dn
+  1 xn_dn
+  5 ch1_x6_up
+  2 cgb_x1_m_div !
+i tx_cgb_rx_iqclk_sel           m:2   795 794 | 27 26 | 411 410
+  1 cgb_x1_m_div
+  3 rx_output
+  0 tristate !
+i tx_cgb_sync                   m:1   781 | 13 | 397
+  1 normal
+  0 sync_rst !
+i tx_cgb_clk_mute               m:2   797 796 | 29 28 | 413 412
+  0 disable !
+  2 enable_mute
+  3 enable_mute_master_channel
+i tx_cgb_pcie_reset             m:1   782 | 14 | 398
+  0 normal !
+  1 pcie
+i tx_cgb_counter_reset_en       b-    799 | 31 | 415
+i tx_cgb_fref_vco_bypass        b-    783 | 15 | 399
+i tx_ser_post_tap_1_en          b-    790 | 22 | 406
+i tx_ser_clk_divtx_deskew       r-:4
+  * 784 785 786 787
+  * 16 17 18 19
+  * 400 401 402 403
+i tx_ser_forced_data_mode_en    b-    792 | 24 | 408
+i tx_ser_duty_cycle_time        r3:3  874 875 876 | 106 107 108 | 490 491 492
+i tx_buf_en                     b-    816 | 48 | 432
+i tx_buf_vod_sw_main_tap        r-:6
+  * 838 839 840 841 842 843
+  * 70 71 72 73 74 75
+  * 454 455 456 457 458 459
+i tx_buf_vod_sw_1st_post_tap    r-:5
+  * 818 819 820 821 822
+  * 50 51 52 53 54
+  * 434 435 436 437 438
+i tx_buf_term_sel               m:3   833 834 835 | 65 66 67 | 449 450 451
+  4 r150ohm
+  5 r120ohm
+  6 r100ohm !
+  7 r85ohm
+  0 external
+i tx_buf_common_mode_driver_sel m:4
+  * 828 829 830 831
+  * 60 61 62 63
+  * 444 445 446 447
+  b grounded
+  9 pull_down
+  8 pull_up
+  c pull_up_vccela
+  a tristated1
+  d tristated2
+  e tristated3
+  f tristated4
+  7 v0p35
+  6 v0p50
+  5 v0p55
+  4 v0p60
+  3 v0p65 !
+  2 v0p70
+  1 v0p75
+  0 v0p80
+i tx_buf_driver_resolution_ctrl m:2   836 837 | 68 69 | 452 453
+  2 combination
+  3 disabled
+  0 offset_main !
+  1 offset_po1
+i tx_buf_slew_rate_ctrl         n:3   807 808 809 | 39 40 41 | 423 424 425
+  0 160
+  1 90
+  2 50
+  3 30 !
+  4 15
+i tx_buf_dft_sel                m:3   800 801 802 | 32 33 34 | 416 417 418
+  0 vod_en_lsb
+  1 vod_en_msb
+  2 po1_en
+  3 disabled
+  4 pre_en_po2_en !
+i tx_buf_swing_boost_dis        b-    810 | 42 | 426
+i tx_buf_vod_boost_dis          b-    811 | 43 | 427
+i tx_buf_local_ib_ctl           m:2   805 806 | 37 38 | 421 422
+  0 r49ohm
+  1 r29ohm !
+  2 r42ohm
+  3 r22ohm
+i tx_buf_fir_coef_sel           m:1   817 | 49 | 433
+  0 ram !
+  1 dynamic
+i tx_buf_cml_en                 b-    845 | 77 | 461
+i tx_buf_vcm_current_add        r1:2  803 804 | 35 36 | 419 420
+i tx_buf_rx_det_pdb_en          b-    827 | 59 | 443
+i tx_buf_rx_det_mode            r-:4
+  * 823 824 825 826
+  * 55 56 57 58
+  * 439 440 441 442
+i tx_buf_lst_atb                r-:4
+  * 812 813 814 815
+  * 44 45 46 47
+  * 428 429 430 431
+i tx_vref_es_tap                m:4
+  * 870 871 872 873
+  * 102 103 104 105
+  * 486 487 488 489
+  0 vref_10r_ov_18r
+  1 vref_11r_ov_19r
+  3 vref_12r_ov_20r !
+  7 vref_13r_ov_21r
+  f vref_14r_ov_22r
+i cdr_pll_clock_en              b-    1015 | 247 | 631
+i rx_deser_clk_sel              m:2   949 955 | 181 187 |  565 571 
+  0 or_cal !
+  1 lc
+  2 pld
+i rx_deser_reverse_loopback     m:1   954 | 186 | 570
+  0 rx !
+  1 cdr
+i cdr_pll_on                    b-    927 | 159 | 543
+i cdr_pll_ref_clk_div           n:3   894 895 883 | 126 127 115 | 510 511 499
+  0 1 !
+  1 2
+  2 4
+  6 8
+i cdr_pll_m_counter             n:4
+  * 890 891 892 893
+  * 122 123 124 125
+  * 506 507 508 509
+  0 0
+  2 4
+  3 5
+  4 8
+  5 10
+  9 12
+  6 16
+  7 20 !
+  8 25
+  a 32
+  b 40
+  c 50
+i cdr_pll_l_counter             n:2   888 889 | 120 121 | 504 505
+  0 1 !
+  1 2
+  2 4
+  3 8
+i cdr_pll_pd_l_counter          n:2   886 887 | 118 119 | 502 503
+  0 1 !
+  1 2
+  2 4
+  3 8
+i cdr_pll_fb_sel                m:1   884 | 116 | 500
+  0 vco_clk !
+  1 external_clk
+i cdr_pll_fref_ppm_div2_en      b-    940 | 172 | 556
+i cdr_pll_rippl_cap_ctrl_en     b-    881 | 113 | 497
+i cdr_pll_rxpll_pfd_bw_ctrl     n:2   916 917 | 148 149 | 532 533
+  0 1600
+  1 3200 !
+  2 4800
+  3 6400
+i cdr_pll_rxpll_pd_bw_ctrl      n:2   918 919 | 150 151 | 534 535
+  0 600
+  1 300 !
+  2 240
+  3 170
+i cdr_pll_cpump_current_test    m:3   943 945 944 | 175 177 176 | 559 561 560
+  0 normal !
+  4 disable
+  5 test_down
+  6 test_up
+i cdr_pll_pfd_cpump_current_ua  n:6
+  * 933 934 935 920 921 922
+  * 165 166 167 152 153 154
+  * 549 550 551 536 537 538
+  00 5
+  08 10
+  10 20 !
+  18 30
+  20 40
+  21 50
+  23 60
+  24 80
+  25 100
+  27 120
+i cdr_pll_pd_cpump_current_ua   n:3   923 924 925 | 155 156 157 | 539 540 541
+  0 5 !
+  1 10
+  2 20
+  3 30
+  4 40
+i cdr_pll_regulator_inc_pct     m:3   930 931 932 | 162 163 164 | 546 547 548 
+  0 p0
+  1 p5 !
+  2 p10
+  3 p15
+  4 p20
+  5 p25
+  7 disabled
+i cdr_pll_replica_bias_dis      b-    915 | 147 | 531
+i cdr_pll_bbpd_clk0_offset      m:4
+  * 896 897 898 899
+  * 128 129 130 131
+  * 512 513 514 515
+  0 delta_0 !
+  1 delta_1_left
+  2 delta_2_left
+  3 delta_3_left
+  4 delta_4_left
+  5 delta_5_left
+  6 delta_6_left
+  7 delta_7_left
+  9 delta_1_right
+  a delta_2_right
+  b delta_3_right
+  c delta_4_right
+  d delta_5_right
+  e delta_6_right
+  f delta_7_right
+i cdr_pll_bbpd_clk90_offset     m:4
+  * 908 909 910 911
+  * 140 141 142 143
+  * 524 525 526 527
+  0 delta_0 !
+  1 delta_1_left
+  2 delta_2_left
+  3 delta_3_left
+  4 delta_4_left
+  5 delta_5_left
+  6 delta_6_left
+  7 delta_7_left
+  9 delta_1_right
+  a delta_2_right
+  b delta_3_right
+  c delta_4_right
+  d delta_5_right
+  e delta_6_right
+  f delta_7_right
+i cdr_pll_bbpd_clk180_offset     m:4
+  * 900 901 902 903
+  * 132 133 134 135
+  * 516 517 518 519
+  0 delta_0 !
+  1 delta_1_left
+  2 delta_2_left
+  3 delta_3_left
+  4 delta_4_left
+  5 delta_5_left
+  6 delta_6_left
+  7 delta_7_left
+  9 delta_1_right
+  a delta_2_right
+  b delta_3_right
+  c delta_4_right
+  d delta_5_right
+  e delta_6_right
+  f delta_7_right
+i cdr_pll_bbpd_clk270_offset     m:4
+  * 904 905 906 907
+  * 136 137 138 139
+  * 520 521 522 523
+  0 delta_0 !
+  1 delta_1_left
+  2 delta_2_left
+  3 delta_3_left
+  4 delta_4_left
+  5 delta_5_left
+  6 delta_6_left
+  7 delta_7_left
+  9 delta_1_right
+  a delta_2_right
+  b delta_3_right
+  c delta_4_right
+  d delta_5_right
+  e delta_6_right
+  f delta_7_right
+i cdr_pll_bbpd_sel              m:3   912 913 914 | 144 145 146 | 528 529 530
+  0 normal !
+  4 testmux
+i cdr_pll_counter_pd_clk_dis    b-    880 | 112 | 496
+i cdr_pll_ignore_phaselock_en   b-    885 | 117 | 501
+i cdr_pll_cp_rgla_bypass_en     b-    929 | 161 | 545
+i cdr_pll_fast_lock_mode_en     b+    928 | 160 | 544
+i cdr_pll_reserve_loopback_en   b-    926 | 158 | 542
+i cdr_pll_vlock_monitor         m:1   946 | 178 | 562
+  0 mon_clk !
+  1 mon_data
+i cdr_pll_pcie_freq_mhz         n:1   947 | 179 | 563
+  0 100 !
+  1 125
+i cdr_pll_cgb_clk_en            b-    942 | 174 | 558
+i cdr_pll_txpll_hclk_driver_en  b-    948 | 180 | 564
+i cdr_pll_atb                   r-:4
+  * 936 937 938 939
+  * 168 169 170 171
+  * 552 553 554 555
+i cdr_pll_levshift_power_tap    r1:2  952 953 | 184 185 | 568 569
+i cdr_pll_vco_auto_reset_en     b+    1037 | 269 | 653
+i cdr_pll_vco_overange_ref      r2:2  1035 1036 | 267 268 | 651 652
+i cdr_pll_diag_rev_loopback     b-    963 | 195 | 579
+i cdr_pll_gpon_detection_en     b-    1038 | 270 | 654
+i rx_en                         b-    1012 | 244 | 628
+i rx_mode_bits                  n:3   1039 1011 1010 | 271 243 242 | 655 627 626
+  0  8 !
+  2 10
+  4 16
+  6 20
+i rx_bit_slip_bypass_en         b+    1009 | 241 | 625
+i rx_vco_bypass                 m:2   1013 1014 | 245 246 | 629 630
+  0 clklow
+  1 fref
+  2 normal !
+  3 normal_dont_care
+i rx_sdclk_en                   b-    1008 | 240 | 624
+i rx_buf_sd_en                  b-    975 | 207 | 591
+i rx_buf_sd_half_bw_en          b-    956 | 188 | 572
+i rx_buf_sd_3db_gain_en         b-    962 | 194 | 578
+i rx_buf_sd_vcm_sel             m:4
+  * 976 977 978 979
+  * 208 209 210 211
+  * 592 593 594 595
+  a tristated1  !
+  d tristated2
+  e tristated3
+  f tristated4
+  7 v0p35
+  6 v0p50
+  5 v0p55
+  4 v0p60
+  3 v0p65
+  2 v0p70
+  1 v0p75
+  0 v0p80 !
+  b pull_down_strong
+  9 pull_down_weak
+  c pull_up_strong
+  8 pull_up_weak
+i rx_buf_sd_rx_acgain_a         m:2   958 959 | 190 191 | 574 575
+  0 v0 !
+  1 v0p5
+  2 v0p75
+  3 v1
+i rx_buf_sd_rx_acgain_v         m:2   960 961 | 192 193 | 576 577
+  3 v0
+  2 v0p5
+  1 v0p75
+  0 v1 !
+i rx_buf_sd_term_sel            m:3   972 973 974 | 204 205 206 | 588 589 590
+  0 external
+  4 r150ohm
+  5 r120ohm
+  6 r100ohm !
+  7 r85ohm
+i rx_buf_sd_diag_loopback       b-    963 | 195 | 579
+i rx_buf_sd_cdrclk_to_cgb_en    b-    981 | 213 | 597
+i rx_buf_sd_rx_clk_div2_en      b-    968 | 200 | 584
+i rx_buf_sd_rx_refclk_en        b-    969 | 201 | 585
+i rx_buf_rx_atb                 r-:4
+  * 964 965 966 967
+  * 196 197 198 199
+  * 580 581 582 583
+i rx_buf_vcm_current_add        r1:2  970 971 | 202 203 | 586 587
+i rx_buf_sd_on                  m:5
+  * 980 991 992 993 994
+  * 212 223 224 225 226
+  * 596 607 608 609 610
+  02 pulse_4
+  04 pulse_6 !
+  06 pulse_8
+  08 pulse_10
+  0a pulse_12
+  0c pulse_14
+  0e pulse_16
+  10 pulse_18
+  12 pulse_20
+  14 pulse_22
+  16 pulse_24
+  18 pulse_26
+  1a pulse_28
+  1c pulse_30
+  00 reserved_on_1
+  1e reserved_on_2
+  03 force_on
+i rx_buf_sd_off                 m:9
+  * 995 996 997 998 999 987 988 989 990
+  * 227 228 229 230 231 219 220 221 222
+  * 611 612 613 614 615 603 604 605 606
+  028 divrx_1
+  048 divrx_2 !
+  068 divrx_3
+  088 divrx_4
+  0a8 divrx_5
+  0c8 divrx_6
+  0e8 divrx_7
+  108 divrx_8
+  128 divrx_9
+  148 divrx_10
+  168 divrx_11
+  188 divrx_12
+  1a8 divrx_13
+  1c8 divrx_14
+  008 reserved_off_1
+  1e8 reserved_off_2
+  051 off_on_tx_divrx_1
+  052 off_on_tx_divrx_2
+  053 off_on_tx_divrx_3
+  054 off_on_tx_divrx_4
+  055 off_on_tx_divrx_5
+  056 off_on_tx_divrx_6
+  057 off_on_tx_divrx_7
+  058 off_on_tx_divrx_8
+  059 off_on_tx_divrx_9
+  05a off_on_tx_divrx_10
+  05b off_on_tx_divrx_11
+  05c off_on_tx_divrx_12
+  05d off_on_tx_divrx_13
+  05e off_on_tx_divrx_14
+i rx_buf_sd_threshold_mv        n:3   984 985 986 | 216 217 218 | 600 601 602
+  0 50
+  1 45
+  2 40
+  3 35
+  4 30 !
+  5 25
+  6 20
+  7 15
+i rx_buf_sx_pdb_en              b-:2  982 983 | 214 215 | 598 599
+i int_early_eios_sel            m:1   1041 | 273 | 657
+  0 pcs !
+  1 core
+i int_ltr_sel                   m:1   1042 | 274 | 658
+  0 pcs !
+  1 core
+i int_pcie_switch_sel           m:1   1046 | 278 | 662
+  0 pcs !
+  1 core
+i int_txderectrx_sel            m:1   1045 | 277 | 661
+  0 pcs !
+  1 core
+i int_tx_elec_idle_sel          m:1   1044 | 276 | 660
+  0 pcs !
+  1 core
+i iq_tx_rx_clk_ab_sel           m:5
+  * 1049 1050 1051 1052 1053
+  * 281 282 283 284 285
+  * 665 666 667 668 669
+  00 a_pma_rx_b_pma_rx
+  02 a_pcs_rx_b_pcs_rx
+  05 a_pma_tx_b_pma_rx
+  1c a_pcs_tx_b_pcs_tx
+  06 a_tri_b_pcs_rx
+  1e a_tri_b_pcs_tx
+  0c a_pcs_tx_b_tri
+  0e tristate !
+i cvp_en                        b-    1047 | 279 | 663
+i int_ffclk_en                  b-    1048 | 280 | 664
+i force_mdio_dis_csr_end        b-    1149 | 381 | 765
+i dprio_reg_pld_pma_if_baddr    r:11
+  * 1136 1137 1138 1139 1140 1141 1142 1143 1144 1145 1146
+  * 368 369 370 371 372 373 374 375 376 377 378
+  * 752 753 754 755 756 757 758 759 760 761 762
+i pclk_sel                      m:5
+  * 670 671 672 673 674
+  * 286 287 288 289 290
+  * 1054 1055 1056 1057 1058
+  00 a_pma_rx_b_pma_rx
+  02 a_pcs_rx_b_pcs_rx
+  05 a_pma_tx_b_pma_rx
+  1c a_pcs_tx_b_pcs_tx
+  06 a_tri_b_pcs_rx
+  1e a_tri_b_pcs_tx
+  0c a_pcs_tx_b_tri
+  0e tristate !
+g x6_driver_en                  b-    355
+b segmented_1_up_mux_sel        m:2   739 740
+  0 fpllin
+  1 mux2
+  2 pd_2
+  3 ch2_txpll !
+t xn_dn_sel                     m:2   739 740
+  0 xn_dn
+  1 x6_up
+  2 x6_dn
+  3 pd_xn_dn !
+t xn_up_sel                     m:2   741 742
+  0 xn_up
+  1 x6_up
+  2 x6_dn
+  3 pd_xn_up !
+t segmented_1_up_mux_sel        m:3   743 744 745
+  2 fpllin
+  3 mux1
+  4 ch2_txpll
+  5 pd_2
+  6 ch1_txpll_bot
+  7 ch1_txpll_top !
+b segmented_0_down_mux_sel      m:2   741 742
+  0 ch2_txpll
+  1 other_segmented
+  2 pd_1 !
+t segmented_0_down_mux_sel      m:2   746 747
+  0 ch2_txpll
+  1 other_segmented
+  2 pd_1 !
+g segmented_0_up_mux_sel        m:2   1123 1124
+  0 other_segmented
+  1 pd_1
+  2 ch0_txpll !
+b segmented_1_down_mux_sel      m:3   1125 1126 1127
+  2 ch1_txpll_bot
+  3 ch1_txpll_top
+  4 fpllin
+  5 mux2
+  6 ch0_txpll
+  7 pd_2 !
+t segmented_1_down_mux_sel      m:2   1125 1126
+  0 fpllin
+  1 mux1
+  2 ch0_txpll
+  3 pd_2 !
+i hclk_pcs_driver_en            b-    1072 | 304 | 688
+i iq_tx_rx_to_ch_fb             m:2   1073 1074 | 305 306 | 689 690
+  0 clk0
+  1 clk1
+  2 clk2
+  3 pd !
+i iq_clk_to_ch2_sel             m:8
+  * 1079 1080 1081 1082 1075 1076 1077 1078
+  * 311 312 313 314 307 308 309 310
+  * 695 696 697 698 691 692 693 694
+  c0 ffpll_top
+  00 ffpll_bot
+  10 ref_clk0
+  20 ref_clk1
+  30 ref_clk2
+  40 ref_clk3
+  01 rx_clk0
+  02 rx_clk1
+  03 rx_clk2
+  04 rx_clk3
+  e0 pd_pma !
+g hclk_top_out_driver           m:2   699 700
+  0 tristate
+  1 up_en
+  2 down_en !
+q ref_iqclk_buf_en              b-    701 | 702 | 703 | 704
+q rx_iqclk_buf_en               b-    712 | 713 | 714 | 715
+g fpll_sel_ref_iqclk            m:4   315 316 317 318
+  0 ffpll_top
+  1 ref_iqclk0
+  2 ref_iqclk1
+  3 ref_iqclk2
+  4 ref_iqclk3
+  c ffpll_bot
+  e pd !
+g fpll_sel_rx_iqclk             m:4   319 320 321 322
+  1 rx_iqclk0
+  2 rx_iqclk1
+  3 rx_iqclk2
+  4 rx_iqclk3
+  e pd !
+g fpll_sel_iq_tx_rx_clk         m:2   325 326
+  0 iq_tx_rx_clk0
+  1 iq_tx_rx_clk1
+  2 iq_tx_rx_clk2
+  3 pd !
+g fpll_refclk_sel_iq_tx_rx_clk  m:4   327 328 329 330
+  1 iq_tx_rx_clk0
+  2 iq_tx_rx_clk1
+  3 iq_tx_rx_clk2
+  4 iq_tx_rx_clk3
+  5 iq_tx_rx_clk4
+  6 iq_tx_rx_clk5
+  e pd !
+g fpll_drv_en                   b+    339
+d ffpll_iqclk_direction         m:2   1083 1084 | 1085 1086
+  0 tristate
+  1 up
+  2 down
+k ffpll_iqtxrxclk_direction     m:2   1087 1088 | 1089 1090 | 1091 1092 | 1093 1094 | 1095 1096 | 1097 1098
+  0 tristate !
+  1 up
+  2 down
+b clkbuf_lvpecl_dis             b+    1107
+t clkbuf_lvpecl_dis             b+    723
+b clkbuf_div2_en                b-    1109
+t clkbuf_div2_en                b-    725
+b clkbuf_vcm_pup                m:1   1110
+  0 tristate !
+  1 vcc
+t clkbuf_vcm_pup                m:1   726
+  0 tristate !
+  1 vcc
+b clkbuf_term_dis               b+    1111
+t clkbuf_term_dis               b+    727

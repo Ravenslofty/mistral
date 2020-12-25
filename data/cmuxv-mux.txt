@@ -1,0 +1,73 @@
+g input_select                   r1b:5
+  * 167 166 165 164 163
+  * 144 143 142 141 140
+  * 121 120 119 118 117
+  * 92 91 90 89 88
+g clk_select_a                   r-:2  169 168 | 146 145 | 123 122 | 94 93
+g clk_select_b                   r-:2  171 170 | 148 147 | 125 124 | 96 95
+g clk_select_c                   r-:2  173 172 | 150 149 | 127 126 | 98 97
+g clk_select_d                   r-:2  175 174 | 152 151 | 129 128 | 100 99
+g enable_register_mode           m:2  161 162 | 138 139 | 115 116 | 86 87
+  0 enout
+  1 reg1_enout
+  2 reg2_enout
+  3 vcc !
+g testsyn_enout_select           m:1  159 | 136 | 113 | 84
+  0 core_en
+  1 pre_synenb !
+g enable_register_power_up       n:1  160 | 137 | 114 | 85
+  0 1 !
+  1 0
+G dynamic_clk_select             b-   182
+r input_select                   rb:4
+  * 203 204 205 206
+  * 210 211 212 213
+  * 217 218 219 220
+  * 224 225 226 227
+  * 231 232 233 234
+  * 238 239 240 241
+  * 245 246 247 248
+  * 252 253 254 255
+  * 259 260 261 262
+  * 266 267 268 269
+  * 66 67 68 69
+  * 59 60 61 62
+  * 52 53 54 55
+  * 45 46 47 48
+  * 38 39 40 41
+  * 31 32 33 34
+  * 24 25 26 27
+  * 17 18 19 20
+  * 10 11 12 13
+  * 3 4 5 6
+r enable_register_mode           m:2  200 201 | 207 208 | 214 215 | 221 222 | 228 229 | 235 236 | 242 243 | 249 250 | 256 257 | 263 264 | 63 64 | 56 57 | 49 50 | 42 43 | 35 36 | 28 29 | 21 22 | 14 15 | 7 8 | 0 1
+  0 enout
+  1 reg1_enout
+  2 reg2_enout
+  3 vcc !
+r enable_register_power_up       n:1  202 | 209 | 216 | 223 | 230 | 237 | 244 | 251 | 258 | 265 | 65 | 58 | 51 | 44 | 37 | 30 | 23 | 16 | 9 | 2 
+  0 1 !
+  1 0
+G pll_feedback_enable_0          m:1 109
+  0 vcc !
+  1 pll_mcnt0
+G pll_feedback_enable_1          m:1 110
+  0 vcc !
+  1 pll_mcnt0
+G pll_feedback_enable_2          m:1 107
+  0 vcc !
+  1 pll_mcnt0
+G pll_feedback_enable_3          m:1 108
+  0 vcc !
+  1 pll_mcnt0
+R pll_feedback_enable_0          m:1 111
+  0 vcc !
+  1 pll_mcnt0
+G pll_feedback_enable_1          m:1 112
+  0 vcc !
+  1 pll_mcnt0
+g burst_en                       b-   177 | 154 | 131 | 102
+g burst_count_ctrl               m:1 178 | 155 | 132 | 103
+  0 static !
+  1 core_ctrl
+g burst_count                    r-:3 181 180 179 | 158 157 156 | 135 134 133 | 106 105 104

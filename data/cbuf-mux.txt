@@ -1,0 +1,14 @@
+i mux0                          r-:1    11 | 1
+i mux0_en                       b-       19 |  18
+i mux1                          r-:1    12 | 2
+i mux1_en                       b-       21 |  20
+i mux2                          r-:1    13 | 3
+i mux2_en                       b-       23 |  22
+i mux3                          r-:1    14 | 4
+i mux3_en                       b-       25 |  24
+i fbin_mux                      r-:1    8 | 9
+i vcoph_mux                     r-:1    10 | 5
+i vcoph_mux_en                  b-       17 |  16
+g efb_mux                       r-:1    7
+g efb_mux_en                    b-      15
+g extclkout_mux_en              b-      6
