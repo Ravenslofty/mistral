@@ -79,6 +79,9 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_fpga">The Cyclone V FPGA</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#the-fpgas">The FPGAs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-stucture">Bitstream stucture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#logic-blocks">Logic blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#routing-network">Routing network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#programmable-inverters">Programmable inverters</a></li>
 </ul>
 </li>
 </ul>
@@ -160,6 +163,13 @@ variations in speed, temperature range, and enabled internal hardware.</p>
 <a class="reference internal image-reference" href="_images/floorplans.svg"><img alt="_images/floorplans.svg" src="_images/floorplans.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+<p>The FPGA, structurally, is a set of logic blocks of different types
+communicating with each other either through direct links or through a
+large routing network that spans the whole grid.</p>
+<p>Some of the logic blocks take visible floor space.  Specifically, the
+notches on the left are the space taken by the high speed serial
+interfaces (hssi and pma3).  Also, the top-right corner in the sx50f
+and sx120f variants is used to fit the hps, a dual-core arm.</p>
 </div>
 <div class="section" id="bitstream-stucture">
 <h3>Bitstream stucture<a class="headerlink" href="#bitstream-stucture" title="Permalink to this headline">¶</a></h3>
@@ -169,6 +179,135 @@ variations in speed, temperature range, and enabled internal hardware.</p>
 <li><p>Peripheral ram</p></li>
 <li><p>Configuration ram</p></li>
 </ul>
+<p>The option ram is composed of 32 blocks of 40 bits, of which only 12
+are actually used.  It includes the global configurations for the
+chip, such as the jtag user id, the programming voltage, the internal
+oscillator configuration, etc.</p>
+<p>The peripheral ram stores the configuration of all the blocks situated
+on the borders of the chip, e.g. everything outside of labs, mlabs,
+dsps and m10ks.  It is build of 13 to 16 blocks of bits that are sent
+through shift registers to the tiles.</p>
+<p>The configuration ram stores the configuration of the labs, mlabs,
+dsps and m10ks, plus all the routing configuration.  It also includes
+the programmable inverters which allows inverting essentially all the
+inputs to the peripheral blocks.  It is organised as a rectangle of
+bits.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 24%" />
+<col style="width: 21%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Die</p></th>
+<th class="head"><p>Tiles</p></th>
+<th class="head"><p>Pram</p></th>
+<th class="head"><p>Cram</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>e50f</p></td>
+<td><p>55x46</p></td>
+<td><p>51101</p></td>
+<td><p>4958x3928</p></td>
+</tr>
+<tr class="row-odd"><td><p>gx25f</p></td>
+<td><p>49x40</p></td>
+<td><p>54083</p></td>
+<td><p>3856x3412</p></td>
+</tr>
+<tr class="row-even"><td><p>gt75f</p></td>
+<td><p>69x62</p></td>
+<td><p>90162</p></td>
+<td><p>6006x5304</p></td>
+</tr>
+<tr class="row-odd"><td><p>gt150f</p></td>
+<td><p>90x82</p></td>
+<td><p>113922</p></td>
+<td><p>7605x7024</p></td>
+</tr>
+<tr class="row-even"><td><p>gt300f</p></td>
+<td><p>122x116</p></td>
+<td><p>130828</p></td>
+<td><p>10038x9948</p></td>
+</tr>
+<tr class="row-odd"><td><p>sx50f</p></td>
+<td><p>69x62</p></td>
+<td><p>80505</p></td>
+<td><p>6006x5304</p></td>
+</tr>
+<tr class="row-even"><td><p>sx120f</p></td>
+<td><p>90x82</p></td>
+<td><p>99574</p></td>
+<td><p>7605x7024</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logic-blocks">
+<h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline">¶</a></h3>
+<p>The logic blocks are of two categories, the inner blocks and the
+peripheral blocks.  To a first approximation all the inner blocks are
+configured through configuration ram, and the peripheral blocks
+through the peripheral ram.  It only matters where it comes to partial
+reconfiguration, because only the configuration ram can be dynamically
+modified.  We do not yet support it though.</p>
+<p>The inner blocks are:</p>
+<ul class="simple">
+<li><p>lab: a logic blocks group with 20 LUTs with 5 inputs and 40 Flip-Flops.</p></li>
+<li><p>mlab: a lab that can be reconfigured as 64*20 bits of ram</p></li>
+<li><p>dsp: a flexible multiply-add block</p></li>
+<li><p>m10k: a block of 10240 bits of dual-ported memory</p></li>
+</ul>
+<p>The peripheral blocks are:</p>
+<ul class="simple">
+<li><p>gpio: general-purpose i/o, a block that controls up to 4 package pins</p></li>
+<li><p>dqs16: a block that manage differential input/output for 4 gpio blocks, e.g. up to 16 pins</p></li>
+<li><p>fpll: a fractional PLL</p></li>
+<li><p>cmux: the clock muxes that drive the clock part of the routing network</p></li>
+<li><p>ctrl: the control block with things like jtag</p></li>
+<li><p>hssi: the high speed serial interfaces</p></li>
+<li><p>hip: the pcie interfaces</p></li>
+<li><p>cbuf: a clock buffer for the dqs16</p></li>
+<li><p>dll: a delay-locked loop for the dqs16</p></li>
+<li><p>serpar: TODO</p></li>
+<li><p>lvl: TODO</p></li>
+<li><p>term: termination control blocks</p></li>
+<li><p>pma3: manages the channels of the hssi</p></li>
+<li><p>hmc: hardware memory controller, a block managing sdr/ddr ram interfaces</p></li>
+<li><p>hps: a series of 37 blocks managing the interface with the integrated dual-core arm</p></li>
+</ul>
+<p>All of these blocks are configured similarly, through the setup of
+block muxes.  They can be of 4 types:
+* Boolean
+* Symbolic, where the choice is between alphanumeric states
+* Numeric, where the choice is between a fixed set of numeric value
+* Ram, where a series of bits can be set to any value</p>
+<p>Configuring that part of the FPGA consists of configuring the muxes
+associated to each block.</p>
+</div>
+<div class="section" id="routing-network">
+<h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline">¶</a></h3>
+<p>A massive routing network is present all over the FPGA.  It has two
+almost-disjoint parts.  The data network has a series of inputs,
+connected to the outputs of all the blocks, and a series of outputs
+that go to data inputs of the blocks.  The clock network consists of
+16 global clocks signals that cover the whole FPGA, up to 88 regional
+clocks that cover an half of the FPGA, and when an hssi is present a
+series of horizontal peripheral clocks that are driven by the serial
+communications.  Global and regional clock signals are driven by
+dedicated cmux blocks (not the fpll in particular, but they do have
+dedicated connections to the cmuxes).</p>
+<p>These two networks join on data/clock muxes, which allow peripheral
+blocks to select for their clock-like inputs which network the signal
+should come from.</p>
+</div>
+<div class="section" id="programmable-inverters">
+<h3>Programmable inverters<a class="headerlink" href="#programmable-inverters" title="Permalink to this headline">¶</a></h3>
+<p>Essentially every output of the routing network that enters a
+peripheral block can optionally be inverted by activating the
+associated configuration bit.</p>
 </div>
 </div>
 </div>
