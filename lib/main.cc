@@ -215,8 +215,9 @@ static void show_bels(char **args)
 
   const auto &hps = model->hps_get_pos();
 
-  for(int i=0; i != mistral::CycloneV::I_HPS_COUNT; i++)
-    printf("%2d %2d %s\n", mistral::CycloneV::pos2x(hps[i]), mistral::CycloneV::pos2y(hps[i]), hps_blocks[i]);
+  if(!hps.empty())
+    for(int i=0; i != mistral::CycloneV::I_HPS_COUNT; i++)
+      printf("%2d %2d %s\n", mistral::CycloneV::pos2x(hps[i]), mistral::CycloneV::pos2y(hps[i]), hps_blocks[i]);
 
   delete model;
 }
