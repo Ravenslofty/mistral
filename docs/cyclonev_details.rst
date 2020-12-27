@@ -96,7 +96,7 @@ The DSP blocks provide a multiply-adder with either three 9x9, two
 18x18 or one 27x27 multiply, and the 64-bits accumulator.  Its large
 number of inputs and output makes it span two tiles vertically.
 
-TODO: everything
+TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 
 M10K
@@ -104,7 +104,7 @@ M10K
 
 The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.
 
-TODO: everything
+TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 
 Peripheral logic blocks

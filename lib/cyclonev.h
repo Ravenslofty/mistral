@@ -74,10 +74,10 @@ namespace mistral {
 
     enum die_type_t {
       E50F,
+      GX25F,
       GT75F,
       GT150F,
       GT300F,
-      GX25F,
       SX50F,
       SX120F
     };
@@ -229,9 +229,6 @@ namespace mistral {
     void rnode_link(pnode_t p1, pnode_t p2);
     void rnode_unlink(rnode_t n2);
     void rnode_unlink(pnode_t p2);
-
-    rnode_t rnode_get_source(rnode_t n) const;
-    std::vector<rnode_t> rnode_get_destinations(rnode_t n) const;
 
     std::vector<std::pair<rnode_t, rnode_t>> route_all_active_links() const;
     std::vector<std::pair<rnode_t, rnode_t>> route_frontier_links() const;
