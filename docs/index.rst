@@ -6,3 +6,4 @@ Mistral - a Cyclone V FPGA bitstream library
    cyclonev_details
    cyclonev_library_use
    cyclonev_driver
+   cyclonev_library_internals
