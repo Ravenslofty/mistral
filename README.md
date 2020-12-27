@@ -1,16 +1,13 @@
-Mistral - A Cyclone V bitstream library
-=======================================
+# Mistral - A Cyclone V bitstream library
 
-What is it?
------------
+## What is it?
 
 It's the very first version of a library/command line utility to
 compile and decompile Cyclone V bitstreams, as used in the de-10 nano
 (used in MiSTer) and the future Analogue Pocket.
 
 
-How to use it?
---------------
+## How to use it?
 
 Go into the lib directory, run 'make'.  This will generate a
 command-line utility named mistral-cv.  You can start it from that
@@ -23,16 +20,14 @@ everything that's not main.cc is in fact the library.  There is only
 one header file, cyclonev.h.
 
 
-How to help?
-------------
+## How to help?
 
 There are a lot of things that can be done to help without having to
 look inside quartus.  Meanwhile mapping of the blocks and work on the
 timings will go on.
 
 
-Basic stuff
-^^^^^^^^^^^
+### Basic stuff
 
 * Add a real build system, if possible make it portable to
   linux/windows/mac (everything is done on linux only at this point).
@@ -44,8 +39,7 @@ Basic stuff
   lot of work (the contents are regular, but not *that* regular)
 
 
-Library interface
-^^^^^^^^^^^^^^^^^
+### Library interface
 
 * There's a lot of stuff missing from the library interface.  One
   can't enumerate routes, the package access interface is inexistant,
@@ -53,8 +47,7 @@ Library interface
   very welcome.
 
 
-Logic block RE
-^^^^^^^^^^^^^^
+### Logic block RE
 
 A bunch of stuff is unsure or not know at all on logic blocks.  They
 can be analyzed through creating appropriate verilog files, compiling
