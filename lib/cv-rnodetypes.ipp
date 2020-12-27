@@ -30,5 +30,5 @@ P(WM),
 // In-tile routing
 P(TD),      // Tile data dispatch, connects from V*, H*, BCLK, HCLK and GIN
 P(LD),      // Loopback dispatch, connects from some outputs of a LAB to some of its inputs
-P(TDMUX),   // Mux over a set of TD to select what to give a LCMUX
+P(TDMUX),   // Mux over a set of TD to select what to give a DCMUX
 P(DCMUX),   // 2-port mux selecting between a TCLK and a TDMUX for a clock-like input
