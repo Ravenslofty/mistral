@@ -151,6 +151,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#logic-block-management">Logic block management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#inverters-management">Inverters management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#pin-package-management">Pin/package management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#options">Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-management">Bitstream management</a></li>
 </ul>
 </li>
@@ -1067,6 +1068,31 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <li><p>index - pin sub-index for hssi_input, hssi_output, dedicated programming pins and jtag</p></li>
 </ul>
 <p>The pin_find_pos method looks up a pin from a gpio tile/index combination.</p>
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">opt_setting_t</span> <span class="p">{</span>
+  <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">def</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
+  <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// bmux_type_t, or number, or bool value, or count of bits for ram</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">opt_type</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">opt_get</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="n">opt_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">opt_set</span><span class="p">(</span><span class="k">const</span> <span class="n">opt_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">opt_m_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">s</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">opt_n_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">opt_b_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">s</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">s</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">opt_setting_t</span><span class="o">&gt;</span> <span class="n">opt_get</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The options work like the block muxes without a block, tile or
+instance number.  They’re otherwise the same.</p>
 </div>
 <div class="section" id="bitstream-management">
 <h3>Bitstream management<a class="headerlink" href="#bitstream-management" title="Permalink to this headline">¶</a></h3>

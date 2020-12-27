@@ -415,6 +415,34 @@ The pin_info_t structure describes a pin with:
 The pin_find_pos method looks up a pin from a gpio tile/index combination.
 
 
+Options
+-------
+
+.. code-block:: C++
+
+    struct opt_setting_t {
+      bmux_type_t mux;
+      bool def;
+      int type;
+      uint32_t s; // bmux_type_t, or number, or bool value, or count of bits for ram
+      std::vector<uint8_t> r;
+    };
+
+    int opt_type(bmux_type_t mux) const;
+    bool opt_get(bmux_type_t mux, opt_setting_t &s) const;
+    bool opt_set(const opt_setting_t &s);
+    bool opt_m_set(bmux_type_t mux, bmux_type_t s);
+    bool opt_n_set(bmux_type_t mux, uint32_t s);
+    bool opt_b_set(bmux_type_t mux, bool s);
+    bool opt_r_set(bmux_type_t mux, uint64_t s);
+    bool opt_r_set(bmux_type_t mux, const std::vector<uint8_t> &s);
+
+    std::vector<opt_setting_t> opt_get() const;
+
+The options work like the block muxes without a block, tile or
+instance number.  They're otherwise the same.
+
+
 Bitstream management
 --------------------
 
