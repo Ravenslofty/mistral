@@ -30,7 +30,7 @@ and sx120f variants is used to fit the hps, a dual-core arm.
 Bitstream stucture
 ------------------
 
-The bitstream is build from three rams:
+The bitstream is built from three rams:
 
 * Option ram
 * Peripheral ram
@@ -43,7 +43,7 @@ oscillator configuration, etc.
 
 The peripheral ram stores the configuration of all the blocks situated
 on the borders of the chip, e.g. everything outside of labs, mlabs,
-dsps and m10ks.  It is build of 13 to 16 blocks of bits that are sent
+dsps and m10ks.  It is built of 13 to 16 blocks of bits that are sent
 through shift registers to the tiles.
 
 The configuration ram stores the configuration of the labs, mlabs,
