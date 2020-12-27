@@ -155,6 +155,17 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-management">Bitstream management</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_driver">The mistral-cv command-line program</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#models">models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#routes">routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#routes2">routes2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cycle">cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bels">bels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#decomp">decomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comp">comp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#diff">diff</a></li>
+</ul>
+</li>
 </ul>
 </div>
             
@@ -1104,6 +1115,76 @@ instance number.  They’re otherwise the same.</p>
 <p>The clear method returns the FPGA state to all defaults.  rbf_load
 parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.</p>
+</div>
+</div>
+<span id="document-cyclonev_driver"></span><div class="section" id="the-mistral-cv-command-line-program">
+<h2>The mistral-cv command-line program<a class="headerlink" href="#the-mistral-cv-command-line-program" title="Permalink to this headline">¶</a></h2>
+<p>The mistral-cv command line program allows for a minimal interfacing
+with the library.  Calling it without parameters shows the possible
+usages.</p>
+<div class="section" id="models">
+<h3>models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">models</span>
+</pre></div>
+</div>
+<p>Lists the known models with their SKU, IDCODE, die, variant, package,
+number of pins, temperature grade and speed grade.</p>
+</div>
+<div class="section" id="routes">
+<h3>routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Dumps the active routes in a rbf.</p>
+</div>
+<div class="section" id="routes2">
+<h3>routes2<a class="headerlink" href="#routes2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Dumps the active routes in a rbf where a GIN/GOUT/etc does not have a
+port mapping associated.</p>
+</div>
+<div class="section" id="cycle">
+<h3>cycle<a class="headerlink" href="#cycle" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">cycle</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Loads the rbf in file1.rbf and saves is back in file2.rbf.  Useful to
+test if the framing/unframing of oram/pram/cram works correctly.</p>
+</div>
+<div class="section" id="bels">
+<h3>bels<a class="headerlink" href="#bels" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">bels</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Dumps a list of all the logic elements of a model (only depends on the
+die in practice).</p>
+</div>
+<div class="section" id="decomp">
+<h3>decomp<a class="headerlink" href="#decomp" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">decomp</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Decompiles a bitstream into a compilable source.  Only writes down
+what is identified as not being in default state.</p>
+</div>
+<div class="section" id="comp">
+<h3>comp<a class="headerlink" href="#comp" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">comp</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Compiles a source into a bitstream.  The source includes the model
+information.</p>
+</div>
+<div class="section" id="diff">
+<h3>diff<a class="headerlink" href="#diff" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">diff</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file1</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Compares two rbf files and identifies the differences in terms of
+oram, pram and cram.  Useful to list mismatches after a decomp/comp
+cycle.</p>
 </div>
 </div>
 </div>
