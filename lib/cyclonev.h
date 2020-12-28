@@ -254,6 +254,7 @@ namespace mistral {
     const std::vector<pos_t> &serpar_get_pos() const { return serpar_pos; }
     const std::vector<pos_t> &term_get_pos()   const { return term_pos;   }
     const std::vector<pos_t> &hip_get_pos()    const { return hip_pos;    }
+    const std::vector<pos_t> &hmc_get_pos()    const { return hmc_pos;    }
 
     // Block muxes
     enum { MT_MUX, MT_NUM, MT_BOOL, MT_RAM };
@@ -474,6 +475,7 @@ namespace mistral {
     const static bmux bm_serpar[];
     const static bmux bm_term[];
     const static bmux bm_hip[];
+    const static bmux bm_hmc[];
 
     const static bmux bm_lab[];
     const static bmux bm_mlab[];
@@ -539,7 +541,8 @@ namespace mistral {
       FB_SERPAR = FB_PMA3   +  4,
       FB_TERM   = FB_SERPAR + 10,
       FB_HIP    = FB_TERM   +  4,
-      FB_COUNT  = FB_HIP    +  2
+      FB_HMC    = FB_HIP    +  2,
+      FB_COUNT  = FB_HMC    +  2
     };
 
     static const uint8_t e50f_bel_spans_info[];
@@ -670,6 +673,7 @@ namespace mistral {
     std::vector<pos_t> serpar_pos;
     std::vector<pos_t> term_pos;
     std::vector<pos_t> hip_pos;
+    std::vector<pos_t> hmc_pos;
     
     std::unique_ptr<rmux []> rmux_info;
     std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
@@ -725,6 +729,7 @@ namespace mistral {
     uint32_t serpar2pram(pos_t p) const;
     uint32_t term2pram(pos_t p) const;
     uint32_t hip2pram(pos_t p) const;
+    uint32_t hmc2pram(pos_t p) const;
 
     static void bmux_dqs16_adjust(uint32_t &pos, uint32_t offset, bool up);
 

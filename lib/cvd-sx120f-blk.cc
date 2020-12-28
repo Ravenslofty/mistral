@@ -651,6 +651,8 @@ const mistral::CycloneV::fixed_block_info mistral::CycloneV::sx120f_fixed_blocks
   { xy2pos(89, 34), (7 << 16) | 9527 },
   { xy2pos(1, 15), (14 << 16) | 2832 },
   { xy2pos(1, 56), (12 << 16) | 2832 },
+  { xy2pos(25, 0), (2 << 16) | 4826 },
+  { 0xffff, 0xffffffff },
 };
 
 const mistral::CycloneV::pos_t mistral::CycloneV::sx120f_hps_info[] = {

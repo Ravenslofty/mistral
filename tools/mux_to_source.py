@@ -78,7 +78,7 @@ def load_mux_data(mtype, tmap, is_2d = False, variantmap={}):
 
     for nm in muxes:
         if len(nm['bits']) != nm['span']:
-            print("Incorrect span count vs. data on mux %s of %s" % (nm['mux'], mtype), file=sys.stderr)
+            print("Incorrect span count %d vs. data %d on mux %s of %s" % (len(nm['bits']), nm['span'], nm['mux'], mtype), file=sys.stderr)
             sys.exit(1)
 
     return muxes
@@ -237,6 +237,7 @@ pma3c  = load_mux_data("pma3-c", { 'i': 3 })
 serpar = load_mux_data("serpar", { 'g': 1 })
 term   = load_mux_data("term",   { 'g': 1 })
 hip    = load_mux_data("hip",    { 'g': 1, 'i': 8, 'm': 6 })
+hmc    = load_mux_data("hmc",    { 'g': 1, 'i': 128, 'a': 40, 'p': 6, 'f': 4, 'o': 8 })
 
 lab_expand(lab, False)
 lab_expand(mlab, True)
@@ -260,6 +261,7 @@ if sys.argv[1] == 'enum':
     enum_add(enum_list, serpar)
     enum_add(enum_list, term)
     enum_add(enum_list, hip)
+    enum_add(enum_list, hmc)
 
     enum_add(enum_list, lab)
     enum_add(enum_list, mlab)
@@ -291,6 +293,7 @@ if sys.argv[1] == 'mux':
     sort_muxes(serpar)
     sort_muxes(term)
     sort_muxes(hip)
+    sort_muxes(hmc)
 
     sort_muxes(lab)
     sort_muxes(mlab)
@@ -319,6 +322,7 @@ if sys.argv[1] == 'mux':
     collate_pram_bpos(bmux_pram_bpos, serpar)
     collate_pram_bpos(bmux_pram_bpos, term)
     collate_pram_bpos(bmux_pram_bpos, hip)
+    collate_pram_bpos(bmux_pram_bpos, hmc)
 
     bmux_cram_bpos = []
     collate_cram_bpos(bmux_cram_bpos, lab)
@@ -347,6 +351,7 @@ if sys.argv[1] == 'mux':
     collate_sel_entries(bmux_sel_entries, serpar)
     collate_sel_entries(bmux_sel_entries, term)
     collate_sel_entries(bmux_sel_entries, hip)
+    collate_sel_entries(bmux_sel_entries, hmc)
 
     collate_sel_entries(bmux_sel_entries, lab)
     collate_sel_entries(bmux_sel_entries, mlab)
@@ -374,6 +379,7 @@ if sys.argv[1] == 'mux':
     collate_num_entries(bmux_num_entries, serpar)
     collate_num_entries(bmux_num_entries, term)
     collate_num_entries(bmux_num_entries, hip)
+    collate_num_entries(bmux_num_entries, hmc)
 
     collate_num_entries(bmux_num_entries, lab)
     collate_num_entries(bmux_num_entries, mlab)
@@ -434,6 +440,8 @@ if sys.argv[1] == 'mux':
     dump_muxes("term",   term,   1, counters)
     print("")
     dump_muxes("hip",    hip,    1, counters)
+    print("")
+    dump_muxes("hmc",    hmc,    1, counters)
 
     print("")
     dump_muxes("lab",    lab,    2, counters)

@@ -751,6 +751,7 @@ def out_fixed(pram):
     out_fixed_1(pram['serpar'], 10)
     out_fixed_1(pram['term'],    4)
     out_fixed_1(pram['hip']  if 'hip'  in pram else {}, 2)
+    out_fixed_1(pram['hmcphy40'] if 'hmcphy40' in pram else pram['hmcphy24'], 2)
     print("};")
     
 def out_gpio(gpio, pram):

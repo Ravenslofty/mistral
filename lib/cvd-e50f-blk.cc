@@ -388,6 +388,8 @@ const mistral::CycloneV::fixed_block_info mistral::CycloneV::e50f_fixed_blocks_i
   { 0xffff, 0xffffffff },
   { 0xffff, 0xffffffff },
   { 0xffff, 0xffffffff },
+  { xy2pos(11, 45), (7 << 16) | 3383 },
+  { 0xffff, 0xffffffff },
 };
 
 const mistral::CycloneV::dcram_info mistral::CycloneV::e50f_forced_1_info[12] = {

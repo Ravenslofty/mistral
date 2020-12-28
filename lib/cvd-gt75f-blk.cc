@@ -501,6 +501,8 @@ const mistral::CycloneV::fixed_block_info mistral::CycloneV::gt75f_fixed_blocks_
   { 0xffff, 0xffffffff },
   { xy2pos(1, 14), (15 << 16) | 2832 },
   { xy2pos(1, 36), (13 << 16) | 0 },
+  { xy2pos(22, 61), (9 << 16) | 4786 },
+  { xy2pos(23, 0), (2 << 16) | 4826 },
 };
 
 const mistral::CycloneV::dcram_info mistral::CycloneV::gt75f_dcram_pos[] = {
