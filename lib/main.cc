@@ -746,6 +746,42 @@ static void diff(char **args)
   delete model2;
 }
 
+static void missing(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  uint8_t *links;
+  uint32_t linkssize;
+  file_load(args[1], links, linkssize);
+
+  uint8_t *p = links;
+  uint8_t *e = links + linkssize;
+  int line = 1;
+  while(p != e) {
+    uint8_t *s = p;
+    while(p != e && *p != '\r' && *p != '\n')
+      p++;
+    if(p != s) {
+      uint8_t *le = p;
+      uint8_t *pp = s;
+      while(pp != le && *pp != ' ')
+	pp++;
+      auto n = get_rnode(model, std::string(s, pp), args[1], line);
+      if(!model->rnode_to_pnode(n))
+	printf("%s\n", std::string(s, le).c_str());
+    }
+    while(p != e && (*p == '\r' || *p == '\n'))
+      p++;
+    line++;
+  }
+
+  delete model;
+}
+
 struct fct {
   const char *name;
   int pmin, pmax;
@@ -762,6 +798,7 @@ static const fct fcts[] = {
   { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt  -- Decompile the bitstream" },
   { "comp",     2, 2, compile,       "comp     file.bt out.rbf        -- Compile to a bitstream" },
   { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf    -- Compare two bitstrems" },
+  { "missing",  2, 2, missing,       "missing  model list.txt         -- List missing pnodes" },
   { }
 };
 

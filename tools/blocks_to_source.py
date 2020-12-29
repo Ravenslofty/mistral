@@ -537,6 +537,8 @@ def load_gpio(p2r, p2p):
                     p2r.append([pnode('GPIO', entry['x'], entry['y'], entry['idx'], 'DATAOUT', int(e[0][2])), rnodes(e[1])])
                 elif e[0][:2] == 'oe':
                     p2r.append([pnode('GPIO', entry['x'], entry['y'], entry['idx'], 'OEIN', int(e[0][2])), rnodes(e[1])])
+                elif e[0] == 'bsm':
+                    p2r.append([pnode('GPIO', entry['x'], entry['y'], entry['idx'], 'BSLIPMAX', -1), rnodes(e[1])])
                 elif e[0] == 'cein':
                     p2r.append([pnode('GPIO', entry['x'], entry['y'], entry['idx'], 'CEIN', -1), rnodes(e[1])])
                 elif e[0] == 'ceout':
