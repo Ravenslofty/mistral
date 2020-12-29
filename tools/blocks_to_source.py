@@ -241,6 +241,17 @@ ctrl_map = {
     'spisce': [False, 1],
 }
 
+dll_map = {
+    'async_load': [True, 1],
+    'upndn_in': [True, 1],
+    'upndn_in_clk_ena': [True, 1],
+    'ctrl_out': [True, 7],
+    'locked': [True, 1],
+    'upndn_out': [True, 1],
+
+    'clkin': [False, 1],
+}
+
 hps_map = {
     'BONDING_OUT_1': ['BONDING_OUT', 0],
     'BONDING_OUT_2': ['BONDING_OUT', 1],
@@ -648,6 +659,28 @@ def load_ctrl(p2r, p2p):
                     elif ls[i+1] != '-':
                         p2p.append([pnode('CTRL', ctrlx, ctrly, -1, ls[0].upper(), i if k[1] > 1 else -1), pnodes(ls[i+1])])
 
+def load_dll(p2r, p2p):
+    dllx = None
+    dlly = None
+    for l in open(sys.argv[1] + '/' + sys.argv[2] + '-dll.txt'):
+        ls = l.rstrip('\r\n').split()
+        if l[0] != ' ':
+            assert(ls[0] == 'DLL')
+            p = ls[1].split('.')
+            dllx = int(p[0])
+            dlly = int(p[1])
+        else:
+            k = dll_map[ls[0]] if ls[0] in dll_map else None
+            if len(ls) != (1 + k[1] if k != None else 2):
+                print("Error on number of entries, slot %s, expected %d, got 1+%d\n" % (ls[0], k[1] if k != None else 1 , len(ls)-1), file=sys.stderr)
+                sys.exit(1)
+            if k == None or k[0]:
+                for i in range(k[1] if k != None else 1):
+                    p2r.append([pnode('DLL', dllx, dlly, -1, ls[0].upper(), i if k != None and k[1] > 1 else -1), rnodes(ls[i+1])])
+            else:
+                for i in range(k[1]):
+                    p2p.append([pnode('DLL', dllx, dlly, -1, ls[0].upper(), i if k[1] > 1 else -1), pnodes(ls[i+1])])
+
 def load_cmux(p2r, p2p, pram):
     cmuxx = None
     cmuxy = None
@@ -822,6 +855,7 @@ load_cmux(p2r, p2p, pram)
 load_fpll(p2r, p2p, pram)
 load_ctrl(p2r, p2p)
 hps = load_hps(p2r, p2p) if sys.argv[2][:2] == 'sx' else None
+load_dll(p2r, p2p)
 
 header()
 out_gpio(gpio, pram)
