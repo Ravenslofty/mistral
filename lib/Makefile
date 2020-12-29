@@ -1,5 +1,5 @@
 ALLINC =
-ALLLIB = -lbz2
+ALLLIB = -llzma
 DEPLIB =
 
 PROG = mistral-cv

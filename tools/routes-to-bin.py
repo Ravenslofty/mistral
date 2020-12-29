@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-import bz2
+import lzma
 import struct
 
 if len(sys.argv) != 5:
@@ -33,7 +33,7 @@ def node_to_id(s):
     z = int(ns[3])
     return (t << 24) | (x << 17) | (y << 10) | z
 
-for l in bz2.open(sys.argv[1] + '/' + chip + '-r.txt.bz2', "rt"):
+for l in lzma.open(sys.argv[1] + '/' + chip + '-r.txt.xz', "rt"):
     ls = l.rstrip('\r\n').split()
     dest = node_to_id(ls[0])
     idx1 = ls[1].find(':')
@@ -63,7 +63,7 @@ for i in range(0, len(muxes)):
         struct.pack_into("I", bmux, off + 12 + 4*s, v)
     off += 188
 
-cbmux = bz2.compress(bmux)
+cbmux = lzma.compress(bmux)
 
 print(" %d muxes" % len(muxes))
 

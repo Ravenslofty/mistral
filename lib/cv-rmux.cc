@@ -1,6 +1,6 @@
 #include "cyclonev.h"
 
-#include <bzlib.h>
+#include <lzma.h>
 
 std::string mistral::CycloneV::rn2s(rnode_t rn)
 {
@@ -49,9 +49,20 @@ void mistral::CycloneV::rmux_load()
   fclose(fd);
 
   rmux_info = std::make_unique<rmux []>(di.rmux_count);
-  unsigned int destlen = di.rmux_count*sizeof(rmux);
-  if(BZ2_bzBuffToBuffDecompress((char *)rmux_info.get(), &destlen, (char *)cdata.get(), size, 0, 0) != BZ_OK || destlen != di.rmux_count*sizeof(rmux)) {
-    fprintf(stderr, "rmux data decompression failure\n");
+  lzma_stream strm = LZMA_STREAM_INIT;
+  lzma_ret ret;
+  if ((ret = lzma_stream_decoder(&strm, UINT64_MAX, 0)) != LZMA_OK) {
+    fprintf(stderr, "failed to initialise liblzma: %d\n", ret);
+    exit(1);
+  }
+
+  strm.next_in = cdata.get();
+  strm.avail_in = size;
+  strm.next_out = (uint8_t*)rmux_info.get();
+  strm.avail_out = di.rmux_count*sizeof(rmux);
+  
+  if((ret = lzma_code(&strm, LZMA_RUN)) != LZMA_STREAM_END) {
+    fprintf(stderr, "rmux data decompression failure: %d\n", ret);
     exit(1);
   }
 
