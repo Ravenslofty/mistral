@@ -132,6 +132,9 @@ TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 .. include:: gendoc/gpio-dmux.rst
 
+.. include:: gendoc/gpio-dp2r.rst
+
+.. include:: gendoc/gpio-dp2p.rst
 
 
 DQS16
@@ -144,6 +147,7 @@ TODO: everything
 
 .. include:: gendoc/dqs16-dmux.rst
 
+.. include:: gendoc/dqs16-dp2p.rst
 
 
 FPLL
@@ -155,6 +159,10 @@ TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 .. include:: gendoc/fpll-dmux.rst
 
+.. include:: gendoc/fpll-dp2r.rst
+
+.. include:: gendoc/fpll-dp2p.rst
+
 
 CBUF
 ^^^^
@@ -162,12 +170,16 @@ CBUF
 .. include:: gendoc/cbuf-dmux.rst
 
 
-CMUXC
-^^^^^
+CMUXCR
+^^^^^^
 
 The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.
 
-.. include:: gendoc/cmuxc-dmux.rst
+.. include:: gendoc/cmuxcr-dmux.rst
+
+.. include:: gendoc/cmuxcr-dp2r.rst
+
+.. include:: gendoc/cmuxcr-dp2p.rst
 
 
 CMUXHG
@@ -177,6 +189,10 @@ The two Global Horizontal CMUX drive four GCLK grids each.
 
 .. include:: gendoc/cmuxhg-dmux.rst
 
+.. include:: gendoc/cmuxhg-dp2r.rst
+
+.. include:: gendoc/cmuxhg-dp2p.rst
+
 
 CMUXVG
 ^^^^^^
@@ -184,6 +200,10 @@ CMUXVG
 The two Global Vertical CMUX drive four GCLK grids each.
 
 .. include:: gendoc/cmuxvg-dmux.rst
+
+.. include:: gendoc/cmuxvg-dp2r.rst
+
+.. include:: gendoc/cmuxvg-dp2p.rst
 
 
 CMUXHR
@@ -193,6 +213,10 @@ The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each
 
 .. include:: gendoc/cmuxhr-dmux.rst
 
+.. include:: gendoc/cmuxhr-dp2r.rst
+
+.. include:: gendoc/cmuxhr-dp2p.rst
+
 
 CMUXVR
 ^^^^^^
@@ -201,6 +225,17 @@ The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each si
 
 .. include:: gendoc/cmuxvr-dmux.rst
 
+.. include:: gendoc/cmuxvr-dp2r.rst
+
+.. include:: gendoc/cmuxvr-dp2p.rst
+
+
+CMUXP
+^^^^^
+
+The CMUXP drive two PCLK each.
+
+.. include:: gendoc/cmuxp-dp2r.rst
 
 
 CTRL
@@ -209,6 +244,8 @@ CTRL
 The Control block gives access to a number of anciliary functions of the FPGA.
 
 TODO: everything, GOUT/GIN/DCMUX mapping is done
+
+.. include:: gendoc/ctrl-dp2r.rst
 
 
 HSSI
@@ -241,6 +278,10 @@ TODO: everything
 
 .. include:: gendoc/dll-dmux.rst
 
+.. include:: gendoc/dll-dp2r.rst
+
+.. include:: gendoc/dll-dp2p.rst
+
 
 SERPAR
 ^^^^^^
@@ -260,6 +301,8 @@ The Leveling Delay Chain does something linked to the DQS16.
 TODO: everything
 
 .. include:: gendoc/lvl-dmux.rst
+
+.. include:: gendoc/lvl-dp2p.rst
 
 
 TERM
@@ -295,109 +338,194 @@ mapping when bypassed.
 
 .. include:: gendoc/hmc-dmux.rst
 
+.. include:: gendoc/hmc-dp2r.rst
+
+.. include:: gendoc/hmc-dp2p.rst
+
 
 HPS
 ^^^
 
 The interface between the FPGA and the Hard processor system is done
-through 37 specialized blocks or 28 different types.
+through 37 specialized blocks of 28 different types.
 
 TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.
 
 HPS_BOOT
 """"""""
 
+.. include:: gendoc/hps_boot-dp2r.rst
+
+
 HPS_CLOCKS
 """"""""""
 
 .. include:: gendoc/hps_clocks-dmux.rst
 
+.. include:: gendoc/hps_clocks-dp2p.rst
+
 
 HPS_CLOCKS_RESETS
 """""""""""""""""
 
+.. include:: gendoc/hps_clocks_resets-dp2r.rst
+
+
 HPS_CROSS_TRIGGER
 """""""""""""""""
+
+.. include:: gendoc/hps_cross_trigger-dp2r.rst
+
 
 HPS_DBG_APB
 """""""""""
 
+.. include:: gendoc/hps_dbg_apb-dp2r.rst
+
+
 HPS_DMA
 """""""
+
+.. include:: gendoc/hps_dma-dp2r.rst
+
 
 HPS_FPGA2HPS
 """"""""""""
 
+.. include:: gendoc/hps_fpga2hps-dp2r.rst
+
+
 HPS_FPGA2SDRAM
 """"""""""""""
+
+.. include:: gendoc/hps_fpga2sdram-dp2r.rst
+
 
 HPS_HPS2FPGA
 """"""""""""
 
+.. include:: gendoc/hps_hps2fpga-dp2r.rst
+
+
 HPS_HPS2FPGA_LIGHT_WEIGHT
 """""""""""""""""""""""""
+
+.. include:: gendoc/hps_hps2fpga_light_weight-dp2r.rst
+
 
 HPS_INTERRUPTS
 """"""""""""""
 
+.. include:: gendoc/hps_interrupts-dp2r.rst
+
+
 HPS_JTAG
 """"""""
+
+.. include:: gendoc/hps_jtag-dp2r.rst
+
 
 HPS_LOAN_IO
 """""""""""
 
+.. include:: gendoc/hps_loan_io-dp2r.rst
+
+
 HPS_MPU_EVENT_STANDBY
 """""""""""""""""""""
 
+.. include:: gendoc/hps_mpu_event_standby-dp2r.rst
+
+
 HPS_MPU_GENERAL_PURPOSE
 """""""""""""""""""""""
+
+.. include:: gendoc/hps_mpu_general_purpose-dp2r.rst
+
 
 HPS_PERIPHERAL_CAN
 """"""""""""""""""
 (2 blocks)
 
+.. include:: gendoc/hps_peripheral_can-dp2r.rst
+
+
 HPS_PERIPHERAL_EMAC
 """""""""""""""""""
 (2 blocks)
+
+.. include:: gendoc/hps_peripheral_emac-dp2r.rst
+
 
 HPS_PERIPHERAL_I2C
 """"""""""""""""""
 (4 blocks)
 
+.. include:: gendoc/hps_peripheral_i2c-dp2r.rst
+
+
 HPS_PERIPHERAL_NAND
 """""""""""""""""""
+
+.. include:: gendoc/hps_peripheral_nand-dp2r.rst
+
 
 HPS_PERIPHERAL_QSPI
 """""""""""""""""""
 
+.. include:: gendoc/hps_peripheral_qspi-dp2r.rst
+
+
 HPS_PERIPHERAL_SDMMC
 """"""""""""""""""""
+
+.. include:: gendoc/hps_peripheral_sdmmc-dp2r.rst
+
 
 HPS_PERIPHERAL_SPI_MASTER
 """""""""""""""""""""""""
 (2 blocks)
 
+.. include:: gendoc/hps_peripheral_spi_master-dp2r.rst
+
+
 HPS_PERIPHERAL_SPI_SLAVE
 """"""""""""""""""""""""
 (2 blocks)
+
+.. include:: gendoc/hps_peripheral_spi_slave-dp2r.rst
+
 
 HPS_PERIPHERAL_UART
 """""""""""""""""""
 (2 blocks)
 
+.. include:: gendoc/hps_peripheral_uart-dp2r.rst
+
+
 HPS_PERIPHERAL_USB
 """"""""""""""""""
 (2 blocks)
 
+.. include:: gendoc/hps_peripheral_usb-dp2r.rst
+
+
 HPS_STM_EVENT
 """""""""""""
+
+.. include:: gendoc/hps_stm_event-dp2r.rst
+
 
 HPS_TEST
 """"""""
 
+.. include:: gendoc/hps_test-dp2r.rst
+
+
 HPS_TPIU_TRACE
 """"""""""""""
 
+.. include:: gendoc/hps_tpiu_trace-dp2r.rst
 
 
 Options
