@@ -213,6 +213,21 @@ void mistral::CycloneV::init_p2r_maps()
   };
 }
 
+std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::get_all_p2r() const
+{
+  std::vector<std::pair<pnode_t, rnode_t>> result;
+  for(const p2r_info *p2r = di.p2r; p2r->p; p2r++)
+    result.emplace_back(std::make_pair(p2r->p, p2r->r));
+  return result;
+}
+
+std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::pnode_t>> mistral::CycloneV::get_all_p2p() const
+{
+  std::vector<std::pair<pnode_t, pnode_t>> result;
+  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
+    result.emplace_back(std::make_pair(p2p->s, p2p->d));
+  return result;
+}
 
 mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
 {

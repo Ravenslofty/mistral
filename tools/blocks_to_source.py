@@ -588,7 +588,7 @@ def load_hmc(p2r, p2p, pram):
                 p = ls[1].split('.')
                 x = int(p[0])
                 y = int(p[1])
-                p2p.append([pnode('HMC', hmcx, hmcy, -1, "PNONE", -1), pnode('LEVELING_DELAY_CHAIN', x, y, -1, 'PNONE', -1)])
+                p2p.append([pnode('HMC', hmcx, hmcy, -1, "PNONE", -1), pnode('LVL', x, y, -1, 'PNONE', -1)])
             elif ls[0] not in hmc_map:
                 print("Missing %s in hmc_map" % ls[0], file = sys.stderr)
                 sys.exit(1)
@@ -606,7 +606,10 @@ def load_hmc(p2r, p2p, pram):
                     for i in range(max(1, k[1])):
                         for j in range(max(1, k[2])):
                             if ls[idx] != '-':
-                                p2p.append([pnode('HMC', hmcx, hmcy, -1 if k[1] == 0 else i, ls[0], -1 if k[2] == 0 else j), pnodes(ls[idx])])
+                                if ls[0] == 'DDIOPHYDQDIN':
+                                    p2p.append([pnodes(ls[idx]), pnode('HMC', hmcx, hmcy, -1 if k[1] == 0 else i, ls[0], -1 if k[2] == 0 else j)])
+                                else:
+                                    p2p.append([pnode('HMC', hmcx, hmcy, -1 if k[1] == 0 else i, ls[0], -1 if k[2] == 0 else j), pnodes(ls[idx])])
                             idx += 1
 
 def load_fpll(p2r, p2p, pram):
@@ -679,7 +682,7 @@ def load_dll(p2r, p2p):
                     p2r.append([pnode('DLL', dllx, dlly, -1, ls[0].upper(), i if k != None and k[1] > 1 else -1), rnodes(ls[i+1])])
             else:
                 for i in range(k[1]):
-                    p2p.append([pnode('DLL', dllx, dlly, -1, ls[0].upper(), i if k[1] > 1 else -1), pnodes(ls[i+1])])
+                    p2p.append([pnodes(ls[i+1]), pnode('DLL', dllx, dlly, -1, ls[0].upper(), i if k[1] > 1 else -1)])
 
 def load_cmux(p2r, p2p, pram):
     cmuxx = None
@@ -723,12 +726,12 @@ def load_cmux(p2r, p2p, pram):
                 for i in range(max(1, k[2])):
                     if ls[idx] != '-':
                         if k[1] == 'x' and cmuxk != 'c':
-                            p2p.append([pnode('CMUX' + cmuxk.upper() + 'G', cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i), pnodes(ls[idx])])
-                            p2p.append([pnode('CMUX' + cmuxk.upper() + 'R', cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i), pnodes(ls[idx])])
+                            p2p.append([pnodes(ls[idx]), pnode('CMUX' + cmuxk.upper() + 'G', cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i)])
+                            p2p.append([pnodes(ls[idx]), pnode('CMUX' + cmuxk.upper() + 'R', cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i)])
                         else:
                             if k[1] == 'x':
                                 tt = 'CMUXCR'
-                            p2p.append([pnode(tt, cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i), pnodes(ls[idx])])
+                            p2p.append([pnodes(ls[idx]), pnode(tt, cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i)])
                     idx += 1
 
 def load_hps(p2r, p2p):

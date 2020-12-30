@@ -212,12 +212,43 @@ static void show_bels(char **args)
   show_bels_1(model->serpar_get_pos(), "serpar");
   show_bels_1(model->term_get_pos(),   "term");
   show_bels_1(model->hip_get_pos(),    "hip");
+  show_bels_1(model->hmc_get_pos(),    "hmc");
 
   const auto &hps = model->hps_get_pos();
 
   if(!hps.empty())
     for(int i=0; i != mistral::CycloneV::I_HPS_COUNT; i++)
       printf("%2d %2d %s\n", mistral::CycloneV::pos2x(hps[i]), mistral::CycloneV::pos2y(hps[i]), hps_blocks[i]);
+
+  delete model;
+}
+
+static void show_p2r(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  auto r = model->get_all_p2r();
+  for(const auto &e : r)
+    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str());
+
+  delete model;
+}
+
+static void show_p2p(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  auto r = model->get_all_p2p();
+  for(const auto &e : r)
+    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::pn2s(e.second).c_str());
 
   delete model;
 }
@@ -794,7 +825,9 @@ static const fct fcts[] = {
   { "routes",   2, 2, show_routes,   "routes   model file.rbf         -- Dump the information of all active routes" },
   { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf         -- Dump the information of all unresolved active routes" },
   { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf   -- Load a rbf and save it again" },
-  { "bels",     1, 1, show_bels,     "bels     model                  -- Dump the list of BELs for a given model" },
+  { "bels",     1, 1, show_bels,     "bels     model                  -- Dump the list of logic blocks for a given model" },
+  { "p2r",      1, 1, show_p2r,      "p2r      model                  -- Dump the list of block port/routing nodes connections for peripheral blocks" },
+  { "p2p",      1, 1, show_p2p,      "p2p      model                  -- Dump the list of block port/block port connections" },
   { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt  -- Decompile the bitstream" },
   { "comp",     2, 2, compile,       "comp     file.bt out.rbf        -- Compile to a bitstream" },
   { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf    -- Compare two bitstrems" },
