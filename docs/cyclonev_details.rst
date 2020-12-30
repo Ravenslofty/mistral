@@ -78,6 +78,8 @@ parts, four Flip-Flops, two 1-bit adders and a lot of routing logic.
 In addition a common control subblock selects and dispatches clock,
 enable, clear, etc signals.
 
+.. include:: gendoc/lab-dmux.rst
+
 
 MLAB
 ^^^^
@@ -87,6 +89,9 @@ ROM.  The wiring is identical to the LAB, only some additional muxes
 are provided to select the RAM/ROM mode.
 
 TODO: address/data wiring in RAM/ROM mode.
+
+.. include:: gendoc/mlab-dmux.rst
+
 
 
 DSP
@@ -98,6 +103,9 @@ number of inputs and output makes it span two tiles vertically.
 
 TODO: everything, GOUT/GIN/DCMUX mapping is done
 
+.. include:: gendoc/dsp-dmux.rst
+
+
 
 M10K
 ^^^^
@@ -105,6 +113,9 @@ M10K
 The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.
 
 TODO: everything, GOUT/GIN/DCMUX mapping is done
+
+.. include:: gendoc/m10k-dmux.rst
+
 
 
 Peripheral logic blocks
@@ -119,6 +130,9 @@ pins.
 
 TODO: everything, GOUT/GIN/DCMUX mapping is done
 
+.. include:: gendoc/gpio-dmux.rst
+
+
 
 DQS16
 ^^^^^
@@ -128,6 +142,9 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.
 
 TODO: everything
 
+.. include:: gendoc/dqs16-dmux.rst
+
+
 
 FPLL
 ^^^^
@@ -136,13 +153,54 @@ The Fractional PLL blocks synthesize 9 frequencies from an input with integer or
 
 TODO: everything, GOUT/GIN/DCMUX mapping is done
 
+.. include:: gendoc/fpll-dmux.rst
 
-CMUX
+
+CBUF
 ^^^^
 
-The Clock mux blocks drive the GCLK and the RCLK.
+.. include:: gendoc/cbuf-dmux.rst
 
-TODO: fpll feedback lines
+
+CMUXC
+^^^^^
+
+The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.
+
+.. include:: gendoc/cmuxc-dmux.rst
+
+
+CMUXHG
+^^^^^^
+
+The two Global Horizontal CMUX drive four GCLK grids each.
+
+.. include:: gendoc/cmuxhg-dmux.rst
+
+
+CMUXVG
+^^^^^^
+
+The two Global Vertical CMUX drive four GCLK grids each.
+
+.. include:: gendoc/cmuxvg-dmux.rst
+
+
+CMUXHR
+^^^^^^
+
+The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.
+
+.. include:: gendoc/cmuxhr-dmux.rst
+
+
+CMUXVR
+^^^^^^
+
+The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.
+
+.. include:: gendoc/cmuxvr-dmux.rst
+
 
 
 CTRL
@@ -161,6 +219,8 @@ serializing/deserializing capabilities of the FPGA.
 
 TODO: everything
 
+.. include:: gendoc/hssi-dmux.rst
+
 
 HIP
 ^^^
@@ -168,6 +228,8 @@ HIP
 The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.
 
 TODO: everything
+
+.. include:: gendoc/hip-dmux.rst
 
 
 DLL
@@ -177,6 +239,8 @@ The Delay-Locked loop does phase control for the DQS16.
 
 TODO: everything
 
+.. include:: gendoc/dll-dmux.rst
+
 
 SERPAR
 ^^^^^^
@@ -184,6 +248,8 @@ SERPAR
 Unclear yet.
 
 TODO: everything
+
+.. include:: gendoc/serpar-dmux.rst
 
 
 LVL
@@ -193,6 +259,8 @@ The Leveling Delay Chain does something linked to the DQS16.
 
 TODO: everything
 
+.. include:: gendoc/lvl-dmux.rst
+
 
 TERM
 ^^^^
@@ -201,6 +269,8 @@ The TERM blocks control the On-Chip Termination circuitry
 
 TODO: everything
 
+.. include:: gendoc/term-dmux.rst
+
 
 PMA3
 ^^^^
@@ -208,6 +278,8 @@ PMA3
 The PMA3 blocks control triplets of channels used with the HSSI.
 
 TODO: everything
+
+.. include:: gendoc/pma3-dmux.rst
 
 
 HMC
@@ -220,6 +292,8 @@ to the GPIOs.
 
 TODO: everything, and in particular the hmc-input -> GPIO input
 mapping when bypassed.
+
+.. include:: gendoc/hmc-dmux.rst
 
 
 HPS
@@ -235,6 +309,9 @@ HPS_BOOT
 
 HPS_CLOCKS
 """"""""""
+
+.. include:: gendoc/hps_clocks-dmux.rst
+
 
 HPS_CLOCKS_RESETS
 """""""""""""""""
@@ -320,4 +397,11 @@ HPS_TEST
 
 HPS_TPIU_TRACE
 """"""""""""""
+
+
+
+Options
+-------
+
+.. include:: gendoc/opt-dmux.rst
 

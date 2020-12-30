@@ -1,0 +1,16 @@
+delay_clk_sel
+core_inv_en
+pll_sel
+clk_delay
+clk_delay_pwr_svg_en
+clk_gating_dis
+dll_sel
+addi_en
+fbout0_delay
+fbout0_delay_pwr_svg_en
+fbout1_delay
+fbout1_delay_pwr_svg_en
+phyclk_sel_inv_en
+phyclk_sel
+phyclk_gating_dis
+co_delay

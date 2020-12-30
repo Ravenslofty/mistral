@@ -1,0 +1,14 @@
+mux0
+mux0_en
+mux1
+mux1_en
+mux2
+mux2_en
+mux3
+mux3_en
+fbin_mux
+vcoph_mux
+vcoph_mux_en
+efb_mux
+efb_mux_en
+extclkout_mux_en
