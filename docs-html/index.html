@@ -1017,6 +1017,127 @@ enable, clear, etc signals.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 27%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>TCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>B</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>C</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>TCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>E0</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>E1</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>F0</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>F1</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFB0</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FFB1</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFB1L</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>LD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FFT0</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFT1</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FFT1L</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>LD</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="mlab">
 <h4>MLAB<a class="headerlink" href="#mlab" title="Permalink to this headline">¶</a></h4>
@@ -1026,11 +1147,11 @@ are provided to select the RAM/ROM mode.</p>
 <p>TODO: address/data wiring in RAM/ROM mode.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
+<col style="width: 29%" />
 <col style="width: 14%" />
-<col style="width: 8%" />
-<col style="width: 18%" />
-<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
 <col style="width: 21%" />
 </colgroup>
 <thead>
@@ -1043,215 +1164,6 @@ are provided to select the RAM/ROM mode.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ACLR0_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ACLR0_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin1</p></li>
-<li><p>clki2</p></li>
-</ul>
-</td>
-<td><p>gin1</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>ACLR1_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ACLR1_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>clki3</p></li>
-</ul>
-</td>
-<td><p>gin0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BTO_DIS</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BYPASS_DIS</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK0_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK0_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>clka</p></li>
-<li><p>clkb</p></li>
-</ul>
-</td>
-<td><p>clka</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK1_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK1_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>clka</p></li>
-<li><p>clkb</p></li>
-</ul>
-</td>
-<td><p>clka</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK2_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK2_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>clka</p></li>
-<li><p>clkb</p></li>
-</ul>
-</td>
-<td><p>clka</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKA_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>clki0</p></li>
-<li><p>gin2</p></li>
-</ul>
-</td>
-<td><p>clki0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKB_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>clki1</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>clki1</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DFT_MODE</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>off</p></li>
-<li><p>on</p></li>
-<li><p>dft_pprog</p></li>
-</ul>
-</td>
-<td><p>on</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>EN0_EN</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>EN0_NINV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>EN0_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin1</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>gin1</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>EN1_EN</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>EN1_NINV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>EN1_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>gin3</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>EN2_EN</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>EN2_NINV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>EN_SCLK_LOAD_WHAT</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
 <tr class="row-even"><td><p>MADDG_VOLTAGE</p></td>
 <td></td>
 <td><p>Mux</p></td>
@@ -1288,57 +1200,14 @@ are provided to select the RAM/ROM mode.</p>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>SCLR_INV</p></td>
+<tr class="row-even"><td><p>WRITE_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>SCLR_MUX</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin3</p></li>
-<li><p>gin2</p></li>
-</ul>
-</td>
-<td><p>gin3</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>SLOAD_INV</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>t</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>SLOAD_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>gin0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TTO_DIS</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>WRITE_EN</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>WRITE_PULSE_LENGTH</p></td>
+<tr class="row-odd"><td><p>WRITE_PULSE_LENGTH</p></td>
 <td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
@@ -1349,266 +1218,6 @@ are provided to select the RAM/ROM mode.</p>
 </ul>
 </td>
 <td><p>500</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ARITH_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>adder</p></li>
-<li><p>lut</p></li>
-</ul>
-</td>
-<td><p>lut</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BCLK_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>off</p></li>
-<li><p>clk0</p></li>
-<li><p>clk1</p></li>
-<li><p>clk2</p></li>
-</ul>
-</td>
-<td><p>off</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BCLR_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BDFF0</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BDFF1</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BDFF1L</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BEF_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>e</p></li>
-<li><p>f</p></li>
-</ul>
-</td>
-<td><p>e</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BPKREG0</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BPKREG1</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BSCLR_DIS</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BSLOAD_EN</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>B_FEEDBACK_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>LUT_MASK</p></td>
-<td><p>0-9</p></td>
-<td><p>Ram</p></td>
-<td><p>64 bits</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>MODE</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>l5</p></li>
-<li><p>l5_ft</p></li>
-<li><p>l5_fb</p></li>
-<li><p>l5_ftb</p></li>
-<li><p>l6</p></li>
-<li><p>l6_ft</p></li>
-<li><p>l6_fb</p></li>
-<li><p>l6_ftb</p></li>
-<li><p>l7_e0</p></li>
-<li><p>l7_e0_ft</p></li>
-<li><p>l7_e0_fb</p></li>
-<li><p>l7_e0_ftb</p></li>
-<li><p>l7_e1</p></li>
-<li><p>l7_e1_ft</p></li>
-<li><p>l7_e1_fb</p></li>
-<li><p>l7_e1_ftb</p></li>
-</ul>
-</td>
-<td><p>l6</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>SHARE</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TCLK_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>off</p></li>
-<li><p>clk0</p></li>
-<li><p>clk1</p></li>
-<li><p>clk2</p></li>
-</ul>
-</td>
-<td><p>off</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TCLR_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TDFF0</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TDFF1</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TDFF1L</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>reg</p></li>
-<li><p>nlut</p></li>
-</ul>
-</td>
-<td><p>reg</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TEF_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>e</p></li>
-<li><p>f</p></li>
-</ul>
-</td>
-<td><p>e</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TPKREG0</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TPKREG1</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TSCLR_DIS</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TSLOAD_EN</p></td>
-<td><p>0-9</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>T_FEEDBACK_SEL</p></td>
-<td><p>0-9</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>0</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -2083,6 +1692,43 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 27%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>TCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAIN</p></td>
+<td></td>
+<td><p>0-127</p></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td></td>
+<td><p>0-73</p></td>
+<td><p>GIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -2758,6 +2404,43 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>Ram</p></td>
 <td><p>40 bits</p></td>
 <td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 27%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-5</p></td>
+<td><p>TCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAIN</p></td>
+<td></td>
+<td><p>0-83</p></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td></td>
+<td><p>0-39</p></td>
+<td><p>GIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>

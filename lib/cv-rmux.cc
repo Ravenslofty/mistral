@@ -1,6 +1,7 @@
 #include "cyclonev.h"
 
 #include <lzma.h>
+#include <set>
 
 std::string mistral::CycloneV::rn2s(rnode_t rn)
 {
@@ -229,6 +230,38 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::pnode_t>> m
   return result;
 }
 
+
+std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::get_all_p2ri() const
+{
+  std::vector<std::pair<pnode_t, rnode_t>> result;
+  pos_t lab = lab_pos[0];
+  pos_t mlab = mlab_pos[0];
+  pos_t m10k = m10k_pos[0];
+  pos_t dsp = dsp_pos[0];
+  pos_t dsp2 = xy2pos(pos2x(dsp), pos2y(dsp)+1);
+
+  auto tt = [lab, mlab, m10k, dsp, dsp2](rnode_t n) -> bool { auto p = rn2p(n); return n && (p == lab || p == mlab || p == m10k || p == dsp || p == dsp2); };
+
+  std::set<rnode_t> nodes;
+  for(unsigned int i=0; i != di.rmux_count; i++) {
+    const auto &r = rmux_info[i];
+    if(tt(r.destination))
+      nodes.insert(r.destination);
+    int span = rmux_patterns[r.pattern].span;
+    for(int j = 0; j != span; j++)
+      if(tt(r.sources[j]))
+	nodes.insert(r.sources[j]);
+  }
+
+  for(rnode_t n : nodes) {
+    auto p = rnode_to_pnode(n);
+    if(p)
+      result.emplace_back(std::make_pair(p, n));
+  }
+
+  return result;
+}
+
 mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
 {
   auto i = p2r_map.find(pn);
@@ -334,9 +367,9 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
   case DSP: {
     switch(pn2pt(pn)) {
     case DATAIN:
-      return rnode(GOUT, p, pi);
+      return pi >= 64 ? rnode(GOUT, p+1, pi-64) : rnode(GOUT, p, pi);
     case DATAOUT:
-      return rnode(GIN, p, pi);
+      return pi >= 37 ? rnode(GIN, p+1, pi-37) : rnode(GIN, p, pi);
     case CLKIN:
       return rnode(TCLK, p, pi);
     default:
@@ -415,11 +448,11 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
   if(tt == T_DSP) {
     switch(rn2t(rn)) {
     case GOUT: {
-      return pnode(DSP, rn2p(rn), DATAIN, 0, rn2z(rn));
+      return pnode(DSP, rn2p(rn), DATAIN, -1, rn2z(rn));
     }
 
     case GIN: {
-      return pnode(DSP, rn2p(rn), DATAOUT, 0, rn2z(rn));
+      return pnode(DSP, rn2p(rn), DATAOUT, -1, rn2z(rn));
     }
 
     case TCLK: {
@@ -433,11 +466,11 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
   if(tt == T_DSP2) {
     switch(rn2t(rn)) {
     case GOUT: {
-      return pnode(DSP, rn2p(rn), DATAIN, 1, rn2z(rn));
+      return pnode(DSP, rn2p(rn)-1, DATAIN, -1, rn2z(rn)+64);
     }
 
     case GIN: {
-      return pnode(DSP, rn2p(rn), DATAOUT, 1, rn2z(rn));
+      return pnode(DSP, rn2p(rn)-1, DATAOUT, -1, rn2z(rn)+37);
     }
 
     default: break;

@@ -253,6 +253,21 @@ static void show_p2p(char **args)
   delete model;
 }
 
+static void show_p2ri(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  auto r = model->get_all_p2ri();
+  for(const auto &e : r)
+    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str());
+
+  delete model;
+}
+
 static void decompile(char **args)
 {
   auto model = mistral::CycloneV::get_model(args[0]);
@@ -827,6 +842,7 @@ static const fct fcts[] = {
   { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf   -- Load a rbf and save it again" },
   { "bels",     1, 1, show_bels,     "bels     model                  -- Dump the list of logic blocks for a given model" },
   { "p2r",      1, 1, show_p2r,      "p2r      model                  -- Dump the list of block port/routing nodes connections for peripheral blocks" },
+  { "p2ri",     1, 1, show_p2ri,     "p2ri     model                  -- Dump the list of block port/routing nodes connections for one tile per inner block" },
   { "p2p",      1, 1, show_p2p,      "p2p      model                  -- Dump the list of block port/block port connections" },
   { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt  -- Decompile the bitstream" },
   { "comp",     2, 2, compile,       "comp     file.bt out.rbf        -- Compile to a bitstream" },

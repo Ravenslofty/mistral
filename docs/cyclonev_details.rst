@@ -80,6 +80,8 @@ enable, clear, etc signals.
 
 .. include:: gendoc/lab-dmux.rst
 
+.. include:: gendoc/lab-dp2r.rst
+
 
 MLAB
 ^^^^
@@ -105,6 +107,8 @@ TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 .. include:: gendoc/dsp-dmux.rst
 
+.. include:: gendoc/dsp-dp2r.rst
+
 
 
 M10K
@@ -115,6 +119,8 @@ The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.
 TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 .. include:: gendoc/m10k-dmux.rst
+
+.. include:: gendoc/m10k-dp2r.rst
 
 
 

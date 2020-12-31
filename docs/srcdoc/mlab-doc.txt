@@ -1,61 +1,61 @@
-tdff0
-tdff1
-tdff1l
-bdff0
-bdff1
-bdff1l
-tsload_en
-tsclr_dis
-tpkreg0
-tpkreg1
-tclk_sel
-tclr_sel
-tef_sel
-bsload_en
-bsclr_dis
-bpkreg0
-bpkreg1
-bclk_sel
-bclr_sel
-bef_sel
-share
-t_feedback_sel
-b_feedback_sel
-arith_sel
-mode
-lut_mask
-en0_en
-en1_en
-en2_en
-dft_mode
-clka_sel
-clkb_sel
-clk0_sel
-clk0_inv
-clk1_sel
-clk1_inv
-clk2_sel
-clk2_inv
-en0_ninv
-en1_ninv
-en2_ninv
-regscan_latch_en
-en0_sel
-en1_sel
-en_sclk_load_what
-sclr_mux
-sclr_inv
-sload_sel
-sload_inv
-aclr0_sel
-aclr0_inv
-aclr1_sel
-aclr1_inv
-bypass_dis
-tto_dis
-bto_dis
+aclr0_inv -
+aclr0_sel -
+aclr1_inv -
+aclr1_sel -
+arith_sel -
+b_feedback_sel -
+bclk_sel -
+bclr_sel -
+bdff0 -
+bdff1 -
+bdff1l -
+bef_sel -
+bpkreg0 -
+bpkreg1 -
+bsclr_dis -
+bsload_en -
+bto_dis -
+bypass_dis -
+clk0_inv -
+clk0_sel -
+clk1_inv -
+clk1_sel -
+clk2_inv -
+clk2_sel -
+clka_sel -
+clkb_sel -
+dft_mode -
+en0_en -
+en0_ninv -
+en0_sel -
+en1_en -
+en1_ninv -
+en1_sel -
+en2_en -
+en2_ninv -
+en_sclk_load_what -
+lut_mask -
+maddg_voltage
+mcrg_voltage
+mode -
 ram_dis
+regscan_latch_en
+sclr_inv -
+sclr_mux -
+share -
+sload_inv -
+sload_sel -
+t_feedback_sel -
+tclk_sel -
+tclr_sel -
+tdff0 -
+tdff1 -
+tdff1l -
+tef_sel -
+tpkreg0 -
+tpkreg1 -
+tsclr_dis -
+tsload_en -
+tto_dis -
 write_en
 write_pulse_length
-mcrg_voltage
-maddg_voltage

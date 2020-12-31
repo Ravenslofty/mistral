@@ -225,6 +225,7 @@ namespace mistral {
 
     std::vector<std::pair<pnode_t, rnode_t>> get_all_p2r() const;
     std::vector<std::pair<pnode_t, pnode_t>> get_all_p2p() const;
+    std::vector<std::pair<pnode_t, rnode_t>> get_all_p2ri() const;
 
     void rnode_link(rnode_t n1, rnode_t n2);
     void rnode_link(pnode_t p1, rnode_t n2);

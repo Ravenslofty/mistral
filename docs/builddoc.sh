@@ -16,6 +16,10 @@ for b in cmuxp cmuxcr cmuxhg cmuxhr cmuxvg cmuxvr ctrl dll fpll gpio hmc hps_boo
   ./mkp2rdoc.py $b srcdoc/sx120f-p2r.txt srcdoc/p2r-doc.txt > gendoc/${b}-dp2r.rst
 done
 
+for b in lab m10k dsp; do
+  ./mkp2rdoc.py $b srcdoc/sx120f-p2ri.txt srcdoc/p2r-doc.txt > gendoc/${b}-dp2r.rst
+done
+
 for b in cmuxcr cmuxhg cmuxhr cmuxvg cmuxvr dll dqs16 fpll gpio hmc hps_clocks lvl; do
   ./mkp2pdoc.py $b srcdoc/sx120f-p2p.txt srcdoc/p2p-doc.txt > gendoc/${b}-dp2p.rst
 done
