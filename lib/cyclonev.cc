@@ -75,6 +75,46 @@ mistral::CycloneV::bmux_type_t mistral::CycloneV::bmux_type_lookup(const std::st
   return any_type_lookup(n, bmux_type_hash);
 }
 
+const mistral::CycloneV::block_type_t mistral::CycloneV::hps_index_to_type[I_HPS_COUNT] = {
+  HPS_BOOT,
+  HPS_CLOCKS,
+  HPS_CLOCKS_RESETS,
+  HPS_CROSS_TRIGGER,
+  HPS_DBG_APB,
+  HPS_DMA,
+  HPS_FPGA2HPS,
+  HPS_FPGA2SDRAM,
+  HPS_HPS2FPGA,
+  HPS_HPS2FPGA_LIGHT_WEIGHT,
+  HPS_INTERRUPTS,
+  HPS_JTAG,
+  HPS_LOAN_IO,
+  HPS_MPU_EVENT_STANDBY,
+  HPS_MPU_GENERAL_PURPOSE,
+  HPS_PERIPHERAL_CAN,
+  HPS_PERIPHERAL_CAN,
+  HPS_PERIPHERAL_EMAC,
+  HPS_PERIPHERAL_EMAC,
+  HPS_PERIPHERAL_I2C,
+  HPS_PERIPHERAL_I2C,
+  HPS_PERIPHERAL_I2C,
+  HPS_PERIPHERAL_I2C,
+  HPS_PERIPHERAL_NAND,
+  HPS_PERIPHERAL_QSPI,
+  HPS_PERIPHERAL_SDMMC,
+  HPS_PERIPHERAL_SPI_MASTER,
+  HPS_PERIPHERAL_SPI_MASTER,
+  HPS_PERIPHERAL_SPI_SLAVE,
+  HPS_PERIPHERAL_SPI_SLAVE,
+  HPS_PERIPHERAL_UART,
+  HPS_PERIPHERAL_UART,
+  HPS_PERIPHERAL_USB,
+  HPS_PERIPHERAL_USB,
+  HPS_STM_EVENT,
+  HPS_TEST,
+  HPS_TPIU_TRACE,
+};
+
 mistral::CycloneV::CycloneV(const Model *m) : model(m), di(m->variant.die)
 {
   rmux_load();
@@ -87,6 +127,7 @@ mistral::CycloneV::CycloneV(const Model *m) : model(m), di(m->variant.die)
   add_cram_blocks();
   add_pram_blocks();
   ctrl_pos.push_back(di.ctrl);
+  tile_bels[di.ctrl].push_back(CTRL);
   init_p2r_maps();
 
   cram.resize((di.cram_sx*di.cram_sy + 7) / 8, 0);
@@ -117,7 +158,7 @@ void mistral::CycloneV::forced_1_set()
 
 void mistral::CycloneV::add_cram_blocks()
 {
-  tile_types.resize(0x4000, T_EMPTY);
+  tile_types.fill(T_EMPTY);
   const uint8_t *pos = di.bel_spans;
   while(*pos != 0xff) {
     uint8_t xs = *pos++;
@@ -157,6 +198,7 @@ void mistral::CycloneV::add_cram_blocks()
 	  pos_t pos = xy2pos(x, y);
 	  if(!is_dsp || !((y - ys) & 1)) {
 	    tile_types[pos] = tp;
+	    tile_bels[pos].push_back(tp == T_LAB ? LAB : tp == T_MLAB ? MLAB : tp == T_M10K ? M10K : DSP);
 	    posvec->push_back(pos);
 	  } else
 	    tile_types[pos] = T_DSP2;
@@ -165,9 +207,12 @@ void mistral::CycloneV::add_cram_blocks()
     }
   }
 
-  if(di.hps_blocks)
-    for(int i=0; i != I_HPS_COUNT; i++)
+  if(di.hps_blocks) {
+    for(int i=0; i != I_HPS_COUNT; i++) {
+      tile_bels[di.hps_blocks[i]].push_back(hps_index_to_type[i]);
       hps_pos.push_back(di.hps_blocks[i]);
+    }
+  }
 }
 
 void mistral::CycloneV::diff(const CycloneV *m) const

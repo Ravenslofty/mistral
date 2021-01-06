@@ -279,6 +279,8 @@ Logic block management
     const std::vector<pos_t> &lab_get_pos()    const
     [etc]
 
+    cosst std::vector<block_type_t> &pos_get_bels(pos_t pos) const
+
 The numerous xxx_get_pos() methods gives the list of positions of
 logic blocks of a given type.  The known types are lab, mlab, m10k,
 dsp, hps, gpio, dqs16, fpll, cmuxc, cmuxv, cmuxh, dll, hssi, cbuf,
@@ -286,6 +288,10 @@ lvl, ctrl, pma3, serpar, term and hip.  A vector is empty when a block
 type doesn't exist in the given die.
 
 In the hps case the 37 blocks can be indexed by hps_index_t enum.
+
+Alternatively the pos_get_bels() method gives the (possibly empty)
+list of logic blocks present in a given tile.
+
 
 .. code-block:: C++
 

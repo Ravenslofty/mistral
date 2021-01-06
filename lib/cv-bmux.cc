@@ -1,10 +1,17 @@
 #include "cyclonev.h"
 
-void mistral::CycloneV::add_pram_fixed(std::vector<pos_t> &pos, int start, int count)
+void mistral::CycloneV::add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count)
 {
   for(int i=0; i != count; i++)
-    if(di.fixed_blocks[start+i].pos != 0xffff)
-      pos.push_back(di.fixed_blocks[start+i].pos);
+    if(di.fixed_blocks[start+i].pos != 0xffff) {
+      pos_t p = di.fixed_blocks[start+i].pos;
+      pos.push_back(p);
+      tile_bels[p].push_back(block);
+      if(block == CMUXVG)
+	tile_bels[p].push_back(CMUXVR);
+      if(block == CMUXHG)
+	tile_bels[p].push_back(CMUXHR);
+    }
 }
 
 
@@ -25,19 +32,19 @@ void mistral::CycloneV::add_pram_blocks()
   for(uint32_t i = 0; i != di.dqs16_count; i++)
     dqs16_pos.push_back(di.dqs16s[i].pos);
 
-  add_pram_fixed(fpll_pos,   FB_FPLL,    8);
-  add_pram_fixed(cmuxc_pos,  FB_CMUXC,   4);
-  add_pram_fixed(cmuxv_pos,  FB_CMUXV,   2);
-  add_pram_fixed(cmuxh_pos,  FB_CMUXH,   2);
-  add_pram_fixed(dll_pos,    FB_DLL,     4);
-  add_pram_fixed(hssi_pos,   FB_HSSI,    4);
-  add_pram_fixed(cbuf_pos,   FB_CBUF,    8);
-  add_pram_fixed(lvl_pos,    FB_LVL,    17);
-  add_pram_fixed(pma3_pos,   FB_PMA3,    4);
-  add_pram_fixed(serpar_pos, FB_SERPAR, 10);
-  add_pram_fixed(term_pos,   FB_TERM,    4);
-  add_pram_fixed(hip_pos,    FB_HIP,     2);
-  add_pram_fixed(hmc_pos,    FB_HMC,     2);
+  add_pram_fixed(fpll_pos,   FPLL,   FB_FPLL,    8);
+  add_pram_fixed(cmuxc_pos,  CMUXCR, FB_CMUXC,   4);
+  add_pram_fixed(cmuxv_pos,  CMUXVG, FB_CMUXV,   2);
+  add_pram_fixed(cmuxh_pos,  CMUXHG, FB_CMUXH,   2);
+  add_pram_fixed(dll_pos,    DLL,    FB_DLL,     4);
+  add_pram_fixed(hssi_pos,   HSSI,   FB_HSSI,    4);
+  add_pram_fixed(cbuf_pos,   CBUF,   FB_CBUF,    8);
+  add_pram_fixed(lvl_pos,    LVL,    FB_LVL,    17);
+  add_pram_fixed(pma3_pos,   PMA3,   FB_PMA3,    4);
+  add_pram_fixed(serpar_pos, SERPAR, FB_SERPAR, 10);
+  add_pram_fixed(term_pos,   TERM,   FB_TERM,    4);
+  add_pram_fixed(hip_pos,    HIP,    FB_HIP,     2);
+  add_pram_fixed(hmc_pos,    HMC,    FB_HMC,     2);
 }
 
 uint32_t mistral::CycloneV::fpll2pram(pos_t p) const

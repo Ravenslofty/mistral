@@ -165,6 +165,8 @@ namespace mistral {
       I_HPS_COUNT
     };
 
+    static const block_type_t hps_index_to_type[I_HPS_COUNT];
+
     static const package_info_t package_infos[5+3+3];
 
     using pos_t = uint16_t;          // Tile position
@@ -238,6 +240,8 @@ namespace mistral {
     std::vector<std::pair<rnode_t, rnode_t>> route_frontier_links() const;
 
     // Blocks positions 
+    const std::vector<block_type_t> &pos_get_bels(pos_t pos) const { return tile_bels[pos]; }
+
     const std::vector<pos_t> &lab_get_pos()    const { return lab_pos;    }
     const std::vector<pos_t> &mlab_get_pos()   const { return mlab_pos;   }
     const std::vector<pos_t> &m10k_get_pos()   const { return m10k_pos;   }
@@ -654,7 +658,8 @@ namespace mistral {
     uint64_t oram[32];
     std::vector<bool> pram[32];
     std::vector<uint8_t> cram;
-    std::vector<tile_type_t> tile_types;
+    std::array<tile_type_t, 0x4000> tile_types;
+    std::array<std::vector<block_type_t>, 0x4000> tile_bels;
 
     std::vector<pos_t> lab_pos;
     std::vector<pos_t> mlab_pos;
@@ -690,7 +695,7 @@ namespace mistral {
     void rmux_load();
     void add_cram_blocks();
     void add_pram_blocks();
-    void add_pram_fixed(std::vector<pos_t> &pos, int start, int count);
+    void add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count);
     uint32_t find_pram_fixed(pos_t p, int start, int count) const;
 
     uint32_t max_pram_block_size() const;

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Mistral documentation 1.0 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -50,7 +52,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> Mistral documentation
+            <a href="#" class="icon icon-home"> Mistral documentation
           
 
           
@@ -226,6 +228,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -237,7 +241,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -19467,6 +19471,8 @@ extremities, giving the inter-logic-block connections directly.</p>
 <h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pos_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">lab_get_pos</span><span class="p">()</span>    <span class="k">const</span>
 <span class="p">[</span><span class="n">etc</span><span class="p">]</span>
+
+<span class="n">cosst</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">block_type_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">pos_get_bels</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">)</span> <span class="k">const</span>
 </pre></div>
 </div>
 <p>The numerous xxx_get_pos() methods gives the list of positions of
@@ -19475,6 +19481,8 @@ dsp, hps, gpio, dqs16, fpll, cmuxc, cmuxv, cmuxh, dll, hssi, cbuf,
 lvl, ctrl, pma3, serpar, term and hip.  A vector is empty when a block
 type doesn’t exist in the given die.</p>
 <p>In the hps case the 37 blocks can be indexed by hps_index_t enum.</p>
+<p>Alternatively the pos_get_bels() method gives the (possibly empty)
+list of logic blocks present in a given tile.</p>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span> <span class="n">MT_MUX</span><span class="p">,</span> <span class="n">MT_NUM</span><span class="p">,</span> <span class="n">MT_BOOL</span><span class="p">,</span> <span class="n">MT_RAM</span> <span class="p">};</span>
 
 <span class="k">enum</span> <span class="nc">bmux_type_t</span><span class="p">;</span>
@@ -19846,28 +19854,25 @@ mkmodels.sh.</p>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020
+        &#169; Copyright 2020.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
