@@ -1,56 +1,56 @@
-tdff0
-tdff1
-tdff1l
-bdff0
-bdff1
-bdff1l
-tsload_en
-tsclr_dis
-tpkreg0
-tpkreg1
-tclk_sel
-tclr_sel
-tef_sel
-bsload_en
-bsclr_dis
-bpkreg0
-bpkreg1
-bclk_sel
-bclr_sel
-bef_sel
-share
-t_feedback_sel
-b_feedback_sel
-arith_sel
-mode
-lut_mask
-en0_en
-en1_en
-en2_en
+tdff0 Select between LUT and FF for that output
+tdff1 Select between LUT and FF for that output
+tdff1l Select between LUT and FF for that output
+bdff0 Select between LUT and FF for that output
+bdff1 Select between LUT and FF for that output
+bdff1l Select between LUT and FF for that output
+tsload_en Select whether to enable the sync load line of the two top FFs
+tsclr_dis Disable sync clear for the top half
+tpkreg0 Force the top FF of the top half to get its input from tef_sel
+tpkreg1 Force the bottom FF of the top half to get its input from tef_sel
+tclk_sel Select the clock input to the two top FFs
+tclr_sel Select the aclr input to the two top FFs
+tef_sel Select which input goes to the sdata input of the two top FFs
+bsload_en Select whether to enable the sync load line of the two bottom FFs
+bsclr_dis Disable sync clear for the bottom half
+bpkreg0 Force the top FF of the bottom half to get its input from tef_sel
+bpkreg1 Force the bottom FF of the bottom half to get its input from tef_sel
+bclk_sel Select the clock input to the two bottom FFs
+bclr_sel Select the aclr input to the two bottom FFs
+bef_sel Select which input goes to the sdata input of the two bottom FFs
+share Route the share line to the addition
+t_feedback_sel Select which of the FFs goes to the top feedback line
+b_feedback_sel Select which of the FFs goes to the bottom feedback line
+arith_sel Select whether the data input of the FF is the LUTs or the adder
+mode Connectivity mode of the cell
+lut_mask LUT values, A has bits 0-15, B 16-23, C 24-31, D 32-47, E 48-55. F 56-63
+en0_en Enables the enable 0 line (else always on)
+en1_en Enables the enable 1 line (else always on)
+en2_en Enables the enable 2 line (else always on)
 dft_mode
-clka_sel
-clkb_sel
-clk0_sel
-clk0_inv
-clk1_sel
-clk1_inv
-clk2_sel
-clk2_inv
-en0_ninv
-en1_ninv
-en2_ninv
+clka_sel Selects between clock and data for the clka intermediate line
+clkb_sel Selects between clock and data for the clkb intermediate line
+clk0_sel Selects between the two intermedaite clock lines for clock 0
+clk0_inv Optional inverter for clock 0
+clk1_sel Selects between the two intermedaite clock lines for clock 1
+clk1_inv Optional inverter for clock 1
+clk2_sel Selects between the two intermedaite clock lines for clock 2
+clk2_inv Optional inverter for clock 2
+en0_ninv Optional inverter for enable 0
+en1_ninv Optional inverter for enable 1
+en2_ninv Optional inverter for enable 2
 regscan_latch_en
-en0_sel
-en1_sel
-en_sclk_load_what
-sclr_mux
-sclr_inv
-sload_sel
-sload_inv
-aclr0_sel
-aclr0_inv
-aclr1_sel
-aclr1_inv
-bypass_dis
-tto_dis
-bto_dis
+en0_sel Source selection for enable 0
+en1_sel Source selection for enable 1
+en_sclk_load_what Unclear, possibly source selection for enable 2
+sclr_mux Source selection for sync clear, possibly more subtle (interaction with en2 and sload)
+sclr_inv Optional inverter for synchronous clear
+sload_sel Source selection for sync load, possibly more subtle (interaction with en2 and sclr)
+sload_inv Optional inverter for synchronous load
+aclr0_sel Selects between clock and data for async clear 0
+aclr0_inv Optional inverter for asynchronous clear 0
+aclr1_sel Selects between clock and data for async clear 1
+aclr1_inv Optional inverter for asynchronous clear 1
+bypass_dis Something to do with inter-block carry or share
+tto_dis Something to do with inter-block carry or share
+bto_dis Something to do with inter-block carry or share

@@ -1,0 +1,17 @@
+lab.a Data input to the lab cell
+lab.b Data input to the lab cell
+lab.c Data input to the lab cell
+lab.d Data input to the lab cell
+lab.e0 Data input to the lab cell
+lab.e1 Data input to the lab cell
+lab.f0 Data input to the lab cell
+lab.f1 Data input to the lab cell
+lab.fft0 Output from either the top FF of the top hslf of the lab cell or the top lut to data routing
+lab.fft1 Output from either the bottom FF of the top hslf of the lab cell or the top lut to data routing
+lab.fft1l Output from either the bottom FF of the top hslf of the lab cell or the top lut to local dispatch
+lab.ffb0 Output from either the top FF of the bottom hslf of the lab cell or the bottomlut to data routing
+lab.ffb1 Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to data routing
+lab.ffb1l Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to local dispatch
+lab.aclr Common clock inputs for asynchronous clear of the FFs
+lab.clkin Common clock inputs for clocking of the FFs
+lab.datain Common data inputs for enables, sync clear and load

@@ -22,3 +22,6 @@ docs-pdf/Makefile
 docs-pdf/make.bat
 docs-pdf/mistral.fdb_latexmk
 docs-pdf/floorplans.pdf
+docs-pdf/lab-common.pdf
+docs-pdf/lab-cell.pdf
+docs-pdf/lab-modes.pdf

@@ -73,10 +73,29 @@ LAB
 ^^^
 
 The LABs are the main combinatorial and register blocks of the FPGA.
-A LAB tile includes 10 sub-blocks with 64 bits of LUT splitted in 6
-parts, four Flip-Flops, two 1-bit adders and a lot of routing logic.
-In addition a common control subblock selects and dispatches clock,
-enable, clear, etc signals.
+A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
+splitted in 6 parts, four Flip-Flops, two 1-bit adders and a lot of
+routing logic.  In addition a common control subblock selects and
+dispatches clock, enable, clear, etc signals.
+
+.. figure:: lab-common.*
+   :width: 50%
+
+   The part of the LAB shared by all ten cells that generates the
+   common signals.
+
+
+.. figure:: lab-cell.*
+   :width: 100%
+
+   One of the 10 cells of the LAB.
+
+
+.. figure:: lab-modes.*
+   :width: 100%
+
+   The 16 possible interconnection modes.
+
 
 .. include:: gendoc/lab-dmux.rst
 

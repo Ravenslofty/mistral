@@ -477,18 +477,31 @@ provided with an optional inverter.</p>
 <div class="section" id="lab">
 <h4>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h4>
 <p>The LABs are the main combinatorial and register blocks of the FPGA.
-A LAB tile includes 10 sub-blocks with 64 bits of LUT splitted in 6
-parts, four Flip-Flops, two 1-bit adders and a lot of routing logic.
-In addition a common control subblock selects and dispatches clock,
-enable, clear, etc signals.</p>
+A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
+splitted in 6 parts, four Flip-Flops, two 1-bit adders and a lot of
+routing logic.  In addition a common control subblock selects and
+dispatches clock, enable, clear, etc signals.</p>
+<div class="figure align-default" id="id1">
+<a class="reference internal image-reference" href="_images/lab-common.svg"><img alt="_images/lab-common.svg" src="_images/lab-common.svg" width="50%" /></a>
+<p class="caption"><span class="caption-text">The part of the LAB shared by all ten cells that generates the
+common signals.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id2">
+<a class="reference internal image-reference" href="_images/lab-cell.svg"><img alt="_images/lab-cell.svg" src="_images/lab-cell.svg" width="100%" /></a>
+<p class="caption"><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id3">
+<a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="100%" /></a>
+<p class="caption"><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 14%" />
-<col style="width: 8%" />
-<col style="width: 18%" />
 <col style="width: 13%" />
-<col style="width: 21%" />
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+<col style="width: 61%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -509,7 +522,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>lut</p></td>
-<td><p>TODO</p></td>
+<td><p>Select whether the data input of the FF is the LUTs or the adder</p></td>
 </tr>
 <tr class="row-odd"><td><p>BCLK_SEL</p></td>
 <td><p>0-9</p></td>
@@ -522,7 +535,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>off</p></td>
-<td><p>TODO</p></td>
+<td><p>Select the clock input to the two bottom FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>BCLR_SEL</p></td>
 <td><p>0-9</p></td>
@@ -532,7 +545,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Select the aclr input to the two bottom FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>BDFF0</p></td>
 <td><p>0-9</p></td>
@@ -543,7 +556,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-even"><td><p>BDFF1</p></td>
 <td><p>0-9</p></td>
@@ -554,7 +567,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-odd"><td><p>BDFF1L</p></td>
 <td><p>0-9</p></td>
@@ -565,7 +578,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-even"><td><p>BEF_SEL</p></td>
 <td><p>0-9</p></td>
@@ -576,35 +589,35 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>e</p></td>
-<td><p>TODO</p></td>
+<td><p>Select which input goes to the sdata input of the two bottom FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>BPKREG0</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Force the top FF of the bottom half to get its input from tef_sel</p></td>
 </tr>
 <tr class="row-even"><td><p>BPKREG1</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Force the bottom FF of the bottom half to get its input from tef_sel</p></td>
 </tr>
 <tr class="row-odd"><td><p>BSCLR_DIS</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Disable sync clear for the bottom half</p></td>
 </tr>
 <tr class="row-even"><td><p>BSLOAD_EN</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Select whether to enable the sync load line of the two bottom FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>B_FEEDBACK_SEL</p></td>
 <td><p>0-9</p></td>
@@ -614,14 +627,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Select which of the FFs goes to the bottom feedback line</p></td>
 </tr>
 <tr class="row-even"><td><p>LUT_MASK</p></td>
 <td><p>0-9</p></td>
 <td><p>Ram</p></td>
 <td><p>64 bits</p></td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>LUT values, A has bits 0-15, B 16-23, C 24-31, D 32-47, E 48-55. F 56-63</p></td>
 </tr>
 <tr class="row-odd"><td><p>MODE</p></td>
 <td><p>0-9</p></td>
@@ -646,14 +659,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>l6</p></td>
-<td><p>TODO</p></td>
+<td><p>Connectivity mode of the cell</p></td>
 </tr>
 <tr class="row-even"><td><p>SHARE</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Route the share line to the addition</p></td>
 </tr>
 <tr class="row-odd"><td><p>TCLK_SEL</p></td>
 <td><p>0-9</p></td>
@@ -666,7 +679,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>off</p></td>
-<td><p>TODO</p></td>
+<td><p>Select the clock input to the two top FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>TCLR_SEL</p></td>
 <td><p>0-9</p></td>
@@ -676,7 +689,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Select the aclr input to the two top FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>TDFF0</p></td>
 <td><p>0-9</p></td>
@@ -687,7 +700,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-even"><td><p>TDFF1</p></td>
 <td><p>0-9</p></td>
@@ -698,7 +711,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-odd"><td><p>TDFF1L</p></td>
 <td><p>0-9</p></td>
@@ -709,7 +722,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>reg</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between LUT and FF for that output</p></td>
 </tr>
 <tr class="row-even"><td><p>TEF_SEL</p></td>
 <td><p>0-9</p></td>
@@ -720,35 +733,35 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>e</p></td>
-<td><p>TODO</p></td>
+<td><p>Select which input goes to the sdata input of the two top FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>TPKREG0</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Force the top FF of the top half to get its input from tef_sel</p></td>
 </tr>
 <tr class="row-even"><td><p>TPKREG1</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Force the bottom FF of the top half to get its input from tef_sel</p></td>
 </tr>
 <tr class="row-odd"><td><p>TSCLR_DIS</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Disable sync clear for the top half</p></td>
 </tr>
 <tr class="row-even"><td><p>TSLOAD_EN</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Select whether to enable the sync load line of the two top FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>T_FEEDBACK_SEL</p></td>
 <td><p>0-9</p></td>
@@ -758,14 +771,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Select which of the FFs goes to the top feedback line</p></td>
 </tr>
 <tr class="row-even"><td><p>ACLR0_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for asynchronous clear 0</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACLR0_SEL</p></td>
 <td></td>
@@ -776,14 +789,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin1</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between clock and data for async clear 0</p></td>
 </tr>
 <tr class="row-even"><td><p>ACLR1_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for asynchronous clear 1</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACLR1_SEL</p></td>
 <td></td>
@@ -794,28 +807,28 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin0</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between clock and data for async clear 1</p></td>
 </tr>
 <tr class="row-even"><td><p>BTO_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Something to do with inter-block carry or share</p></td>
 </tr>
 <tr class="row-odd"><td><p>BYPASS_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Something to do with inter-block carry or share</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK0_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for clock 0</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK0_SEL</p></td>
 <td></td>
@@ -826,14 +839,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between the two intermedaite clock lines for clock 0</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK1_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for clock 1</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK1_SEL</p></td>
 <td></td>
@@ -844,14 +857,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between the two intermedaite clock lines for clock 1</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK2_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for clock 2</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK2_SEL</p></td>
 <td></td>
@@ -862,7 +875,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between the two intermedaite clock lines for clock 2</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKA_SEL</p></td>
 <td></td>
@@ -873,7 +886,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>clki0</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between clock and data for the clka intermediate line</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKB_SEL</p></td>
 <td></td>
@@ -884,7 +897,7 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>clki1</p></td>
-<td><p>TODO</p></td>
+<td><p>Selects between clock and data for the clkb intermediate line</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_MODE</p></td>
 <td></td>
@@ -903,14 +916,14 @@ enable, clear, etc signals.</p>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Enables the enable 0 line (else always on)</p></td>
 </tr>
 <tr class="row-even"><td><p>EN0_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for enable 0</p></td>
 </tr>
 <tr class="row-odd"><td><p>EN0_SEL</p></td>
 <td></td>
@@ -921,21 +934,21 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin1</p></td>
-<td><p>TODO</p></td>
+<td><p>Source selection for enable 0</p></td>
 </tr>
 <tr class="row-even"><td><p>EN1_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Enables the enable 1 line (else always on)</p></td>
 </tr>
 <tr class="row-odd"><td><p>EN1_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for enable 1</p></td>
 </tr>
 <tr class="row-even"><td><p>EN1_SEL</p></td>
 <td></td>
@@ -946,28 +959,28 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin3</p></td>
-<td><p>TODO</p></td>
+<td><p>Source selection for enable 1</p></td>
 </tr>
 <tr class="row-odd"><td><p>EN2_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Enables the enable 2 line (else always on)</p></td>
 </tr>
 <tr class="row-even"><td><p>EN2_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for enable 2</p></td>
 </tr>
 <tr class="row-odd"><td><p>EN_SCLK_LOAD_WHAT</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Unclear, possibly source selection for enable 2</p></td>
 </tr>
 <tr class="row-even"><td><p>REGSCAN_LATCH_EN</p></td>
 <td></td>
@@ -981,7 +994,7 @@ enable, clear, etc signals.</p>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for synchronous clear</p></td>
 </tr>
 <tr class="row-even"><td><p>SCLR_MUX</p></td>
 <td></td>
@@ -992,14 +1005,14 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin3</p></td>
-<td><p>TODO</p></td>
+<td><p>Source selection for sync clear, possibly more subtle (interaction with en2 and sload)</p></td>
 </tr>
 <tr class="row-odd"><td><p>SLOAD_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional inverter for synchronous load</p></td>
 </tr>
 <tr class="row-even"><td><p>SLOAD_SEL</p></td>
 <td></td>
@@ -1010,24 +1023,24 @@ enable, clear, etc signals.</p>
 </ul>
 </td>
 <td><p>gin0</p></td>
-<td><p>TODO</p></td>
+<td><p>Source selection for sync load, possibly more subtle (interaction with en2 and sclr)</p></td>
 </tr>
 <tr class="row-odd"><td><p>TTO_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Something to do with inter-block carry or share</p></td>
 </tr>
 </tbody>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
-<col style="width: 23%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 68%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -1042,103 +1055,103 @@ enable, clear, etc signals.</p>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>TCLK</p></td>
-<td><p>TODO</p></td>
+<td><p>Common clock inputs for asynchronous clear of the FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>B</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>C</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>TCLK</p></td>
-<td><p>TODO</p></td>
+<td><p>Common clock inputs for clocking of the FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>D</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Common data inputs for enables, sync clear and load</p></td>
 </tr>
 <tr class="row-odd"><td><p>E0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>E1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>F0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>F1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFB0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the top FF of the bottom hslf of the lab cell or the bottomlut to data routing</p></td>
 </tr>
 <tr class="row-even"><td><p>FFB1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to data routing</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFB1L</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>LD</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to local dispatch</p></td>
 </tr>
 <tr class="row-even"><td><p>FFT0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the top FF of the top hslf of the lab cell or the top lut to data routing</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFT1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the bottom FF of the top hslf of the lab cell or the top lut to data routing</p></td>
 </tr>
 <tr class="row-even"><td><p>FFT1L</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>LD</p></td>
-<td><p>TODO</p></td>
+<td><p>Output from either the bottom FF of the top hslf of the lab cell or the top lut to local dispatch</p></td>
 </tr>
 </tbody>
 </table>
