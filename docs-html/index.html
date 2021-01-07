@@ -481,6 +481,9 @@ A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
 splitted in 6 parts, four Flip-Flops, two 1-bit adders and a lot of
 routing logic.  In addition a common control subblock selects and
 dispatches clock, enable, clear, etc signals.</p>
+<p>Carry and share chain in the order lab (x, y+1) cell 9 -&gt; cells 0-9 -&gt;
+lab (x, u-1) cell 0.  The BTO, TTO and BYPASS muxes control the
+connections in between 5-cell blocks.</p>
 <div class="figure align-default" id="id1">
 <a class="reference internal image-reference" href="_images/lab-common.svg"><img alt="_images/lab-common.svg" src="_images/lab-common.svg" width="50%" /></a>
 <p class="caption"><span class="caption-text">The part of the LAB shared by all ten cells that generates the
@@ -496,12 +499,12 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 3%" />
 <col style="width: 7%" />
-<col style="width: 4%" />
-<col style="width: 9%" />
-<col style="width: 6%" />
-<col style="width: 61%" />
+<col style="width: 5%" />
+<col style="width: 70%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -814,14 +817,14 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>Something to do with inter-block carry or share</p></td>
+<td><p>When disabled, allows carry in/share in from local cell 4 into local cell 5</p></td>
 </tr>
 <tr class="row-odd"><td><p>BYPASS_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
-<td><p>Something to do with inter-block carry or share</p></td>
+<td><p>Bypass skips the top half (lab) or bottom half (mlab) of the cells for the carry and share chains (needs BTO, resp. TTO disabled too)</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK0_INV</p></td>
 <td></td>
@@ -1030,7 +1033,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>Something to do with inter-block carry or share</p></td>
+<td><p>When disabled, allows carry in/share in from the lab at (x, y+1) cell 9 into local cell 0</p></td>
 </tr>
 </tbody>
 </table>

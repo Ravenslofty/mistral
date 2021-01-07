@@ -51,6 +51,6 @@ aclr0_sel Selects between clock and data for async clear 0
 aclr0_inv Optional inverter for asynchronous clear 0
 aclr1_sel Selects between clock and data for async clear 1
 aclr1_inv Optional inverter for asynchronous clear 1
-bypass_dis Something to do with inter-block carry or share
-tto_dis Something to do with inter-block carry or share
-bto_dis Something to do with inter-block carry or share
+bypass_dis Bypass skips the top half (lab) or bottom half (mlab) of the cells for the carry and share chains (needs BTO, resp. TTO disabled too)
+tto_dis When disabled, allows carry in/share in from the lab at (x, y+1) cell 9 into local cell 0
+bto_dis When disabled, allows carry in/share in from local cell 4 into local cell 5
