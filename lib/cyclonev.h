@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <cassert>
 #include <memory>
+#include <array>
 
 namespace mistral {
   class CycloneV {
