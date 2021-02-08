@@ -85,8 +85,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.4373024"
-     inkscape:cx="130.02594"
-     inkscape:cy="161.1818"
+     inkscape:cx="477.70094"
+     inkscape:cy="183.71312"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -117,7 +117,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -229,8 +229,9 @@
        id="path3032" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 186.53125,130.96874 h 39.6875 v 5.29166 h 15.875 v -22.48958 h 5.29166"
-       id="path3284" />
+       d="m 207.69792,125.1479 -0.0163,5.82084 h 18.53708 v 5.29166 h 15.875 v -22.48958 h 5.29166"
+       id="path3284"
+       sodipodi:nodetypes="ccccccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 242.09375,132.29165 h 5.29166"
@@ -253,8 +254,9 @@
        id="path3427" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 186.53125,165.36457 h 39.6875 v 5.29166 h 15.875 v -22.48958 h 5.29166"
-       id="path3301" />
+       d="m 207.69792,159.54373 -0.0242,5.82084 h 18.54507 v 5.29166 h 15.875 v -22.48958 h 5.29166"
+       id="path3301"
+       sodipodi:nodetypes="ccccccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="M 234.15624,145.52085 H 247.3854"
@@ -3760,18 +3762,6 @@
        cx="246.06621"
        cy="95.274231"
        r="0.26458332" />
-    <circle
-       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="circle1526-2-78"
-       cx="186.53499"
-       cy="130.97955"
-       r="0.26458332" />
-    <circle
-       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="circle3303"
-       cx="186.53499"
-       cy="165.3754"
-       r="0.26458332" />
     <g
        id="g2708-6"
        transform="translate(181.23959,5.2916552)">
@@ -3896,7 +3886,7 @@
     <text
        xml:space="preserve"
        id="text3403"
-       style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect3405);fill:#000000;fill-opacity:0.75;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000" />
+       style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect3405);fill:#000000;fill-opacity:0.75;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000;" />
     <g
        id="g3413"
        transform="translate(185.20834,31.749995)">
@@ -4530,5 +4520,17 @@
          x="112.99281"
          y="133.11382"
          style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BS</tspan></text>
+    <circle
+       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle2999-36"
+       cx="207.70163"
+       cy="159.56798"
+       r="0.26458332" />
+    <circle
+       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle2999-7"
+       cx="207.70163"
+       cy="125.17215"
+       r="0.26458332" />
   </g>
 </svg>
