@@ -413,6 +413,16 @@ namespace mistral {
     
     static const Model models[];
     static CycloneV *get_model(std::string model_name);
+
+    struct rmux {
+      rnode_t destination;
+      uint32_t pattern;
+      uint32_t fw_pos;
+      rnode_t sources[44];
+    };
+
+    std::unique_ptr<rmux []> rmux_info;
+    std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
     
   private:
     enum bmux_ram_t { BM_CRAM, BM_PRAM, BM_ORAM, BM_DCRAM };
@@ -427,13 +437,6 @@ namespace mistral {
       uint16_t o_xy;
       uint16_t o_vals;
       uint16_t o_vhash;
-    };
-
-    struct rmux {
-      rnode_t destination;
-      uint32_t pattern;
-      uint32_t fw_pos;
-      rnode_t sources[44];
     };
 
     struct bmux_sel_entry {
@@ -684,9 +687,6 @@ namespace mistral {
     std::vector<pos_t> term_pos;
     std::vector<pos_t> hip_pos;
     std::vector<pos_t> hmc_pos;
-    
-    std::unique_ptr<rmux []> rmux_info;
-    std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
 
     std::unordered_map<pnode_t, rnode_t> p2r_map;
     std::unordered_map<rnode_t, pnode_t> r2p_map;
