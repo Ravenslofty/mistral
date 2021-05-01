@@ -30,11 +30,11 @@ std::string mistral::CycloneV::pn2s(pnode_t pn)
 }
 
 
-void mistral::CycloneV::rmux_load()
+void mistral::CycloneV::rmux_load(const std::string &mistral_root)
 {
   char path[2048];
   char msg[4096];
-  sprintf(path, "../gdata/%s-r.bin", di.name);
+  sprintf(path, "%s/gdata/%s-r.bin", mistral_root.c_str(), di.name);
   sprintf(msg, "Error opening %s for reading", path);
   FILE *fd = fopen(path, "rb");
   if(!fd) {
