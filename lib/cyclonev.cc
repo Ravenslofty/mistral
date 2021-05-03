@@ -16,14 +16,14 @@ const mistral::CycloneV::package_info_t mistral::CycloneV::package_infos[5+3+3] 
     {  484, 'm', 28, 28, 15, 15 },
 };
 
-mistral::CycloneV *mistral::CycloneV::get_model(std::string model_name)
+mistral::CycloneV *mistral::CycloneV::get_model(std::string model_name, std::string mistral_root)
 {
   if(model_name == "ms")
     model_name = "5CSEBA6U23I7";
 
   for(const Model *m = models; m->name; m++)
     if(model_name == m->name)
-      return new CycloneV(m);
+      return new CycloneV(m, mistral_root);
   return nullptr;
 }
 
@@ -115,9 +115,9 @@ const mistral::CycloneV::block_type_t mistral::CycloneV::hps_index_to_type[I_HPS
   HPS_TPIU_TRACE,
 };
 
-mistral::CycloneV::CycloneV(const Model *m) : model(m), di(m->variant.die)
+mistral::CycloneV::CycloneV(const Model *m, const std::string &mistral_root) : model(m), di(m->variant.die)
 {
-  rmux_load();
+  rmux_load(mistral_root);
 
   any_type_hash_init(rnode_type_hash, rnode_type_names);
   any_type_hash_init(block_type_hash, block_type_names);

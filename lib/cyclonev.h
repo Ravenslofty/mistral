@@ -207,7 +207,7 @@ namespace mistral {
 
     struct Model;
 
-    CycloneV(const Model *m);
+    CycloneV(const Model *m, const std::string &mistral_root = "..");
     ~CycloneV() = default;
 
     // Chosen model
@@ -412,7 +412,17 @@ namespace mistral {
     static const variant_info v_se120b, v_se120bs, v_se120m, v_se90b, v_se90bs, v_se90m, v_st120f, v_st90f, v_sx120f, v_sx90f;
     
     static const Model models[];
-    static CycloneV *get_model(std::string model_name);
+    static CycloneV *get_model(std::string model_name, std::string mistral_root = "..");
+
+    struct rmux {
+      rnode_t destination;
+      uint32_t pattern;
+      uint32_t fw_pos;
+      rnode_t sources[44];
+    };
+
+    std::unique_ptr<rmux []> rmux_info;
+    std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
     
   private:
     enum bmux_ram_t { BM_CRAM, BM_PRAM, BM_ORAM, BM_DCRAM };
@@ -427,13 +437,6 @@ namespace mistral {
       uint16_t o_xy;
       uint16_t o_vals;
       uint16_t o_vhash;
-    };
-
-    struct rmux {
-      rnode_t destination;
-      uint32_t pattern;
-      uint32_t fw_pos;
-      rnode_t sources[44];
     };
 
     struct bmux_sel_entry {
@@ -684,16 +687,13 @@ namespace mistral {
     std::vector<pos_t> term_pos;
     std::vector<pos_t> hip_pos;
     std::vector<pos_t> hmc_pos;
-    
-    std::unique_ptr<rmux []> rmux_info;
-    std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
 
     std::unordered_map<pnode_t, rnode_t> p2r_map;
     std::unordered_map<rnode_t, pnode_t> r2p_map;
 
     void rbf_load_oram(const void *data, uint32_t size);
 
-    void rmux_load();
+    void rmux_load(const std::string &mistral_root);
     void add_cram_blocks();
     void add_pram_blocks();
     void add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count);
