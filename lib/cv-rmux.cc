@@ -501,3 +501,91 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
     
   return 0;
 }
+
+std::vector<mistral::CycloneV::pnode_t> mistral::CycloneV::p2p_from(pnode_t pn) const
+{
+  std::vector<pnode_t> res;
+  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
+    if(p2p->s == pn)
+      res.push_back(p2p->d);
+  return res;
+}
+
+mistral::CycloneV::pnode_t mistral::CycloneV::p2p_to(pnode_t pn) const
+{
+  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
+    if(p2p->d == pn)
+      return p2p->s;
+  return 0;
+}
+
+mistral::CycloneV::pnode_t mistral::CycloneV::hmc_get_bypass(pnode_t pn) const
+{
+  if(pn2bt(pn) != HMC)
+    return 0;
+
+  port_type_t npt;
+
+  switch(pn2pt(pn)) {
+  case PHYDDIOADDRACLR: npt = IOINTADDRACLR; break;
+  case IOINTADDRACLR: npt = PHYDDIOADDRACLR; break;
+  case PHYDDIOADDRDOUT: npt = IOINTADDRDOUT; break;
+  case IOINTADDRDOUT: npt = PHYDDIOADDRDOUT; break;
+  case PHYDDIOBAACLR: npt = IOINTBAACLR; break;
+  case IOINTBAACLR: npt = PHYDDIOBAACLR; break;
+  case PHYDDIOBADOUT: npt = IOINTBADOUT; break;
+  case IOINTBADOUT: npt = PHYDDIOBADOUT; break;
+  case PHYDDIOCASNACLR: npt = IOINTCASNACLR; break;
+  case IOINTCASNACLR: npt = PHYDDIOCASNACLR; break;
+  case PHYDDIOCASNDOUT: npt = IOINTCASNDOUT; break;
+  case IOINTCASNDOUT: npt = PHYDDIOCASNDOUT; break;
+  case PHYDDIOCKDOUT: npt = IOINTCKDOUT; break;
+  case IOINTCKDOUT: npt = PHYDDIOCKDOUT; break;
+  case PHYDDIOCKEACLR: npt = IOINTCKEACLR; break;
+  case IOINTCKEACLR: npt = PHYDDIOCKEACLR; break;
+  case PHYDDIOCKEDOUT: npt = IOINTCKEDOUT; break;
+  case IOINTCKEDOUT: npt = PHYDDIOCKEDOUT; break;
+  case PHYDDIOCKNDOUT: npt = IOINTCKNDOUT; break;
+  case IOINTCKNDOUT: npt = PHYDDIOCKNDOUT; break;
+  case PHYDDIOCSNACLR: npt = IOINTCSNACLR; break;
+  case IOINTCSNACLR: npt = PHYDDIOCSNACLR; break;
+  case PHYDDIOCSNDOUT: npt = IOINTCSNDOUT; break;
+  case IOINTCSNDOUT: npt = PHYDDIOCSNDOUT; break;
+  case PHYDDIODMDOUT: npt = IOINTDMDOUT; break;
+  case IOINTDMDOUT: npt = PHYDDIODMDOUT; break;
+  case PHYDDIODQDOUT: npt = IOINTDQDOUT; break;
+  case IOINTDQDOUT: npt = PHYDDIODQDOUT; break;
+  case PHYDDIODQOE: npt = IOINTDQOE; break;
+  case IOINTDQOE: npt = PHYDDIODQOE; break;
+  case PHYDDIODQSBDOUT: npt = IOINTDQSBDOUT; break;
+  case IOINTDQSBDOUT: npt = PHYDDIODQSBDOUT; break;
+  case PHYDDIODQSBOE: npt = IOINTDQSBOE; break;
+  case IOINTDQSBOE: npt = PHYDDIODQSBOE; break;
+  case PHYDDIODQSDOUT: npt = IOINTDQSDOUT; break;
+  case IOINTDQSDOUT: npt = PHYDDIODQSDOUT; break;
+  case PHYDDIODQSOE: npt = IOINTDQSOE; break;
+  case IOINTDQSOE: npt = PHYDDIODQSOE; break;
+  case PHYDDIOODTACLR: npt = IOINTODTACLR; break;
+  case IOINTODTACLR: npt = PHYDDIOODTACLR; break;
+  case PHYDDIOODTDOUT: npt = IOINTODTDOUT; break;
+  case IOINTODTDOUT: npt = PHYDDIOODTDOUT; break;
+  case PHYDDIORASNACLR: npt = IOINTRASNACLR; break;
+  case IOINTRASNACLR: npt = PHYDDIORASNACLR; break;
+  case PHYDDIORASNDOUT: npt = IOINTRASNDOUT; break;
+  case IOINTRASNDOUT: npt = PHYDDIORASNDOUT; break;
+  case PHYDDIORESETNACLR: npt = IOINTRESETNACLR; break;
+  case IOINTRESETNACLR: npt = PHYDDIORESETNACLR; break;
+  case PHYDDIORESETNDOUT: npt = IOINTRESETNDOUT; break;
+  case IOINTRESETNDOUT: npt = PHYDDIORESETNDOUT; break;
+  case PHYDDIOWENACLR: npt = IOINTWENACLR; break;
+  case IOINTWENACLR: npt = PHYDDIOWENACLR; break;
+  case PHYDDIOWENDOUT: npt = IOINTWENDOUT; break;
+  case IOINTWENDOUT: npt = PHYDDIOWENDOUT; break;
+  case DDIOPHYDQDIN: npt = IOINTDQDIN; break;
+  case IOINTDQDIN: npt = DDIOPHYDQDIN; break;
+  default: return 0;
+  }
+
+  return pnode(HMC, pn2p(pn), npt, pn2bi(pn), pn2pi(pn));
+}
+

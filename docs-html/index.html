@@ -164,6 +164,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#pin-package-management">Pin/package management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#options">Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-management">Bitstream management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hmc-bypass">HMC bypass</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_driver">The mistral-cv command-line program</a><ul>
@@ -13469,8 +13470,13 @@ serializing/deserializing capabilities of the FPGA.</p>
 modern SDR and DDR memory interfaces.  In the sx dies one of them is
 taken over by the HPS.  They can be bypassed in favor of direct access
 to the GPIOs.</p>
-<p>TODO: everything, and in particular the hmc-input -&gt; GPIO input
-mapping when bypassed.</p>
+<p>What triggers the bypass is unclear, but the default configuration is
+in bypass mode.  When bypassed a direct connection is extablished
+between two pnodes with the same coordinates and only a different port
+type.  The source ports DDIOPHYDQDIN are connected to IOINTDQDIN,
+routing the inputs to the chip, while the source ports IOINT* are
+connected to the corresponding PHYDDIO* ports.</p>
+<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
@@ -19453,6 +19459,14 @@ and pnode_t 0 is guaranteed invalid.</p>
 <p>These two methods allow to find the connections between the logic
 block ports and the routing nodes.  It is always 1:1 when there is
 one.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pnode_t</span><span class="o">&gt;</span> <span class="n">p2p_from</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="n">pnode_t</span> <span class="nf">p2p_to</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>These two methods allow to find the direct connections between logic
+port nodes of different logic blocks.  The connections being 1:N the
+p2p_from method can give multiple results while p2p_to only answers
+one node or the value 0.</p>
 </div>
 <div class="section" id="routing-network-management">
 <h3>Routing network management<a class="headerlink" href="#routing-network-management" title="Permalink to this headline">¶</a></h3>
@@ -19600,6 +19614,7 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <span class="p">};</span>
 
 <span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="n">pin_find_pos</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="n">pin_find_pnode</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The pin_info_t structure describes a pin with:</p>
@@ -19615,7 +19630,7 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <li><p>delay_ps - usual signal transmission delay is ps</p></li>
 <li><p>index - pin sub-index for hssi_input, hssi_output, dedicated programming pins and jtag</p></li>
 </ul>
-<p>The pin_find_pos method looks up a pin from a gpio tile/index combination.</p>
+<p>The pin_find_pos method looks up a pin from a gpio tile/index combination.  The pin_find_pos method looks up a pin from a gpio or hmc pnode.</p>
 </div>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
@@ -19652,6 +19667,20 @@ instance number.  They’re otherwise the same.</p>
 <p>The clear method returns the FPGA state to all defaults.  rbf_load
 parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.</p>
+</div>
+<div class="section" id="hmc-bypass">
+<h3>HMC bypass<a class="headerlink" href="#hmc-bypass" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">pnode_t</span> <span class="nf">hmc_get_bypass</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The hmc_get_bypass method gives the associated HMC port to a given one
+when in bypass mode.  Specifically, to find the rnode corresponding to
+a given GPIO port connected to the HMC in bypass mode do:</p>
+<ul class="simple">
+<li><p>Get the port(s) connected to the GPIO with p2p_to (when look for a GOUT) or p2p_from (when looking for a GIN).  There should be only one even in the p2p_from case.</p></li>
+<li><p>Get the associated node when in bypass mode with hmc_get_bypass (the method is direction-independant)</p></li>
+<li><p>Get the associated routing node with pnode_to_rnode.</p></li>
+</ul>
 </div>
 </div>
 <span id="document-cyclonev_driver"></span><div class="section" id="the-mistral-cv-command-line-program">

@@ -324,23 +324,20 @@ static void decompile(char **args)
 	    s ? mistral::CycloneV::pn2s(s).c_str() : mistral::CycloneV::rn2s(l.first).c_str(),
 	    d ? mistral::CycloneV::pn2s(d).c_str() : mistral::CycloneV::rn2s(l.second).c_str());
     bool has_comment = false;
-    if(s && mistral::CycloneV::pn2bt(s) == mistral::CycloneV::GPIO && mistral::CycloneV::pn2bi(s) != -1) {
-      auto pin = model->pin_find_pos(mistral::CycloneV::pn2p(s), mistral::CycloneV::pn2bi(s));
-      if(pin) {
-	fprintf(fd, " ; %s", pin->name);
+    const mistral::CycloneV::pin_info_t *pin;
+    pin = model->pin_find_pnode(s);
+    if(pin) {
+      fprintf(fd, " ; %s", pin->name);
+      has_comment = true;
+    }      
+    pin = model->pin_find_pnode(d);
+    if(pin) {
+      if(!has_comment) {
+	fprintf(fd, " ;");
 	has_comment = true;
-      }      
-    }
-    if(d && mistral::CycloneV::pn2bt(d) == mistral::CycloneV::GPIO && mistral::CycloneV::pn2bi(d) != -1) {
-      auto pin = model->pin_find_pos(mistral::CycloneV::pn2p(d), mistral::CycloneV::pn2bi(d));
-      if(pin) {
-	if(!has_comment) {
-	  fprintf(fd, " ;");
-	  has_comment = true;
-	}
-	fprintf(fd, " %s", pin->name);
-      }      
-    }
+      }
+      fprintf(fd, " %s", pin->name);
+    }      
     fprintf(fd, "\n");
   }
   
@@ -381,11 +378,9 @@ static void decompile(char **args)
       auto p = model->rnode_to_pnode(s.node);
       fprintf(fd, "i %s %d",
 	      p ? mistral::CycloneV::pn2s(p).c_str() : mistral::CycloneV::rn2s(s.node).c_str(), s.value);
-      if(p && mistral::CycloneV::pn2bt(p) == mistral::CycloneV::GPIO && mistral::CycloneV::pn2bi(p) != -1) {
-	auto pin = model->pin_find_pos(mistral::CycloneV::pn2p(p), mistral::CycloneV::pn2bi(p));
-	if(pin)
-	  fprintf(fd, " ; %s", pin->name);
-      }
+      auto pin = model->pin_find_pnode(p);
+      if(pin)
+	fprintf(fd, " ; %s", pin->name);
       fprintf(fd, "\n");
     }
   

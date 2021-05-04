@@ -233,6 +233,15 @@ These two methods allow to find the connections between the logic
 block ports and the routing nodes.  It is always 1:1 when there is
 one.
 
+.. code-block:: C++
+
+    std::vector<pnode_t> p2p_from(pnode_t pn) const;
+    pnode_t p2p_to(pnode_t pn) const;
+
+These two methods allow to find the direct connections between logic
+port nodes of different logic blocks.  The connections being 1:N the
+p2p_from method can give multiple results while p2p_to only answers
+one node or the value 0.
 
 
 Routing network management
@@ -404,6 +413,7 @@ Pin/package management
     };
 
     const pin_info_t *pin_find_pos(pos_t pos, int index) const;
+    const pin_info_t *pin_find_pnode(pnode_t pn) const;
 
 The pin_info_t structure describes a pin with:
 
@@ -418,7 +428,7 @@ The pin_info_t structure describes a pin with:
 * delay_ps - usual signal transmission delay is ps
 * index - pin sub-index for hssi_input, hssi_output, dedicated programming pins and jtag
 
-The pin_find_pos method looks up a pin from a gpio tile/index combination.
+The pin_find_pos method looks up a pin from a gpio tile/index combination.  The pin_find_pos method looks up a pin from a gpio or hmc pnode.
 
 
 Options
@@ -461,3 +471,19 @@ Bitstream management
 The clear method returns the FPGA state to all defaults.  rbf_load
 parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.
+
+
+HMC bypass
+----------
+
+.. code-block:: C++
+
+    pnode_t hmc_get_bypass(pnode_t pn) const;
+
+The hmc_get_bypass method gives the associated HMC port to a given one
+when in bypass mode.  Specifically, to find the rnode corresponding to
+a given GPIO port connected to the HMC in bypass mode do:
+
+* Get the port(s) connected to the GPIO with p2p_to (when look for a GOUT) or p2p_from (when looking for a GIN).  There should be only one even in the p2p_from case.
+* Get the associated node when in bypass mode with hmc_get_bypass (the method is direction-independant)
+* Get the associated routing node with pnode_to_rnode.

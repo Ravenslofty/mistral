@@ -225,6 +225,9 @@ namespace mistral {
     // Routing
     rnode_t pnode_to_rnode(pnode_t pn) const;
     pnode_t rnode_to_pnode(rnode_t rn) const;
+    std::vector<pnode_t> p2p_from(pnode_t pn) const;
+    pnode_t p2p_to(pnode_t pn) const;
+    pnode_t hmc_get_bypass(pnode_t pn) const;
 
     std::vector<std::pair<pnode_t, rnode_t>> get_all_p2r() const;
     std::vector<std::pair<pnode_t, pnode_t>> get_all_p2p() const;
@@ -326,7 +329,8 @@ namespace mistral {
 
     // Package/pins/pads related functions
     const pin_info_t *pin_find_pos(pos_t pos, int index) const;
-
+    const pin_info_t *pin_find_pnode(pnode_t pn) const;
+      
     // Debug stuff
     void diff(const CycloneV *m) const;
 

@@ -363,8 +363,14 @@ modern SDR and DDR memory interfaces.  In the sx dies one of them is
 taken over by the HPS.  They can be bypassed in favor of direct access
 to the GPIOs.
 
-TODO: everything, and in particular the hmc-input -> GPIO input
-mapping when bypassed.
+What triggers the bypass is unclear, but the default configuration is
+in bypass mode.  When bypassed a direct connection is extablished
+between two pnodes with the same coordinates and only a different port
+type.  The source ports DDIOPHYDQDIN are connected to IOINTDQDIN,
+routing the inputs to the chip, while the source ports IOINT* are
+connected to the corresponding PHYDDIO* ports.
+
+TODO: everything
 
 .. include:: gendoc/hmc-dmux.rst
 
