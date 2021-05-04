@@ -5543,7 +5543,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td></td>
-<td><p>5-8</p></td>
+<td><p>0-3, 5-8</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHG:PLLIN</p></td>
 <td><p>TODO</p></td>
@@ -6360,14 +6360,14 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <tbody>
 <tr class="row-even"><td><p>CLKPIN</p></td>
 <td></td>
-<td><p>7</p></td>
+<td><p>0-3, 5, 7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NCLKPIN</p></td>
 <td></td>
-<td><p>7</p></td>
+<td><p>0-3, 5, 7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>TODO</p></td>
@@ -6947,9 +6947,9 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <colgroup>
 <col style="width: 15%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
+<col style="width: 17%" />
 <col style="width: 7%" />
-<col style="width: 27%" />
+<col style="width: 26%" />
 <col style="width: 21%" />
 </colgroup>
 <thead>
@@ -6964,14 +6964,14 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <tbody>
 <tr class="row-even"><td><p>CLKPIN</p></td>
 <td></td>
-<td><p>7</p></td>
+<td><p>0-3, 5, 7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NCLKPIN</p></td>
 <td></td>
-<td><p>7</p></td>
+<td><p>0-3, 5, 7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>TODO</p></td>
@@ -6985,7 +6985,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 <tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>20-21</p></td>
+<td><p>0-6, 20-21</p></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_CLOCKS:CLKOUT</p></td>
 <td><p>TODO</p></td>
@@ -7099,9 +7099,9 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <colgroup>
 <col style="width: 15%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
+<col style="width: 17%" />
 <col style="width: 7%" />
-<col style="width: 27%" />
+<col style="width: 26%" />
 <col style="width: 21%" />
 </colgroup>
 <thead>
@@ -7130,7 +7130,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 <tr class="row-even"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>18-24</p></td>
+<td><p>0-8, 18-24</p></td>
 <td><p>&lt;</p></td>
 <td><p>FPLL:CLKOUT</p></td>
 <td><p>TODO</p></td>
@@ -14723,11 +14723,11 @@ connected to the corresponding PHYDDIO* ports.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 13%" />
+<col style="width: 25%" />
+<col style="width: 9%" />
+<col style="width: 36%" />
+<col style="width: 16%" />
 <col style="width: 14%" />
-<col style="width: 21%" />
-<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -14980,19 +14980,19 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 <tr class="row-even"><td><p>IOINTDQDIN</p></td>
 <td></td>
-<td><p>144-175</p></td>
+<td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>GIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQDOUT</p></td>
 <td></td>
-<td><p>144-175</p></td>
+<td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>GOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQOE</p></td>
 <td></td>
-<td><p>72-87</p></td>
+<td><p>0-15, 18-33, 36-51, 54-69, 72-87</p></td>
 <td><p>GOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
@@ -15396,12 +15396,12 @@ connected to the corresponding PHYDDIO* ports.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
+<col style="width: 19%" />
+<col style="width: 10%" />
+<col style="width: 38%" />
+<col style="width: 5%" />
 <col style="width: 14%" />
 <col style="width: 15%" />
-<col style="width: 7%" />
-<col style="width: 19%" />
-<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -15429,7 +15429,7 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 <tr class="row-even"><td><p>DDIOPHYDQDIN</p></td>
 <td></td>
-<td><p>144-175</p></td>
+<td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
@@ -15527,14 +15527,14 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 <tr class="row-even"><td><p>PHYDDIODQDOUT</p></td>
 <td></td>
-<td><p>144-175</p></td>
+<td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:DATAIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHYDDIODQOE</p></td>
 <td></td>
-<td><p>72-87</p></td>
+<td><p>0-15, 18-33, 36-51, 54-69, 72-87</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:OEIN</p></td>
 <td><p>TODO</p></td>

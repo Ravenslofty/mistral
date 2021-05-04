@@ -3,7 +3,7 @@
 import sys
 
 if len(sys.argv) != 4:
-    print("Usage\n%s block sx120f-p2r.txt p2r-doc.txt" % sys.argv[0])
+    print("Usage\n%s block sx120f-p2p.txt p2p-doc.txt" % sys.argv[0])
     sys.exit(0)
 
 def pnodes(n):
@@ -64,10 +64,10 @@ def mkinst(gl):
                 if s != None:
                     if vals != '':
                         vals += ', '
-                        if s != e:
-                            vals += "%d-%d" % (s, e)
-                        else:
-                            vals += "%d" % s
+                    if s != e:
+                        vals += "%d-%d" % (s, e)
+                    else:
+                        vals += "%d" % s
                 s = vv
                 e = vv
             else:

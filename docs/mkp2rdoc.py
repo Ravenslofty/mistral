@@ -58,10 +58,10 @@ def mkinst(gl):
                 if s != None:
                     if vals != '':
                         vals += ', '
-                        if s != e:
-                            vals += "%d-%d" % (s, e)
-                        else:
-                            vals += "%d" % s
+                    if s != e:
+                        vals += "%d-%d" % (s, e)
+                    else:
+                        vals += "%d" % s
                 s = vv
                 e = vv
             else:
