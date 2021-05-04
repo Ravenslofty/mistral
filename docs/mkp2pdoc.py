@@ -89,7 +89,7 @@ for p,g in port.items():
         binst = mkinst(gl[0])
         pinst = mkinst(gl[1])
         dd = '>' if gl[2] else '<'
-        key = block + '.' + p
+        key = block + ':' + p + '_' + gg if gl[2] else gg + '_' + block + ':' + p
         doc = 'TODO' if key not in docs else docs[key]
         entries.append(["" if p == 'PNONE' else p, binst, pinst, dd, gg, doc])
 

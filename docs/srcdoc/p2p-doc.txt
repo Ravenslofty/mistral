@@ -1,0 +1,23 @@
+gpio:combout_cmuxhg:clkpin      Raising-edge clock pin to clock mux
+gpio:combout_cmuxhg:nclkpin     Falling-edge clock pin to clock mux
+gpio:combout_cmuxvg:clkpin      Raising-edge clock pin to clock mux
+gpio:combout_cmuxvg:nclkpin     Falling-edge clock pin to clock mux
+gpio:combout_cmuxhr:clkpin      Raising-edge clock pin to clock mux
+gpio:combout_cmuxhr:nclkpin     Falling-edge clock pin to clock mux
+gpio:combout_cmuxvr:clkpin      Raising-edge clock pin to clock mux
+gpio:combout_cmuxvr:nclkpin     Falling-edge clock pin to clock mux
+gpio:combout_cmuxcr:clkpin      Raising-edge clock pin to clock mux
+gpio:combout_cmuxcr:nclkpin     Falling-edge clock pin to clock mux
+gpio:combout_fpll:clkin         Raising-edge or differential clock pin to pll
+gpio:combout_fpll:zdb_in        Zero-delay buffer pin to pll
+fpll:clkout_cmuxhg:pllin        PLL counter output to clock mux
+fpll:clkout_cmuxvg:pllin        PLL counter output to clock mux
+fpll:clkout_cmuxhr:pllin        PLL counter output to clock mux
+fpll:clkout_cmuxvr:pllin        PLL counter output to clock mux
+fpll:clkout_cmuxcr:pllin        PLL counter output to clock mux
+fpll:clkdout_dll:clkin          Dedicated differential I/O PLL counter to DLL
+hps_clocks:clkout_cmuxhg:pllin  HPS clock output to clock mux
+hps_clocks:clkout_cmuxvg:pllin  HPS clock output to clock mux
+hps_clocks:clkout_cmuxhr:pllin  HPS clock output to clock mux
+hps_clocks:clkout_cmuxvr:pllin  HPS clock output to clock mux
+hps_clocks:clkout_cmuxcr:pllin  HPS clock output to clock mux

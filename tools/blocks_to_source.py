@@ -718,7 +718,7 @@ def load_cmux(p2r, p2p, pram):
                 for i in range(max(1, k[2])):
                     if ls[idx] != '-':
                         if k[1] == 'G':
-                            p2r.append([pnode(tt, cmuxx, cmuxy, i % 2, k[4], i // 2), rnodes(ls[idx])])
+                            p2r.append([pnode(tt, cmuxx, cmuxy, i % 4, k[4], i // 4), rnodes(ls[idx])])
                         else:
                             p2r.append([pnode(tt, cmuxx, cmuxy, -1 if not k[0] else i, k[4], -1 if k[0] else i), rnodes(ls[idx])])
                     idx += 1

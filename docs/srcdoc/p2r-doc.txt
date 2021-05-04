@@ -15,3 +15,22 @@ lab.ffb1l Output from either the bottom FF of the bottom hslf of the lab cell or
 lab.aclr Common clock inputs for asynchronous clear of the FFs
 lab.clkin Common clock inputs for clocking of the FFs
 lab.datain Common data inputs for enables, sync clear and load
+cmuxhg.clkout Clock mux clock grid driver
+cmuxvg.clkout Clock mux clock grid driver
+cmuxhr.clkout Clock mux clock grid driver
+cmuxvr.clkout Clock mux clock grid driver
+cmuxcr.clkout Clock mux clock grid driver
+cmuxp.clkout  Clock mux clock grid driver
+cmuxhg.clkin  Routing grid clock inputs
+cmuxvg.clkin  Routing grid clock inputs
+cmuxhr.clkin  Routing grid clock inputs
+cmuxvr.clkin  Routing grid clock inputs
+cmuxcr.clkin  Routing grid clock inputs
+cmuxp.clkin   Routing grid clock input
+cmuxhg.enable Clock enable
+cmuxvg.enable Clock enable
+cmuxhr.enable Clock enable
+cmuxvr.enable Clock enable
+cmuxcr.enable Clock enable
+cmuxhg.switchin Dynamic clock selection input
+cmuxvg.switchin Dynamic clock selection input

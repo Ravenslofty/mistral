@@ -10,21 +10,21 @@ clk_select_b
 clk_select_c
 clk_select_d
 clkpin_input_select
-clkpin_input_select_0
-clkpin_input_select_1
-clkpin_input_select_2
-clkpin_input_select_3
+clkpin_input_select_0               Raising-edge clock input selector for mux input 0
+clkpin_input_select_1               Raising-edge clock input selector for mux input 1
+clkpin_input_select_2               Raising-edge clock input selector for mux input 2
+clkpin_input_select_3               Raising-edge clock input selector for mux input 3
 dynamic_clk_select
 enable_register_mode
 enable_register_power_up
 feedback_driver_select_0
 feedback_driver_select_1
-input_select
+input_select                        Clock mux main input selector
 nclkpin_input_select
-nclkpin_input_select_0
-nclkpin_input_select_1
-nclkpin_input_select_2
-nclkpin_input_select_3
+nclkpin_input_select_0              Falling-edge clock input selector for mux input 4
+nclkpin_input_select_1              Falling-edge clock input selector for mux input 5
+nclkpin_input_select_2              Falling-edge clock input selector for mux input 6
+nclkpin_input_select_3              Falling-edge clock input selector for mux input 7
 orphan_pll_feedback_out_select_0
 orphan_pll_feedback_out_select_1
 orphan_pll_input_select_0

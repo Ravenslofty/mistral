@@ -12,7 +12,7 @@
    viewBox="0 0 125.62272 48.162631"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07, custom)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"
    sodipodi:docname="lab-modes.svg">
   <defs
      id="defs2">
@@ -67,15 +67,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.0084823"
-     inkscape:cx="237.39727"
-     inkscape:cy="91.016003"
+     inkscape:cx="181.83935"
+     inkscape:cy="133.25209"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="true"
      units="px"
      inkscape:window-width="2533"
-     inkscape:window-height="1385"
+     inkscape:window-height="751"
      inkscape:window-x="0"
      inkscape:window-y="-1"
      inkscape:window-maximized="0"
@@ -99,7 +99,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -114,24 +114,29 @@
        id="path9518" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 152.13542,140.22911 7.9375,-2.64583"
-       id="path9520" />
+       d="m 152.13542,140.22911 7.9375,0"
+       id="path9520"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 152.13542,137.58328 7.9375,5.29167"
-       id="path9516" />
+       d="m 152.13542,145.52078 7.9375,0"
+       id="path9516"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 160.07292,145.52078 -7.9375,-10.58333 7.9375,0"
-       id="path9514" />
+       d="m 160.07292,142.87495 -7.9375,-5.29167 h 7.9375"
+       id="path9514"
+       sodipodi:nodetypes="ccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 104.51042,116.41664 7.93751,2.64583"
-       id="path9502" />
+       d="m 104.51042,116.41664 7.93751,0"
+       id="path9502"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,116.41664 7.937499,2.64583"
-       id="path9500" />
+       d="m 88.63542,116.41664 7.937499,0"
+       id="path9500"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000"
        d="m 162.71876,113.77082 h -2.64584"
@@ -158,8 +163,9 @@
        id="path6671" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 160.07292,108.47914 h -7.9375 l 7.9375,10.58333"
-       id="path8991" />
+       d="m 152.13542,119.06247 7.9375,0"
+       id="path8991"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 160.07292,111.12497 h -7.9375 l 7.9375,5.29167"
@@ -175,8 +181,9 @@
        id="path8979" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 183.88544,113.7708 h 7.9375"
-       id="path8981" />
+       d="m 183.88544,113.7708 7.9375,-5.29167"
+       id="path8981"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 183.88542,121.7083 h 7.93752"
@@ -184,7 +191,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 199.76042,119.06247 7.93753,-5.29167"
+       d="m 199.76042,108.47913 7.93753,0"
        id="path8985"
        sodipodi:nodetypes="cc" />
     <path
@@ -194,51 +201,60 @@
        sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.635419,113.7708 7.937494,-2.64583"
-       id="path8975" />
+       d="m 88.635419,113.7708 7.937494,0"
+       id="path8975"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 104.51042,108.47914 h 7.93751"
+       d="m 104.51042,119.06248 h 7.93751"
        id="path8973" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 136.26044,111.12497 7.9375,5.29167"
-       id="path8971" />
+       d="m 136.26044,121.7083 7.9375,-5.29166"
+       id="path8971"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 152.13542,113.7708 h 7.9375"
-       id="path8923" />
+       d="m 152.13542,119.06247 7.9375,-5.29167"
+       id="path8923"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 104.51042,111.12497 7.9375,5.29167"
-       id="path8919" />
+       d="m 104.51042,111.12497 7.9375,0"
+       id="path8919"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 120.38542,121.7083 7.9375,-2.64583"
-       id="path8915" />
+       d="m 120.38542,119.06247 7.9375,0"
+       id="path8915"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 120.38543,113.7708 7.9375,-2.64583"
-       id="path8913" />
+       d="m 120.38543,113.7708 7.9375,0"
+       id="path8913"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,108.47914 h 7.937499"
+       d="m 88.63542,111.12499 h 7.937499"
        id="path8909" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,111.12497 7.937499,5.29167"
-       id="path8911" />
+       d="m 88.63542,119.06247 7.937499,0"
+       id="path8911"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 136.26042,121.7083 7.9375,-2.64583"
-       id="path8907" />
+       d="m 136.26042,119.06247 7.9375,0"
+       id="path8907"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 136.26042,119.06247 7.9375,-7.9375"
-       id="path8905" />
+       d="m 136.26042,108.47915 7.9375,5.29167"
+       id="path8905"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 136.26042,108.47914 h 7.9375"
+       d="m 136.26042,111.12499 h 7.9375"
        id="path8903" />
     <path
        style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000"
@@ -261,7 +277,7 @@
          id="tspan3687"
          x="97.103432"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -272,7 +288,7 @@
          id="tspan3691"
          x="97.103432"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -283,7 +299,7 @@
          id="tspan3695"
          x="97.119164"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -294,7 +310,7 @@
          id="tspan3699"
          x="97.119164"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -305,7 +321,7 @@
          id="tspan3724"
          x="87.843025"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -316,7 +332,7 @@
          id="tspan3728"
          x="87.811562"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -349,7 +365,7 @@
          id="tspan3744"
          x="87.843025"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -523,7 +539,7 @@
          id="tspan6417"
          x="112.97843"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -534,7 +550,7 @@
          id="tspan6421"
          x="112.97843"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -545,7 +561,7 @@
          id="tspan6425"
          x="112.99416"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -556,7 +572,7 @@
          id="tspan6429"
          x="112.99416"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -567,7 +583,7 @@
          id="tspan6433"
          x="103.71803"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -578,7 +594,7 @@
          id="tspan6437"
          x="103.68656"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -611,7 +627,7 @@
          id="tspan6449"
          x="103.71803"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -691,7 +707,7 @@
          id="tspan6485"
          x="128.85344"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -702,7 +718,7 @@
          id="tspan6489"
          x="128.85344"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -713,7 +729,7 @@
          id="tspan6493"
          x="128.86917"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -724,7 +740,7 @@
          id="tspan6497"
          x="128.86917"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -735,7 +751,7 @@
          id="tspan6501"
          x="119.59303"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -746,7 +762,7 @@
          id="tspan6505"
          x="119.56156"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -779,7 +795,7 @@
          id="tspan6517"
          x="119.59303"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -852,7 +868,7 @@
          id="tspan6621"
          x="160.60344"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -863,7 +879,7 @@
          id="tspan6625"
          x="160.60344"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -874,7 +890,7 @@
          id="tspan6629"
          x="160.61917"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -885,7 +901,7 @@
          id="tspan6633"
          x="160.61917"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -896,7 +912,7 @@
          id="tspan6637"
          x="151.34303"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -907,7 +923,7 @@
          id="tspan6641"
          x="151.31157"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -940,7 +956,7 @@
          id="tspan6653"
          x="151.34303"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -997,7 +1013,7 @@
          id="tspan6689"
          x="176.47844"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1008,7 +1024,7 @@
          id="tspan6693"
          x="176.47844"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1019,7 +1035,7 @@
          id="tspan6697"
          x="176.49417"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1030,7 +1046,7 @@
          id="tspan6701"
          x="176.49417"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1041,7 +1057,7 @@
          id="tspan6705"
          x="167.21803"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1052,7 +1068,7 @@
          id="tspan6709"
          x="167.18657"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1085,7 +1101,7 @@
          id="tspan6721"
          x="167.21803"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1158,7 +1174,7 @@
          id="tspan6757"
          x="192.35344"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1169,7 +1185,7 @@
          id="tspan6761"
          x="192.35344"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1180,7 +1196,7 @@
          id="tspan6765"
          x="192.36917"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1191,7 +1207,7 @@
          id="tspan6769"
          x="192.36917"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1202,7 +1218,7 @@
          id="tspan6773"
          x="183.09303"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1213,7 +1229,7 @@
          id="tspan6777"
          x="183.06157"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1246,7 +1262,7 @@
          id="tspan6789"
          x="183.09303"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1319,7 +1335,7 @@
          id="tspan6825"
          x="208.22844"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1330,7 +1346,7 @@
          id="tspan6829"
          x="208.22844"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1341,7 +1357,7 @@
          id="tspan6833"
          x="208.24417"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1352,7 +1368,7 @@
          id="tspan6837"
          x="208.24417"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1363,7 +1379,7 @@
          id="tspan6841"
          x="198.96803"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1374,7 +1390,7 @@
          id="tspan6845"
          x="198.93657"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1407,7 +1423,7 @@
          id="tspan6857"
          x="198.96803"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1480,7 +1496,7 @@
          id="tspan6893"
          x="97.103432"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1491,7 +1507,7 @@
          id="tspan6897"
          x="97.103432"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1502,7 +1518,7 @@
          id="tspan6901"
          x="97.119164"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1513,7 +1529,7 @@
          id="tspan6905"
          x="97.119164"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1524,7 +1540,7 @@
          id="tspan6909"
          x="87.843025"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1535,7 +1551,7 @@
          id="tspan6913"
          x="87.811562"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1568,7 +1584,7 @@
          id="tspan6925"
          x="87.843025"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1641,7 +1657,7 @@
          id="tspan6961"
          x="112.97843"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1652,7 +1668,7 @@
          id="tspan6965"
          x="112.97843"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1663,7 +1679,7 @@
          id="tspan6969"
          x="112.99416"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1674,7 +1690,7 @@
          id="tspan6973"
          x="112.99416"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1685,7 +1701,7 @@
          id="tspan6977"
          x="103.71803"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1696,7 +1712,7 @@
          id="tspan6981"
          x="103.68656"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1729,7 +1745,7 @@
          id="tspan6993"
          x="103.71803"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1802,7 +1818,7 @@
          id="tspan7029"
          x="128.85344"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1813,7 +1829,7 @@
          id="tspan7033"
          x="128.85344"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1824,7 +1840,7 @@
          id="tspan7037"
          x="128.86917"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1835,7 +1851,7 @@
          id="tspan7041"
          x="128.86917"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1846,7 +1862,7 @@
          id="tspan7045"
          x="119.59303"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1857,7 +1873,7 @@
          id="tspan7049"
          x="119.56156"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1890,7 +1906,7 @@
          id="tspan7061"
          x="119.59303"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1963,7 +1979,7 @@
          id="tspan7097"
          x="144.72844"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1974,7 +1990,7 @@
          id="tspan7101"
          x="144.72844"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1985,7 +2001,7 @@
          id="tspan7105"
          x="144.74417"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -1996,7 +2012,7 @@
          id="tspan7109"
          x="144.74417"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2007,7 +2023,7 @@
          id="tspan7113"
          x="135.46803"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2018,7 +2034,7 @@
          id="tspan7117"
          x="135.43657"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2051,7 +2067,7 @@
          id="tspan7129"
          x="135.46803"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2124,7 +2140,7 @@
          id="tspan7165"
          x="160.60344"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2135,7 +2151,7 @@
          id="tspan7169"
          x="160.60344"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2146,7 +2162,7 @@
          id="tspan7173"
          x="160.61917"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2157,7 +2173,7 @@
          id="tspan7177"
          x="160.61917"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2168,7 +2184,7 @@
          id="tspan7181"
          x="151.34303"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2179,7 +2195,7 @@
          id="tspan7185"
          x="151.31157"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2212,7 +2228,7 @@
          id="tspan7197"
          x="151.34303"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2285,7 +2301,7 @@
          id="tspan7233"
          x="176.47844"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2296,7 +2312,7 @@
          id="tspan7237"
          x="176.47844"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2307,7 +2323,7 @@
          id="tspan7241"
          x="176.49417"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2318,7 +2334,7 @@
          id="tspan7245"
          x="176.49417"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2329,7 +2345,7 @@
          id="tspan7249"
          x="167.21803"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2340,7 +2356,7 @@
          id="tspan7253"
          x="167.18657"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2373,7 +2389,7 @@
          id="tspan7265"
          x="167.21803"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2446,7 +2462,7 @@
          id="tspan7301"
          x="192.35344"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2457,7 +2473,7 @@
          id="tspan7305"
          x="192.35344"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2468,7 +2484,7 @@
          id="tspan7309"
          x="192.36917"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2479,7 +2495,7 @@
          id="tspan7313"
          x="192.36917"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2490,7 +2506,7 @@
          id="tspan7317"
          x="183.09303"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2501,7 +2517,7 @@
          id="tspan7321"
          x="183.06157"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2534,7 +2550,7 @@
          id="tspan7333"
          x="183.09303"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2607,7 +2623,7 @@
          id="tspan7369"
          x="208.22844"
          y="134.32625"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2618,7 +2634,7 @@
          id="tspan7373"
          x="208.22844"
          y="137.05237"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2629,7 +2645,7 @@
          id="tspan7377"
          x="208.24417"
          y="139.74495"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2640,7 +2656,7 @@
          id="tspan7381"
          x="208.24417"
          y="142.29214"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2651,7 +2667,7 @@
          id="tspan7385"
          x="198.96803"
          y="134.06166"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2662,7 +2678,7 @@
          id="tspan7389"
          x="198.93657"
          y="136.87244"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2695,7 +2711,7 @@
          id="tspan7401"
          x="198.96803"
          y="144.8477"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2764,7 +2780,7 @@
          id="tspan8687"
          x="97.103432"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2794,7 +2810,7 @@
          id="tspan8699"
          x="97.103432"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2824,7 +2840,7 @@
          id="tspan8711"
          x="112.97843"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2854,7 +2870,7 @@
          id="tspan8723"
          x="112.97843"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2884,7 +2900,7 @@
          id="tspan8735"
          x="128.85344"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2914,7 +2930,7 @@
          id="tspan8747"
          x="128.85344"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2944,7 +2960,7 @@
          id="tspan8759"
          x="144.72845"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -2974,7 +2990,7 @@
          id="tspan8771"
          x="144.72845"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3004,7 +3020,7 @@
          id="tspan8783"
          x="160.60347"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3026,7 +3042,7 @@
          id="tspan8795"
          x="160.60347"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3056,7 +3072,7 @@
          id="tspan8807"
          x="176.47849"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3086,7 +3102,7 @@
          id="tspan8819"
          x="176.47849"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3116,7 +3132,7 @@
          id="tspan8831"
          x="192.3535"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3146,7 +3162,7 @@
          id="tspan8843"
          x="192.3535"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3176,7 +3192,7 @@
          id="tspan8855"
          x="208.22852"
          y="118.53153"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3206,7 +3222,7 @@
          id="tspan8867"
          x="208.22852"
          y="144.98988"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3228,12 +3244,14 @@
        id="path8877" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 104.51042,119.06247 7.9375,-7.9375"
-       id="path8917" />
+       d="m 104.51042,108.47914 7.9375,5.29166"
+       id="path8917"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 120.38541,108.47914 h 7.9375"
-       id="path8921" />
+       d="m 120.38541,121.70832 7.9375,-5.29166"
+       id="path8921"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 152.13542,116.41664 7.9375,5.29166"
@@ -3242,12 +3260,12 @@
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
        x="95.779175"
-       y="114.14149"
+       y="109.00546"
        id="text8939"><tspan
          sodipodi:role="line"
          id="tspan8937"
          x="95.779175"
-         y="114.14149"
+         y="109.00546"
          style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">0</tspan></text>
     <text
        xml:space="preserve"
@@ -3264,12 +3282,12 @@
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
        x="111.65417"
-       y="114.14149"
+       y="109.00546"
        id="text8947"><tspan
          sodipodi:role="line"
          id="tspan8945"
          x="111.65417"
-         y="114.14149"
+         y="109.00546"
          style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">0</tspan></text>
     <text
        xml:space="preserve"
@@ -3286,12 +3304,12 @@
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
        x="127.52917"
-       y="114.14149"
+       y="109.00546"
        id="text8955"><tspan
          sodipodi:role="line"
          id="tspan8953"
          x="127.52917"
-         y="114.14149"
+         y="109.00546"
          style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">0</tspan></text>
     <text
        xml:space="preserve"
@@ -3308,12 +3326,12 @@
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
        x="143.40417"
-       y="114.14149"
+       y="109.00546"
        id="text8963"><tspan
          sodipodi:role="line"
          id="tspan8961"
          x="143.40417"
-         y="114.14149"
+         y="109.00546"
          style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">0</tspan></text>
     <text
        xml:space="preserve"
@@ -3328,28 +3346,32 @@
          style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">1</tspan></text>
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 120.38543,111.12497 7.9375,5.29167"
-       id="path8969" />
+       d="m 120.38543,111.12497 7.9375,0"
+       id="path8969"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 175.94793,108.47914 h -7.9375 l 7.9375,10.58333"
-       id="path8993" />
+       d="m 168.01043,119.06247 7.9375,0"
+       id="path8993"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 175.94793,111.12497 h -7.9375 l 7.9375,5.29167"
        id="path8995" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 191.82294,108.47914 h -7.9375 l 7.9375,10.58333"
-       id="path8997" />
+       d="m 191.82294,113.77081 -7.9375,5.29166 h 7.9375"
+       id="path8997"
+       sodipodi:nodetypes="ccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 191.82294,111.12497 h -7.9375 l 7.9375,5.29167"
        id="path8999" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 207.69795,108.47914 h -7.9375 l 7.9375,10.58333"
-       id="path9001" />
+       d="m 207.69795,113.77081 -7.9375,5.29167 7.9375,-10e-6"
+       id="path9001"
+       sodipodi:nodetypes="ccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
        d="m 207.69795,111.12497 h -7.9375 l 7.9375,5.29167"
@@ -3368,7 +3390,7 @@
          id="tspan6553"
          x="144.72844"
          y="107.86791"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3379,7 +3401,7 @@
          id="tspan6557"
          x="144.72844"
          y="110.59403"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3390,7 +3412,7 @@
          id="tspan6561"
          x="144.74417"
          y="113.28661"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TS</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">TA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3401,7 +3423,7 @@
          id="tspan6565"
          x="144.74417"
          y="115.83382"
-         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA2</tspan></text>
+         style="fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px">BA3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3412,7 +3434,7 @@
          id="tspan6569"
          x="135.46803"
          y="107.60333"
-         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3423,7 +3445,7 @@
          id="tspan6573"
          x="135.43657"
          y="110.4141"
-         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">C</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3456,7 +3478,7 @@
          id="tspan6585"
          x="135.46803"
          y="118.38937"
-         style="stroke:none;stroke-width:0.264583px">TFB</tspan></text>
+         style="stroke:none;stroke-width:0.264583px">D</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:0.75;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
@@ -3552,7 +3574,7 @@
        y="107.07415" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,134.93747 h 7.937499"
+       d="m 88.63542,142.87499 h 7.937499"
        id="path9504" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
@@ -3560,16 +3582,19 @@
        id="path9506" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,137.5833 7.937499,5.29167"
-       id="path9508" />
+       d="m 88.63542,140.22913 7.937499,-5.29166"
+       id="path9508"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,142.87497 7.937499,2.64583"
-       id="path9510" />
+       d="m 88.63542,145.5208 7.937499,0"
+       id="path9510"
+       sodipodi:nodetypes="cc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
-       d="m 88.63542,140.22913 h 7.937499"
-       id="path9512" />
+       d="m 88.63542,145.52081 7.937499,-5.29166"
+       id="path9512"
+       sodipodi:nodetypes="cc" />
     <rect
        style="font-variation-settings:normal;vector-effect:none;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.264999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
        id="rect6891"
@@ -3626,5 +3651,37 @@
        height="21.166666"
        x="199.76178"
        y="133.53249" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
+       d="m 152.13542,113.77081 7.9375,-5.29168"
+       id="path1428"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:0.27451;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;stop-color:#000000;stop-opacity:1"
+       d="m 168.01043,108.47912 7.9375,-10e-6"
+       id="path1430"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
+       x="95.779175"
+       y="148.53734"
+       id="text1434"><tspan
+         sodipodi:role="line"
+         id="tspan1432"
+         x="95.779175"
+         y="148.53734"
+         style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.41111px;line-height:2.5ex;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000"
+       x="159.27919"
+       y="135.46381"
+       id="text1438"><tspan
+         sodipodi:role="line"
+         id="tspan1436"
+         x="159.27919"
+         y="135.46381"
+         style="font-size:1.41111px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px">0</tspan></text>
   </g>
 </svg>
