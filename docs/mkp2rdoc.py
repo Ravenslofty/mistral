@@ -20,25 +20,26 @@ def rnodes(n):
 block = sys.argv[1].upper()
 
 port = {}
-for l in open(sys.argv[2]):
-    ls = l.rstrip('\n\r').split()
-    p = pnodes(ls[0])
-    if p['b'] != block:
-        continue
-    r = rnodes(ls[1])
-    a = None
-    if p['p'] not in port:
-        a = {}
-        port[p['p']] = a
-    else:
-        a = port[p['p']]
-    if r['t'] not in a:
-        a[r['t']] = [[p['i']], [p['ip']]]
-    else:
-        if p['i'] not in a[r['t']][0]:
-            a[r['t']][0].append(p['i'])
-        if p['ip'] not in a[r['t']][1]:
-            a[r['t']][1].append(p['ip'])
+for die in ['e50f', 'gx25f', 'gt75f', 'gt150f', 'gt300f', 'sx50f', 'sx120f']:
+    for l in open(sys.argv[2] % die):
+        ls = l.rstrip('\n\r').split()
+        p = pnodes(ls[0])
+        if p['b'] != block:
+            continue
+        r = rnodes(ls[1])
+        a = None
+        if p['p'] not in port:
+            a = {}
+            port[p['p']] = a
+        else:
+            a = port[p['p']]
+        if r['t'] not in a:
+            a[r['t']] = [[p['i']], [p['ip']]]
+        else:
+            if p['i'] not in a[r['t']][0]:
+                a[r['t']][0].append(p['i'])
+            if p['ip'] not in a[r['t']][1]:
+                a[r['t']][1].append(p['ip'])
 
 docs = {}
 for l in open(sys.argv[3]):
