@@ -7,12 +7,12 @@
 |    CLKPIN_INPUT_SELECT_1 |      0-5 |  Mux | - pin1       |    pin1 | Raising-edge clock input selector for mux input 1 |
 |                          |          |      | - pin3       |         |                                                   |
 +--------------------------+----------+------+--------------+---------+---------------------------------------------------+
-|     ENABLE_REGISTER_MODE |      0-5 |  Mux | - enout      |     vcc |                                              TODO |
+|     ENABLE_REGISTER_MODE |      0-5 |  Mux | - enout      |     vcc |                        Enable line buffering mode |
 |                          |          |      | - reg1_enout |         |                                                   |
 |                          |          |      | - reg2_enout |         |                                                   |
 |                          |          |      | - vcc        |         |                                                   |
 +--------------------------+----------+------+--------------+---------+---------------------------------------------------+
-| ENABLE_REGISTER_POWER_UP |      0-5 |  Num | - 0-1        |       1 |                                              TODO |
+| ENABLE_REGISTER_POWER_UP |      0-5 |  Num | - 0-1        |       1 |      Value of the enable ff outputs at reset time |
 +--------------------------+----------+------+--------------+---------+---------------------------------------------------+
 |             INPUT_SELECT |      0-5 |  Ram |          0-f |       f |                     Clock mux main input selector |
 +--------------------------+----------+------+--------------+---------+---------------------------------------------------+

@@ -215,7 +215,39 @@ The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each
 CMUXHG
 ^^^^^^
 
-The two Global Horizontal CMUX drive four GCLK grids each.
+The two Global Horizontal CMUX drive four GCLK grids each.  The mux
+provides selection between positive and negative clock pins, pll
+counter outputs, HPS clocks and HSSI clocks (TODO).  There's also four
+DCMUX inputs bringing clocks from the clock or the data network.  The
+enable management circuit allows to sync on the inverted output clock
+through one or two FFs.  The burst block is undocumented, but probably
+keeps enable up for a specific number of clocks upon recieving an
+input enable edge.  There's a system to switch dynamically between 4
+clock sources (TODO).  There's also a possible selection between
+feedback signals to send to PLLs.
+
+The circuit is present in 4 instances, each driving a different GCLK
+betwork.  The connections between the CLKIN (DCMUX) inputs and the
+selection mux depends on the instance:
+
+
++---------------+----+----+----+----+
+| Inst. - CLKIN | 0  | 1  | 2  | 3  |
++===============+====+====+====+====+
+|  0            | 27 | 33 |    |    |
++---------------+----+----+----+----+
+|  1            | 27 | 33 |    |    |
++---------------+----+----+----+----+
+|  2            |    |    | 27 | 33 |
++---------------+----+----+----+----+
+|  3            |    |    | 27 | 33 |
++---------------+----+----+----+----+
+
+
+.. figure:: cmuxhg.*
+   :width: 100%
+
+   Global horizontal cmux..
 
 .. include:: gendoc/cmuxhg-dmux.rst
 

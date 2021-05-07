@@ -5543,7 +5543,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td></td>
-<td><p>0-3, 5-8</p></td>
+<td><p>0-8</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHG:PLLIN</p></td>
 <td><p>PLL counter output to clock mux</p></td>
@@ -5763,7 +5763,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>vcc</p></td>
-<td><p>TODO</p></td>
+<td><p>Enable line buffering mode</p></td>
 </tr>
 <tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
 <td><p>0-5</p></td>
@@ -5773,7 +5773,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>1</p></td>
-<td><p>TODO</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
 </tr>
 <tr class="row-even"><td><p>INPUT_SELECT</p></td>
 <td><p>0-5</p></td>
@@ -5944,15 +5944,74 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </div>
 <div class="section" id="cmuxhg">
 <h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline">¶</a></h4>
-<p>The two Global Horizontal CMUX drive four GCLK grids each.</p>
+<p>The two Global Horizontal CMUX drive four GCLK grids each.  The mux
+provides selection between positive and negative clock pins, pll
+counter outputs, HPS clocks and HSSI clocks (TODO).  There’s also four
+DCMUX inputs bringing clocks from the clock or the data network.  The
+enable management circuit allows to sync on the inverted output clock
+through one or two FFs.  The burst block is undocumented, but probably
+keeps enable up for a specific number of clocks upon recieving an
+input enable edge.  There’s a system to switch dynamically between 4
+clock sources (TODO).  There’s also a possible selection between
+feedback signals to send to PLLs.</p>
+<p>The circuit is present in 4 instances, each driving a different GCLK
+betwork.  The connections between the CLKIN (DCMUX) inputs and the
+selection mux depends on the instance:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 8%" />
+<col style="width: 48%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Inst. - CLKIN</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>27</p></td>
+<td><p>33</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>27</p></td>
+<td><p>33</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td></td>
+<td></td>
+<td><p>27</p></td>
+<td><p>33</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td></td>
+<td></td>
+<td><p>27</p></td>
+<td><p>33</p></td>
+</tr>
+</tbody>
+</table>
+<div class="figure align-default" id="id4">
+<a class="reference internal image-reference" href="_images/cmuxhg.svg"><img alt="_images/cmuxhg.svg" src="_images/cmuxhg.svg" width="100%" /></a>
+<p class="caption"><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
 <col style="width: 5%" />
-<col style="width: 12%" />
-<col style="width: 10%" />
-<col style="width: 40%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 57%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -5969,7 +6028,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>Ram</p></td>
 <td><p>0-7</p></td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional fixed burst count</p></td>
 </tr>
 <tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
 <td><p>0-3</p></td>
@@ -5980,14 +6039,14 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>static</p></td>
-<td><p>TODO</p></td>
+<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
 </tr>
 <tr class="row-even"><td><p>BURST_EN</p></td>
 <td><p>0-3</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Whether to use the burst system</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKPIN_INPUT_SELECT_0</p></td>
 <td><p>0-3</p></td>
@@ -6072,7 +6131,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>vcc</p></td>
-<td><p>TODO</p></td>
+<td><p>Enable line buffering mode</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
 <td><p>0-3</p></td>
@@ -6082,7 +6141,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>1</p></td>
-<td><p>TODO</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
 </tr>
 <tr class="row-odd"><td><p>INPUT_SELECT</p></td>
 <td><p>0-3</p></td>
@@ -6144,7 +6203,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>orphan_pll0</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between two pll outputs before the main mux input 24</p></td>
 </tr>
 <tr class="row-odd"><td><p>ORPHAN_PLL_INPUT_SELECT_1</p></td>
 <td><p>0-3</p></td>
@@ -6155,7 +6214,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>orphan_pll1</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between two pll outputs before the main mux input 25</p></td>
 </tr>
 <tr class="row-even"><td><p>ORPHAN_PLL_INPUT_SELECT_2</p></td>
 <td><p>0-3</p></td>
@@ -6166,7 +6225,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>orphan_pll2</p></td>
-<td><p>TODO</p></td>
+<td><p>Select between two pll outputs before the main mux input 26 (unused in practice, inputs not connected)</p></td>
 </tr>
 <tr class="row-odd"><td><p>TESTSYN_ENOUT_SELECT</p></td>
 <td><p>0-3</p></td>
@@ -6274,11 +6333,11 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 21%" />
-<col style="width: 39%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 42%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -6293,7 +6352,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Burst block counter value</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKFBOUT</p></td>
 <td></td>
@@ -6323,7 +6382,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Dynamically selected clock output</p></td>
 </tr>
 <tr class="row-even"><td><p>SWITCHIN</p></td>
 <td><p>0-3</p></td>
@@ -6374,7 +6433,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 <tr class="row-even"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>0-7</p></td>
+<td><p>0-17, 19</p></td>
 <td><p>&lt;</p></td>
 <td><p>FPLL:CLKOUT</p></td>
 <td><p>PLL counter output to clock mux</p></td>
@@ -6394,12 +6453,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <p>The two Global Vertical CMUX drive four GCLK grids each.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 10%" />
-<col style="width: 6%" />
-<col style="width: 14%" />
-<col style="width: 12%" />
-<col style="width: 31%" />
+<col style="width: 18%" />
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 54%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -6416,7 +6475,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>Ram</p></td>
 <td><p>0-7</p></td>
 <td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Optional fixed burst count</p></td>
 </tr>
 <tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
 <td><p>0-3</p></td>
@@ -6427,14 +6486,14 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>static</p></td>
-<td><p>TODO</p></td>
+<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
 </tr>
 <tr class="row-even"><td><p>BURST_EN</p></td>
 <td><p>0-3</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Whether to use the burst system</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_SELECT_A</p></td>
 <td><p>0-3</p></td>
@@ -6475,7 +6534,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>vcc</p></td>
-<td><p>TODO</p></td>
+<td><p>Enable line buffering mode</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
 <td><p>0-3</p></td>
@@ -6485,7 +6544,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>1</p></td>
-<td><p>TODO</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
 </tr>
 <tr class="row-odd"><td><p>INPUT_SELECT</p></td>
 <td><p>0-3</p></td>
@@ -6691,12 +6750,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 6%" />
-<col style="width: 20%" />
-<col style="width: 9%" />
-<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 18%" />
+<col style="width: 8%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -6730,7 +6789,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>vcc</p></td>
-<td><p>TODO</p></td>
+<td><p>Enable line buffering mode</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
 <td><p>0-11</p></td>
@@ -6740,7 +6799,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>1</p></td>
-<td><p>TODO</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
 </tr>
 <tr class="row-odd"><td><p>INPUT_SELECT</p></td>
 <td><p>0-11</p></td>
@@ -6998,12 +7057,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 10%" />
-<col style="width: 6%" />
-<col style="width: 15%" />
+<col style="width: 23%" />
 <col style="width: 9%" />
-<col style="width: 32%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 41%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -7026,7 +7085,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>vcc</p></td>
-<td><p>TODO</p></td>
+<td><p>Enable line buffering mode</p></td>
 </tr>
 <tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
 <td><p>0-19</p></td>
@@ -7036,7 +7095,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </ul>
 </td>
 <td><p>1</p></td>
-<td><p>TODO</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
 </tr>
 <tr class="row-even"><td><p>INPUT_SELECT</p></td>
 <td><p>0-19</p></td>
@@ -19388,9 +19447,9 @@ used in the de10-nano, a.k.a MiSTer.</p>
 <h3>pos, rnode and pnode<a class="headerlink" href="#pos-rnode-and-pnode" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">pos_t</span> <span class="o">=</span> <span class="kt">uint16_t</span><span class="p">;</span>          <span class="c1">// Tile position</span>
 
-<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="n">pos2x</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
-<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="n">pos2y</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
-<span class="k">static</span> <span class="k">constexpr</span> <span class="n">pos_t</span> <span class="n">xy2pos</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">pos2x</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">pos2y</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">pos_t</span> <span class="nf">xy2pos</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The type pos_t represents a position in the grid.  xy2pos allows to create one, pos2x and pos2y extracts the coordinates.</p>
@@ -19400,15 +19459,15 @@ used in the de10-nano, a.k.a MiSTer.</p>
 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">rnode_type_names</span><span class="p">[];</span>
 <span class="n">rnode_type_t</span> <span class="nf">rnode_type_lookup</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="n">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="n">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">rnode_type_t</span> <span class="n">rn2t</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pos_t</span> <span class="n">rn2p</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="n">rn2x</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="n">rn2y</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="n">rn2z</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">rnode_type_t</span> <span class="nf">rn2t</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">pos_t</span> <span class="nf">rn2p</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2x</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2y</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2z</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">rn2s</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">rn2s</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>A rnode_t represents a note in the routing network.  It is
@@ -19431,17 +19490,17 @@ invalid.</p>
 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">port_type_names</span><span class="p">[];</span>
 <span class="n">port_type_t</span>  <span class="nf">port_type_lookup</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="n">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="n">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">block_type_t</span> <span class="n">pn2bt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">port_type_t</span>  <span class="n">pn2pt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pos_t</span>        <span class="n">pn2p</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="n">pn2x</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="n">pn2y</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">int8_t</span>       <span class="n">pn2bi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">int16_t</span>      <span class="n">pn2pi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">block_type_t</span> <span class="nf">pn2bt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">port_type_t</span>  <span class="nf">pn2pt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">pos_t</span>        <span class="nf">pn2p</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="nf">pn2x</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="nf">pn2y</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">int8_t</span>       <span class="nf">pn2bi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="kt">int16_t</span>      <span class="nf">pn2pi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pn2s</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">pn2s</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>A pnode_t represents a port of a logical block.  It is characterized
@@ -19613,8 +19672,8 @@ sets the state of one.  The field def is currently very incorrect.</p>
   <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="n">pin_find_pos</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="n">pin_find_pnode</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="nf">pin_find_pos</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="nf">pin_find_pnode</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The pin_info_t structure describes a pin with:</p>
@@ -19768,7 +19827,7 @@ tools directory.</p>
 <p>The routing data is stored in bzip2-compressed text files named
 &lt;die&gt;-r.txt.bz2.  Each line describes a routing mux.</p>
 <p>A mux description looks like that:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">H14</span><span class="o">.</span><span class="mf">000.032</span><span class="o">.</span><span class="mi">0003</span> <span class="mi">4</span><span class="p">:</span><span class="mi">0024_2832</span> <span class="mi">0</span><span class="p">:</span><span class="n">GIN</span><span class="o">.</span><span class="mf">000.032</span><span class="o">.</span><span class="mi">0005</span> <span class="mi">1</span><span class="p">:</span><span class="n">GIN</span><span class="o">.</span><span class="mf">000.032</span><span class="o">.</span><span class="mi">0004</span> <span class="mi">2</span><span class="p">:</span><span class="n">GIN</span><span class="o">.</span><span class="mf">000.032</span><span class="o">.</span><span class="mi">0001</span> <span class="mi">3</span><span class="p">:</span><span class="n">GIN</span><span class="o">.</span><span class="mf">000.032</span><span class="o">.</span><span class="mi">0000</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">H14</span><span class="mf">.000.032.0003</span> <span class="mi">4</span><span class="p">:</span><span class="mi">0024_2832</span> <span class="mi">0</span><span class="p">:</span><span class="n">GIN</span><span class="mf">.000.032.0005</span> <span class="mi">1</span><span class="p">:</span><span class="n">GIN</span><span class="mf">.000.032.0004</span> <span class="mi">2</span><span class="p">:</span><span class="n">GIN</span><span class="mf">.000.032.0001</span> <span class="mi">3</span><span class="p">:</span><span class="n">GIN</span><span class="mf">.000.032.0000</span>
 </pre></div>
 </div>
 <p>That line describes the mux for the rnode H14.000.032.0003.  It uses
@@ -19781,7 +19840,7 @@ patterns, currently only described as C++ code in cv-rpats.cc.  An
 additional 4 are added to store the variations of pattern 6 where the
 default is different.</p>
 <p>The special case of pattern 6 looks like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SCLK</span><span class="o">.</span><span class="mf">014.000</span><span class="o">.</span><span class="mi">0025</span> <span class="mf">6.3</span><span class="p">:</span><span class="mi">1413_0638</span> <span class="mi">0</span><span class="p">:</span><span class="n">GCLK</span><span class="o">.</span><span class="mf">000.008</span><span class="o">.</span><span class="mi">0009</span> <span class="mi">1</span><span class="p">:</span><span class="n">RCLK</span><span class="o">.</span><span class="mf">000.004</span><span class="o">.</span><span class="mi">0011</span> <span class="mi">4</span><span class="p">:</span><span class="n">RCLK</span><span class="o">.</span><span class="mf">000.004</span><span class="o">.</span><span class="mi">0003</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SCLK</span><span class="mf">.014.000.0025</span> <span class="mf">6.3</span><span class="p">:</span><span class="mi">1413_0638</span> <span class="mi">0</span><span class="p">:</span><span class="n">GCLK</span><span class="mf">.000.008.0009</span> <span class="mi">1</span><span class="p">:</span><span class="n">RCLK</span><span class="mf">.000.004.0011</span> <span class="mi">4</span><span class="p">:</span><span class="n">RCLK</span><span class="mf">.000.004.0003</span>
 </pre></div>
 </div>
 <p>The “.3” indicates that the default is on slot 3, e.g. value 0x08 or pattern 70+3.</p>

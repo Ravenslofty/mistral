@@ -2,9 +2,9 @@ bot_pre_input_select_0
 bot_pre_input_select_1
 bot_pre_input_select_2
 bot_pre_input_select_3
-burst_count
-burst_count_ctrl
-burst_en
+burst_count                         Optional fixed burst count
+burst_count_ctrl                    Selection of the burst count between fixed and coming from the routing network
+burst_en                            Whether to use the burst system
 clk_select_a
 clk_select_b
 clk_select_c
@@ -15,8 +15,8 @@ clkpin_input_select_1               Raising-edge clock input selector for mux in
 clkpin_input_select_2               Raising-edge clock input selector for mux input 2
 clkpin_input_select_3               Raising-edge clock input selector for mux input 3
 dynamic_clk_select
-enable_register_mode
-enable_register_power_up
+enable_register_mode                Enable line buffering mode
+enable_register_power_up            Value of the enable ff outputs at reset time
 feedback_driver_select_0
 feedback_driver_select_1
 input_select                        Clock mux main input selector
@@ -27,9 +27,9 @@ nclkpin_input_select_2              Falling-edge clock input selector for mux in
 nclkpin_input_select_3              Falling-edge clock input selector for mux input 7
 orphan_pll_feedback_out_select_0
 orphan_pll_feedback_out_select_1
-orphan_pll_input_select_0
-orphan_pll_input_select_1
-orphan_pll_input_select_2
+orphan_pll_input_select_0           Select between two pll outputs before the main mux input 24
+orphan_pll_input_select_1           Select between two pll outputs before the main mux input 25
+orphan_pll_input_select_2           Select between two pll outputs before the main mux input 26 (unused in practice, inputs not connected)
 pll_feedback_enable_0
 pll_feedback_enable_1
 pll_feedback_enable_2

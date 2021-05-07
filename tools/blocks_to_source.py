@@ -227,7 +227,7 @@ cmux_map = {
 
     'clkpin': [False, 'x', 8, False, 'CLKPIN'],
     'nclkpin': [False, 'x', 8, False, 'NCLKPIN'],
-    'pllg': [False, 'g', 16, False, 'PLLIN'],
+    'pllg': [False, 'g', 20, False, 'PLLIN'],
     'pllr': [False, 'r', 32, False, 'PLLIN'],
 }
 
