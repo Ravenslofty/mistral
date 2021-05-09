@@ -330,7 +330,8 @@ namespace mistral {
     // Package/pins/pads related functions
     const pin_info_t *pin_find_pos(pos_t pos, int index) const;
     const pin_info_t *pin_find_pnode(pnode_t pn) const;
-      
+    const pin_info_t *pin_find_name(const std::string &name) const;
+
     // Debug stuff
     void diff(const CycloneV *m) const;
 
