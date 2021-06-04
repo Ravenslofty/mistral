@@ -58,8 +58,6 @@ endforeach()
 
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" "-dumpmachine" OUTPUT_VARIABLE machine ERROR_VARIABLE machine)
 
-set(GDATA ${CMAKE_CURRENT_SOURCE_DIR}/../gdata)
-
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
