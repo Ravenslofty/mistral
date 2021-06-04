@@ -19,6 +19,9 @@ const uint8_t mistral::CycloneV::gt150f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_gt150f_r_bin_start[];
+extern const uint8_t _binary_gt150f_r_bin_end[];
+
 const mistral::CycloneV::die_info mistral::CycloneV::gt150f = {
   "gt150f", GT150F,
 
@@ -79,6 +82,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt150f = {
       nullptr, nullptr, gt150f_package_m15,
   },
 
+  _binary_gt150f_r_bin_start, _binary_gt150f_r_bin_end,
   gt150f_bel_spans_info,
   gt150f_ioblocks_info,
   gt150f_dqs16_info,

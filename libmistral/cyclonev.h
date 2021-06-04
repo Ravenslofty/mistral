@@ -207,7 +207,7 @@ namespace mistral {
 
     struct Model;
 
-    CycloneV(const Model *m, const std::string &mistral_root = "..");
+    CycloneV(const Model *m);
     ~CycloneV() = default;
 
     // Chosen model
@@ -371,6 +371,8 @@ namespace mistral {
 
       const pin_info_t *const packages[5+3+3];
 
+      const uint8_t *const routing_data_start;
+      const uint8_t *const routing_data_end;
       const uint8_t *const bel_spans;
       const ioblock_info *const ioblocks;
       const dqs16_info *const dqs16s;
@@ -417,7 +419,7 @@ namespace mistral {
     static const variant_info v_se120b, v_se120bs, v_se120m, v_se90b, v_se90bs, v_se90m, v_st120f, v_st90f, v_sx120f, v_sx90f;
     
     static const Model models[];
-    static CycloneV *get_model(std::string model_name, std::string mistral_root = "..");
+    static CycloneV *get_model(std::string model_name);
 
     struct rmux {
       rnode_t destination;
@@ -698,7 +700,7 @@ namespace mistral {
 
     void rbf_load_oram(const void *data, uint32_t size);
 
-    void rmux_load(const std::string &mistral_root);
+    void rmux_load();
     void add_cram_blocks();
     void add_pram_blocks();
     void add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count);

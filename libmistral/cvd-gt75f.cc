@@ -12,6 +12,9 @@ const uint8_t mistral::CycloneV::gt75f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_gt75f_r_bin_start[];
+extern const uint8_t _binary_gt75f_r_bin_end[];
+
 const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
   "gt75f", GT75F,
 
@@ -69,6 +72,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
       gt75f_package_m11, gt75f_package_m13, nullptr,
   },
 
+  _binary_gt75f_r_bin_start, _binary_gt75f_r_bin_end,
   gt75f_bel_spans_info,
   gt75f_ioblocks_info,
   gt75f_dqs16_info,

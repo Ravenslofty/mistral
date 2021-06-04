@@ -27,6 +27,9 @@ const uint8_t mistral::CycloneV::sx120f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_sx120f_r_bin_start[];
+extern const uint8_t _binary_sx120f_r_bin_end[];
+
 
 const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
   "sx120f", SX120F,
@@ -88,6 +91,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
       nullptr, nullptr, nullptr,
   },
 
+  _binary_sx120f_r_bin_start, _binary_sx120f_r_bin_end,
   sx120f_bel_spans_info,
   sx120f_ioblocks_info,
   sx120f_dqs16_info,

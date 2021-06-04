@@ -12,6 +12,9 @@ const uint8_t mistral::CycloneV::gx25f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_gx25f_r_bin_start[];
+extern const uint8_t _binary_gx25f_r_bin_end[];
+
 const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   "gx25f", GX25F,
 
@@ -64,6 +67,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
       nullptr, nullptr, nullptr,
   },
 
+  _binary_gx25f_r_bin_start, _binary_gx25f_r_bin_end,
   gx25f_bel_spans_info,
   gx25f_ioblocks_info,
   gx25f_dqs16_info,

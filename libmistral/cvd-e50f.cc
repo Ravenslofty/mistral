@@ -10,6 +10,9 @@ const uint8_t mistral::CycloneV::e50f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_e50f_r_bin_start[];
+extern const uint8_t _binary_e50f_r_bin_end[];
+
 const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   "e50f", E50F,
 
@@ -64,6 +67,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
       nullptr, e50f_package_m13, nullptr,
   },
 
+  _binary_e50f_r_bin_start, _binary_e50f_r_bin_end,
   e50f_bel_spans_info,
   e50f_ioblocks_info,
   e50f_dqs16_info,

@@ -12,6 +12,9 @@ const uint8_t mistral::CycloneV::gt300f_bel_spans_info[] = {
   0xff
 };
 
+extern const uint8_t _binary_gt300f_r_bin_start[];
+extern const uint8_t _binary_gt300f_r_bin_end[];
+
 const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   "gt300f", GT300F,
 
@@ -82,6 +85,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
       nullptr, nullptr, nullptr,
   },
 
+  _binary_gt300f_r_bin_start, _binary_gt300f_r_bin_end,
   gt300f_bel_spans_info,
   gt300f_ioblocks_info,
   gt300f_dqs16_info,

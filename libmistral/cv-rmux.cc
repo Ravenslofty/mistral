@@ -30,25 +30,8 @@ std::string mistral::CycloneV::pn2s(pnode_t pn)
 }
 
 
-void mistral::CycloneV::rmux_load(const std::string &mistral_root)
+void mistral::CycloneV::rmux_load()
 {
-  char path[2048];
-  char msg[4096];
-  sprintf(path, "%s/gdata/%s-r.bin", mistral_root.c_str(), di.name);
-  sprintf(msg, "Error opening %s for reading", path);
-  FILE *fd = fopen(path, "rb");
-  if(!fd) {
-    perror(msg);
-    exit(1);
-  }
-
-  fseek(fd, 0, SEEK_END);
-  int size = ftell(fd);
-  rewind(fd);
-  auto cdata = std::make_unique<uint8_t []>(size);
-  fread(cdata.get(), size, 1, fd);
-  fclose(fd);
-
   rmux_info = std::make_unique<rmux []>(di.rmux_count);
   lzma_stream strm = LZMA_STREAM_INIT;
   lzma_ret ret;
@@ -57,8 +40,8 @@ void mistral::CycloneV::rmux_load(const std::string &mistral_root)
     exit(1);
   }
 
-  strm.next_in = cdata.get();
-  strm.avail_in = size;
+  strm.next_in = di.routing_data_start;
+  strm.avail_in = di.routing_data_end - di.routing_data_start;
   strm.next_out = (uint8_t*)rmux_info.get();
   strm.avail_out = di.rmux_count*sizeof(rmux);
   

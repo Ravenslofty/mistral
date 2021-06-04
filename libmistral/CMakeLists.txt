@@ -54,6 +54,25 @@ foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
 endforeach()
 
 
+# Binary routing/timing information generation
+
+execute_process(COMMAND "${CMAKE_CXX_COMPILER}" "-dumpmachine" OUTPUT_VARIABLE machine ERROR_VARIABLE machine)
+
+set(GDATA ${PROJECT_SOURCE_DIR}/gdata)
+
+foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
+    add_custom_command(
+       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o
+       WORKING_DIRECTORY ${GDATA}
+       COMMAND objcopy ${die}-r.bin ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o --input-target binary --output-target ${machine}
+       DEPENDS ${GDATA}/${die}-r.bin
+    )
+
+    list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o)
+
+endforeach()
+
+
 add_library(mistral ${mistral_SOURCES})
 
 target_include_directories(mistral PUBLIC "${PROJECT_SOURCE_DIR}/libmistral")
