@@ -11,8 +11,8 @@ list(APPEND mistral_SOURCES
     cyclonev.cc
 )
 
-set(TOOLS ${PROJECT_SOURCE_DIR}/tools)
-set(DATA ${PROJECT_SOURCE_DIR}/data)
+set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
+set(DATA ${CMAKE_CURRENT_SOURCE_DIR}/../data)
 
 # C++ source generation/inclusion
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
@@ -58,12 +58,12 @@ endforeach()
 
 execute_process(COMMAND "${CMAKE_CXX_COMPILER}" "-dumpmachine" OUTPUT_VARIABLE machine ERROR_VARIABLE machine)
 
-set(GDATA ${PROJECT_SOURCE_DIR}/gdata)
+set(GDATA ${CMAKE_CURRENT_SOURCE_DIR}/../gdata)
 
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
-       COMMAND ${TOOLS}/routes-to-bin.py ${DATA} ${PROJECT_SOURCE_DIR}/libmistral/cv-rnodetypes.ipp ${die} ${CMAKE_CURRENT_BINARY_DIR}
+       COMMAND ${TOOLS}/routes-to-bin.py ${DATA} ${CMAKE_CURRENT_SOURCE_DIR}/cv-rnodetypes.ipp ${die} ${CMAKE_CURRENT_BINARY_DIR}
        DEPENDS ${TOOLS}/routes-to-bin.py ${DATA}/${die}-r.txt.xz
     )
 
@@ -81,7 +81,9 @@ endforeach()
 
 add_library(mistral ${mistral_SOURCES})
 
-target_include_directories(mistral PUBLIC "${PROJECT_SOURCE_DIR}/libmistral")
+target_include_directories(mistral PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
+if(NOT MISTRAL_DONT_INSTALL)
 
 install(TARGETS mistral DESTINATION lib)
 
@@ -91,3 +93,5 @@ install(FILES cv-bmuxtypes.ipp DESTINATION include)
 install(FILES cv-bmuxtypes.ipp DESTINATION include)
 install(FILES cv-porttypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
+
+endif()
