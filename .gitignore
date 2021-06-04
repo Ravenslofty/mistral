@@ -1,6 +1,5 @@
 *~
 *.o
-lib/mistral-cv
 .doctrees
 docs-html/.buildinfo
 docs-html/objects.inv
@@ -25,3 +24,4 @@ docs-pdf/floorplans.pdf
 docs-pdf/lab-common.pdf
 docs-pdf/lab-cell.pdf
 docs-pdf/lab-modes.pdf
+build
