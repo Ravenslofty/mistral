@@ -65,6 +65,6 @@ for i in range(0, len(muxes)):
 
 cbmux = lzma.compress(bmux)
 
-print(" %d muxes" % len(muxes))
+print("%s muxes %d" % (chip, len(muxes)))
 
 open(sys.argv[4] + '/' + chip + "-r.bin", "wb").write(cbmux)

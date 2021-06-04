@@ -62,10 +62,16 @@ set(GDATA ${PROJECT_SOURCE_DIR}/gdata)
 
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
+       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
+       COMMAND ${TOOLS}/routes-to-bin.py ${DATA} ${PROJECT_SOURCE_DIR}/libmistral/cv-rnodetypes.ipp ${die} ${CMAKE_CURRENT_BINARY_DIR}
+       DEPENDS ${TOOLS}/routes-to-bin.py ${DATA}/${die}-r.txt.xz
+    )
+
+    add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o
-       WORKING_DIRECTORY ${GDATA}
-       COMMAND objcopy ${die}-r.bin ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o --input-target binary --output-target ${machine}
-       DEPENDS ${GDATA}/${die}-r.bin
+       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+       COMMAND objcopy ${die}-r.bin cvd-${die}-r.o --input-target binary --output-target ${machine}
+       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
     )
 
     list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o)
