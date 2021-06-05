@@ -56,8 +56,6 @@ endforeach()
 
 # Binary routing/timing information generation
 
-execute_process(COMMAND "${CMAKE_CXX_COMPILER}" "-dumpmachine" OUTPUT_VARIABLE machine ERROR_VARIABLE machine)
-
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
@@ -68,7 +66,7 @@ foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-r.o
        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-       COMMAND objcopy ${die}-r.bin cvd-${die}-r.o --input-target binary --output-target ${machine}
+       COMMAND ld -r -b binary -o cvd-${die}-r.o ${die}-r.bin
        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
     )
 
