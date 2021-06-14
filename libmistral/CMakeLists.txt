@@ -3,7 +3,6 @@ list(APPEND mistral_SOURCES
     cv-bmux.cc
     cv-files.cc
     cv-inv.cc
-    cv-models.cc
     cv-opt.cc
     cv-pkg.cc
     cv-rmux.cc
@@ -15,6 +14,16 @@ set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
 set(DATA ${CMAKE_CURRENT_SOURCE_DIR}/../data)
 
 find_package(PythonInterp 3.5 REQUIRED)
+
+# Models generation
+
+add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cv-models.cc
+   COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/models_to_source.py ${DATA} > ${CMAKE_CURRENT_BINARY_DIR}/cv-models.cc
+   DEPENDS ${TOOLS}/models_to_source.py ${DATA}/models.txt
+)
+list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cv-models.cc)
+
 
 # C++ source generation/inclusion
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)

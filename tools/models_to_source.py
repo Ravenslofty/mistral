@@ -34,7 +34,7 @@ print("")
 print("const mistral::CycloneV::Model mistral::CycloneV::models[] = {")
 
 for m in models:
-    print('  { "%s", v_%s, PKG_%s, \'%s\', %s, %s, %s, %s, %s, %s },' % (m['n'], m['v'], m['pkg'].upper(), m['temp'], m['speed'], m['pcie'], m['gxb'], m['hmc'], m['io'], m['gpio']))
+    print('  { "%s", v_%s, PKG_%s, \'%s\', %s, SG_%s, %s, %s, %s, %s, %s },' % (m['n'], m['v'], m['pkg'].upper(), m['temp'], m['speed'], m['sg'].upper(), m['pcie'], m['gxb'], m['hmc'], m['io'], m['gpio']))
 print('  { nullptr, v_sx120f }')
 print('};')
 

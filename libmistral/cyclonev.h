@@ -83,6 +83,18 @@ namespace mistral {
       SX120F
     };
 
+    enum speed_grade_t {
+      SG_6,
+      SG_6_H6,
+      SG_7,
+      SG_7_H5,
+      SG_7_H5S,
+      SG_7_H6,
+      SG_8,
+      SG_8_H6,
+      SG_8_H7
+    };
+
     struct package_info_t {
       int pin_count;
       char type; // 'f', 'u' or 'm'
@@ -397,7 +409,7 @@ namespace mistral {
       const variant_info &variant;
       package_type_t package;
       char temperature; // (C)ommercial, (I)ndustrial or (A)utomotive
-      char speed;
+      char speed, speed_grade;
       char pcie, gxb, hmc;
       uint16_t io, gpio;
     };
