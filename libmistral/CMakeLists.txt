@@ -8,6 +8,8 @@ list(APPEND mistral_SOURCES
     cv-rmux.cc
     cv-rpats.cc
     cyclonev.cc
+
+    analogsim.cc
 )
 
 set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
