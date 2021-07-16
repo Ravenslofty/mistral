@@ -363,12 +363,44 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
 
   case M10K: {
     switch(pn2pt(pn)) {
-    case DATAIN:
+    case BYTEENABLEA:
       return rnode(GOUT, p, pi);
-    case DATAOUT:
+    case BYTEENABLEB:
+      return rnode(GOUT, p, pi+23);
+    case ENABLE:
+      return rnode(GOUT, p, pi < 2 ? pi + 18 : pi - 2 + 39);
+    case ACLR:
+      return rnode(GOUT, p, pi == 0 ? 6 : 29);
+    case RDEN:
+      return rnode(GOUT, p, pi == 0 ? 20 : 41);
+    case WREN:
+      return rnode(GOUT, p, pi == 0 ? 17 : 38);
+    case ADDRSTALLA:
+      return rnode(GOUT, p, 7);
+    case ADDRSTALLB:
+      return rnode(GOUT, p, 8);
+    case ADDRA: {
+      static const int z[12] = { 42,  2,  3,  4,  9, 10, 11, 12, 13, 14, 15, 16 };
+      return rnode(GOUT, p, z[pi]);
+    }
+    case ADDRB: {
+      static const int z[12] = { 64, 27, 26, 25, 37, 36, 35, 34, 33, 32, 31, 30 };
+      return rnode(GOUT, p, z[pi]);
+    }
+    case DATAAIN: {
+      static const int z[20] = { 43, 47, 51, 55, 59, 63, 80, 76, 72, 68, 45, 49, 53, 57, 61, 82, 78, 74, 70, 66 };
+      return rnode(GOUT, p, z[pi]);
+    }
+    case DATABIN: {
+      static const int z[20] = { 44, 48, 52, 56, 60, 83, 79, 75, 71, 67, 46, 50, 54, 58, 62, 81, 77, 73, 69, 65 };
+      return rnode(GOUT, p, z[pi]);
+    }
+    case DATAAOUT:
       return rnode(GIN, p, pi);
+    case DATABOUT:
+      return rnode(GIN, p, pi + 20);
     case CLKIN:
-      return rnode(TCLK, p, pi);
+      return pi < 6 ? rnode(TCLK, p, pi) : rnode(GOUT, p, pi == 6 ? 5 : 28);
     default:
       break;
     }
@@ -463,11 +495,92 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
   if(tt == T_M10K) {
     switch(rn2t(rn)) {
     case GOUT: {
-      return pnode(M10K, rn2p(rn), DATAIN, -1, rn2z(rn));
+      int z = rn2z(rn);
+      if(z < 2)
+	return pnode(M10K, rn2p(rn), BYTEENABLEA, -1, z);
+
+      else if(z < 5) {
+	static const int zt[3] = { 1, 2, 3 };
+	return pnode(M10K, rn2p(rn), ADDRA, -1, zt[z-2]);
+
+      } else if(z < 6)
+	return pnode(M10K, rn2p(rn), CLKIN, -1, 6);
+
+      else if(z < 7)
+	return pnode(M10K, rn2p(rn), ACLR, -1, 0);
+
+      else if(z < 8)
+	return pnode(M10K, rn2p(rn), ADDRSTALLA, -1, -1);
+
+      else if(z < 9)
+	return pnode(M10K, rn2p(rn), ADDRSTALLB, -1, -1);
+
+      else if(z < 17)
+	return pnode(M10K, rn2p(rn), ADDRA, -1, z-9+4);
+
+      else if(z < 18)
+	return pnode(M10K, rn2p(rn), WREN, -1, 0);
+
+      else if(z < 20)
+	return pnode(M10K, rn2p(rn), ENABLE, -1, z-18);
+
+      else if(z < 21)
+	return pnode(M10K, rn2p(rn), RDEN, -1, 0);
+
+      else if(z < 23)
+	return 0;
+
+      else if(z < 25)
+	return pnode(M10K, rn2p(rn), BYTEENABLEB, -1, z-23);
+
+      else if(z < 28) {
+	static const int zt[3] = { 3, 2, 1 };
+	return pnode(M10K, rn2p(rn), ADDRB, -1, zt[z-25]);
+
+      } else if(z < 29)
+	return pnode(M10K, rn2p(rn), CLKIN, -1, 7);
+
+      else if(z < 30)
+	return pnode(M10K, rn2p(rn), ACLR, -1, 1);
+
+      else if(z < 38)
+	return pnode(M10K, rn2p(rn), ADDRB, -1, 4+(7-(z-30)));
+
+      else if(z < 39)
+	return pnode(M10K, rn2p(rn), WREN, -1, 1);
+
+      else if(z < 41)
+	return pnode(M10K, rn2p(rn), ENABLE, -1, z-39+2);
+
+      else if(z < 42)
+	return pnode(M10K, rn2p(rn), RDEN, -1, 1);
+
+      else if(z < 43)
+	return pnode(M10K, rn2p(rn), ADDRA, -1, 0);
+
+      else if(z < 64) {
+	static const int bits[21] = { 0, 20, 10, 30, 1, 21, 11, 31, 2, 22, 12, 32, 3, 23, 13, 33, 4, 24, 14, 34, 5 };
+	int bit = bits[z-43];
+	return pnode(M10K, rn2p(rn), bit < 20 ? DATAAIN : DATABIN, -1, bit < 20 ? bit : bit-20);
+
+      } else if(z < 65)
+	return pnode(M10K, rn2p(rn), ADDRB, -1, 0);
+
+      else if(z < 84) {
+	static const int bits[19] = { 39, 19, 29, 9, 38, 18, 28, 8, 37, 17, 27, 7, 36, 16, 26, 6, 35, 15, 25 };
+	int bit = bits[z-65];
+	return pnode(M10K, rn2p(rn), bit < 20 ? DATAAIN : DATABIN, -1, bit < 20 ? bit : bit-20);
+      }
+
+      return 0;
     }
 
     case GIN: {
-      return pnode(M10K, rn2p(rn), DATAOUT, -1, rn2z(rn));
+      int z = rn2z(rn);
+      if(z >= 20)
+	return pnode(M10K, rn2p(rn), DATABOUT, -1, z-20);
+      else
+	return pnode(M10K, rn2p(rn), DATAAOUT, -1, z);
     }
 
     case TCLK: {

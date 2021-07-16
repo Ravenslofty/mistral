@@ -15,6 +15,21 @@ lab.ffb1l Output from either the bottom FF of the bottom hslf of the lab cell or
 lab.aclr Common clock inputs for asynchronous clear of the FFs
 lab.clkin Common clock inputs for clocking of the FFs
 lab.datain Common data inputs for enables, sync clear and load
+m10k.aclr Asynchronous clear
+m10k.addra Address for port A
+m10k.addrb Address for port B
+m10k.addrstalla Lock address on port A
+m10k.addrstallb Lock address on port B
+m10k.byteenablea Write enables for the two halves of port A
+m10k.byteenableb Write enables for the two halves of port B
+m10k.clkin Clock inputs, only 0-1 and 6-7 used
+m10k.dataain Input data for port A
+m10k.dataaout Output data for port A
+m10k.databin Input data for port B
+m10k.databout Output data for port A
+m10k.enable Clock enables
+m10k.rden Read enables
+m10k.wren Write enables
 cmuxhg.clkout Clock mux clock grid driver
 cmuxvg.clkout Clock mux clock grid driver
 cmuxhr.clkout Clock mux clock grid driver

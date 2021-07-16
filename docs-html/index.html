@@ -2434,11 +2434,11 @@ number of inputs and output makes it span two tiles vertically.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
-<col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 46%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -2449,23 +2449,101 @@ number of inputs and output makes it span two tiles vertically.</p>
 </tr>
 </thead>
 <tbody>
+<tr class="row-even"><td><p>ACLR</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>Asynchronous clear</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDRA</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>GOUT</p></td>
+<td><p>Address for port A</p></td>
+</tr>
+<tr class="row-even"><td><p>ADDRB</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>GOUT</p></td>
+<td><p>Address for port B</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADDRSTALLA</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>Lock address on port A</p></td>
+</tr>
+<tr class="row-even"><td><p>ADDRSTALLB</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>Lock address on port B</p></td>
+</tr>
+<tr class="row-odd"><td><p>BYTEENABLEA</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>Write enables for the two halves of port A</p></td>
+</tr>
+<tr class="row-even"><td><p>BYTEENABLEB</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>Write enables for the two halves of port B</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>6-7</p></td>
+<td><p>GOUT</p></td>
+<td><p>Clock inputs, only 0-1 and 6-7 used</p></td>
+</tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>TCLK</p></td>
-<td><p>TODO</p></td>
+<td><p>Clock inputs, only 0-1 and 6-7 used</p></td>
 </tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
+<tr class="row-odd"><td><p>DATAAIN</p></td>
 <td></td>
-<td><p>0-83</p></td>
+<td><p>0-19</p></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Input data for port A</p></td>
 </tr>
-<tr class="row-even"><td><p>DATAOUT</p></td>
+<tr class="row-even"><td><p>DATAAOUT</p></td>
 <td></td>
-<td><p>0-39</p></td>
+<td><p>0-19</p></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Output data for port A</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATABIN</p></td>
+<td></td>
+<td><p>0-19</p></td>
+<td><p>GOUT</p></td>
+<td><p>Input data for port B</p></td>
+</tr>
+<tr class="row-even"><td><p>DATABOUT</p></td>
+<td></td>
+<td><p>0-19</p></td>
+<td><p>GIN</p></td>
+<td><p>Output data for port A</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>Clock enables</p></td>
+</tr>
+<tr class="row-even"><td><p>RDEN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>Read enables</p></td>
+</tr>
+<tr class="row-odd"><td><p>WREN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>Write enables</p></td>
 </tr>
 </tbody>
 </table>

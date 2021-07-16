@@ -103,9 +103,25 @@ static void show_routes(char **args)
   for(const auto &l : links) {
     auto s = model->rnode_to_pnode(l.first);
     auto d = model->rnode_to_pnode(l.second);
-    printf("%s %s\n",
+    printf("%s %s",
 	   s ? mistral::CycloneV::pn2s(s).c_str() : mistral::CycloneV::rn2s(l.first).c_str(),
 	   d ? mistral::CycloneV::pn2s(d).c_str() : mistral::CycloneV::rn2s(l.second).c_str());
+    bool has_comment = false;
+    const mistral::CycloneV::pin_info_t *pin;
+    pin = model->pin_find_pnode(s);
+    if(pin) {
+      printf(" ; %s", pin->name);
+      has_comment = true;
+    }
+    pin = model->pin_find_pnode(d);
+    if(pin) {
+      if(!has_comment) {
+	printf(" ;");
+	has_comment = true;
+      }
+      printf(" %s", pin->name);
+    }
+    printf("\n");
   }
 
   delete model;
@@ -262,8 +278,17 @@ static void show_p2ri(char **args)
   }
 
   auto r = model->get_all_p2ri();
-  for(const auto &e : r)
+  for(const auto &e : r) {
+    if(model->pnode_to_rnode(e.first) != e.second || model->rnode_to_pnode(e.second) != e.first) {
+      printf("ERROR ");
+      int br = model->pnode_to_rnode(e.first);
+      if(br)
+	printf("%s ", mistral::CycloneV::rn2s(br).c_str());
+      else
+	printf("- ");
+    }
     printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str());
+  }
 
   delete model;
 }

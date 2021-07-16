@@ -7,7 +7,7 @@ for f in `seq 1 7`; do
   mm1=`echo $ml1 | awk '{print $'$f'}'`
   mm2=`echo $ml2 | awk '{print $'$f'}'`
   echo "  " $mm2
-  ../lib/mistral-cv p2r  $mm1 > srcdoc/$mm2-p2r.txt
-  ../lib/mistral-cv p2ri $mm1 > srcdoc/$mm2-p2ri.txt
-  ../lib/mistral-cv p2p  $mm1 > srcdoc/$mm2-p2p.txt
+  ../build/mistral-cv/mistral-cv p2r  $mm1 > srcdoc/$mm2-p2r.txt
+  ../build/mistral-cv/mistral-cv p2ri $mm1 > srcdoc/$mm2-p2ri.txt
+  ../build/mistral-cv/mistral-cv p2p  $mm1 > srcdoc/$mm2-p2p.txt
 done
