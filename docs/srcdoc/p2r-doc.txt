@@ -51,4 +51,5 @@ cmuxhg.switchin Dynamic clock selection input
 cmuxvg.switchin Dynamic clock selection input
 cmuxhg.burstcnt Burst block counter value
 cmuxhg.switchclk Dynamically selected clock output
-
+hps_mpu_general_purpose.gp_in Port from fpga to arm
+hps_mpu_general_purpose.gp_out Port from arm to fpga

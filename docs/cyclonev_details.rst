@@ -508,6 +508,10 @@ HPS_MPU_EVENT_STANDBY
 HPS_MPU_GENERAL_PURPOSE
 """""""""""""""""""""""
 
+This block provides one input and one output 32 bits port directly
+accessible from the arm cores at 0xff706010 (arm to fpga) and
+0xff706014 (fpga to arm).
+
 .. include:: gendoc/hps_mpu_general_purpose-dp2r.rst
 
 

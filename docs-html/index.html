@@ -17400,13 +17400,16 @@ through 37 specialized blocks of 28 different types.</p>
 </div>
 <div class="section" id="hps-mpu-general-purpose">
 <h5>HPS_MPU_GENERAL_PURPOSE<a class="headerlink" href="#hps-mpu-general-purpose" title="Permalink to this headline">¶</a></h5>
+<p>This block provides one input and one output 32 bits port directly
+accessible from the arm cores at 0xff706010 (arm to fpga) and
+0xff706014 (fpga to arm).</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
-<col style="width: 23%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
+<col style="width: 24%" />
+<col style="width: 32%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -17421,13 +17424,13 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Port from fpga to arm</p></td>
 </tr>
 <tr class="row-odd"><td><p>GP_OUT</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Port from arm to fpga</p></td>
 </tr>
 </tbody>
 </table>
