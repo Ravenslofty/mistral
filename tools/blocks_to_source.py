@@ -149,7 +149,7 @@ hmc_map = {
     'PHYDDIOADDRACLR': [False, 0, 16],
     'PHYDDIOADDRDOUT': [False, 0, 64],
     'PHYDDIOBAACLR': [False, 0, 0],
-    'PHYDDIOBADOUT': [False, 0, 4],
+    'PHYDDIOBADOUT': [False, 0, 12],
     'PHYDDIOCASNACLR': [False, 0, 0],
     'PHYDDIOCASNDOUT': [False, 0, 4],
     'PHYDDIOCKDOUT': [False, 0, 4],
