@@ -1,19 +1,19 @@
 #include "cyclonev.h"
 
 const mistral::CycloneV::package_info_t mistral::CycloneV::package_infos[5+3+3] = {
-    {  256, 'f', 16, 16, 17, 17 },
-    {  484, 'f', 22, 22, 23, 23 },
-    {  672, 'f', 26, 26, 27, 27 },
-    {  896, 'f', 30, 30, 31, 31 },
-    { 1152, 'f', 34, 34, 35, 35 },
+  {  256, 'f', 16, 16, 17, 17 },
+  {  484, 'f', 22, 22, 23, 23 },
+  {  672, 'f', 26, 26, 27, 27 },
+  {  896, 'f', 30, 30, 31, 31 },
+  { 1152, 'f', 34, 34, 35, 35 },
 
-    {  324, 'u', 18, 18, 15, 15 },
-    {  484, 'u', 22, 22, 19, 19 },
-    {  672, 'u', 28, 28, 23, 23 },
+  {  324, 'u', 18, 18, 15, 15 },
+  {  484, 'u', 22, 22, 19, 19 },
+  {  672, 'u', 28, 28, 23, 23 },
 
-    {  301, 'm', 21, 21, 11, 11 },
-    {  383, 'm', 25, 25, 13, 13 },
-    {  484, 'm', 28, 28, 15, 15 },
+  {  301, 'm', 21, 21, 11, 11 },
+  {  383, 'm', 25, 25, 13, 13 },
+  {  484, 'm', 28, 28, 15, 15 },
 };
 
 mistral::CycloneV *mistral::CycloneV::get_model(std::string model_name)
@@ -51,7 +51,7 @@ const char *const mistral::CycloneV::port_type_names[] = {
 
 const char *const mistral::CycloneV::bmux_type_names[] = {
 #define P(x) #x
-#include "cv-bmuxtypes.ipp"
+#include <cv-bmuxtypes.ipp>
 #undef P
   nullptr
 };

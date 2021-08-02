@@ -1,19 +1,19 @@
-mode
+mode Multiplication configuration
 systolic_reg_en
-coef_input_en
+coef_input_en Use coefficient for multiplier port X
 double_acc_en
 cascade_en
 delay_cascade_by_en
 delay_cascade_ay_en
 chain_output_en
-ax_signed
-ay_signed
-bx_signed
-by_signed
-coef_h
-coef_l
-preload
-proginv
+ax_signed Is port X of multiplier A signed?
+ay_signed Is port Y of multiplier A signed?
+bx_signed Is port X of multiplier B signed?
+by_signed Is port Y of multiplier B signed?
+coef_a Low 18 bits of the A multiplier coefficients
+coef_b High 9 bits of A or 18 bits of B multiplier coefficients
+load_value Value to load in the accumulator (1<<n)
+data_inv Per-bit inversion of DATA_IN.  Unconnected inputs default as 1 and should be inverted to get a 0.
 inreg_ctrl_ax
 inreg_ctrl_ay
 inreg_ctrl_az
@@ -26,26 +26,27 @@ idireg_acc_ctrl
 idireg_sub
 oreg_ctrl
 cascade_1st_en
-preadder_en
+preadder_en Preadder activation
+preadder_sub Preadder substraction mode
 dft_clk_dis
 dft_tdf_en
 dft_itg_en
-clk_smux0_sel
-clk_smux0_inv
-clk_smux1_sel
-clk_smux0_inv
-clk_smux2_sel
-clk_smux2_inv
-ce_smux0_inv
-ce_smux0_force
-ce_smux1_inv
-ce_smux1_force
-ce_smux2_inv
-ce_smux2_force
-nclr0_sel
-nclr0_inv
-nclr1_sel
-nclr1_inv
+clk0_sel Input for clock 0
+clk0_inv Invert clock 0
+clk1_sel Input for clock 1
+clk1_inv Invert clock 1
+clk2_sel Input for clock 2
+clk2_inv Invert clock 2
+enable0_inv Invert enable on clock 0
+enable0_force Clock 0 always enabled
+enable1_inv Invert enable on clock 1
+enable1_force Clock 1 always enabled
+enable2_inv Invert enable on clock 2
+enable2_force Clock 2 always enabled
+aclr0_sel Input for aclr 0
+aclr0_inv Invert aclr 0
+aclr1_sel Input for aclr 1
+aclr1_inv Invert aclr 1
 clk_ax17_sel
 clk_ayz17_sel
 clk_bx17_sel

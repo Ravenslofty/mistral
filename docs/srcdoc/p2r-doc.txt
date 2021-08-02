@@ -30,6 +30,11 @@ m10k.databout Output data for port A
 m10k.enable Clock enables
 m10k.rden Read enables
 m10k.wren Write enables
+dsp.clkin Clock inputs
+dsp.enable Clock enable inputs
+dsp.datain The 12 9-bit data input blocks
+dsp.result Final multiplication output
+dsp.aclr Asynchronous clear inputs
 cmuxhg.clkout Clock mux clock grid driver
 cmuxvg.clkout Clock mux clock grid driver
 cmuxhr.clkout Clock mux clock grid driver

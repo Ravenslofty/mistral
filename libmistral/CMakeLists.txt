@@ -12,10 +12,30 @@ list(APPEND mistral_SOURCES
     analogsim.cc
 )
 
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
 set(DATA ${CMAKE_CURRENT_SOURCE_DIR}/../data)
 
 find_package(PythonInterp 3.5 REQUIRED)
+
+# Blocks muxes header
+
+add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cv-bmuxtypes.ipp
+   COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/mux_to_source.py enum ${DATA} > ${CMAKE_CURRENT_BINARY_DIR}/cv-bmuxtypes.ipp
+   DEPENDS ${TOOLS}/mux_to_source.py ${DATA}/cbuf-mux.txt ${DATA}/cmuxc-mux.txt ${DATA}/cmuxh-mux.txt ${DATA}/cmuxv-mux.txt ${DATA}/dll-mux.txt ${DATA}/dqs16-mux.txt ${DATA}/dsp-mux.txt ${DATA}/fpll-mux.txt ${DATA}/gpio-mux.txt ${DATA}/hip-mux.txt ${DATA}/hmc-mux.txt ${DATA}/hps_clocks-mux.txt ${DATA}/hssi-mux.txt ${DATA}/lab-mux.txt ${DATA}/lvl-mux.txt ${DATA}/m10k-mux.txt ${DATA}/mlab-mux.txt ${DATA}/opt-mux.txt ${DATA}/pma3-c-mux.txt ${DATA}/pma3-mux.txt ${DATA}/serpar-mux.txt ${DATA}/term-mux.txt
+)
+list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cv-bmuxtypes.ipp)
+
+# Block muxes data
+
+add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cv-bmux-data.cc
+   COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/mux_to_source.py mux ${DATA} > ${CMAKE_CURRENT_BINARY_DIR}/cv-bmux-data.cc
+   DEPENDS ${TOOLS}/mux_to_source.py ${DATA}/cbuf-mux.txt ${DATA}/cmuxc-mux.txt ${DATA}/cmuxh-mux.txt ${DATA}/cmuxv-mux.txt ${DATA}/dll-mux.txt ${DATA}/dqs16-mux.txt ${DATA}/dsp-mux.txt ${DATA}/fpll-mux.txt ${DATA}/gpio-mux.txt ${DATA}/hip-mux.txt ${DATA}/hmc-mux.txt ${DATA}/hps_clocks-mux.txt ${DATA}/hssi-mux.txt ${DATA}/lab-mux.txt ${DATA}/lvl-mux.txt ${DATA}/m10k-mux.txt ${DATA}/mlab-mux.txt ${DATA}/opt-mux.txt ${DATA}/pma3-c-mux.txt ${DATA}/pma3-mux.txt ${DATA}/serpar-mux.txt ${DATA}/term-mux.txt
+)
+list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cv-bmux-data.cc)
 
 # Models generation
 
@@ -99,7 +119,7 @@ install(TARGETS mistral DESTINATION lib)
 install(FILES cyclonev.h DESTINATION include)
 install(FILES cv-blocktypes.ipp DESTINATION include)
 install(FILES cv-bmuxtypes.ipp DESTINATION include)
-install(FILES cv-bmuxtypes.ipp DESTINATION include)
+install(FILES cv-rnodetypes.ipp DESTINATION include)
 install(FILES cv-porttypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
 

@@ -123,11 +123,46 @@ TODO: address/data wiring in RAM/ROM mode.
 DSP
 ^^^
 
-The DSP blocks provide a multiply-adder with either three 9x9, two
-18x18 or one 27x27 multiply, and the 64-bits accumulator.  Its large
+The DSP blocks provide a multiply-adder with differents modes. Its large
 number of inputs and output makes it span two tiles vertically.
 
-TODO: everything, GOUT/GIN/DCMUX mapping is done
+The modes are are:
+
+* Three 9x9 multipliers in parallel
+* Two 18x19 multipliers in parallel
+* Two 18x19 multipliers with the results combined through add or sub
+* One 18x18 multiplier added to a 36-bits value
+* One 27x27 multiplier
+
+Data input is through 12 blocks of 9 bits, the mapping of their use
+depending on the mode.  Each bit can be individually inverted.
+Unconnected bits default to 1 and must be inverted to get a 0.  We are
+only able to do 18x18 multipliers, 18x19 configuration is not
+understood.
+
+The two operands of a multiplier are called X and Y.  The Z operand is
+use in preadder mode and acts on Y.  When in two-multiplier mode they
+are called A and B.  Three-multiplier mode is very similar to single
+with the inputs and outputs packed in the 27-bits inputs/54-bits
+output registers.  Preadder is not officially supported in
+3-multiplier mode.
+
+Mapping of data input blocks to multiplier ports is as follows:
+
++---------------------+---------+---------+----------+------------+------+--------+
+| Multiplier mode     | AX      | AY      | AZ       | BX         | BY   | BZ     |
++=====================+=========+=========+==========+============+======+========+
+| 1 or 3, no preadder | 7, 6, 0 | 9, 8, 2 |          |            |      |        |
++---------------------+---------+---------+----------+------------+------+--------+
+| 3, preadder active  | 7, 6, 0 | 8, 3, 2 | 10, 5, 4 |            |      |        |
++---------------------+---------+---------+----------+------------+------+--------+
+| 2                   | 1, 0    | 3, 2    | 5, 4     | 7, 6       | 9, 8 | 11, 10 |
++---------------------+---------+---------+----------+------------+------+--------+
+| 18x18+36            | 1, 0    | 3, 2    | 5, 4     | 9, 8, 7, 6 |      |        |
++---------------------+---------+---------+----------+------------+------+--------+
+
+Result is in the single 74-bits wide RESULT port, which is split in
+half in two-18x19-parallel mode with the B result in bits [73:37].
 
 .. include:: gendoc/dsp-dmux.rst
 

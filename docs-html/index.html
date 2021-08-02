@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Mistral documentation 1.0 documentation</title>
@@ -257,22 +258,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mistral-a-cyclone-v-fpga-bitstream-library">
+  <section id="mistral-a-cyclone-v-fpga-bitstream-library">
 <h1>Mistral - a Cyclone V FPGA bitstream library<a class="headerlink" href="#mistral-a-cyclone-v-fpga-bitstream-library" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<span id="document-cyclonev_fpga"></span><div class="section" id="the-cyclone-v-fpga">
+<span id="document-cyclonev_fpga"></span><section id="the-cyclone-v-fpga">
 <h2>The Cyclone V FPGA<a class="headerlink" href="#the-cyclone-v-fpga" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="the-fpgas">
+<section id="the-fpgas">
 <h3>The FPGAs<a class="headerlink" href="#the-fpgas" title="Permalink to this headline">¶</a></h3>
 <p>The Cyclone V is a series of FPGAs produced initially by Altera, now
 Intel.  It is based on a series of seven dies with varying levels of
 capability, which is then derived into more than 400 SKUs with
 variations in speed, temperature range, and enabled internal hardware.</p>
 <p>As pretty much every FPGA out there, the dies are organized in grids.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="_images/floorplans.svg"><img alt="_images/floorplans.svg" src="_images/floorplans.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>The FPGA, structurally, is a set of logic blocks of different types
 communicating with each other either through direct links or through a
 large routing network that spans the whole grid.</p>
@@ -280,8 +283,8 @@ large routing network that spans the whole grid.</p>
 notches on the left are the space taken by the high speed serial
 interfaces (hssi and pma3).  Also, the top-right corner in the sx50f
 and sx120f variants is used to fit the hps, a dual-core arm.</p>
-</div>
-<div class="section" id="bitstream-stucture">
+</section>
+<section id="bitstream-stucture">
 <h3>Bitstream stucture<a class="headerlink" href="#bitstream-stucture" title="Permalink to this headline">¶</a></h3>
 <p>The bitstream is built from three rams:</p>
 <ul class="simple">
@@ -354,8 +357,8 @@ bits.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="logic-blocks">
+</section>
+<section id="logic-blocks">
 <h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline">¶</a></h3>
 <p>The logic blocks are of two categories, the inner blocks and the
 peripheral blocks.  To a first approximation all the inner blocks are
@@ -396,8 +399,8 @@ block muxes.  They can be of 4 types:
 * Ram, where a series of bits can be set to any value</p>
 <p>Configuring that part of the FPGA consists of configuring the muxes
 associated to each block.</p>
-</div>
-<div class="section" id="routing-network">
+</section>
+<section id="routing-network">
 <h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline">¶</a></h3>
 <p>A massive routing network is present all over the FPGA.  It has two
 almost-disjoint parts.  The data network has a series of inputs,
@@ -412,17 +415,17 @@ dedicated connections to the cmuxes).</p>
 <p>These two networks join on data/clock muxes, which allow peripheral
 blocks to select for their clock-like inputs which network the signal
 should come from.</p>
-</div>
-<div class="section" id="programmable-inverters">
+</section>
+<section id="programmable-inverters">
 <h3>Programmable inverters<a class="headerlink" href="#programmable-inverters" title="Permalink to this headline">¶</a></h3>
 <p>Essentially every output of the routing network that enters a
 peripheral block can optionally be inverted by activating the
 associated configuration bit.</p>
-</div>
-</div>
-<span id="document-cyclonev_details"></span><div class="section" id="cyclonev-internals-description">
+</section>
+</section>
+<span id="document-cyclonev_details"></span><section id="cyclonev-internals-description">
 <h2>CycloneV internals description<a class="headerlink" href="#cyclonev-internals-description" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="routing-network">
+<section id="routing-network">
 <h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline">¶</a></h3>
 <p>The routing network follows a single-driver structure: a number of
 inputs are grouped together in one place, one is selected through the
@@ -475,10 +478,10 @@ between the TDMUX and a TCLK so that their clock-like inputs can be
 driven from either a clock or a data signal.</p>
 <p>Most GOUT and DCMUX connected to inputs to peripheral blocks are also
 provided with an optional inverter.</p>
-</div>
-<div class="section" id="inner-logic-blocks">
+</section>
+<section id="inner-logic-blocks">
 <h3>Inner logic blocks<a class="headerlink" href="#inner-logic-blocks" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="lab">
+<section id="lab">
 <h4>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h4>
 <p>The LABs are the main combinatorial and register blocks of the FPGA.
 A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
@@ -488,19 +491,25 @@ dispatches clock, enable, clear, etc signals.</p>
 <p>Carry and share chain in the order lab (x, y+1) cell 9 -&gt; cells 0-9 -&gt;
 lab (x, u-1) cell 0.  The BTO, TTO and BYPASS muxes control the
 connections in between 5-cell blocks.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="_images/lab-common.svg"><img alt="_images/lab-common.svg" src="_images/lab-common.svg" width="50%" /></a>
-<p class="caption"><span class="caption-text">The part of the LAB shared by all ten cells that generates the
+<figcaption>
+<p><span class="caption-text">The part of the LAB shared by all ten cells that generates the
 common signals.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id2">
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="_images/lab-cell.svg"><img alt="_images/lab-cell.svg" src="_images/lab-cell.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id3">
+<figcaption>
+<p><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
 <a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -1162,8 +1171,8 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="mlab">
+</section>
+<section id="mlab">
 <h4>MLAB<a class="headerlink" href="#mlab" title="Permalink to this headline">¶</a></h4>
 <p>A MLAB is a lab that can optionally be turned into a 640-bits RAM or
 ROM.  The wiring is identical to the LAB, only some additional muxes
@@ -1246,23 +1255,100 @@ are provided to select the RAM/ROM mode.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="dsp">
+</section>
+<section id="dsp">
 <h4>DSP<a class="headerlink" href="#dsp" title="Permalink to this headline">¶</a></h4>
-<p>The DSP blocks provide a multiply-adder with either three 9x9, two
-18x18 or one 27x27 multiply, and the 64-bits accumulator.  Its large
+<p>The DSP blocks provide a multiply-adder with differents modes. Its large
 number of inputs and output makes it span two tiles vertically.</p>
-<p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
+<p>The modes are are:</p>
+<ul class="simple">
+<li><p>Three 9x9 multipliers in parallel</p></li>
+<li><p>Two 18x19 multipliers in parallel</p></li>
+<li><p>Two 18x19 multipliers with the results combined through add or sub</p></li>
+<li><p>One 18x18 multiplier added to a 36-bits value</p></li>
+<li><p>One 27x27 multiplier</p></li>
+</ul>
+<p>Data input is through 12 blocks of 9 bits, the mapping of their use
+depending on the mode.  Each bit can be individually inverted.
+Unconnected bits default to 1 and must be inverted to get a 0.  We are
+only able to do 18x18 multipliers, 18x19 configuration is not
+understood.</p>
+<p>The two operands of a multiplier are called X and Y.  The Z operand is
+use in preadder mode and acts on Y.  When in two-multiplier mode they
+are called A and B.  Three-multiplier mode is very similar to single
+with the inputs and outputs packed in the 27-bits inputs/54-bits
+output registers.  Preadder is not officially supported in
+3-multiplier mode.</p>
+<p>Mapping of data input blocks to multiplier ports is as follows:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 28%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 16%" />
 <col style="width: 8%" />
-<col style="width: 28%" />
-<col style="width: 15%" />
-<col style="width: 20%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Multiplier mode</p></th>
+<th class="head"><p>AX</p></th>
+<th class="head"><p>AY</p></th>
+<th class="head"><p>AZ</p></th>
+<th class="head"><p>BX</p></th>
+<th class="head"><p>BY</p></th>
+<th class="head"><p>BZ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1 or 3, no preadder</p></td>
+<td><p>7, 6, 0</p></td>
+<td><p>9, 8, 2</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3, preadder active</p></td>
+<td><p>7, 6, 0</p></td>
+<td><p>8, 3, 2</p></td>
+<td><p>10, 5, 4</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>1, 0</p></td>
+<td><p>3, 2</p></td>
+<td><p>5, 4</p></td>
+<td><p>7, 6</p></td>
+<td><p>9, 8</p></td>
+<td><p>11, 10</p></td>
+</tr>
+<tr class="row-odd"><td><p>18x18+36</p></td>
+<td><p>1, 0</p></td>
+<td><p>3, 2</p></td>
+<td><p>5, 4</p></td>
+<td><p>9, 8, 7, 6</p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Result is in the single 74-bits wide RESULT port, which is split in
+half in two-18x19-parallel mode with the B result in bits [73:37].</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 5%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
 <th class="head"><p>Type</p></th>
 <th class="head"><p>Values</p></th>
 <th class="head"><p>Default</p></th>
@@ -1271,90 +1357,153 @@ number of inputs and output makes it span two tiles vertically.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>ACC_INV</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR0_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert aclr 0</p></td>
+</tr>
+<tr class="row-even"><td><p>ACLR0_SEL</p></td>
+<td></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0</p></li>
+<li><p>2</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Input for aclr 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR1_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert aclr 1</p></td>
+</tr>
+<tr class="row-even"><td><p>ACLR1_SEL</p></td>
+<td></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>1</p></li>
+<li><p>3</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Input for aclr 1</p></td>
 </tr>
 <tr class="row-odd"><td><p>AX_SIGNED</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Is port X of multiplier A signed?</p></td>
 </tr>
 <tr class="row-even"><td><p>AY_SIGNED</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Is port Y of multiplier A signed?</p></td>
 </tr>
 <tr class="row-odd"><td><p>BX_SIGNED</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Is port X of multiplier B signed?</p></td>
 </tr>
 <tr class="row-even"><td><p>BY_SIGNED</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Is port Y of multiplier B signed?</p></td>
 </tr>
 <tr class="row-odd"><td><p>CASCADE_1ST_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CASCADE_EN</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CE_SMUX0_FORCE</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CE_SMUX0_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CE_SMUX1_FORCE</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CE_SMUX1_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CE_SMUX2_FORCE</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CE_SMUX2_INV</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CHAIN_OUTPUT_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
+<tr class="row-even"><td><p>CLK0_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert clock 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK0_SEL</p></td>
+<td></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0</p></li>
+<li><p>3</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Input for clock 0</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK1_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert clock 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK1_SEL</p></td>
+<td></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>1</p></li>
+<li><p>4</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Input for clock 1</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK2_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert clock 2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK2_SEL</p></td>
+<td></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>2</p></li>
+<li><p>5</p></li>
+</ul>
+</td>
+<td><p>2</p></td>
+<td><p>Input for clock 2</p></td>
+</tr>
 <tr class="row-even"><td><p>CLK_AX17_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1364,6 +1513,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_AYZ17_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1373,6 +1523,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK_BX17_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1382,6 +1533,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_BYZ17_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1391,6 +1543,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK_DYN_CTRL_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1400,6 +1553,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_OPREG_SEL</p></td>
+<td></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
 <li><p>0-2</p></li>
@@ -1408,115 +1562,106 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>0</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLK_SMUX0_INV</p></td>
+<tr class="row-even"><td><p>COEF_INPUT_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SMUX0_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SMUX0_SEL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>labclk0</p></li>
-<li><p>lsim6</p></li>
-</ul>
-</td>
-<td><p>labclk0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SMUX1_SEL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>labclk1</p></li>
-<li><p>lsim8</p></li>
-</ul>
-</td>
-<td><p>labclk1</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SMUX2_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SMUX2_SEL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>labclk2</p></li>
-<li><p>lsim0</p></li>
-</ul>
-</td>
-<td><p>labclk2</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>COEF_H</p></td>
-<td><p>Ram</p></td>
-<td><p>144 bits</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>COEF_INPUT_EN</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>COEF_L</p></td>
-<td><p>Ram</p></td>
-<td><p>144 bits</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
+<td><p>Use coefficient for multiplier port X</p></td>
 </tr>
 <tr class="row-odd"><td><p>DEC_INV</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DELAY_CASCADE_AY_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DELAY_CASCADE_BY_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_CLK_DIS</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_ITG_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_TDF_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DOUBLE_ACC_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
+<tr class="row-even"><td><p>ENABLE0_FORCE</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Clock 0 always enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE0_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert enable on clock 0</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE1_FORCE</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Clock 1 always enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE1_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert enable on clock 1</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE2_FORCE</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Clock 2 always enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE2_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Invert enable on clock 2</p></td>
+</tr>
 <tr class="row-even"><td><p>IDIREG_ACC_CTRL</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1527,6 +1672,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IDIREG_DEC_CTRL</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1537,6 +1683,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IDIREG_PRELOAD_CTRL</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1547,6 +1694,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IDIREG_SUB</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1557,6 +1705,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>INREG_CTRL_AX</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1567,6 +1716,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>INREG_CTRL_AY</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1577,6 +1727,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>INREG_CTRL_AZ</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1587,6 +1738,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>INREG_CTRL_BX</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1597,6 +1749,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>INREG_CTRL_BY</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1607,6 +1760,7 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>INREG_CTRL_BZ</p></td>
+<td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
 <li><p>bypass</p></li>
@@ -1616,117 +1770,110 @@ number of inputs and output makes it span two tiles vertically.</p>
 <td><p>bypass</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>MODE</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>three_9x9</p></li>
-<li><p>two_18x19</p></li>
-<li><p>one_27x27</p></li>
-<li><p>sum_of_2_18x19</p></li>
-<li><p>one_18x18_plus_36</p></li>
-</ul>
-</td>
-<td><p>two_18x19</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLR0_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLR0_SEL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>labclk3</p></li>
-<li><p>lsim2</p></li>
-</ul>
-</td>
-<td><p>labclk3</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLR1_INV</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLR1_SEL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>labclk4</p></li>
-<li><p>lsim3</p></li>
-</ul>
-</td>
-<td><p>labclk4</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>OREG_CTRL</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>bypass</p></li>
-<li><p>reg</p></li>
-</ul>
-</td>
-<td><p>bypass</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PARTIAL_RECONFIG_EN</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PREADDER_EN</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>off</p></li>
-<li><p>add</p></li>
-<li><p>sub</p></li>
-</ul>
-</td>
-<td><p>off</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PRELOAD</p></td>
+<tr class="row-even"><td><p>LOAD_VALUE</p></td>
+<td></td>
 <td><p>Ram</p></td>
 <td><p>00-3f</p></td>
 <td><p>0</p></td>
+<td><p>Value to load in the accumulator (1&lt;&lt;n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MODE</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>m9x9</p></li>
+<li><p>m18x19</p></li>
+<li><p>m27x27</p></li>
+<li><p>m18x19_combined</p></li>
+<li><p>m18x18p36</p></li>
+</ul>
+</td>
+<td><p>m18x19</p></td>
+<td><p>Multiplication configuration</p></td>
+</tr>
+<tr class="row-even"><td><p>OREG_CTRL</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>bypass</p></li>
+<li><p>reg</p></li>
+</ul>
+</td>
+<td><p>bypass</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PRELOAD_INV</p></td>
+<tr class="row-odd"><td><p>PARTIAL_RECONFIG_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PROGINV</p></td>
-<td><p>Ram</p></td>
-<td><p>108 bits</p></td>
-<td><p>0</p></td>
+<tr class="row-even"><td><p>PREADDER_EN</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Preadder activation</p></td>
+</tr>
+<tr class="row-odd"><td><p>PREADDER_SUB</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Preadder substraction mode</p></td>
+</tr>
+<tr class="row-even"><td><p>PRELOAD_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SUB_INV</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SYSTOLIC_REG_EN</p></td>
+<td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
+<tr class="row-odd"><td><p>COEF_A</p></td>
+<td><p>0-7</p></td>
+<td><p>Ram</p></td>
+<td><p>18 bits</p></td>
+<td><p>0</p></td>
+<td><p>Low 18 bits of the A multiplier coefficients</p></td>
+</tr>
+<tr class="row-even"><td><p>COEF_B</p></td>
+<td><p>0-7</p></td>
+<td><p>Ram</p></td>
+<td><p>18 bits</p></td>
+<td><p>0</p></td>
+<td><p>High 9 bits of A or 18 bits of B multiplier coefficients</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATA_INV</p></td>
+<td><p>0-11</p></td>
+<td><p>Ram</p></td>
+<td><p>000-1ff</p></td>
+<td><p>0</p></td>
+<td><p>Per-bit inversion of DATA_IN.  Unconnected inputs default as 1 and should be inverted to get a 0.</p></td>
+</tr>
 </tbody>
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
 <col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
-<col style="width: 23%" />
+<col style="width: 32%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -1737,28 +1884,82 @@ number of inputs and output makes it span two tiles vertically.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
+<tr class="row-even"><td><p>ACCUMULATE</p></td>
 <td></td>
-<td><p>0-4</p></td>
-<td><p>TCLK</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
 <td></td>
-<td><p>0-127</p></td>
 <td><p>GOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DATAOUT</p></td>
+<tr class="row-odd"><td><p>ACLR</p></td>
+<td></td>
+<td><p>2-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>Asynchronous clear inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>ACLR</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>TCLK</p></td>
+<td><p>Asynchronous clear inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>3-5</p></td>
+<td><p>GOUT</p></td>
+<td><p>Clock inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>TCLK</p></td>
+<td><p>Clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAIN</p></td>
+<td><p>0-11</p></td>
+<td><p>0-8</p></td>
+<td><p>GOUT</p></td>
+<td><p>The 12 9-bit data input blocks</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>Clock enable inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOADCONST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NEGATE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RESULT</p></td>
 <td></td>
 <td><p>0-73</p></td>
 <td><p>GIN</p></td>
+<td><p>Final multiplication output</p></td>
+</tr>
+<tr class="row-even"><td><p>SUB</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>UNK_IN</p></td>
+<td></td>
+<td><p>30-31, 62-63, 94-95, 126-127</p></td>
+<td><p>GOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="m10k">
+</section>
+<section id="m10k">
 <h4>M10K<a class="headerlink" href="#m10k" title="Permalink to this headline">¶</a></h4>
 <p>The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
@@ -2547,11 +2748,11 @@ number of inputs and output makes it span two tiles vertically.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="peripheral-logic-blocks">
+</section>
+</section>
+<section id="peripheral-logic-blocks">
 <h3>Peripheral logic blocks<a class="headerlink" href="#peripheral-logic-blocks" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="gpio">
+<section id="gpio">
 <h4>GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h4>
 <p>The GPIO blocks connect the FPGA with the exterior through the package
 pins.  Each block controls 4 pads, which are connected to up to 4
@@ -3125,7 +3326,7 @@ pins.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>2</p></td>
+<td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOBADOUT</p></td>
@@ -3259,8 +3460,8 @@ pins.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="dqs16">
+</section>
+<section id="dqs16">
 <h4>DQS16<a class="headerlink" href="#dqs16" title="Permalink to this headline">¶</a></h4>
 <p>The DQS16 blocks handle differential signaling protocols.  Each
 supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
@@ -4382,8 +4583,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="fpll">
+</section>
+<section id="fpll">
 <h4>FPLL<a class="headerlink" href="#fpll" title="Permalink to this headline">¶</a></h4>
 <p>The Fractional PLL blocks synthesize 9 frequencies from an input with integer or fractional ratios.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
@@ -5666,8 +5867,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cbuf">
+</section>
+<section id="cbuf">
 <h4>CBUF<a class="headerlink" href="#cbuf" title="Permalink to this headline">¶</a></h4>
 <table class="docutils align-default">
 <colgroup>
@@ -5788,8 +5989,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxcr">
+</section>
+<section id="cmuxcr">
 <h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline">¶</a></h4>
 <p>The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.</p>
 <table class="docutils align-default">
@@ -6022,8 +6223,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxhg">
+</section>
+<section id="cmuxhg">
 <h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline">¶</a></h4>
 <p>The two Global Horizontal CMUX drive four GCLK grids each.  The mux
 provides selection between positive and negative clock pins, pll
@@ -6081,10 +6282,12 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="_images/cmuxhg.svg"><img alt="_images/cmuxhg.svg" src="_images/cmuxhg.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -6528,8 +6731,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxvg">
+</section>
+<section id="cmuxvg">
 <h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline">¶</a></h4>
 <p>The two Global Vertical CMUX drive four GCLK grids each.</p>
 <table class="docutils align-default">
@@ -6825,8 +7028,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxhr">
+</section>
+<section id="cmuxhr">
 <h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline">¶</a></h4>
 <p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
 <table class="docutils align-default">
@@ -7132,8 +7335,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxvr">
+</section>
+<section id="cmuxvr">
 <h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline">¶</a></h4>
 <p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
 <table class="docutils align-default">
@@ -7284,8 +7487,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="cmuxp">
+</section>
+<section id="cmuxp">
 <h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline">¶</a></h4>
 <p>The CMUXP drive two PCLK each.</p>
 <table class="docutils align-default">
@@ -7319,8 +7522,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="ctrl">
+</section>
+<section id="ctrl">
 <h4>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline">¶</a></h4>
 <p>The Control block gives access to a number of anciliary functions of the FPGA.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
@@ -7715,8 +7918,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hssi">
+</section>
+<section id="hssi">
 <h4>HSSI<a class="headerlink" href="#hssi" title="Permalink to this headline">¶</a></h4>
 <p>The High speed serial interface blocks control the
 serializing/deserializing capabilities of the FPGA.</p>
@@ -9293,8 +9496,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hip">
+</section>
+<section id="hip">
 <h4>HIP<a class="headerlink" href="#hip" title="Permalink to this headline">¶</a></h4>
 <p>The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.</p>
 <p>TODO: everything</p>
@@ -11378,8 +11581,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="dll">
+</section>
+<section id="dll">
 <h4>DLL<a class="headerlink" href="#dll" title="Permalink to this headline">¶</a></h4>
 <p>The Delay-Locked loop does phase control for the DQS16.</p>
 <p>TODO: everything</p>
@@ -11632,8 +11835,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="serpar">
+</section>
+<section id="serpar">
 <h4>SERPAR<a class="headerlink" href="#serpar" title="Permalink to this headline">¶</a></h4>
 <p>Unclear yet.</p>
 <p>TODO: everything</p>
@@ -11669,8 +11872,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="lvl">
+</section>
+<section id="lvl">
 <h4>LVL<a class="headerlink" href="#lvl" title="Permalink to this headline">¶</a></h4>
 <p>The Leveling Delay Chain does something linked to the DQS16.</p>
 <p>TODO: everything</p>
@@ -11842,8 +12045,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="term">
+</section>
+<section id="term">
 <h4>TERM<a class="headerlink" href="#term" title="Permalink to this headline">¶</a></h4>
 <p>The TERM blocks control the On-Chip Termination circuitry</p>
 <p>TODO: everything</p>
@@ -12048,8 +12251,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="pma3">
+</section>
+<section id="pma3">
 <h4>PMA3<a class="headerlink" href="#pma3" title="Permalink to this headline">¶</a></h4>
 <p>The PMA3 blocks control triplets of channels used with the HSSI.</p>
 <p>TODO: everything</p>
@@ -13603,8 +13806,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hmc">
+</section>
+<section id="hmc">
 <h4>HMC<a class="headerlink" href="#hmc" title="Permalink to this headline">¶</a></h4>
 <p>The Hardware memory controller controls sets of GPIOs to implement
 modern SDR and DDR memory interfaces.  In the sx dies one of them is
@@ -15597,7 +15800,7 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 <tr class="row-even"><td><p>PHYDDIOBADOUT</p></td>
 <td></td>
-<td><p>0-3</p></td>
+<td><p>0-11</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:DATAIN</p></td>
 <td><p>TODO</p></td>
@@ -15765,13 +15968,13 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps">
+</section>
+<section id="hps">
 <h4>HPS<a class="headerlink" href="#hps" title="Permalink to this headline">¶</a></h4>
 <p>The interface between the FPGA and the Hard processor system is done
 through 37 specialized blocks of 28 different types.</p>
 <p>TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.</p>
-<div class="section" id="hps-boot">
+<section id="hps-boot">
 <h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -15828,8 +16031,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-clocks">
+</section>
+<section id="hps-clocks">
 <h5>HPS_CLOCKS<a class="headerlink" href="#hps-clocks" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -15915,8 +16118,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-clocks-resets">
+</section>
+<section id="hps-clocks-resets">
 <h5>HPS_CLOCKS_RESETS<a class="headerlink" href="#hps-clocks-resets" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -15985,8 +16188,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-cross-trigger">
+</section>
+<section id="hps-cross-trigger">
 <h5>HPS_CROSS_TRIGGER<a class="headerlink" href="#hps-cross-trigger" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16049,8 +16252,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-dbg-apb">
+</section>
+<section id="hps-dbg-apb">
 <h5>HPS_DBG_APB<a class="headerlink" href="#hps-dbg-apb" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16149,8 +16352,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-dma">
+</section>
+<section id="hps-dma">
 <h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16189,8 +16392,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-fpga2hps">
+</section>
+<section id="hps-fpga2hps">
 <h5>HPS_FPGA2HPS<a class="headerlink" href="#hps-fpga2hps" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16451,8 +16654,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-fpga2sdram">
+</section>
+<section id="hps-fpga2sdram">
 <h5>HPS_FPGA2SDRAM<a class="headerlink" href="#hps-fpga2sdram" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16611,8 +16814,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-hps2fpga">
+</section>
+<section id="hps-hps2fpga">
 <h5>HPS_HPS2FPGA<a class="headerlink" href="#hps-hps2fpga" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -16861,8 +17064,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-hps2fpga-light-weight">
+</section>
+<section id="hps-hps2fpga-light-weight">
 <h5>HPS_HPS2FPGA_LIGHT_WEIGHT<a class="headerlink" href="#hps-hps2fpga-light-weight" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17105,8 +17308,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-interrupts">
+</section>
+<section id="hps-interrupts">
 <h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17253,8 +17456,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-jtag">
+</section>
+<section id="hps-jtag">
 <h5>HPS_JTAG<a class="headerlink" href="#hps-jtag" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17305,8 +17508,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-loan-io">
+</section>
+<section id="hps-loan-io">
 <h5>HPS_LOAN_IO<a class="headerlink" href="#hps-loan-io" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17351,8 +17554,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-mpu-event-standby">
+</section>
+<section id="hps-mpu-event-standby">
 <h5>HPS_MPU_EVENT_STANDBY<a class="headerlink" href="#hps-mpu-event-standby" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17397,8 +17600,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-mpu-general-purpose">
+</section>
+<section id="hps-mpu-general-purpose">
 <h5>HPS_MPU_GENERAL_PURPOSE<a class="headerlink" href="#hps-mpu-general-purpose" title="Permalink to this headline">¶</a></h5>
 <p>This block provides one input and one output 32 bits port directly
 accessible from the arm cores at 0xff706010 (arm to fpga) and
@@ -17434,8 +17637,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-can">
+</section>
+<section id="hps-peripheral-can">
 <h5>HPS_PERIPHERAL_CAN<a class="headerlink" href="#hps-peripheral-can" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -17469,8 +17672,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-emac">
+</section>
+<section id="hps-peripheral-emac">
 <h5>HPS_PERIPHERAL_EMAC<a class="headerlink" href="#hps-peripheral-emac" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -17600,8 +17803,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-i2c">
+</section>
+<section id="hps-peripheral-i2c">
 <h5>HPS_PERIPHERAL_I2C<a class="headerlink" href="#hps-peripheral-i2c" title="Permalink to this headline">¶</a></h5>
 <p>(4 blocks)</p>
 <table class="docutils align-default">
@@ -17647,8 +17850,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-nand">
+</section>
+<section id="hps-peripheral-nand">
 <h5>HPS_PERIPHERAL_NAND<a class="headerlink" href="#hps-peripheral-nand" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17729,8 +17932,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-qspi">
+</section>
+<section id="hps-peripheral-qspi">
 <h5>HPS_PERIPHERAL_QSPI<a class="headerlink" href="#hps-peripheral-qspi" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17775,8 +17978,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-sdmmc">
+</section>
+<section id="hps-peripheral-sdmmc">
 <h5>HPS_PERIPHERAL_SDMMC<a class="headerlink" href="#hps-peripheral-sdmmc" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -17881,8 +18084,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-spi-master">
+</section>
+<section id="hps-peripheral-spi-master">
 <h5>HPS_PERIPHERAL_SPI_MASTER<a class="headerlink" href="#hps-peripheral-spi-master" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -17934,8 +18137,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-spi-slave">
+</section>
+<section id="hps-peripheral-spi-slave">
 <h5>HPS_PERIPHERAL_SPI_SLAVE<a class="headerlink" href="#hps-peripheral-spi-slave" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -17987,8 +18190,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-uart">
+</section>
+<section id="hps-peripheral-uart">
 <h5>HPS_PERIPHERAL_UART<a class="headerlink" href="#hps-peripheral-uart" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -18064,8 +18267,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-peripheral-usb">
+</section>
+<section id="hps-peripheral-usb">
 <h5>HPS_PERIPHERAL_USB<a class="headerlink" href="#hps-peripheral-usb" title="Permalink to this headline">¶</a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -18129,8 +18332,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-stm-event">
+</section>
+<section id="hps-stm-event">
 <h5>HPS_STM_EVENT<a class="headerlink" href="#hps-stm-event" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -18157,8 +18360,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-test">
+</section>
+<section id="hps-test">
 <h5>HPS_TEST<a class="headerlink" href="#hps-test" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -19157,8 +19360,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="hps-tpiu-trace">
+</section>
+<section id="hps-tpiu-trace">
 <h5>HPS_TPIU_TRACE<a class="headerlink" href="#hps-tpiu-trace" title="Permalink to this headline">¶</a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -19197,10 +19400,10 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="section" id="options">
+</section>
+</section>
+</section>
+<section id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
 <table class="docutils align-default">
 <colgroup>
@@ -19332,11 +19535,11 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<span id="document-cyclonev_library_use"></span><div class="section" id="cyclonev-library-usage">
+</section>
+</section>
+<span id="document-cyclonev_library_use"></span><section id="cyclonev-library-usage">
 <h2>CycloneV library usage<a class="headerlink" href="#cyclonev-library-usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="library-structure">
+<section id="library-structure">
 <h3>Library structure<a class="headerlink" href="#library-structure" title="Permalink to this headline">¶</a></h3>
 <p>The library provides a CycloneV class in the mistral namespace.
 Information is provided to allow to choose a CycloneV::Model object
@@ -19345,8 +19548,8 @@ created from it.  That object stores the state of the FPGA
 configuration and allows to read and modify it.</p>
 <p>All the types, enums, functions, methods, arrays etc described in the
 following paragraph are in the CycloneV class.</p>
-</div>
-<div class="section" id="packages">
+</section>
+<section id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">package_type_t</span><span class="p">;</span>
 
@@ -19450,8 +19653,8 @@ their width in mm.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="model-information">
+</section>
+<section id="model-information">
 <h3>Model information<a class="headerlink" href="#model-information" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">die_type_t</span> <span class="p">{</span> <span class="n">E50F</span><span class="p">,</span> <span class="n">GX25F</span><span class="p">,</span> <span class="n">GT75F</span><span class="p">,</span> <span class="n">GT150F</span><span class="p">,</span> <span class="n">GT300F</span><span class="p">,</span> <span class="n">SX50F</span><span class="p">,</span> <span class="n">SX120F</span> <span class="p">};</span>
 
@@ -19526,8 +19729,8 @@ selection by sku, the CycloneV::get_model function looks it up and
 allocates one.  The models array ends with a nullptr name pointer.</p>
 <p>The get_model function implements the alias “ms” for the 5CSEBA6U23I7
 used in the de10-nano, a.k.a MiSTer.</p>
-</div>
-<div class="section" id="pos-rnode-and-pnode">
+</section>
+<section id="pos-rnode-and-pnode">
 <h3>pos, rnode and pnode<a class="headerlink" href="#pos-rnode-and-pnode" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">pos_t</span> <span class="o">=</span> <span class="kt">uint16_t</span><span class="p">;</span>          <span class="c1">// Tile position</span>
 
@@ -19610,8 +19813,8 @@ one.</p>
 port nodes of different logic blocks.  The connections being 1:N the
 p2p_from method can give multiple results while p2p_to only answers
 one node or the value 0.</p>
-</div>
-<div class="section" id="routing-network-management">
+</section>
+<section id="routing-network-management">
 <h3>Routing network management<a class="headerlink" href="#routing-network-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">n1</span><span class="p">,</span> <span class="n">rnode_t</span> <span class="n">n2</span><span class="p">);</span>
 <span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">p1</span><span class="p">,</span> <span class="n">rnode_t</span> <span class="n">n2</span><span class="p">);</span>
@@ -19639,8 +19842,8 @@ to vcc, but in some cases all five are used and unlinking selects the
 <p>route_all_active_links gives all current active connections.
 route_frontier_links solves these connections to keep only the
 extremities, giving the inter-logic-block connections directly.</p>
-</div>
-<div class="section" id="logic-block-management">
+</section>
+<section id="logic-block-management">
 <h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pos_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">lab_get_pos</span><span class="p">()</span>    <span class="k">const</span>
 <span class="p">[</span><span class="n">etc</span><span class="p">]</span>
@@ -19696,8 +19899,8 @@ and true when found, false otherwise.  The def field indicates whether
 the value is the default.  The bmux_set sets a mux generically, and
 the bmux_*_set sets it per-type.</p>
 <p>The no-parameter bmux_get version returns the state of all muxes of the FPGA.</p>
-</div>
-<div class="section" id="inverters-management">
+</section>
+<section id="inverters-management">
 <h3>Inverters management<a class="headerlink" href="#inverters-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">inv_setting_t</span> <span class="p">{</span>
   <span class="n">rnode_t</span> <span class="n">node</span><span class="p">;</span>
@@ -19711,8 +19914,8 @@ the bmux_*_set sets it per-type.</p>
 </div>
 <p>inv_get() returns the state of the programmable inverters, and inv_set
 sets the state of one.  The field def is currently very incorrect.</p>
-</div>
-<div class="section" id="pin-package-management">
+</section>
+<section id="pin-package-management">
 <h3>Pin/package management<a class="headerlink" href="#pin-package-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">pin_flags_t</span> <span class="o">:</span> <span class="kt">uint32_t</span> <span class="p">{</span>
   <span class="n">PIN_IO_MASK</span>    <span class="o">=</span> <span class="mh">0x00000007</span><span class="p">,</span>
@@ -19774,8 +19977,8 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <li><p>index - pin sub-index for hssi_input, hssi_output, dedicated programming pins and jtag</p></li>
 </ul>
 <p>The pin_find_pos method looks up a pin from a gpio tile/index combination.  The pin_find_pos method looks up a pin from a gpio or hmc pnode.</p>
-</div>
-<div class="section" id="options">
+</section>
+<section id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">opt_setting_t</span> <span class="p">{</span>
   <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">;</span>
@@ -19799,8 +20002,8 @@ sets the state of one.  The field def is currently very incorrect.</p>
 </div>
 <p>The options work like the block muxes without a block, tile or
 instance number.  They’re otherwise the same.</p>
-</div>
-<div class="section" id="bitstream-management">
+</section>
+<section id="bitstream-management">
 <h3>Bitstream management<a class="headerlink" href="#bitstream-management" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">clear</span><span class="p">();</span>
 <span class="kt">void</span> <span class="nf">rbf_load</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">);</span>
@@ -19810,8 +20013,8 @@ instance number.  They’re otherwise the same.</p>
 <p>The clear method returns the FPGA state to all defaults.  rbf_load
 parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.</p>
-</div>
-<div class="section" id="hmc-bypass">
+</section>
+<section id="hmc-bypass">
 <h3>HMC bypass<a class="headerlink" href="#hmc-bypass" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">pnode_t</span> <span class="nf">hmc_get_bypass</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
@@ -19824,69 +20027,69 @@ a given GPIO port connected to the HMC in bypass mode do:</p>
 <li><p>Get the associated node when in bypass mode with hmc_get_bypass (the method is direction-independant)</p></li>
 <li><p>Get the associated routing node with pnode_to_rnode.</p></li>
 </ul>
-</div>
-</div>
-<span id="document-cyclonev_driver"></span><div class="section" id="the-mistral-cv-command-line-program">
+</section>
+</section>
+<span id="document-cyclonev_driver"></span><section id="the-mistral-cv-command-line-program">
 <h2>The mistral-cv command-line program<a class="headerlink" href="#the-mistral-cv-command-line-program" title="Permalink to this headline">¶</a></h2>
 <p>The mistral-cv command line program allows for a minimal interfacing
 with the library.  Calling it without parameters shows the possible
 usages.</p>
-<div class="section" id="models">
+<section id="models">
 <h3>models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">models</span>
 </pre></div>
 </div>
 <p>Lists the known models with their SKU, IDCODE, die, variant, package,
 number of pins, temperature grade and speed grade.</p>
-</div>
-<div class="section" id="routes">
+</section>
+<section id="routes">
 <h3>routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps the active routes in a rbf.</p>
-</div>
-<div class="section" id="routes2">
+</section>
+<section id="routes2">
 <h3>routes2<a class="headerlink" href="#routes2" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps the active routes in a rbf where a GIN/GOUT/etc does not have a
 port mapping associated.</p>
-</div>
-<div class="section" id="cycle">
+</section>
+<section id="cycle">
 <h3>cycle<a class="headerlink" href="#cycle" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">cycle</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Loads the rbf in file1.rbf and saves is back in file2.rbf.  Useful to
 test if the framing/unframing of oram/pram/cram works correctly.</p>
-</div>
-<div class="section" id="bels">
+</section>
+<section id="bels">
 <h3>bels<a class="headerlink" href="#bels" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">bels</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps a list of all the logic elements of a model (only depends on the
 die in practice).</p>
-</div>
-<div class="section" id="decomp">
+</section>
+<section id="decomp">
 <h3>decomp<a class="headerlink" href="#decomp" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">decomp</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Decompiles a bitstream into a compilable source.  Only writes down
 what is identified as not being in default state.</p>
-</div>
-<div class="section" id="comp">
+</section>
+<section id="comp">
 <h3>comp<a class="headerlink" href="#comp" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">comp</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Compiles a source into a bitstream.  The source includes the model
 information.</p>
-</div>
-<div class="section" id="diff">
+</section>
+<section id="diff">
 <h3>diff<a class="headerlink" href="#diff" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">diff</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file1</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
@@ -19894,19 +20097,19 @@ information.</p>
 <p>Compares two rbf files and identifies the differences in terms of
 oram, pram and cram.  Useful to list mismatches after a decomp/comp
 cycle.</p>
-</div>
-</div>
-<span id="document-cyclonev_library_internals"></span><div class="section" id="mistral-cyclonev-library-internals">
+</section>
+</section>
+<span id="document-cyclonev_library_internals"></span><section id="mistral-cyclonev-library-internals">
 <h2>Mistral CycloneV library internals<a class="headerlink" href="#mistral-cyclonev-library-internals" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="structure">
+<section id="structure">
 <h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h3>
 <p>A large part of the library is generated code from information in the
 data directory.  The exception is the routing data that is converter
 to compressed binary and put in the gdata directory.  All the
 conversions are done with python programs and shell scripts in the
 tools directory.</p>
-</div>
-<div class="section" id="routing-data">
+</section>
+<section id="routing-data">
 <h3>Routing data<a class="headerlink" href="#routing-data" title="Permalink to this headline">¶</a></h3>
 <p>The routing data is stored in bzip2-compressed text files named
 &lt;die&gt;-r.txt.bz2.  Each line describes a routing mux.</p>
@@ -19931,8 +20134,8 @@ default is different.</p>
 <p>The python script routes-to-bin.py loads this file and generated a
 compressed binary version in gdata which matches the rmux structure.
 The script mkroutes.sh generates it for all die types.</p>
-</div>
-<div class="section" id="block-muxes">
+</section>
+<section id="block-muxes">
 <h3>Block muxes<a class="headerlink" href="#block-muxes" title="Permalink to this headline">¶</a></h3>
 <p>The lists of block muxes and options muxes are independant of the
 dies.  They’re in the block-mux.txt files.  Each mux is described in
@@ -19957,7 +20160,7 @@ have to be numeric.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="n">clk0_inv</span>               <span class="n">b</span><span class="o">-</span>   <span class="mf">6.45</span>
 </pre></div>
 </div>
-<p>The ‘b’ indicates boolean, and ‘-‘ indicates the default is false,
+<p>The ‘b’ indicates boolean, and ‘-’ indicates the default is false,
 otherwise it is ‘+’ for true.  The boolean can be multi-bits, such as
 in the following example.  Then all bits are set or unset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="n">pr_en</span>              <span class="n">b</span><span class="o">-</span><span class="p">:</span><span class="mi">2</span> <span class="mf">0.61</span> <span class="mf">0.67</span>
@@ -19997,8 +20200,8 @@ tables in pma3-cram.txt</p>
 <p>mux_to_source.py enum &lt;datadir&gt; generates the file cv-bmuxtypes.ipp
 while mux_to_source.py mux &lt;datadir&gt; generates the file
 cv-bmux-data.cc.  mkmux.sh does both calls.</p>
-</div>
-<div class="section" id="logic-blocks">
+</section>
+<section id="logic-blocks">
 <h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline">¶</a></h3>
 <p>Blocks come from two sources, the files &lt;die&gt;-pram.txt indicates all
 the peripheral blocks with their pram address.  The files
@@ -20007,35 +20210,35 @@ the information of the connections between the blocks and neighbouring
 blocks and the routing grid.</p>
 <p>blocks_to_source.py generates the cvd-&lt;die&gt;-blk.cc file for a given
 die, abd mkblocks.sh calls it for every die.</p>
-</div>
-<div class="section" id="inverters">
+</section>
+<section id="inverters">
 <h3>Inverters<a class="headerlink" href="#inverters" title="Permalink to this headline">¶</a></h3>
 <p>The list of inverters, their cram position and their default value
 (always 0 at this point) is in &lt;die&gt;-inv.txt.
 inv_to_source.py/mkinv.sh takes care of generating the
 cvd-&lt;die&gt;-inv.cc files.</p>
-</div>
-<div class="section" id="forced-1-bits">
+</section>
+<section id="forced-1-bits">
 <h3>Forced-1 bits<a class="headerlink" href="#forced-1-bits" title="Permalink to this headline">¶</a></h3>
 <p>Five of the seven dies seem to have bits always set to 1.  They are
 listed in the files &lt;die&gt;-1.txt.  blocks_to_source.py takes care of
 it.</p>
-</div>
-<div class="section" id="packages">
+</section>
+<section id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
 <p>The file &lt;die&gt;-pkg.txt lists the packages and the pins of each package
 for each die.  pkg_to_source.py/mkpkg.sh take cares of generating the
 cvd-&lt;die&gt;-pkg.cc files.</p>
-</div>
-<div class="section" id="models">
+</section>
+<section id="models">
 <h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 <p>models.txt includes all the information on variants and models.  The
 cv-models.cc file is generated by models_to_source.py called by
 mkmodels.sh.</p>
+</section>
+</section>
 </div>
-</div>
-</div>
-</div>
+</section>
 
 
            </div>

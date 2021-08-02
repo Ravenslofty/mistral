@@ -22,7 +22,7 @@ namespace mistral {
 
     enum block_type_t {
 #define P(x) x
-#include "cv-blocktypes.ipp"
+#include <cv-blocktypes.ipp>
 #undef P
     };
 

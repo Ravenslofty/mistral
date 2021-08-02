@@ -350,11 +350,76 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
   case DSP: {
     switch(pn2pt(pn)) {
     case DATAIN:
+      if(bi < 0 || bi >= 12 || pi < 0 || pi >= 9)
+	break;
+      switch(bi) {
+      case  0: return rnode(GOUT, p+1, pi);
+      case  1: return rnode(GOUT, p+1, pi+9);
+      case  2: return rnode(GOUT, p+1, pi+18);
+      case  3: return rnode(GOUT, p+1, pi <= 2 ? pi+27 : 61+3-pi);
+      case  4: return rnode(GOUT, p+1, 55-pi);
+      case  5: return rnode(GOUT, p+1, 46-pi);
+      case  6: return rnode(GOUT, p,   pi);
+      case  7: return rnode(GOUT, p,   pi+9);
+      case  8: return rnode(GOUT, p,   pi+18);
+      case  9: return rnode(GOUT, p,   pi <= 2 ? pi+27 : 61+3-pi);
+      case 10: return rnode(GOUT, p,   55-pi);
+      case 11: return rnode(GOUT, p,   46-pi);
+      }
+      break;
+
+    case RESULT:
+      if(pi < 0 || pi >= 74)
+	break;
+      if(pi <= 17)
+	return rnode(GIN, p+1, pi);
+      if(pi <= 35)
+	return rnode(GIN, p,   pi-18);
+      if(pi <= 54)
+	return rnode(GIN, p+1, pi-36+18);
+      if(pi <= 73)
+	return rnode(GIN, p,   pi-55+18);
+      break;
+
+    case ACLR:
+      if(pi >= 0 && pi <= 1)
+	return rnode(TCLK, p, 3 + pi);
+      else if(pi >= 2 && pi <= 3)
+	return rnode(GOUT, p, 37-(pi-2));
+
+    case NEGATE:
+      if(pi != -1)
+	break;
+      return rnode(GOUT, p, 32);
+
+    case LOADCONST:
+      if(pi != -1)
+	break;
+      return rnode(GOUT, p, 33);
+
+    case ACCUMULATE:
+      if(pi != -1)
+	break;
+      return rnode(GOUT, p, 34);
+
+    case SUB:
+      if(pi != -1)
+	break;
+      return rnode(GOUT, p, 35);
+
+    case ENABLE:
+      if(pi < 0 || pi >= 3)
+	break;
+      return rnode(GOUT, p+1, 37-2*pi);
+
+    case UNK_IN:
       return pi >= 64 ? rnode(GOUT, p+1, pi-64) : rnode(GOUT, p, pi);
-    case DATAOUT:
-      return pi >= 37 ? rnode(GIN, p+1, pi-37) : rnode(GIN, p, pi);
+
     case CLKIN:
-      return rnode(TCLK, p, pi);
+      if(pi >= 0 && pi <= 2)
+	return rnode(TCLK, p, pi);
+      else if(pi >= 3 && pi <= 5)
+	return rnode(GOUT, p+1, 36-2*(pi-3));
     default:
       break;
     }
@@ -464,25 +529,50 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
     switch(rn2t(rn)) {
     case GOUT: {
       int z = rn2z(rn);
+      if(z <= 8)
+	return pnode(DSP, rn2p(rn), DATAIN, 6, z);
       if(z <= 17)
-	return pnode(DSP, rn2p(rn)-1, AX, -1, z + 9);
-      if(z == 38)
-	return pnode(DSP, rn2p(rn)-1, BY, -1, 9);
+	return pnode(DSP, rn2p(rn), DATAIN, 7, z-9);
+      if(z <= 26)
+	return pnode(DSP, rn2p(rn), DATAIN, 8, z - 18);
+      if(z <= 29)
+	return pnode(DSP, rn2p(rn), DATAIN, 9, z - 27);
+      if(z == 32)
+	return pnode(DSP, rn2p(rn), NEGATE, -1, -1);
+      if(z == 33)
+	return pnode(DSP, rn2p(rn), LOADCONST, -1, -1);
+      if(z == 34)
+	return pnode(DSP, rn2p(rn), ACCUMULATE, -1, -1);
+      if(z == 35)
+	return pnode(DSP, rn2p(rn), SUB, -1, -1);
+      if(z >= 36 && z <= 37)
+	return pnode(DSP, rn2p(rn), ACLR, -1, 37 - z + 2);
+      if(z >= 38 && z <= 46)
+	return pnode(DSP, rn2p(rn), DATAIN, 11, 46 - z);
+      if(z >= 47 && z <= 55)
+	return pnode(DSP, rn2p(rn), DATAIN, 10, 55 - z);
+      if(z >= 56 && z <= 61)
+	return pnode(DSP, rn2p(rn), DATAIN, 9, 61 - z + 3);
 
-      return pnode(DSP, rn2p(rn), DATAIN, -1, rn2z(rn));
+      return pnode(DSP, rn2p(rn), UNK_IN, -1, z);
     }
 
     case GIN: {
       int z = rn2z(rn);
       if(z <= 17)
 	return pnode(DSP, rn2p(rn), RESULT, -1, z + 18);
-      if(z <= 27)
-	return pnode(DSP, rn2p(rn), RESULT, -1, z - 18 + 54);
-      return pnode(DSP, rn2p(rn), DATAOUT, -1, rn2z(rn));
+      if(z <= 36)
+	return pnode(DSP, rn2p(rn), RESULT, -1, z - 18 + 55);
+      break;
     }
 
     case TCLK: {
-      return pnode(DSP, rn2p(rn), CLKIN, -1, rn2z(rn));
+      int z = rn2z(rn);
+      if(z <= 2)
+	return pnode(DSP, rn2p(rn), CLKIN, -1, z);
+      else
+	return pnode(DSP, rn2p(rn), ACLR, -1, z-3);
+
     }
 
     default: break;
@@ -494,24 +584,41 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
     case GOUT: {
       int z = rn2z(rn);
       if(z <= 8)
-	return pnode(DSP, rn2p(rn)-1, AX, -1, z);
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 0, z);
       if(z <= 17)
-	return pnode(DSP, rn2p(rn)-1, BX, -1, z - 9);
-      if(z >= 27 && z <= 29)
-	return pnode(DSP, rn2p(rn)-1, BY, -1, z - 27);
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 1, z - 9);
+      if(z <= 26)
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 2, z - 18);
+      if(z <= 29)
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 3, z - 27);
+      if(z == 32)
+	return pnode(DSP, rn2p(rn)-1, CLKIN, -1, 5);
+      if(z == 33)
+	return pnode(DSP, rn2p(rn)-1, ENABLE, -1, 2);
+      if(z == 34)
+	return pnode(DSP, rn2p(rn)-1, CLKIN, -1, 4);
+      if(z == 35)
+	return pnode(DSP, rn2p(rn)-1, ENABLE, -1, 1);
+      if(z == 36)
+	return pnode(DSP, rn2p(rn)-1, CLKIN, -1, 3);
+      if(z == 37)
+	return pnode(DSP, rn2p(rn)-1, ENABLE, -1, 0);
+      if(z >= 38 && z <= 46)
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 5, 46 - z);
+      if(z >= 47 && z <= 55)
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 4, 55 - z);
       if(z >= 56 && z <= 61)
-	return pnode(DSP, rn2p(rn)-1, BY, -1, 61 - z + 3);
-      return pnode(DSP, rn2p(rn)-1, DATAIN, -1, rn2z(rn)+64);
+	return pnode(DSP, rn2p(rn)-1, DATAIN, 3, 61 - z + 3);
+      return pnode(DSP, rn2p(rn)-1, UNK_IN, -1, rn2z(rn)+64);
     }
 
     case GIN: {
       int z = rn2z(rn);
       if(z <= 17)
-	return pnode(DSP, rn2p(rn), RESULT, -1, z);
-      if(z >= 19 && z <= 36)
-	return pnode(DSP, rn2p(rn), RESULT, -1, z - 19 + 36);
-
-      return pnode(DSP, rn2p(rn)-1, DATAOUT, -1, rn2z(rn)+37);
+	return pnode(DSP, rn2p(rn)-1, RESULT, -1, z);
+      if(z <= 36)
+	return pnode(DSP, rn2p(rn)-1, RESULT, -1, z - 18 + 36);
+      break;
     }
 
     default: break;
