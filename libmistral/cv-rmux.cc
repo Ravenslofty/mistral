@@ -189,6 +189,36 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
   return links;
 }
 
+std::vector<std::vector<mistral::CycloneV::rnode_t>> mistral::CycloneV::route_frontier_links_with_path() const
+{
+  std::vector<std::vector<rnode_t>> links;
+  auto blinks = route_all_active_links();
+  std::unordered_map<rnode_t, rnode_t> backtracks;
+  std::unordered_map<rnode_t, uint32_t> mode;
+
+  for(const auto &l : blinks) {
+    mode[l.first] |= 1;
+    mode[l.second] |= 2;
+    backtracks[l.second] = l.first;
+  }
+
+  for(const auto &m : mode) {
+    if(m.second == 2) {
+      rnode_t s = m.first;
+      links.resize(links.size()+1);
+      auto &l = links.back();
+      l.insert(l.begin(), s);
+      while(s && mode[s] != 1) {
+	s = backtracks[s];
+	l.insert(l.begin(), s);
+      }
+      assert(s);
+    }
+  }
+
+  return links;
+}
+
 void mistral::CycloneV::init_p2r_maps()
 {
   for(const p2r_info *p2r = di.p2r; p2r->p; p2r++) {

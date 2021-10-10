@@ -127,6 +127,54 @@ static void show_routes(char **args)
   delete model;
 }
 
+static void show_routesp(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  uint8_t *rbf;
+  uint32_t rbfsize;
+  file_load(args[1], rbf, rbfsize);
+
+  model->rbf_load(rbf, rbfsize);
+  free(rbf);
+
+  auto links = model->route_frontier_links_with_path();
+  for(const auto &path : links) {
+    std::string p;
+    for(auto rn : path) {
+      if(!p.empty())
+	p += ' ';
+      auto pn = model->rnode_to_pnode(rn);
+      p += pn ? mistral::CycloneV::pn2s(pn) : mistral::CycloneV::rn2s(rn);
+    }
+    printf("%s", p.c_str());
+    auto s = model->rnode_to_pnode(path.front());
+    auto d = model->rnode_to_pnode(path.back());
+    bool has_comment = false;
+    const mistral::CycloneV::pin_info_t *pin;
+    pin = model->pin_find_pnode(s);
+    if(pin) {
+      printf(" ; %s", pin->name);
+      has_comment = true;
+    }
+    pin = model->pin_find_pnode(d);
+    if(pin) {
+      if(!has_comment) {
+	printf(" ;");
+	has_comment = true;
+      }
+      printf(" %s", pin->name);
+    }
+    printf("\n");
+  }
+
+  delete model;
+}
+
 static void show_routes2(char **args)
 {
   auto model = mistral::CycloneV::get_model(args[0]);
@@ -859,6 +907,7 @@ static const fct fcts[] = {
   { "models",   0, 0, show_models,   "models                          -- Dump the list of known CycloneV models" },
   { "routes",   2, 2, show_routes,   "routes   model file.rbf         -- Dump the information of all active routes" },
   { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf         -- Dump the information of all unresolved active routes" },
+  { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf         -- Dump the information of all active routes with intermediate pips" },
   { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf   -- Load a rbf and save it again" },
   { "bels",     1, 1, show_bels,     "bels     model                  -- Dump the list of logic blocks for a given model" },
   { "p2r",      1, 1, show_p2r,      "p2r      model                  -- Dump the list of block port/routing nodes connections for peripheral blocks" },

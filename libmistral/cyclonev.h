@@ -254,6 +254,7 @@ namespace mistral {
 
     std::vector<std::pair<rnode_t, rnode_t>> route_all_active_links() const;
     std::vector<std::pair<rnode_t, rnode_t>> route_frontier_links() const;
+    std::vector<std::vector<rnode_t>> route_frontier_links_with_path() const;
 
     // Blocks positions 
     const std::vector<block_type_t> &pos_get_bels(pos_t pos) const { return tile_bels[pos]; }
