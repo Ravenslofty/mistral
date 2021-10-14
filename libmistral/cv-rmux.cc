@@ -416,6 +416,7 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
 	return rnode(TCLK, p, 3 + pi);
       else if(pi >= 2 && pi <= 3)
 	return rnode(GOUT, p, 37-(pi-2));
+      break;
 
     case NEGATE:
       if(pi != -1)
