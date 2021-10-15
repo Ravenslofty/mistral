@@ -25,3 +25,4 @@ docs-pdf/lab-common.pdf
 docs-pdf/lab-cell.pdf
 docs-pdf/lab-modes.pdf
 build
+__pycache__

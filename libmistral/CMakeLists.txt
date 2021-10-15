@@ -92,8 +92,8 @@ endforeach()
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
-       COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/routes-to-bin.py ${DATA} ${CMAKE_CURRENT_SOURCE_DIR}/cv-rnodetypes.ipp ${die} ${CMAKE_CURRENT_BINARY_DIR}
-       DEPENDS ${TOOLS}/routes-to-bin.py ${DATA}/${die}-r.txt.xz
+       COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../routes-to-bin/routes-to-bin ${DATA} ${die} ${CMAKE_CURRENT_BINARY_DIR} 1
+       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/../routes-to-bin/routes-to-bin ${DATA}/${die}-r.txt.xz ${DATA}/${die}-l.txt.xz
     )
 
     add_custom_command(
@@ -109,6 +109,7 @@ endforeach()
 
 
 add_library(mistral ${mistral_SOURCES})
+add_dependencies(mistral routes-to-bin)
 
 target_include_directories(mistral PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
