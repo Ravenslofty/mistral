@@ -119,7 +119,7 @@ install(TARGETS mistral DESTINATION lib)
 
 install(FILES cyclonev.h DESTINATION include)
 install(FILES cv-blocktypes.ipp DESTINATION include)
-install(FILES cv-bmuxtypes.ipp DESTINATION include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cv-bmuxtypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
 install(FILES cv-porttypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
