@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     nr++;
     rparse.next();
   }
-  assert(opos-output.data() <= output.size());
+  assert(size_t(opos-output.data()) <= output.size());
 
   output.resize(opos-output.data());
   r_data.clear();
