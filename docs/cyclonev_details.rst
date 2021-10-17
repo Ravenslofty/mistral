@@ -82,7 +82,6 @@ Carry and share chain in the order lab (x, y+1) cell 9 -> cells 0-9 ->
 lab (x, u-1) cell 0.  The BTO, TTO and BYPASS muxes control the
 connections in between 5-cell blocks.
 
-
 .. figure:: lab-common.*
    :width: 50%
 

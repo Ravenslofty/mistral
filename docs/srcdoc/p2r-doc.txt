@@ -58,3 +58,6 @@ cmuxhg.burstcnt Burst block counter value
 cmuxhg.switchclk Dynamically selected clock output
 hps_mpu_general_purpose.gp_in Port from fpga to arm
 hps_mpu_general_purpose.gp_out Port from arm to fpga
+ctrl.clk_out1 Internal oscillator clock 1 output
+ctrl.clk_out Internal oscillator clock output
+ctrl.osc_ena Internal oscillator enable
