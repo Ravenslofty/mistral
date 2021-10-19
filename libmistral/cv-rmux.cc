@@ -117,15 +117,12 @@ int mistral::CycloneV::rmux_get_slot(const rnode_base &r) const
 
 const mistral::CycloneV::rnode_base *mistral::CycloneV::rnode_lookup(rnode_t rn) const
 {
-  fprintf(stderr, "Looking up %08x %s (%d/%d)\n", rn, rn2s(rn).c_str(), rn % dhead->size_rnode_hash, dhead->size_rnode_hash);
   uint32_t entry = rn % dhead->size_rnode_hash;
-  fprintf(stderr, "  entry %7d (%d, %d)\n", entry, rnode_hash[entry].rnode_offset, rnode_hash[entry].next);
 
   if(!rnode_hash[entry].rnode_offset)
     return nullptr;
   for(;;) {
     const rnode_base *rm = reinterpret_cast<const rnode_base *>(rnode_info + rnode_hash[entry].rnode_offset);
-    fprintf(stderr, "  check %08x %s (%d)\n", rm->node, rn2s(rm->node).c_str(), rm->node % dhead->size_rnode_hash);
     if(rm->node == rn)
       return rm;
     entry = rnode_hash[entry].next;

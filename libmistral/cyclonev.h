@@ -10,6 +10,7 @@
 #include <cassert>
 #include <memory>
 #include <array>
+#include <iterator>
 
 namespace mistral {
   class CycloneV {
@@ -466,6 +467,140 @@ namespace mistral {
       uint16_t o_vhash;
     };
 
+  public:
+    class rnode_source_iterator : public std::iterator<std::bidirectional_iterator_tag, rnode_t> {
+    public:
+      rnode_source_iterator(const rnode_t *_rn) : rn(_rn) {}
+      rnode_source_iterator(const rnode_source_iterator &i) : rn(i.rn) {}
+
+      rnode_source_iterator &operator++() {
+	while(!*rn)
+	  rn++;
+	rn++;
+	return *this;
+      }
+
+      rnode_source_iterator operator++(int) {
+	const rnode_t *rn1 = rn;
+	while(!*rn1)
+	  rn1++;
+	return rnode_source_iterator(rn+1);
+      }
+
+      rnode_source_iterator &operator--() {
+	rn--;
+	while(!rn[-1])
+	  rn--;
+	return *this;
+      }
+
+      rnode_source_iterator operator--(int) {
+	const rnode_t *rn1 = rn-1;
+	while(!rn1[-1])
+	  rn1--;
+	return rnode_source_iterator(rn1);
+      }
+
+      rnode_t operator*() {
+	const rnode_t *rn1 = rn;
+	while(!*rn1)
+	  rn1++;
+	return *rn1;
+      }
+
+      bool operator==(const rnode_source_iterator &rhs) const {
+	return rn == rhs.rn;
+      }
+
+      bool operator!=(const rnode_source_iterator &rhs) const {
+	return rn != rhs.rn;
+      }
+
+    private:
+      const rnode_t *rn;
+    };
+      
+    class rnode_source_container_proxy {
+    public:
+      rnode_source_container_proxy(const rnode_base *_rn) : rn(_rn) {}
+      rnode_source_iterator begin() const {
+	const rnode_t *start = rnode_sources(rn);
+	int span = rmux_patterns[rn->pattern].span;
+	const rnode_t *end = start + span;
+	while(start != end && !*start)
+	  start++;
+	if(start == end)
+	  start = rnode_sources(rn);
+	return rnode_source_iterator(start);
+      }
+
+      rnode_source_iterator end() const {
+	const rnode_t *start = rnode_sources(rn);
+	int span = rmux_patterns[rn->pattern].span;
+	const rnode_t *end = start + span;
+	while(end > start && !end[-1])
+	  end --;
+	return rnode_source_iterator(end);
+      }
+
+    private:
+      const rnode_base *rn;
+    };
+    
+
+    class rnode_proxy {
+    public:
+      rnode_proxy(const rnode_base *_rn) : rn(_rn) {}
+      rnode_t id() const { return rn->node; }
+      rnode_source_container_proxy sources() const { return rnode_source_container_proxy(rn); }
+
+    private:
+      const rnode_base *rn;
+    };
+
+    class rnode_iterator : public std::iterator<std::input_iterator_tag, rnode_proxy> {
+    public:
+      rnode_iterator(const rnode_base *_rn) : rn(_rn) {}
+      rnode_iterator(const rnode_iterator &i) : rn(i.rn) {}
+
+      rnode_iterator &operator++() {
+	rn = rnode_next(rn);
+	return *this;
+      }
+
+      rnode_iterator operator++(int) {
+	return rnode_iterator(rnode_next(rn));
+      }
+
+      rnode_proxy operator*() {
+	return rnode_proxy(rn);
+      }
+
+      bool operator==(const rnode_iterator &rhs) const {
+	return rn == rhs.rn;
+      }
+
+      bool operator!=(const rnode_iterator &rhs) const {
+	return rn != rhs.rn;
+      }
+
+    private:
+      const rnode_base *rn;
+    };
+      
+    class rnode_container_proxy {
+    public:
+      rnode_container_proxy(const CycloneV *_data) : data(_data) {}
+      rnode_iterator begin() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_info)); }
+      rnode_iterator end() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_hash)); }
+
+    private:
+      const CycloneV *data;
+    };
+
+    rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
+
+  private:
     struct bmux_sel_entry {
       uint32_t mask;
       bmux_type_t sel;
@@ -749,11 +884,11 @@ namespace mistral {
       return reinterpret_cast<const rnode_base *>(reinterpret_cast<const uint8_t *>(r) + sizeof(rnode_base) + 4*rmux_patterns[r->pattern].span);
     }
 
-    static inline const uint32_t *rnode_sources(const rnode_base &r)  {
+    static inline const rnode_t *rnode_sources(const rnode_base &r)  {
       return reinterpret_cast<const uint32_t *>(reinterpret_cast<const uint8_t *>(&r) + sizeof(rnode_base));
     }
 
-    static inline const uint32_t *rnode_sources(const rnode_base *r) {
+    static inline const rnode_t *rnode_sources(const rnode_base *r) {
       return rnode_sources(*r);
     }
 
