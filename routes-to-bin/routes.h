@@ -6,6 +6,18 @@
 #include <vector>
 #include <stdint.h>
 
+struct rmux_pattern {
+  uint8_t bits;
+  uint8_t span;
+  uint16_t hashdiv;
+  uint32_t def;
+  uint16_t o_xy;
+  uint16_t o_vals;
+  uint16_t o_vhash;
+};
+
+extern const rmux_pattern rmux_patterns[70+4];
+
 class RoutesParser {
 public:
   rnode_t rn;

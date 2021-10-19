@@ -21,7 +21,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   10038, 9948,             // cram size
   122, 116,                // tiles size
   122, 116,                // hps (arm) processor core position
-  3330206,                 // routing muxes count
   637,                     // IO blocks count
   35,                      // dqs16 count
   14714,                   // inverters count

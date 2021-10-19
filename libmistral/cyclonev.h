@@ -366,7 +366,6 @@ namespace mistral {
       uint32_t cram_sx, cram_sy;
       uint8_t tile_sx, tile_sy;
       uint8_t hps_x, hps_y;
-      uint32_t rmux_count;
       uint32_t ioblocks_count;
       uint32_t dqs16_count;
       uint32_t inverters_count;
@@ -434,20 +433,28 @@ namespace mistral {
     static const Model models[];
     static CycloneV *get_model(std::string model_name);
 
-    struct rmux {
-      rnode_t destination;
-      uint32_t pattern;
-      uint32_t fw_pos;
-      rnode_t sources[44];
-    };
-
-    std::unique_ptr<rmux []> rmux_info;
-    std::unordered_map<rnode_t, uint32_t> dest_node_to_rmux;
-    
   private:
     enum bmux_ram_t { BM_CRAM, BM_PRAM, BM_ORAM, BM_DCRAM };
 
     using fpos_t = uint32_t;
+
+    struct data_header {
+      uint32_t off_rnode;
+      uint32_t off_rnode_hash;
+      uint32_t size_rnode_hash;
+      uint32_t count_rnode;
+    };
+    
+    struct rnode_base {
+      rnode_t node;
+      uint32_t pattern;
+      uint32_t fw_pos;
+    }; // Followed by up to 44 sources
+    
+    struct rnode_hash_entry {
+      uint32_t rnode_offset;
+      uint32_t next;
+    };
 
     struct rmux_pattern {
       uint8_t bits;
@@ -711,6 +718,11 @@ namespace mistral {
     std::unordered_map<pnode_t, rnode_t> p2r_map;
     std::unordered_map<rnode_t, pnode_t> r2p_map;
 
+    std::unique_ptr<uint8_t[]> decompressed_data_storage;
+    const data_header *dhead;
+    const uint8_t *rnode_info;
+    const rnode_hash_entry *rnode_hash;
+
     void rbf_load_oram(const void *data, uint32_t size);
 
     void rmux_load();
@@ -731,10 +743,24 @@ namespace mistral {
     static uint16_t crc16(const uint8_t *src, uint32_t len);
     uint32_t crc32(const uint8_t *src) const;
 
-    uint32_t rmux_get_val(const rmux &r) const;
-    void rmux_set_val(const rmux &r, uint32_t val);
-    int rmux_get_slot(const rmux &r) const;
-    rnode_t rmux_get_source(const rmux &r) const;
+    const rnode_base *rnode_lookup(rnode_t rn) const;
+
+    static inline const rnode_base *rnode_next(const rnode_base *r) {
+      return reinterpret_cast<const rnode_base *>(reinterpret_cast<const uint8_t *>(r) + sizeof(rnode_base) + 4*rmux_patterns[r->pattern].span);
+    }
+
+    static inline const uint32_t *rnode_sources(const rnode_base &r)  {
+      return reinterpret_cast<const uint32_t *>(reinterpret_cast<const uint8_t *>(&r) + sizeof(rnode_base));
+    }
+
+    static inline const uint32_t *rnode_sources(const rnode_base *r) {
+      return rnode_sources(*r);
+    }
+
+    uint32_t rmux_get_val(const rnode_base &r) const;
+    void rmux_set_val(const rnode_base &r, uint32_t val);
+    int rmux_get_slot(const rnode_base &r) const;
+    rnode_t rmux_get_source(const rnode_base &r) const;
     bool rmux_is_default(rnode_t node) const;
     bool rnode_do_link(rnode_t n1, rnode_t n2);
     void route_set_defaults();
@@ -813,7 +839,6 @@ namespace mistral {
     std::unordered_map<const char *, port_type_t, sh, eq>  port_type_hash;
     std::unordered_map<const char *, bmux_type_t, sh, eq>  bmux_type_hash;
   };
-  
 }
 
 #endif

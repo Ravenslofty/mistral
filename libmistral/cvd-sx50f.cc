@@ -25,7 +25,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   6006, 5304,              // cram size
   69, 62,                  // tiles size
   31, 17,                  // hps (arm) processor core position
-  560293,                  // routing muxes count
   438,                     // IO blocks count
   19,                      // dqs16 count
   9863,                    // inverters count

@@ -21,7 +21,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
   6006, 5304,              // cram size
   69, 62,                  // tiles size
   69, 62,                  // hps (arm) processor core position
-  959166,                  // routing muxes count
   401,                     // IO blocks count
   22,                      // dqs16 count
   10221,                   // inverters count

@@ -1,270 +1,75 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Mistral documentation 1.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="search" title="Search" href="search.html" />
     <link href="_static/style.css" rel="stylesheet" type="text/css">
 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="#" class="icon icon-home"> Mistral documentation
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 1.0
               </div>
-            
-          
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_fpga">The Cyclone V FPGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_details">CycloneV internals description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_library_use">CycloneV library usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_driver">The mistral-cv command-line program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_library_internals">Mistral CycloneV library internals</a></li>
+</ul>
 
-          
-
-          
         </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-            
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_fpga">The Cyclone V FPGA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#the-fpgas">The FPGAs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-stucture">Bitstream stucture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#logic-blocks">Logic blocks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routing-network">Routing network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#programmable-inverters">Programmable inverters</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_details">CycloneV internals description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routing-network">Routing network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#inner-logic-blocks">Inner logic blocks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#lab">LAB</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#mlab">MLAB</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#dsp">DSP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#m10k">M10K</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#peripheral-logic-blocks">Peripheral logic blocks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#gpio">GPIO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#dqs16">DQS16</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#fpll">FPLL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cbuf">CBUF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxcr">CMUXCR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxhg">CMUXHG</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxvg">CMUXVG</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxhr">CMUXHR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxvr">CMUXVR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#cmuxp">CMUXP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ctrl">CTRL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#hssi">HSSI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#hip">HIP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#dll">DLL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#serpar">SERPAR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#lvl">LVL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#term">TERM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#pma3">PMA3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#hmc">HMC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#hps">HPS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-boot">HPS_BOOT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-clocks">HPS_CLOCKS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-clocks-resets">HPS_CLOCKS_RESETS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-cross-trigger">HPS_CROSS_TRIGGER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-dbg-apb">HPS_DBG_APB</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-dma">HPS_DMA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-fpga2hps">HPS_FPGA2HPS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-fpga2sdram">HPS_FPGA2SDRAM</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-hps2fpga">HPS_HPS2FPGA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-hps2fpga-light-weight">HPS_HPS2FPGA_LIGHT_WEIGHT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-interrupts">HPS_INTERRUPTS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-jtag">HPS_JTAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-loan-io">HPS_LOAN_IO</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-mpu-event-standby">HPS_MPU_EVENT_STANDBY</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-mpu-general-purpose">HPS_MPU_GENERAL_PURPOSE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-can">HPS_PERIPHERAL_CAN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-emac">HPS_PERIPHERAL_EMAC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-i2c">HPS_PERIPHERAL_I2C</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-nand">HPS_PERIPHERAL_NAND</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-qspi">HPS_PERIPHERAL_QSPI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-sdmmc">HPS_PERIPHERAL_SDMMC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-spi-master">HPS_PERIPHERAL_SPI_MASTER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-spi-slave">HPS_PERIPHERAL_SPI_SLAVE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-uart">HPS_PERIPHERAL_UART</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-peripheral-usb">HPS_PERIPHERAL_USB</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-stm-event">HPS_STM_EVENT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-test">HPS_TEST</a></li>
-<li class="toctree-l4"><a class="reference internal" href="index.html#hps-tpiu-trace">HPS_TPIU_TRACE</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#options">Options</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_library_use">CycloneV library usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#library-structure">Library structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#packages">Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#model-information">Model information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#pos-rnode-and-pnode">pos, rnode and pnode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routing-network-management">Routing network management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#logic-block-management">Logic block management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#inverters-management">Inverters management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#pin-package-management">Pin/package management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#options">Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#bitstream-management">Bitstream management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#hmc-bypass">HMC bypass</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_driver">The mistral-cv command-line program</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#models">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routes">routes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routes2">routes2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#cycle">cycle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#bels">bels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#decomp">decomp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#comp">comp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#diff">diff</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cyclonev_library_internals">Mistral CycloneV library internals</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#structure">Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#routing-data">Routing data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#block-muxes">Block muxes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#logic-blocks">Logic blocks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#inverters">Inverters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#forced-1-bits">Forced-1 bits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#packages">Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#models">Models</a></li>
-</ul>
-</li>
-</ul>
-</div>
-            
-          
-        </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">Mistral documentation</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Mistral documentation 1.0 documentation</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="mistral-a-cyclone-v-fpga-bitstream-library">
-<h1>Mistral - a Cyclone V FPGA bitstream library<a class="headerlink" href="#mistral-a-cyclone-v-fpga-bitstream-library" title="Permalink to this headline">¶</a></h1>
+<h1>Mistral - a Cyclone V FPGA bitstream library<a class="headerlink" href="#mistral-a-cyclone-v-fpga-bitstream-library" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
 <span id="document-cyclonev_fpga"></span><section id="the-cyclone-v-fpga">
-<h2>The Cyclone V FPGA<a class="headerlink" href="#the-cyclone-v-fpga" title="Permalink to this headline">¶</a></h2>
+<h2>The Cyclone V FPGA<a class="headerlink" href="#the-cyclone-v-fpga" title="Permalink to this headline"></a></h2>
 <section id="the-fpgas">
-<h3>The FPGAs<a class="headerlink" href="#the-fpgas" title="Permalink to this headline">¶</a></h3>
+<h3>The FPGAs<a class="headerlink" href="#the-fpgas" title="Permalink to this headline"></a></h3>
 <p>The Cyclone V is a series of FPGAs produced initially by Altera, now
 Intel.  It is based on a series of seven dies with varying levels of
 capability, which is then derived into more than 400 SKUs with
@@ -273,7 +78,7 @@ variations in speed, temperature range, and enabled internal hardware.</p>
 <figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="_images/floorplans.svg"><img alt="_images/floorplans.svg" src="_images/floorplans.svg" width="100%" /></a>
 <figcaption>
-<p><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>The FPGA, structurally, is a set of logic blocks of different types
@@ -285,7 +90,7 @@ interfaces (hssi and pma3).  Also, the top-right corner in the sx50f
 and sx120f variants is used to fit the hps, a dual-core arm.</p>
 </section>
 <section id="bitstream-stucture">
-<h3>Bitstream stucture<a class="headerlink" href="#bitstream-stucture" title="Permalink to this headline">¶</a></h3>
+<h3>Bitstream stucture<a class="headerlink" href="#bitstream-stucture" title="Permalink to this headline"></a></h3>
 <p>The bitstream is built from three rams:</p>
 <ul class="simple">
 <li><p>Option ram</p></li>
@@ -359,7 +164,7 @@ bits.</p>
 </table>
 </section>
 <section id="logic-blocks">
-<h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline">¶</a></h3>
+<h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline"></a></h3>
 <p>The logic blocks are of two categories, the inner blocks and the
 peripheral blocks.  To a first approximation all the inner blocks are
 configured through configuration ram, and the peripheral blocks
@@ -401,7 +206,7 @@ block muxes.  They can be of 4 types:
 associated to each block.</p>
 </section>
 <section id="routing-network">
-<h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline">¶</a></h3>
+<h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline"></a></h3>
 <p>A massive routing network is present all over the FPGA.  It has two
 almost-disjoint parts.  The data network has a series of inputs,
 connected to the outputs of all the blocks, and a series of outputs
@@ -417,16 +222,16 @@ blocks to select for their clock-like inputs which network the signal
 should come from.</p>
 </section>
 <section id="programmable-inverters">
-<h3>Programmable inverters<a class="headerlink" href="#programmable-inverters" title="Permalink to this headline">¶</a></h3>
+<h3>Programmable inverters<a class="headerlink" href="#programmable-inverters" title="Permalink to this headline"></a></h3>
 <p>Essentially every output of the routing network that enters a
 peripheral block can optionally be inverted by activating the
 associated configuration bit.</p>
 </section>
 </section>
 <span id="document-cyclonev_details"></span><section id="cyclonev-internals-description">
-<h2>CycloneV internals description<a class="headerlink" href="#cyclonev-internals-description" title="Permalink to this headline">¶</a></h2>
+<h2>CycloneV internals description<a class="headerlink" href="#cyclonev-internals-description" title="Permalink to this headline"></a></h2>
 <section id="routing-network">
-<h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline">¶</a></h3>
+<h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline"></a></h3>
 <p>The routing network follows a single-driver structure: a number of
 inputs are grouped together in one place, one is selected through the
 configuration, then it is amplified and used to drive a metal line.
@@ -480,9 +285,9 @@ driven from either a clock or a data signal.</p>
 provided with an optional inverter.</p>
 </section>
 <section id="inner-logic-blocks">
-<h3>Inner logic blocks<a class="headerlink" href="#inner-logic-blocks" title="Permalink to this headline">¶</a></h3>
+<h3>Inner logic blocks<a class="headerlink" href="#inner-logic-blocks" title="Permalink to this headline"></a></h3>
 <section id="lab">
-<h4>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h4>
+<h4>LAB<a class="headerlink" href="#lab" title="Permalink to this headline"></a></h4>
 <p>The LABs are the main combinatorial and register blocks of the FPGA.
 A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
 splitted in 6 parts, four Flip-Flops, two 1-bit adders and a lot of
@@ -495,19 +300,19 @@ connections in between 5-cell blocks.</p>
 <a class="reference internal image-reference" href="_images/lab-common.svg"><img alt="_images/lab-common.svg" src="_images/lab-common.svg" width="50%" /></a>
 <figcaption>
 <p><span class="caption-text">The part of the LAB shared by all ten cells that generates the
-common signals.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+common signals.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="_images/lab-cell.svg"><img alt="_images/lab-cell.svg" src="_images/lab-cell.svg" width="100%" /></a>
 <figcaption>
-<p><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id3">
 <a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="100%" /></a>
 <figcaption>
-<p><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <table class="docutils align-default">
@@ -1173,7 +978,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </table>
 </section>
 <section id="mlab">
-<h4>MLAB<a class="headerlink" href="#mlab" title="Permalink to this headline">¶</a></h4>
+<h4>MLAB<a class="headerlink" href="#mlab" title="Permalink to this headline"></a></h4>
 <p>A MLAB is a lab that can optionally be turned into a 640-bits RAM or
 ROM.  The wiring is identical to the LAB, only some additional muxes
 are provided to select the RAM/ROM mode.</p>
@@ -1257,7 +1062,7 @@ are provided to select the RAM/ROM mode.</p>
 </table>
 </section>
 <section id="dsp">
-<h4>DSP<a class="headerlink" href="#dsp" title="Permalink to this headline">¶</a></h4>
+<h4>DSP<a class="headerlink" href="#dsp" title="Permalink to this headline"></a></h4>
 <p>The DSP blocks provide a multiply-adder with differents modes. Its large
 number of inputs and output makes it span two tiles vertically.</p>
 <p>The modes are are:</p>
@@ -1960,7 +1765,7 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </table>
 </section>
 <section id="m10k">
-<h4>M10K<a class="headerlink" href="#m10k" title="Permalink to this headline">¶</a></h4>
+<h4>M10K<a class="headerlink" href="#m10k" title="Permalink to this headline"></a></h4>
 <p>The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
@@ -2751,9 +2556,9 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </section>
 </section>
 <section id="peripheral-logic-blocks">
-<h3>Peripheral logic blocks<a class="headerlink" href="#peripheral-logic-blocks" title="Permalink to this headline">¶</a></h3>
+<h3>Peripheral logic blocks<a class="headerlink" href="#peripheral-logic-blocks" title="Permalink to this headline"></a></h3>
 <section id="gpio">
-<h4>GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h4>
+<h4>GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline"></a></h4>
 <p>The GPIO blocks connect the FPGA with the exterior through the package
 pins.  Each block controls 4 pads, which are connected to up to 4
 pins.</p>
@@ -3462,7 +3267,7 @@ pins.</p>
 </table>
 </section>
 <section id="dqs16">
-<h4>DQS16<a class="headerlink" href="#dqs16" title="Permalink to this headline">¶</a></h4>
+<h4>DQS16<a class="headerlink" href="#dqs16" title="Permalink to this headline"></a></h4>
 <p>The DQS16 blocks handle differential signaling protocols.  Each
 supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <p>TODO: everything</p>
@@ -4585,7 +4390,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 </section>
 <section id="fpll">
-<h4>FPLL<a class="headerlink" href="#fpll" title="Permalink to this headline">¶</a></h4>
+<h4>FPLL<a class="headerlink" href="#fpll" title="Permalink to this headline"></a></h4>
 <p>The Fractional PLL blocks synthesize 9 frequencies from an input with integer or fractional ratios.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
@@ -5869,7 +5674,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 </section>
 <section id="cbuf">
-<h4>CBUF<a class="headerlink" href="#cbuf" title="Permalink to this headline">¶</a></h4>
+<h4>CBUF<a class="headerlink" href="#cbuf" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -5991,7 +5796,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 </section>
 <section id="cmuxcr">
-<h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline"></a></h4>
 <p>The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -6225,7 +6030,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 </section>
 <section id="cmuxhg">
-<h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline"></a></h4>
 <p>The two Global Horizontal CMUX drive four GCLK grids each.  The mux
 provides selection between positive and negative clock pins, pll
 counter outputs, HPS clocks and HSSI clocks (TODO).  There’s also four
@@ -6285,7 +6090,7 @@ selection mux depends on the instance:</p>
 <figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="_images/cmuxhg.svg"><img alt="_images/cmuxhg.svg" src="_images/cmuxhg.svg" width="100%" /></a>
 <figcaption>
-<p><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <table class="docutils align-default">
@@ -6733,7 +6538,7 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="cmuxvg">
-<h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline"></a></h4>
 <p>The two Global Vertical CMUX drive four GCLK grids each.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -7030,7 +6835,7 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="cmuxhr">
-<h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline"></a></h4>
 <p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -7337,7 +7142,7 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="cmuxvr">
-<h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline"></a></h4>
 <p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -7489,7 +7294,7 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="cmuxp">
-<h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline">¶</a></h4>
+<h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline"></a></h4>
 <p>The CMUXP drive two PCLK each.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -7524,16 +7329,16 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="ctrl">
-<h4>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline">¶</a></h4>
+<h4>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline"></a></h4>
 <p>The Control block gives access to a number of anciliary functions of the FPGA.</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 23%" />
 <col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 38%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -7560,13 +7365,13 @@ selection mux depends on the instance:</p>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Internal oscillator clock output</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_OUT1</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
-<td><p>TODO</p></td>
+<td><p>Internal oscillator clock 1 output</p></td>
 </tr>
 <tr class="row-even"><td><p>CLOCK_CHIPID</p></td>
 <td></td>
@@ -7758,7 +7563,7 @@ selection mux depends on the instance:</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
-<td><p>TODO</p></td>
+<td><p>Internal oscillator enable</p></td>
 </tr>
 <tr class="row-even"><td><p>OUTPUT_ENABLE</p></td>
 <td></td>
@@ -7920,7 +7725,7 @@ selection mux depends on the instance:</p>
 </table>
 </section>
 <section id="hssi">
-<h4>HSSI<a class="headerlink" href="#hssi" title="Permalink to this headline">¶</a></h4>
+<h4>HSSI<a class="headerlink" href="#hssi" title="Permalink to this headline"></a></h4>
 <p>The High speed serial interface blocks control the
 serializing/deserializing capabilities of the FPGA.</p>
 <p>TODO: everything</p>
@@ -9498,7 +9303,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="hip">
-<h4>HIP<a class="headerlink" href="#hip" title="Permalink to this headline">¶</a></h4>
+<h4>HIP<a class="headerlink" href="#hip" title="Permalink to this headline"></a></h4>
 <p>The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -11583,7 +11388,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="dll">
-<h4>DLL<a class="headerlink" href="#dll" title="Permalink to this headline">¶</a></h4>
+<h4>DLL<a class="headerlink" href="#dll" title="Permalink to this headline"></a></h4>
 <p>The Delay-Locked loop does phase control for the DQS16.</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -11837,7 +11642,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="serpar">
-<h4>SERPAR<a class="headerlink" href="#serpar" title="Permalink to this headline">¶</a></h4>
+<h4>SERPAR<a class="headerlink" href="#serpar" title="Permalink to this headline"></a></h4>
 <p>Unclear yet.</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -11874,7 +11679,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="lvl">
-<h4>LVL<a class="headerlink" href="#lvl" title="Permalink to this headline">¶</a></h4>
+<h4>LVL<a class="headerlink" href="#lvl" title="Permalink to this headline"></a></h4>
 <p>The Leveling Delay Chain does something linked to the DQS16.</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -12047,7 +11852,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="term">
-<h4>TERM<a class="headerlink" href="#term" title="Permalink to this headline">¶</a></h4>
+<h4>TERM<a class="headerlink" href="#term" title="Permalink to this headline"></a></h4>
 <p>The TERM blocks control the On-Chip Termination circuitry</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -12253,7 +12058,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="pma3">
-<h4>PMA3<a class="headerlink" href="#pma3" title="Permalink to this headline">¶</a></h4>
+<h4>PMA3<a class="headerlink" href="#pma3" title="Permalink to this headline"></a></h4>
 <p>The PMA3 blocks control triplets of channels used with the HSSI.</p>
 <p>TODO: everything</p>
 <table class="docutils align-default">
@@ -13808,7 +13613,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 </section>
 <section id="hmc">
-<h4>HMC<a class="headerlink" href="#hmc" title="Permalink to this headline">¶</a></h4>
+<h4>HMC<a class="headerlink" href="#hmc" title="Permalink to this headline"></a></h4>
 <p>The Hardware memory controller controls sets of GPIOs to implement
 modern SDR and DDR memory interfaces.  In the sx dies one of them is
 taken over by the HPS.  They can be bypassed in favor of direct access
@@ -15970,12 +15775,12 @@ connected to the corresponding PHYDDIO* ports.</p>
 </table>
 </section>
 <section id="hps">
-<h4>HPS<a class="headerlink" href="#hps" title="Permalink to this headline">¶</a></h4>
+<h4>HPS<a class="headerlink" href="#hps" title="Permalink to this headline"></a></h4>
 <p>The interface between the FPGA and the Hard processor system is done
 through 37 specialized blocks of 28 different types.</p>
 <p>TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.</p>
 <section id="hps-boot">
-<h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 34%" />
@@ -16033,7 +15838,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-clocks">
-<h5>HPS_CLOCKS<a class="headerlink" href="#hps-clocks" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_CLOCKS<a class="headerlink" href="#hps-clocks" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -16120,7 +15925,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-clocks-resets">
-<h5>HPS_CLOCKS_RESETS<a class="headerlink" href="#hps-clocks-resets" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_CLOCKS_RESETS<a class="headerlink" href="#hps-clocks-resets" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
@@ -16190,7 +15995,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-cross-trigger">
-<h5>HPS_CROSS_TRIGGER<a class="headerlink" href="#hps-cross-trigger" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_CROSS_TRIGGER<a class="headerlink" href="#hps-cross-trigger" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -16254,7 +16059,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-dbg-apb">
-<h5>HPS_DBG_APB<a class="headerlink" href="#hps-dbg-apb" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_DBG_APB<a class="headerlink" href="#hps-dbg-apb" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 24%" />
@@ -16354,7 +16159,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-dma">
-<h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -16394,7 +16199,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-fpga2hps">
-<h5>HPS_FPGA2HPS<a class="headerlink" href="#hps-fpga2hps" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_FPGA2HPS<a class="headerlink" href="#hps-fpga2hps" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -16656,7 +16461,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-fpga2sdram">
-<h5>HPS_FPGA2SDRAM<a class="headerlink" href="#hps-fpga2sdram" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_FPGA2SDRAM<a class="headerlink" href="#hps-fpga2sdram" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 28%" />
@@ -16816,7 +16621,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-hps2fpga">
-<h5>HPS_HPS2FPGA<a class="headerlink" href="#hps-hps2fpga" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_HPS2FPGA<a class="headerlink" href="#hps-hps2fpga" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -17066,7 +16871,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-hps2fpga-light-weight">
-<h5>HPS_HPS2FPGA_LIGHT_WEIGHT<a class="headerlink" href="#hps-hps2fpga-light-weight" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_HPS2FPGA_LIGHT_WEIGHT<a class="headerlink" href="#hps-hps2fpga-light-weight" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -17310,7 +17115,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-interrupts">
-<h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -17458,7 +17263,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-jtag">
-<h5>HPS_JTAG<a class="headerlink" href="#hps-jtag" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_JTAG<a class="headerlink" href="#hps-jtag" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -17510,7 +17315,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-loan-io">
-<h5>HPS_LOAN_IO<a class="headerlink" href="#hps-loan-io" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_LOAN_IO<a class="headerlink" href="#hps-loan-io" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -17556,7 +17361,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-mpu-event-standby">
-<h5>HPS_MPU_EVENT_STANDBY<a class="headerlink" href="#hps-mpu-event-standby" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_MPU_EVENT_STANDBY<a class="headerlink" href="#hps-mpu-event-standby" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -17602,7 +17407,7 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 </section>
 <section id="hps-mpu-general-purpose">
-<h5>HPS_MPU_GENERAL_PURPOSE<a class="headerlink" href="#hps-mpu-general-purpose" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_MPU_GENERAL_PURPOSE<a class="headerlink" href="#hps-mpu-general-purpose" title="Permalink to this headline"></a></h5>
 <p>This block provides one input and one output 32 bits port directly
 accessible from the arm cores at 0xff706010 (arm to fpga) and
 0xff706014 (fpga to arm).</p>
@@ -17639,7 +17444,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-can">
-<h5>HPS_PERIPHERAL_CAN<a class="headerlink" href="#hps-peripheral-can" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_CAN<a class="headerlink" href="#hps-peripheral-can" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -17674,7 +17479,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-emac">
-<h5>HPS_PERIPHERAL_EMAC<a class="headerlink" href="#hps-peripheral-emac" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_EMAC<a class="headerlink" href="#hps-peripheral-emac" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -17805,7 +17610,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-i2c">
-<h5>HPS_PERIPHERAL_I2C<a class="headerlink" href="#hps-peripheral-i2c" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_I2C<a class="headerlink" href="#hps-peripheral-i2c" title="Permalink to this headline"></a></h5>
 <p>(4 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -17852,7 +17657,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-nand">
-<h5>HPS_PERIPHERAL_NAND<a class="headerlink" href="#hps-peripheral-nand" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_NAND<a class="headerlink" href="#hps-peripheral-nand" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -17934,7 +17739,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-qspi">
-<h5>HPS_PERIPHERAL_QSPI<a class="headerlink" href="#hps-peripheral-qspi" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_QSPI<a class="headerlink" href="#hps-peripheral-qspi" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -17980,7 +17785,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-sdmmc">
-<h5>HPS_PERIPHERAL_SDMMC<a class="headerlink" href="#hps-peripheral-sdmmc" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_SDMMC<a class="headerlink" href="#hps-peripheral-sdmmc" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -18086,7 +17891,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-spi-master">
-<h5>HPS_PERIPHERAL_SPI_MASTER<a class="headerlink" href="#hps-peripheral-spi-master" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_SPI_MASTER<a class="headerlink" href="#hps-peripheral-spi-master" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -18139,7 +17944,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-spi-slave">
-<h5>HPS_PERIPHERAL_SPI_SLAVE<a class="headerlink" href="#hps-peripheral-spi-slave" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_SPI_SLAVE<a class="headerlink" href="#hps-peripheral-spi-slave" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -18192,7 +17997,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-uart">
-<h5>HPS_PERIPHERAL_UART<a class="headerlink" href="#hps-peripheral-uart" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_UART<a class="headerlink" href="#hps-peripheral-uart" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -18269,7 +18074,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-peripheral-usb">
-<h5>HPS_PERIPHERAL_USB<a class="headerlink" href="#hps-peripheral-usb" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_PERIPHERAL_USB<a class="headerlink" href="#hps-peripheral-usb" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
@@ -18334,7 +18139,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-stm-event">
-<h5>HPS_STM_EVENT<a class="headerlink" href="#hps-stm-event" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_STM_EVENT<a class="headerlink" href="#hps-stm-event" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -18362,7 +18167,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-test">
-<h5>HPS_TEST<a class="headerlink" href="#hps-test" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_TEST<a class="headerlink" href="#hps-test" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40%" />
@@ -19362,7 +19167,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 </section>
 <section id="hps-tpiu-trace">
-<h5>HPS_TPIU_TRACE<a class="headerlink" href="#hps-tpiu-trace" title="Permalink to this headline">¶</a></h5>
+<h5>HPS_TPIU_TRACE<a class="headerlink" href="#hps-tpiu-trace" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 21%" />
@@ -19404,7 +19209,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </section>
 </section>
 <section id="options">
-<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 46%" />
@@ -19538,9 +19343,9 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </section>
 </section>
 <span id="document-cyclonev_library_use"></span><section id="cyclonev-library-usage">
-<h2>CycloneV library usage<a class="headerlink" href="#cyclonev-library-usage" title="Permalink to this headline">¶</a></h2>
+<h2>CycloneV library usage<a class="headerlink" href="#cyclonev-library-usage" title="Permalink to this headline"></a></h2>
 <section id="library-structure">
-<h3>Library structure<a class="headerlink" href="#library-structure" title="Permalink to this headline">¶</a></h3>
+<h3>Library structure<a class="headerlink" href="#library-structure" title="Permalink to this headline"></a></h3>
 <p>The library provides a CycloneV class in the mistral namespace.
 Information is provided to allow to choose a CycloneV::Model object
 which represents a sold FPGA variant.  Then a CycloneV object can be
@@ -19550,19 +19355,19 @@ configuration and allows to read and modify it.</p>
 following paragraph are in the CycloneV class.</p>
 </section>
 <section id="packages">
-<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">package_type_t</span><span class="p">;</span>
+<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">package_type_t</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">CycloneV</span><span class="o">::</span><span class="n">package_info_t</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">pin_count</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">type</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">width_in_pins</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">height_in_pins</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">width_in_mm</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">height_in_mm</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">CycloneV</span><span class="o">::</span><span class="n">package_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">pin_count</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">width_in_pins</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">height_in_pins</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">width_in_mm</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">height_in_mm</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">const</span> <span class="n">package_info_t</span> <span class="n">package_infos</span><span class="p">[</span><span class="mi">5</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span>
+<span class="k">const</span><span class="w"> </span><span class="n">package_info_t</span><span class="w"> </span><span class="n">package_infos</span><span class="p">[</span><span class="mi">5</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The FPGAs are sold in 11 different packages, which are named by their
@@ -19655,35 +19460,35 @@ their width in mm.</p>
 </table>
 </section>
 <section id="model-information">
-<h3>Model information<a class="headerlink" href="#model-information" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">die_type_t</span> <span class="p">{</span> <span class="n">E50F</span><span class="p">,</span> <span class="n">GX25F</span><span class="p">,</span> <span class="n">GT75F</span><span class="p">,</span> <span class="n">GT150F</span><span class="p">,</span> <span class="n">GT300F</span><span class="p">,</span> <span class="n">SX50F</span><span class="p">,</span> <span class="n">SX120F</span> <span class="p">};</span>
+<h3>Model information<a class="headerlink" href="#model-information" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">die_type_t</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">E50F</span><span class="p">,</span><span class="w"> </span><span class="n">GX25F</span><span class="p">,</span><span class="w"> </span><span class="n">GT75F</span><span class="p">,</span><span class="w"> </span><span class="n">GT150F</span><span class="p">,</span><span class="w"> </span><span class="n">GT300F</span><span class="p">,</span><span class="w"> </span><span class="n">SX50F</span><span class="p">,</span><span class="w"> </span><span class="n">SX120F</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">Model</span> <span class="p">{</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
-  <span class="k">const</span> <span class="n">variant_info</span> <span class="o">&amp;</span><span class="n">variant</span><span class="p">;</span>
-  <span class="n">package_type_t</span> <span class="n">package</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">temperature</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">speed</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">pcie</span><span class="p">,</span> <span class="n">gxb</span><span class="p">,</span> <span class="n">hmc</span><span class="p">;</span>
-  <span class="kt">uint16_t</span> <span class="n">io</span><span class="p">,</span> <span class="n">gpio</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">Model</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">variant_info</span><span class="w"> </span><span class="o">&amp;</span><span class="n">variant</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">package_type_t</span><span class="w"> </span><span class="n">package</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">speed</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">pcie</span><span class="p">,</span><span class="w"> </span><span class="n">gxb</span><span class="p">,</span><span class="w"> </span><span class="n">hmc</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">io</span><span class="p">,</span><span class="w"> </span><span class="n">gpio</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">variant_info</span> <span class="p">{</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
-  <span class="k">const</span> <span class="n">die_info</span> <span class="o">&amp;</span><span class="n">die</span><span class="p">;</span>
-  <span class="kt">uint16_t</span> <span class="n">idcode</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">alut</span><span class="p">,</span> <span class="n">alm</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">dsp</span><span class="p">,</span> <span class="n">dpll</span><span class="p">,</span> <span class="n">dll</span><span class="p">,</span> <span class="n">hps</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">variant_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">die_info</span><span class="w"> </span><span class="o">&amp;</span><span class="n">die</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">idcode</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">alut</span><span class="p">,</span><span class="w"> </span><span class="n">alm</span><span class="p">,</span><span class="w"> </span><span class="n">memory</span><span class="p">,</span><span class="w"> </span><span class="n">dsp</span><span class="p">,</span><span class="w"> </span><span class="n">dpll</span><span class="p">,</span><span class="w"> </span><span class="n">dll</span><span class="p">,</span><span class="w"> </span><span class="n">hps</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">die_info</span> <span class="p">{</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
-  <span class="n">die_type_t</span> <span class="n">type</span><span class="p">;</span>
-  <span class="kt">uint8_t</span> <span class="n">tile_sx</span><span class="p">,</span> <span class="n">tile_sy</span><span class="p">;</span>
-  <span class="c1">// ...</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">die_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">die_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">tile_sx</span><span class="p">,</span><span class="w"> </span><span class="n">tile_sy</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">const</span> <span class="n">Model</span> <span class="n">models</span><span class="p">[];</span>
-<span class="n">CycloneV</span> <span class="o">*</span><span class="nf">get_model</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">model_name</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="n">Model</span><span class="w"> </span><span class="n">models</span><span class="p">[];</span><span class="w"></span>
+<span class="n">CycloneV</span><span class="w"> </span><span class="o">*</span><span class="nf">get_model</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">model_name</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>A Model is built from a package, a variant and a temperature/speed
@@ -19731,30 +19536,30 @@ allocates one.  The models array ends with a nullptr name pointer.</p>
 used in the de10-nano, a.k.a MiSTer.</p>
 </section>
 <section id="pos-rnode-and-pnode">
-<h3>pos, rnode and pnode<a class="headerlink" href="#pos-rnode-and-pnode" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">pos_t</span> <span class="o">=</span> <span class="kt">uint16_t</span><span class="p">;</span>          <span class="c1">// Tile position</span>
+<h3>pos, rnode and pnode<a class="headerlink" href="#pos-rnode-and-pnode" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">;</span><span class="w">          </span><span class="c1">// Tile position</span>
 
-<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">pos2x</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
-<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">pos2y</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">xy</span><span class="p">);</span>
-<span class="k">static</span> <span class="k">constexpr</span> <span class="n">pos_t</span> <span class="nf">xy2pos</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">pos2x</span><span class="p">(</span><span class="n">pos_t</span><span class="w"> </span><span class="n">xy</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">pos2y</span><span class="p">(</span><span class="n">pos_t</span><span class="w"> </span><span class="n">xy</span><span class="p">);</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="nf">xy2pos</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The type pos_t represents a position in the grid.  xy2pos allows to create one, pos2x and pos2y extracts the coordinates.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">rnode_t</span> <span class="o">=</span> <span class="kt">uint32_t</span><span class="p">;</span>        <span class="c1">// Route node id</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">;</span><span class="w">        </span><span class="c1">// Route node id</span>
 
-<span class="k">enum</span> <span class="nc">rnode_type_t</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">rnode_type_names</span><span class="p">[];</span>
-<span class="n">rnode_type_t</span> <span class="nf">rnode_type_lookup</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">enum</span> <span class="nc">rnode_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">rnode_type_names</span><span class="p">[];</span><span class="w"></span>
+<span class="n">rnode_type_t</span><span class="w"> </span><span class="nf">rnode_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">rnode_t</span> <span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span> <span class="n">type</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">z</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">rnode_type_t</span> <span class="nf">rn2t</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pos_t</span> <span class="nf">rn2p</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2x</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2y</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span> <span class="nf">rn2z</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">z</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="nf">rnode</span><span class="p">(</span><span class="n">rnode_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">z</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">rnode_type_t</span><span class="w"> </span><span class="nf">rn2t</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="nf">rn2p</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">rn2x</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">rn2y</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">rn2z</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">rn2s</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">rn2s</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>A rnode_t represents a note in the routing network.  It is
@@ -19767,27 +19572,27 @@ given name.  rn2s provides a string representation of the rnode
 (TYPE.xxx.yyy.zzzz).</p>
 <p>The rnode_type_t value 0 is NONE, and a rnode_t of 0 is guaranteed
 invalid.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">pnode_t</span> <span class="o">=</span> <span class="kt">uint64_t</span><span class="p">;</span>        <span class="c1">// Port node id</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint64_t</span><span class="p">;</span><span class="w">        </span><span class="c1">// Port node id</span>
 
-<span class="k">enum</span> <span class="nc">block_type_t</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">block_type_names</span><span class="p">[];</span>
-<span class="n">block_type_t</span> <span class="nf">block_type_lookup</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">enum</span> <span class="nc">block_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">block_type_names</span><span class="p">[];</span><span class="w"></span>
+<span class="n">block_type_t</span><span class="w"> </span><span class="nf">block_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">enum</span> <span class="nc">port_type_t</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">port_type_names</span><span class="p">[];</span>
-<span class="n">port_type_t</span>  <span class="nf">port_type_lookup</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">enum</span> <span class="nc">port_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">port_type_names</span><span class="p">[];</span><span class="w"></span>
+<span class="n">port_type_t</span><span class="w">  </span><span class="nf">port_type_lookup</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pnode_t</span> <span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">bt</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="n">port_type_t</span> <span class="n">pt</span><span class="p">,</span> <span class="kt">int8_t</span> <span class="n">bindex</span><span class="p">,</span> <span class="kt">int16_t</span> <span class="n">pindex</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">block_type_t</span> <span class="nf">pn2bt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">port_type_t</span>  <span class="nf">pn2pt</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="n">pos_t</span>        <span class="nf">pn2p</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="nf">pn2x</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">uint32_t</span>     <span class="nf">pn2y</span> <span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">int8_t</span>       <span class="nf">pn2bi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
-<span class="k">constexpr</span> <span class="kt">int16_t</span>      <span class="nf">pn2pi</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">bt</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">port_type_t</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">bindex</span><span class="p">,</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">pindex</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="nf">pnode</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">bt</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">port_type_t</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">bindex</span><span class="p">,</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">pindex</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">block_type_t</span><span class="w"> </span><span class="nf">pn2bt</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">port_type_t</span><span class="w">  </span><span class="nf">pn2pt</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">pos_t</span><span class="w">        </span><span class="nf">pn2p</span><span class="w"> </span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w">     </span><span class="nf">pn2x</span><span class="w"> </span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w">     </span><span class="nf">pn2y</span><span class="w"> </span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int8_t</span><span class="w">       </span><span class="nf">pn2bi</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int16_t</span><span class="w">      </span><span class="nf">pn2pi</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">pn2s</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">pn2s</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>A pnode_t represents a port of a logical block.  It is characterized
@@ -19798,15 +19603,15 @@ when not).  pn2s provides the string representation
 BLOCK.xxx.yyy(.instance):PORT(.bit)</p>
 <p>The block_type_t value 0 is BNONE, the port_type_t value 0 is PNONE,
 and pnode_t 0 is guaranteed invalid.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">rnode_t</span> <span class="nf">pnode_to_rnode</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="n">pnode_t</span> <span class="nf">rnode_to_pnode</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">rn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">rnode_t</span><span class="w"> </span><span class="nf">pnode_to_rnode</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">pnode_t</span><span class="w"> </span><span class="nf">rnode_to_pnode</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">rn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>These two methods allow to find the connections between the logic
 block ports and the routing nodes.  It is always 1:1 when there is
 one.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pnode_t</span><span class="o">&gt;</span> <span class="n">p2p_from</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="n">pnode_t</span> <span class="nf">p2p_to</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pnode_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2p_from</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">pnode_t</span><span class="w"> </span><span class="nf">p2p_to</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>These two methods allow to find the direct connections between logic
@@ -19815,13 +19620,13 @@ p2p_from method can give multiple results while p2p_to only answers
 one node or the value 0.</p>
 </section>
 <section id="routing-network-management">
-<h3>Routing network management<a class="headerlink" href="#routing-network-management" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">n1</span><span class="p">,</span> <span class="n">rnode_t</span> <span class="n">n2</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">p1</span><span class="p">,</span> <span class="n">rnode_t</span> <span class="n">n2</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">n1</span><span class="p">,</span> <span class="n">pnode_t</span> <span class="n">p2</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">p1</span><span class="p">,</span> <span class="n">pnode_t</span> <span class="n">p2</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rnode_unlink</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">n2</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rnode_unlink</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">p2</span><span class="p">);</span>
+<h3>Routing network management<a class="headerlink" href="#routing-network-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rnode_unlink</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rnode_unlink</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The method rnode_link links two nodes together with n1 as source and
@@ -19835,8 +19640,8 @@ vertical configuration where up to 5 inputs can be connected and the
 all-off configuration is not allowed.  Usually at least one input goes
 to vcc, but in some cases all five are used and unlinking selects the
 4th input (the default in that case).</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">rnode_t</span><span class="p">,</span> <span class="n">rnode_t</span><span class="o">&gt;&gt;</span> <span class="n">route_all_active_links</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">rnode_t</span><span class="p">,</span> <span class="n">rnode_t</span><span class="o">&gt;&gt;</span> <span class="n">route_frontier_links</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">rnode_t</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">route_all_active_links</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">rnode_t</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">route_frontier_links</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>route_all_active_links gives all current active connections.
@@ -19844,11 +19649,11 @@ route_frontier_links solves these connections to keep only the
 extremities, giving the inter-logic-block connections directly.</p>
 </section>
 <section id="logic-block-management">
-<h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pos_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">lab_get_pos</span><span class="p">()</span>    <span class="k">const</span>
-<span class="p">[</span><span class="n">etc</span><span class="p">]</span>
+<h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pos_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lab_get_pos</span><span class="p">()</span><span class="w">    </span><span class="k">const</span><span class="w"></span>
+<span class="p">[</span><span class="n">etc</span><span class="p">]</span><span class="w"></span>
 
-<span class="n">cosst</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">block_type_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">pos_get_bels</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">)</span> <span class="k">const</span>
+<span class="n">cosst</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">block_type_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pos_get_bels</span><span class="p">(</span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The numerous xxx_get_pos() methods gives the list of positions of
@@ -19859,33 +19664,33 @@ type doesn’t exist in the given die.</p>
 <p>In the hps case the 37 blocks can be indexed by hps_index_t enum.</p>
 <p>Alternatively the pos_get_bels() method gives the (possibly empty)
 list of logic blocks present in a given tile.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span> <span class="n">MT_MUX</span><span class="p">,</span> <span class="n">MT_NUM</span><span class="p">,</span> <span class="n">MT_BOOL</span><span class="p">,</span> <span class="n">MT_RAM</span> <span class="p">};</span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span><span class="w"> </span><span class="n">MT_MUX</span><span class="p">,</span><span class="w"> </span><span class="n">MT_NUM</span><span class="p">,</span><span class="w"> </span><span class="n">MT_BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">MT_RAM</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="k">enum</span> <span class="nc">bmux_type_t</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">bmux_type_names</span><span class="p">[];</span>
-<span class="n">bmux_type_t</span> <span class="nf">bmux_type_lookup</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">enum</span> <span class="nc">bmux_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">bmux_type_names</span><span class="p">[];</span><span class="w"></span>
+<span class="n">bmux_type_t</span><span class="w"> </span><span class="nf">bmux_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">bmux_setting_t</span> <span class="p">{</span>
-  <span class="n">block_type_t</span> <span class="n">btype</span><span class="p">;</span>
-  <span class="n">pos_t</span> <span class="n">pos</span><span class="p">;</span>
-  <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">midx</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">def</span><span class="p">;</span>
-  <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// bmux_type_t, or number, or bool value, or count of bits for ram</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="n">r</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">bmux_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// bmux_type_t, or number, or bool value, or count of bits for ram</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">bmux_type</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="nf">bmux_get</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="n">bmux_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="nf">bmux_set</span><span class="p">(</span><span class="k">const</span> <span class="n">bmux_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">bmux_m_set</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">bmux_n_set</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">bmux_b_set</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">bmux_r_set</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">bmux_r_set</span><span class="p">(</span><span class="n">block_type_t</span> <span class="n">btype</span><span class="p">,</span> <span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">midx</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">bmux_type</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_get</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_setting_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">bmux_setting_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_m_set</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_n_set</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_b_set</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_r_set</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">bmux_r_set</span><span class="p">(</span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">,</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midx</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">bmux_setting_t</span><span class="o">&gt;</span> <span class="n">bmux_get</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">bmux_setting_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bmux_get</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>These methods allow to manage the logic blocks muxes configurations.
@@ -19901,66 +19706,66 @@ the bmux_*_set sets it per-type.</p>
 <p>The no-parameter bmux_get version returns the state of all muxes of the FPGA.</p>
 </section>
 <section id="inverters-management">
-<h3>Inverters management<a class="headerlink" href="#inverters-management" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">inv_setting_t</span> <span class="p">{</span>
-  <span class="n">rnode_t</span> <span class="n">node</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">value</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">def</span><span class="p">;</span>
-<span class="p">};</span>
+<h3>Inverters management<a class="headerlink" href="#inverters-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">inv_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">node</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">inv_setting_t</span><span class="o">&gt;</span> <span class="n">inv_get</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="nf">inv_set</span><span class="p">(</span><span class="n">rnode_t</span> <span class="n">node</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">inv_setting_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inv_get</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">inv_set</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>inv_get() returns the state of the programmable inverters, and inv_set
 sets the state of one.  The field def is currently very incorrect.</p>
 </section>
 <section id="pin-package-management">
-<h3>Pin/package management<a class="headerlink" href="#pin-package-management" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">pin_flags_t</span> <span class="o">:</span> <span class="kt">uint32_t</span> <span class="p">{</span>
-  <span class="n">PIN_IO_MASK</span>    <span class="o">=</span> <span class="mh">0x00000007</span><span class="p">,</span>
-  <span class="n">PIN_DPP</span>        <span class="o">=</span> <span class="mh">0x00000001</span><span class="p">,</span> <span class="c1">// Dedicated Programming Pin</span>
-  <span class="n">PIN_HSSI</span>       <span class="o">=</span> <span class="mh">0x00000002</span><span class="p">,</span> <span class="c1">// High Speed Serial Interface input</span>
-  <span class="n">PIN_JTAG</span>       <span class="o">=</span> <span class="mh">0x00000003</span><span class="p">,</span> <span class="c1">// JTAG</span>
-  <span class="n">PIN_GPIO</span>       <span class="o">=</span> <span class="mh">0x00000004</span><span class="p">,</span> <span class="c1">// General-Purpose I/O</span>
+<h3>Pin/package management<a class="headerlink" href="#pin-package-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">pin_flags_t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_IO_MASK</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000007</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DPP</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000001</span><span class="p">,</span><span class="w"> </span><span class="c1">// Dedicated Programming Pin</span>
+<span class="w">  </span><span class="n">PIN_HSSI</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000002</span><span class="p">,</span><span class="w"> </span><span class="c1">// High Speed Serial Interface input</span>
+<span class="w">  </span><span class="n">PIN_JTAG</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000003</span><span class="p">,</span><span class="w"> </span><span class="c1">// JTAG</span>
+<span class="w">  </span><span class="n">PIN_GPIO</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000004</span><span class="p">,</span><span class="w"> </span><span class="c1">// General-Purpose I/O</span>
 
-  <span class="n">PIN_HPS</span>        <span class="o">=</span> <span class="mh">0x00000008</span><span class="p">,</span> <span class="c1">// Hardware Processor System</span>
+<span class="w">  </span><span class="n">PIN_HPS</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000008</span><span class="p">,</span><span class="w"> </span><span class="c1">// Hardware Processor System</span>
 
-  <span class="n">PIN_DIFF_MASK</span>  <span class="o">=</span> <span class="mh">0x00000070</span><span class="p">,</span>
-  <span class="n">PIN_DM</span>         <span class="o">=</span> <span class="mh">0x00000010</span><span class="p">,</span>
-  <span class="n">PIN_DQS</span>        <span class="o">=</span> <span class="mh">0x00000020</span><span class="p">,</span>
-  <span class="n">PIN_DQS_DIS</span>    <span class="o">=</span> <span class="mh">0x00000030</span><span class="p">,</span>
-  <span class="n">PIN_DQSB</span>       <span class="o">=</span> <span class="mh">0x00000040</span><span class="p">,</span>
-  <span class="n">PIN_DQSB_DIS</span>   <span class="o">=</span> <span class="mh">0x00000050</span><span class="p">,</span>
+<span class="w">  </span><span class="n">PIN_DIFF_MASK</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000070</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DM</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000010</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DQS</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000020</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DQS_DIS</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000030</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DQSB</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000040</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DQSB_DIS</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000050</span><span class="p">,</span><span class="w"></span>
 
-  <span class="n">PIN_TYPE_MASK</span>  <span class="o">=</span> <span class="mh">0x00000f00</span><span class="p">,</span>
-  <span class="n">PIN_DO_NOT_USE</span> <span class="o">=</span> <span class="mh">0x00000100</span><span class="p">,</span>
-  <span class="n">PIN_GXP_RREF</span>   <span class="o">=</span> <span class="mh">0x00000200</span><span class="p">,</span>
-  <span class="n">PIN_NC</span>         <span class="o">=</span> <span class="mh">0x00000300</span><span class="p">,</span>
-  <span class="n">PIN_VCC</span>        <span class="o">=</span> <span class="mh">0x00000400</span><span class="p">,</span>
-  <span class="n">PIN_VCCL_SENSE</span> <span class="o">=</span> <span class="mh">0x00000500</span><span class="p">,</span>
-  <span class="n">PIN_VCCN</span>       <span class="o">=</span> <span class="mh">0x00000600</span><span class="p">,</span>
-  <span class="n">PIN_VCCPD</span>      <span class="o">=</span> <span class="mh">0x00000700</span><span class="p">,</span>
-  <span class="n">PIN_VREF</span>       <span class="o">=</span> <span class="mh">0x00000800</span><span class="p">,</span>
-  <span class="n">PIN_VSS</span>        <span class="o">=</span> <span class="mh">0x00000900</span><span class="p">,</span>
-  <span class="n">PIN_VSS_SENSE</span>  <span class="o">=</span> <span class="mh">0x00000a00</span><span class="p">,</span>
-<span class="p">};</span>
+<span class="w">  </span><span class="n">PIN_TYPE_MASK</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000f00</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_DO_NOT_USE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000100</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_GXP_RREF</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000200</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_NC</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000300</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VCC</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000400</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VCCL_SENSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000500</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VCCN</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000600</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VCCPD</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000700</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VREF</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000800</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VSS</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000900</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">PIN_VSS_SENSE</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000a00</span><span class="p">,</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">pin_info_t</span> <span class="p">{</span>
-  <span class="kt">uint8_t</span> <span class="n">x</span><span class="p">;</span>
-  <span class="kt">uint8_t</span> <span class="n">y</span><span class="p">;</span>
-  <span class="kt">uint16_t</span> <span class="n">pad</span><span class="p">;</span>
-  <span class="kt">uint32_t</span> <span class="n">flags</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">function</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">io_block</span><span class="p">;</span>
-  <span class="kt">double</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">length</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">delay_ps</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">pin_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pad</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">function</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">io_block</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">delay_ps</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="nf">pin_find_pos</span><span class="p">(</span><span class="n">pos_t</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="k">const</span> <span class="n">pin_info_t</span> <span class="o">*</span><span class="nf">pin_find_pnode</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">pin_info_t</span><span class="w"> </span><span class="o">*</span><span class="nf">pin_find_pos</span><span class="p">(</span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">pin_info_t</span><span class="w"> </span><span class="o">*</span><span class="nf">pin_find_pnode</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The pin_info_t structure describes a pin with:</p>
@@ -19979,35 +19784,35 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <p>The pin_find_pos method looks up a pin from a gpio tile/index combination.  The pin_find_pos method looks up a pin from a gpio or hmc pnode.</p>
 </section>
 <section id="options">
-<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">opt_setting_t</span> <span class="p">{</span>
-  <span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">def</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">type</span><span class="p">;</span>
-  <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// bmux_type_t, or number, or bool value, or count of bits for ram</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="n">r</span><span class="p">;</span>
-<span class="p">};</span>
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">opt_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// bmux_type_t, or number, or bool value, or count of bits for ram</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">opt_type</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="nf">opt_get</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="n">opt_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="nf">opt_set</span><span class="p">(</span><span class="k">const</span> <span class="n">opt_setting_t</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">opt_m_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="n">bmux_type_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">opt_n_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">opt_b_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">s</span><span class="p">);</span>
-<span class="kt">bool</span> <span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span> <span class="n">mux</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">opt_type</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_get</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="n">opt_setting_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">opt_setting_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_m_set</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_n_set</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_b_set</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">opt_r_set</span><span class="p">(</span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">opt_setting_t</span><span class="o">&gt;</span> <span class="n">opt_get</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">opt_setting_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">opt_get</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The options work like the block muxes without a block, tile or
 instance number.  They’re otherwise the same.</p>
 </section>
 <section id="bitstream-management">
-<h3>Bitstream management<a class="headerlink" href="#bitstream-management" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">clear</span><span class="p">();</span>
-<span class="kt">void</span> <span class="nf">rbf_load</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">rbf_save</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+<h3>Bitstream management<a class="headerlink" href="#bitstream-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">();</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rbf_load</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">rbf_save</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The clear method returns the FPGA state to all defaults.  rbf_load
@@ -20015,8 +19820,8 @@ parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.</p>
 </section>
 <section id="hmc-bypass">
-<h3>HMC bypass<a class="headerlink" href="#hmc-bypass" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">pnode_t</span> <span class="nf">hmc_get_bypass</span><span class="p">(</span><span class="n">pnode_t</span> <span class="n">pn</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<h3>HMC bypass<a class="headerlink" href="#hmc-bypass" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">pnode_t</span><span class="w"> </span><span class="nf">hmc_get_bypass</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The hmc_get_bypass method gives the associated HMC port to a given one
@@ -20030,12 +19835,12 @@ a given GPIO port connected to the HMC in bypass mode do:</p>
 </section>
 </section>
 <span id="document-cyclonev_driver"></span><section id="the-mistral-cv-command-line-program">
-<h2>The mistral-cv command-line program<a class="headerlink" href="#the-mistral-cv-command-line-program" title="Permalink to this headline">¶</a></h2>
+<h2>The mistral-cv command-line program<a class="headerlink" href="#the-mistral-cv-command-line-program" title="Permalink to this headline"></a></h2>
 <p>The mistral-cv command line program allows for a minimal interfacing
 with the library.  Calling it without parameters shows the possible
 usages.</p>
 <section id="models">
-<h3>models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<h3>models<a class="headerlink" href="#models" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">models</span>
 </pre></div>
 </div>
@@ -20043,14 +19848,14 @@ usages.</p>
 number of pins, temperature grade and speed grade.</p>
 </section>
 <section id="routes">
-<h3>routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h3>
+<h3>routes<a class="headerlink" href="#routes" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps the active routes in a rbf.</p>
 </section>
 <section id="routes2">
-<h3>routes2<a class="headerlink" href="#routes2" title="Permalink to this headline">¶</a></h3>
+<h3>routes2<a class="headerlink" href="#routes2" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20058,7 +19863,7 @@ number of pins, temperature grade and speed grade.</p>
 port mapping associated.</p>
 </section>
 <section id="cycle">
-<h3>cycle<a class="headerlink" href="#cycle" title="Permalink to this headline">¶</a></h3>
+<h3>cycle<a class="headerlink" href="#cycle" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">cycle</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20066,7 +19871,7 @@ port mapping associated.</p>
 test if the framing/unframing of oram/pram/cram works correctly.</p>
 </section>
 <section id="bels">
-<h3>bels<a class="headerlink" href="#bels" title="Permalink to this headline">¶</a></h3>
+<h3>bels<a class="headerlink" href="#bels" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">bels</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20074,7 +19879,7 @@ test if the framing/unframing of oram/pram/cram works correctly.</p>
 die in practice).</p>
 </section>
 <section id="decomp">
-<h3>decomp<a class="headerlink" href="#decomp" title="Permalink to this headline">¶</a></h3>
+<h3>decomp<a class="headerlink" href="#decomp" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">decomp</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20082,7 +19887,7 @@ die in practice).</p>
 what is identified as not being in default state.</p>
 </section>
 <section id="comp">
-<h3>comp<a class="headerlink" href="#comp" title="Permalink to this headline">¶</a></h3>
+<h3>comp<a class="headerlink" href="#comp" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">comp</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20090,7 +19895,7 @@ what is identified as not being in default state.</p>
 information.</p>
 </section>
 <section id="diff">
-<h3>diff<a class="headerlink" href="#diff" title="Permalink to this headline">¶</a></h3>
+<h3>diff<a class="headerlink" href="#diff" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">diff</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file1</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -20100,9 +19905,9 @@ cycle.</p>
 </section>
 </section>
 <span id="document-cyclonev_library_internals"></span><section id="mistral-cyclonev-library-internals">
-<h2>Mistral CycloneV library internals<a class="headerlink" href="#mistral-cyclonev-library-internals" title="Permalink to this headline">¶</a></h2>
+<h2>Mistral CycloneV library internals<a class="headerlink" href="#mistral-cyclonev-library-internals" title="Permalink to this headline"></a></h2>
 <section id="structure">
-<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h3>
+<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline"></a></h3>
 <p>A large part of the library is generated code from information in the
 data directory.  The exception is the routing data that is converter
 to compressed binary and put in the gdata directory.  All the
@@ -20110,7 +19915,7 @@ conversions are done with python programs and shell scripts in the
 tools directory.</p>
 </section>
 <section id="routing-data">
-<h3>Routing data<a class="headerlink" href="#routing-data" title="Permalink to this headline">¶</a></h3>
+<h3>Routing data<a class="headerlink" href="#routing-data" title="Permalink to this headline"></a></h3>
 <p>The routing data is stored in bzip2-compressed text files named
 &lt;die&gt;-r.txt.bz2.  Each line describes a routing mux.</p>
 <p>A mux description looks like that:</p>
@@ -20136,7 +19941,7 @@ compressed binary version in gdata which matches the rmux structure.
 The script mkroutes.sh generates it for all die types.</p>
 </section>
 <section id="block-muxes">
-<h3>Block muxes<a class="headerlink" href="#block-muxes" title="Permalink to this headline">¶</a></h3>
+<h3>Block muxes<a class="headerlink" href="#block-muxes" title="Permalink to this headline"></a></h3>
 <p>The lists of block muxes and options muxes are independant of the
 dies.  They’re in the block-mux.txt files.  Each mux is described in
 these files using the following syntax:</p>
@@ -20202,7 +20007,7 @@ while mux_to_source.py mux &lt;datadir&gt; generates the file
 cv-bmux-data.cc.  mkmux.sh does both calls.</p>
 </section>
 <section id="logic-blocks">
-<h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline">¶</a></h3>
+<h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline"></a></h3>
 <p>Blocks come from two sources, the files &lt;die&gt;-pram.txt indicates all
 the peripheral blocks with their pram address.  The files
 &lt;die&gt;-&lt;block&gt;.txt where bock is cmux, ctrl, fpll, hmc, hps or iob has
@@ -20212,26 +20017,26 @@ blocks and the routing grid.</p>
 die, abd mkblocks.sh calls it for every die.</p>
 </section>
 <section id="inverters">
-<h3>Inverters<a class="headerlink" href="#inverters" title="Permalink to this headline">¶</a></h3>
+<h3>Inverters<a class="headerlink" href="#inverters" title="Permalink to this headline"></a></h3>
 <p>The list of inverters, their cram position and their default value
 (always 0 at this point) is in &lt;die&gt;-inv.txt.
 inv_to_source.py/mkinv.sh takes care of generating the
 cvd-&lt;die&gt;-inv.cc files.</p>
 </section>
 <section id="forced-1-bits">
-<h3>Forced-1 bits<a class="headerlink" href="#forced-1-bits" title="Permalink to this headline">¶</a></h3>
+<h3>Forced-1 bits<a class="headerlink" href="#forced-1-bits" title="Permalink to this headline"></a></h3>
 <p>Five of the seven dies seem to have bits always set to 1.  They are
 listed in the files &lt;die&gt;-1.txt.  blocks_to_source.py takes care of
 it.</p>
 </section>
 <section id="packages">
-<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
+<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline"></a></h3>
 <p>The file &lt;die&gt;-pkg.txt lists the packages and the pins of each package
 for each die.  pkg_to_source.py/mkpkg.sh take cares of generating the
 cvd-&lt;die&gt;-pkg.cc files.</p>
 </section>
 <section id="models">
-<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline"></a></h3>
 <p>models.txt includes all the information on variants and models.  The
 cv-models.cc file is generated by models_to_source.py called by
 mkmodels.sh.</p>
@@ -20242,46 +20047,30 @@ mkmodels.sh.</p>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020.
-
-    </p>
+    <p>&#169; Copyright 2020.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

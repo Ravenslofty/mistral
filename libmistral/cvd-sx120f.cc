@@ -37,7 +37,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
   7605, 7024,              // cram size
   90, 82,                  // tiles size
   51, 38,                  // hps (arm) processor core position
-  1303736,                 // routing muxes count
   548,                     // IO blocks count
   25,                      // dqs16 count
   11895,                   // inverters count
