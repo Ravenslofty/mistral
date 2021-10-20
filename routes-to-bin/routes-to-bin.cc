@@ -29,6 +29,7 @@ static struct {
 
 struct data_header {
   uint32_t off_rnode;
+  uint32_t off_rnode_end;
   uint32_t off_rnode_hash;
   uint32_t size_rnode_hash;
   uint32_t count_rnode;
@@ -92,10 +93,12 @@ int main(int argc, char **argv)
     nr++;
     rparse.next();
   }
+  dh->off_rnode_end = opos - output.data();
   assert(size_t(opos-output.data()) <= output.size());
 
   r_data.clear();
   l_data.clear();
+
 
   dh->off_rnode_hash = opos - output.data();
   dh->size_rnode_hash = hash_size;
@@ -104,13 +107,16 @@ int main(int argc, char **argv)
   output.resize(dh->off_rnode_hash + sizeof(rnode_hash_entry) * dh->size_rnode_hash);
   dh = reinterpret_cast<data_header *>(output.data());
   rnode_hash_entry *rh = reinterpret_cast<rnode_hash_entry *>(output.data() + dh->off_rnode_hash);
-  memset(rh, 0, sizeof(rnode_hash_entry) * dh->size_rnode_hash);
+  for(uint32_t i=0; i != dh->size_rnode_has; i++) {
+    rh[i].rnode_offset = 0xffffffff;
+    rh[i].next = 0;
+  }
 
   int hl[10];
   memset(hl, 0, sizeof(hl));
   for(auto &rm : rnode_positions) {
     uint32_t key = rm.first % hash_size;
-    if(!(rh[key].rnode_offset)) {
+    if(rh[key].rnode_offset == 0xffffffff) {
       hl[0]++;
       rh[key].rnode_offset = rm.second;
       rm.second = 0;
@@ -127,7 +133,7 @@ int main(int argc, char **argv)
       depth++;
       entry = rh[entry].next;
     }
-    while(rh[ne].rnode_offset)
+    while(rh[ne].rnode_offset != 0xffffffff)
       ne++;
     rh[entry].next = ne;
     rh[ne].rnode_offset = rm.second;

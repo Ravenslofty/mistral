@@ -73,6 +73,7 @@ void mistral::CycloneV::rmux_load()
 
   dhead = reinterpret_cast<const data_header *>(data);
   rnode_info = data + dhead->off_rnode;
+  rnode_info_end = data + dhead->off_rnode_end;
   rnode_hash = reinterpret_cast<const rnode_hash_entry *>(data + dhead->off_rnode_hash);
 }
 
@@ -119,7 +120,7 @@ const mistral::CycloneV::rnode_base *mistral::CycloneV::rnode_lookup(rnode_t rn)
 {
   uint32_t entry = rn % dhead->size_rnode_hash;
 
-  if(!rnode_hash[entry].rnode_offset)
+  if(rnode_hash[entry].rnode_offset == 0xffffffff)
     return nullptr;
   for(;;) {
     const rnode_base *rm = reinterpret_cast<const rnode_base *>(rnode_info + rnode_hash[entry].rnode_offset);
@@ -170,32 +171,28 @@ bool mistral::CycloneV::rmux_is_default(rnode_t node) const
 
 void mistral::CycloneV::route_set_defaults()
 {
-  const rnode_base *r = reinterpret_cast<const rnode_base *>(rnode_info);
-  for(unsigned int i=0; i != dhead->count_rnode; i++) {
-    const rmux_pattern &pat = rmux_patterns[r->pattern];
-    rmux_set_val(*r, pat.def);
-    r = rnode_next(r);
+  for(const auto &r : rnodes()) {
+    const rmux_pattern &pat = rmux_patterns[r.pattern()];
+    rmux_set_val(r, pat.def);
   } 
 }
 
 std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_all_active_links() const
 {
   std::vector<std::pair<rnode_t, rnode_t>> links;
-  const rnode_base *r = reinterpret_cast<const rnode_base *>(rnode_info);
-  for(unsigned int i=0; i != dhead->count_rnode; i++) {
-    rnode_t snode = rmux_get_source(*r);
+  for(const auto &r : rnodes()) {
+    rnode_t snode = rmux_get_source(r);
     if(snode) {
-      rnode_t dnode = r->node;
+      rnode_t dnode = r.id();
       if(rn2t(dnode) == DCMUX && rn2t(snode) == TCLK && rmux_is_default(snode))
 	continue;
 
       links.emplace_back(std::make_pair(snode, dnode));
     } else {
-      uint32_t val = rmux_get_val(*r);
-      if(val != rmux_patterns[r->pattern].def)
-	fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r->node).c_str(), r->pattern, (rmux_patterns[r->pattern].bits+3)/4, val);
+      uint32_t val = rmux_get_val(r);
+      if(val != rmux_patterns[r.pattern()].def)
+	fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r.id()).c_str(), r.pattern(), (rmux_patterns[r.pattern()].bits+3)/4, val);
     }
-    r = rnode_next(r);
   }
   return links;
 }
@@ -292,17 +289,14 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> m
 
   auto tt = [lab, mlab, m10k, dsp, dsp2](rnode_t n) -> bool { auto p = rn2p(n); return n && (p == lab || p == mlab || p == m10k || p == dsp || p == dsp2); };
 
-  const rnode_base *r = reinterpret_cast<const rnode_base *>(rnode_info);
   std::set<rnode_t> nodes;
-  for(unsigned int i=0; i != dhead->count_rnode; i++) {
-    if(tt(r->node))
-      nodes.insert(r->node);
-    int span = rmux_patterns[r->pattern].span;
-    const uint32_t *sources = rnode_sources(r);
-    for(int j = 0; j != span; j++)
-      if(tt(sources[j]))
-	nodes.insert(sources[j]);
-    r = rnode_next(r);
+  for(const auto &r : rnodes()) {
+    if(tt(r.id()))
+      nodes.insert(r.id());
+    int span = rmux_patterns[r.pattern()].span;
+    for(rnode_t source : r.sources())
+      if(tt(source))
+	nodes.insert(source);
   }
 
   for(rnode_t n : nodes) {

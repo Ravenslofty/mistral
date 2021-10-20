@@ -441,6 +441,7 @@ namespace mistral {
 
     struct data_header {
       uint32_t off_rnode;
+      uint32_t off_rnode_end;
       uint32_t off_rnode_hash;
       uint32_t size_rnode_hash;
       uint32_t count_rnode;
@@ -549,13 +550,18 @@ namespace mistral {
     
 
     class rnode_proxy {
+      friend class CycloneV;
+
     public:
       rnode_proxy(const rnode_base *_rn) : rn(_rn) {}
       rnode_t id() const { return rn->node; }
+      int pattern() const { return rn->pattern; }
       rnode_source_container_proxy sources() const { return rnode_source_container_proxy(rn); }
 
     private:
       const rnode_base *rn;
+
+      operator const rnode_base&() const { return *rn; }
     };
 
     class rnode_iterator : public std::iterator<std::input_iterator_tag, rnode_proxy> {
@@ -592,7 +598,7 @@ namespace mistral {
     public:
       rnode_container_proxy(const CycloneV *_data) : data(_data) {}
       rnode_iterator begin() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_info)); }
-      rnode_iterator end() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_hash)); }
+      rnode_iterator end() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_info_end)); }
 
     private:
       const CycloneV *data;
@@ -856,6 +862,7 @@ namespace mistral {
     std::unique_ptr<uint8_t[]> decompressed_data_storage;
     const data_header *dhead;
     const uint8_t *rnode_info;
+    const uint8_t *rnode_info_end;
     const rnode_hash_entry *rnode_hash;
 
     void rbf_load_oram(const void *data, uint32_t size);
