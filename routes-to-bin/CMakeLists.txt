@@ -5,7 +5,9 @@ set(routes-to-bin_SOURCES
     io.cc
     rnode.cc
     routes.cc
+    lines.cc
     routes-to-bin.cc
+    ../libmistral/bdz-ph.cc
 )
 
 add_executable(routes-to-bin

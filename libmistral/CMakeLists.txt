@@ -9,6 +9,7 @@ list(APPEND mistral_SOURCES
     cv-rpats.cc
     cyclonev.cc
 
+    bdz-ph.cc
     analogsim.cc
 )
 

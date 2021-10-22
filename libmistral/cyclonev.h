@@ -443,19 +443,27 @@ namespace mistral {
       uint32_t off_rnode;
       uint32_t off_rnode_end;
       uint32_t off_rnode_hash;
-      uint32_t size_rnode_hash;
+      uint32_t off_line_info;
+      uint32_t size_rnode_opaque_hash;
       uint32_t count_rnode;
     };
     
     struct rnode_base {
       rnode_t node;
-      uint32_t pattern;
+      uint8_t pattern;
+      uint8_t target_count;
+      uint16_t line_info_index;
+      uint16_t driver_position;
+      uint16_t padding;
       uint32_t fw_pos;
-    }; // Followed by up to 44 sources
+    }; // Followed by up to 44 sources and up to 56 targets and up to 56 target_positions.  Aligned to 4 bytes.
     
-    struct rnode_hash_entry {
-      uint32_t rnode_offset;
-      uint32_t next;
+    struct rnode_line_information {
+      float tc1;
+      float tc2;
+      float r85;
+      float c;
+      uint32_t length;
     };
 
     struct rmux_pattern {
@@ -863,7 +871,9 @@ namespace mistral {
     const data_header *dhead;
     const uint8_t *rnode_info;
     const uint8_t *rnode_info_end;
-    const rnode_hash_entry *rnode_hash;
+    const uint8_t *rnode_hash;
+    const uint32_t *rnode_hash_lookup;
+    const rnode_line_information *rli_data;
 
     void rbf_load_oram(const void *data, uint32_t size);
 
@@ -888,7 +898,12 @@ namespace mistral {
     const rnode_base *rnode_lookup(rnode_t rn) const;
 
     static inline const rnode_base *rnode_next(const rnode_base *r) {
-      return reinterpret_cast<const rnode_base *>(reinterpret_cast<const uint8_t *>(r) + sizeof(rnode_base) + 4*rmux_patterns[r->pattern].span);
+      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
+      p += sizeof(rnode_base);
+      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      p += 4*r->target_count;
+      p += 2*((r->target_count+1) & ~1);
+      return reinterpret_cast<const rnode_base *>(p);
     }
 
     static inline const rnode_t *rnode_sources(const rnode_base &r)  {

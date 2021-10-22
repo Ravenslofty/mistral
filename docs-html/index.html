@@ -20058,6 +20058,7 @@ of data blocks.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uint32_t</span> <span class="n">off_rnode</span>
 <span class="n">uint32_t</span> <span class="n">off_rnode_end</span>
 <span class="n">uint32_t</span> <span class="n">off_rnode_hash</span>
+<span class="n">uint32_t</span> <span class="n">off_line_info</span>
 <span class="n">uint32_t</span> <span class="n">size_rnode_hash</span>
 <span class="n">uint32_t</span> <span class="n">count_rnode</span>
 </pre></div>
@@ -20066,6 +20067,7 @@ of data blocks.</p>
 <li><p>off_rnode: offset from the start of the data of the routing node information block</p></li>
 <li><p>off_rnode: offset from the start of the data of the end of the routing node information block</p></li>
 <li><p>off_rnode_hash: offset from the start of the data of the routing node hash block</p></li>
+<li><p>off_line_info: offset from the start of the data of the line information block</p></li>
 <li><p>size_rnode_hash: number of entries in the routing node hash block</p></li>
 <li><p>count_rnode: number of routing nodes</p></li>
 </ul>
@@ -20075,39 +20077,69 @@ of data blocks.</p>
 <p>This block consists of a sequence of variable-length records, one per
 node.  The non-variable part is in the structure rnode_base.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rnode_t</span> <span class="n">node</span>
-<span class="n">uint32_t</span> <span class="n">pattern</span>
+<span class="n">uint8_t</span> <span class="n">pattern</span>
+<span class="n">uint8_t</span> <span class="n">target_count</span>
+<span class="n">uint16_t</span> <span class="n">line_info_index</span>
+<span class="n">uint16_t</span> <span class="n">driver_position</span>
+<span class="n">uint16_t</span> <span class="n">padding</span>
 <span class="n">uint32_t</span> <span class="n">fw_pos</span>
 <span class="n">rnode_t</span> <span class="n">sources</span><span class="p">[]</span>
+<span class="n">union</span> <span class="p">{</span><span class="nb">float</span><span class="p">,</span> <span class="n">rnode_t</span><span class="p">}</span> <span class="n">targets</span><span class="p">[]</span>
+<span class="n">uint16_t</span> <span class="n">target_positions</span><span class="p">[]</span>
+<span class="o">/*</span> <span class="n">aligned</span> <span class="n">to</span> <span class="mi">32</span> <span class="n">bits</span> <span class="o">*/</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>node: id of the routing node</p></li>
-<li><p>pattern: pattern number of the mux</p></li>
-<li><p>fw_pos: position of the mux in the firmware as x + y*width</p></li>
+<li><p>pattern: pattern number of the mux, 0xff if none</p></li>
+<li><p>target_count: number of taps on the metal line (can be zero)</p></li>
+<li><p>line_info_index: index in the line info table to the physical characteristics of the line (0xffff if none)</p></li>
+<li><p>driver_position: position of the driver in the line</p></li>
+<li><p>fw_pos: position of the mux in the firmware as x + y*width (0 if none)</p></li>
 <li><p>sources[]: array of sources, size = rmux_patterns[pattern].span</p></li>
+<li><p>target[]: array of targets, either rnode_t or float with the capacitance</p></li>
+<li><p>target_position: array of the target positions along the line, bit 15 = target is a capacitance</p></li>
 </ul>
 <p>The position of the end of the block is available in the global header
 to know when to stop when scanning.  The class method rnode_next
 allows to go from one rnode_base to the next.  The class method
 rnode_sources provides a pointer to the start of the sources array
-from the rnode_base object.</p>
+from the rnode_base object.  The class method rnode_targets_rnode
+gives the target array as a const rnode_t *, rnode_targets_caps gives
+the target array as const float *, rnode_targets_pos the positions as
+const uint16_t *.</p>
 </section>
 <section id="routing-node-hash">
 <h4>Routing node hash<a class="headerlink" href="#routing-node-hash" title="Permalink to this headline"></a></h4>
-<p>The block is an array of rnode_hash_entry structures.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uint32_t</span> <span class="n">rnode_offset</span>
-<span class="n">uint32_t</span> <span class="nb">next</span>
+<p>The block is composed of two parts, an opaque block with the bdz-ph
+lookup data, and a table of offsets in the routing node information
+block.  The table is a offset size_rnode_opaque_hash inside the block.</p>
+<p>The method rnode_lookup does the hash lookup and provides a pointer to
+the rnode_base if the node exists.</p>
+</section>
+<section id="line-information-block">
+<h4>Line information block<a class="headerlink" href="#line-information-block" title="Permalink to this headline"></a></h4>
+<p>The block is an array of rnode_line_information structures.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">tc1</span>
+<span class="nb">float</span> <span class="n">tc2</span>
+<span class="nb">float</span> <span class="n">r85</span>
+<span class="nb">float</span> <span class="n">c</span>
+<span class="n">uint32_t</span> <span class="n">length</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>rnode_offset: offset in bytes of the rnode_base from the start of the routing node information block.  0xffffffff if not present</p></li>
-<li><p>next: index of the next entry for the same hash index in the routing node hash array, 0 if none</p></li>
+<li><p>tc1: temperature compensation order 1 coefficient</p></li>
+<li><p>tc2: temperature compensation order 2 coefficient</p></li>
+<li><p>r85: resistance at 85C in ohms/um</p></li>
+<li><p>c: capacitance in fF/um</p></li>
+<li><p>length: length of the line in um</p></li>
 </ul>
-<p>The initial hash index for a given rnode id is id % size_rnode_hash.
-The size is hand-tuned to have a maximum depth of 3 and have less than
-10k nodes with depth&gt;1.</p>
-<p>The method rnode_lookup does the hash lookup and provides a pointer to
-the rnode_base if the node exists.</p>
+<p>The temperature compensation formula for the resistance is based on a
+2nd-order model around 25C: tc(t) = 1 + tc1 * (t-25) + tc2 *
+(t-25)**2.  The resistance for a given temperature is r(t) = r85 *
+tc(t) / tc(85).</p>
+<p>Some lines have length 1, it just means the drivers and taps are at
+the extremities only and the length has been folded in.</p>
 </section>
 </section>
 </section>

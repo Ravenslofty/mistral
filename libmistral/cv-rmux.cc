@@ -1,4 +1,5 @@
 #include "cyclonev.h"
+#include "bdz-ph.h"
 
 #include <lzma.h>
 #include <set>
@@ -70,11 +71,13 @@ void mistral::CycloneV::rmux_load()
     data = decompressed_data_storage.get();
     dsize = size;
   }
-
+  
   dhead = reinterpret_cast<const data_header *>(data);
   rnode_info = data + dhead->off_rnode;
   rnode_info_end = data + dhead->off_rnode_end;
-  rnode_hash = reinterpret_cast<const rnode_hash_entry *>(data + dhead->off_rnode_hash);
+  rnode_hash = data + dhead->off_rnode_hash;
+  rnode_hash_lookup = reinterpret_cast<const uint32_t *>(rnode_hash + dhead->size_rnode_opaque_hash);
+  rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
 }
 
 uint32_t mistral::CycloneV::rmux_get_val(const rnode_base &r) const
@@ -118,18 +121,9 @@ int mistral::CycloneV::rmux_get_slot(const rnode_base &r) const
 
 const mistral::CycloneV::rnode_base *mistral::CycloneV::rnode_lookup(rnode_t rn) const
 {
-  uint32_t entry = rn % dhead->size_rnode_hash;
-
-  if(rnode_hash[entry].rnode_offset == 0xffffffff)
-    return nullptr;
-  for(;;) {
-    const rnode_base *rm = reinterpret_cast<const rnode_base *>(rnode_info + rnode_hash[entry].rnode_offset);
-    if(rm->node == rn)
-      return rm;
-    entry = rnode_hash[entry].next;
-    if(!entry)
-      return nullptr;
-  }
+  uint32_t entry = bdz_ph_hash::lookup(rnode_hash, rn);
+  const rnode_base *rm = reinterpret_cast<const rnode_base *>(rnode_info + rnode_hash_lookup[entry]);
+  return rm->node == rn ? rm : nullptr;
 }
 
 mistral::CycloneV::rnode_t mistral::CycloneV::rmux_get_source(const rnode_base &r) const
@@ -181,6 +175,8 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
 {
   std::vector<std::pair<rnode_t, rnode_t>> links;
   for(const auto &r : rnodes()) {
+    if(r.pattern() == 0xff)
+      continue;
     rnode_t snode = rmux_get_source(r);
     if(snode) {
       rnode_t dnode = r.id();
@@ -293,7 +289,6 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> m
   for(const auto &r : rnodes()) {
     if(tt(r.id()))
       nodes.insert(r.id());
-    int span = rmux_patterns[r.pattern()].span;
     for(rnode_t source : r.sources())
       if(tt(source))
 	nodes.insert(source);

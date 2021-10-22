@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 #include <lzma.h>
 
 int lookup_int(const uint8_t *&p)
@@ -13,6 +14,22 @@ int lookup_int(const uint8_t *&p)
   while(*p >= '0' && *p <= '9')
     res = 10*res + *p++ - '0';
   return res;  
+}
+
+float lookup_float(const uint8_t *&p)
+{
+  char buf[64];
+  char *bp = buf;
+  for(;;) {
+    char c = *p;
+    if((c < '0' || c > '9') && c != 'e' && c != '.' && c != '-')
+      break;
+    *bp++ = c;
+    assert(bp-buf != sizeof(buf));
+    p++;
+  }
+  *bp = 0;
+  return strtod(buf, nullptr);
 }
 
 std::vector<uint8_t> file_load(std::string fname)

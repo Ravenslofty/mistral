@@ -203,12 +203,14 @@ Header
   uint32_t off_rnode
   uint32_t off_rnode_end
   uint32_t off_rnode_hash
+  uint32_t off_line_info
   uint32_t size_rnode_hash
   uint32_t count_rnode
 
 * off_rnode: offset from the start of the data of the routing node information block
 * off_rnode: offset from the start of the data of the end of the routing node information block
 * off_rnode_hash: offset from the start of the data of the routing node hash block
+* off_line_info: offset from the start of the data of the line information block
 * size_rnode_hash: number of entries in the routing node hash block
 * count_rnode: number of routing nodes
 
@@ -222,38 +224,74 @@ node.  The non-variable part is in the structure rnode_base.
 .. code-block::
 
   rnode_t node
-  uint32_t pattern
+  uint8_t pattern
+  uint8_t target_count
+  uint16_t line_info_index
+  uint16_t driver_position
+  uint16_t padding
   uint32_t fw_pos
   rnode_t sources[]
+  union {float, rnode_t} targets[]
+  uint16_t target_positions[]
+  /* aligned to 32 bits */
 
 * node: id of the routing node
-* pattern: pattern number of the mux
-* fw_pos: position of the mux in the firmware as x + y*width
+* pattern: pattern number of the mux, 0xff if none
+* target_count: number of taps on the metal line (can be zero)
+* line_info_index: index in the line info table to the physical characteristics of the line (0xffff if none)
+* driver_position: position of the driver in the line
+* fw_pos: position of the mux in the firmware as x + y*width (0 if none)
 * sources[]: array of sources, size = rmux_patterns[pattern].span
+* target[]: array of targets, either rnode_t or float with the capacitance
+* target_position: array of the target positions along the line, bit 15 = target is a capacitance
 
 The position of the end of the block is available in the global header
 to know when to stop when scanning.  The class method rnode_next
 allows to go from one rnode_base to the next.  The class method
 rnode_sources provides a pointer to the start of the sources array
-from the rnode_base object.
+from the rnode_base object.  The class method rnode_targets_rnode
+gives the target array as a const rnode_t \*, rnode_targets_caps gives
+the target array as const float \*, rnode_targets_pos the positions as
+const uint16_t \*.
 
 
 Routing node hash
 ^^^^^^^^^^^^^^^^^
 
-The block is an array of rnode_hash_entry structures.
-
-.. code-block::
-
-  uint32_t rnode_offset
-  uint32_t next
-
-* rnode_offset: offset in bytes of the rnode_base from the start of the routing node information block.  0xffffffff if not present
-* next: index of the next entry for the same hash index in the routing node hash array, 0 if none
-
-The initial hash index for a given rnode id is id % size_rnode_hash.
-The size is hand-tuned to have a maximum depth of 3 and have less than
-10k nodes with depth>1.
+The block is composed of two parts, an opaque block with the bdz-ph
+lookup data, and a table of offsets in the routing node information
+block.  The table is a offset size_rnode_opaque_hash inside the block.
 
 The method rnode_lookup does the hash lookup and provides a pointer to
 the rnode_base if the node exists.
+
+
+Line information block
+^^^^^^^^^^^^^^^^^^^^^^
+
+The block is an array of rnode_line_information structures.
+
+.. code-block::
+
+  float tc1
+  float tc2
+  float r85
+  float c
+  uint32_t length
+
+* tc1: temperature compensation order 1 coefficient
+* tc2: temperature compensation order 2 coefficient
+* r85: resistance at 85C in ohms/um
+* c: capacitance in fF/um
+* length: length of the line in um
+
+The temperature compensation formula for the resistance is based on a
+2nd-order model around 25C: tc(t) = 1 + tc1 * (t-25) + tc2 *
+(t-25)**2.  The resistance for a given temperature is r(t) = r85 *
+tc(t) / tc(85).
+
+Some lines have length 1, it just means the drivers and taps are at
+the extremities only and the length has been folded in.
+
+
+

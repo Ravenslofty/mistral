@@ -896,6 +896,20 @@ static void missing(char **args)
   delete model;
 }
 
+static void show_rnodes(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  for(const auto &rnode : model->rnodes())
+    printf("%08x\n", rnode.id());
+
+  delete model;
+}
+
 struct fct {
   const char *name;
   int pmin, pmax;
@@ -917,6 +931,7 @@ static const fct fcts[] = {
   { "comp",     2, 2, compile,       "comp     file.bt out.rbf        -- Compile to a bitstream" },
   { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf    -- Compare two bitstrems" },
   { "missing",  2, 2, missing,       "missing  model list.txt         -- List missing pnodes" },
+  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                  -- List all rnodes ids" },
   { }
 };
 
