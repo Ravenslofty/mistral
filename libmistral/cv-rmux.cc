@@ -854,3 +854,145 @@ mistral::CycloneV::pnode_t mistral::CycloneV::hmc_get_bypass(pnode_t pn) const
   return pnode(HMC, pn2p(pn), npt, pn2bi(pn), pn2pi(pn));
 }
 
+int mistral::CycloneV::rnode_timing_get_circuit_count(rnode_t rn)
+{
+  if(rn2t(rn) == WM)
+    return 0;
+  const rnode_base *rb = rnode_lookup(rn);
+  if(rb->drivers[0] == 0xff)
+    return 0;
+  if(rb->line_info_index == 0xffff)
+    return 0;
+  return 1;
+}
+
+mistral::AnalogSim::table2_lookup mistral::CycloneV::dn_t2(uint16_t index) const
+{
+  assert(index != 0xffff);
+  return [](double, double) -> double { return 0; };
+}
+
+void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim)
+{
+  const rnode_base *rb = rnode_lookup(rn);
+  if(rn2t(rn) == WM || rb->drivers[0] == 0xff  || step != 0) {
+    fprintf(stderr, "Incorrect circuit number");
+    abort();
+  }
+
+  int incoming_index = 0;
+  if(rb->pattern == 16) {
+    int slotid = rmux_get_slot(*rb);
+    if(slotid == 4 || slotid == 13)
+      incoming_index = 1;
+  }
+
+  const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
+  const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
+  const rnode_line_information &rli = rli_data[rb->line_info_index];
+
+  double line_r = driver.rmult * rli.r85 * rli.tcomp(timing_slot_temperature[temp])/rli.tcomp(85);
+
+  sim.add_gnd_vdd(1.0);
+  int input = sim.gn_input();
+  int wire = sim.gn("wire");
+  double wire_root_to_gnd = driver.cwire.rf[edge];
+
+  switch(driver.shape) {
+  case SHP_ppdb: {
+    int pass1 = sim.gn("pass1");
+    int pass2 = sim.gn("pass2");
+    int out = sim.gn("out");
+    int buff = sim.gn("buff");
+    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
+    sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
+    sim.add_r(pass2, 1, 1e9);
+    sim.add_2port(pass2, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_c(pass2, out, driver.cgd_buff.rf[edge]);
+    sim.add_r(out, 0, 1e9);
+    sim.add_c(out, 0, driver.cint.rf[edge]);
+    sim.add_buff(out, buff, dn_t2(driver.driver));
+    sim.add_c(out, buff, driver.cgd_drive.rf[edge]);
+    sim.add_r(buff, 0, 1e9);
+    sim.add_c(buff, 0, driver.cout.rf[edge]);
+    sim.add_r(buff, wire, driver.rwire);
+    break;
+  }
+
+  default:
+    fprintf(stderr, "Currently unhandled shape %s\n", shape_type_names[driver.shape]);
+    exit(1);
+  }
+
+  if(rb->driver_position) {
+    fprintf(stderr, "non-zero driver pos, not handling that yet, sorry\n");
+    exit(1);
+  }
+
+  const rnode_target *targets = rnode_targets(rb);
+  const uint16_t *target_pos = rnode_target_positions(rb);
+  int target_count = rb->target_count;
+
+  bool at_root = true;
+  double current_c = wire_root_to_gnd;
+  uint16_t current_pos = rb->driver_position;
+  int pnode = wire;
+
+  for(int i=0; i != target_count; i++) {
+    double target_c;
+    bool active_target = false;
+    if(target_pos[i] & 0x8000)
+      target_c = targets[i].caps;
+    else {
+      const rnode_base *rnt = rnode_lookup(targets[i].rn);
+      int back_incoming_index = 0;
+      if(rnt->pattern == 16) {
+	const rnode_t *back_sources = rnode_sources(rnt);
+	int back_slot;
+	for(back_slot = 0; back_sources[back_slot] != rn; back_slot++);
+	back_incoming_index = back_slot == 4 || back_slot == 13;
+      }
+      const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
+      
+      if(rmux_get_source(*rnt) == rn) {
+	target_c = back_driver.con.rf[edge];
+	active_target = true;
+	sim.set_node_name(pnode, rn2s(targets[i].rn));
+      } else
+	target_c = back_driver.coff.rf[edge];
+    }
+
+    uint16_t pos = target_pos[i] & 0x7fff;
+    if(pos - current_pos < 20) {
+      current_c += target_c;
+      if(active_target)
+	sim.set_node_name(pnode, rn2s(targets[i].rn));
+	
+    } else {
+      uint16_t dp = pos - current_pos;
+      uint16_t segments = (dp+199)/200;
+      double dp1 = dp / double(segments);
+      for(uint16_t seg=0; seg != segments; seg++) {
+	// split the capacitance between before and after the resistance
+	double wire_c = dp1 * rli.c;
+	current_c += wire_c/2;
+	int nnode = sim.gn();
+
+	if(active_target && seg+1 == segments)
+	  sim.set_node_name(nnode, rn2s(targets[i].rn));
+
+	sim.add_c(pnode, 0, current_c);
+	sim.add_r(pnode, nnode, line_r * dp1);
+	pnode = nnode;
+	current_c = wire_c/2;
+	current_c += target_c;
+	current_pos = pos;
+      }
+    }
+  }
+  sim.add_c(pnode, 0, current_c);
+}
+

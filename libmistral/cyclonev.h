@@ -12,6 +12,8 @@
 #include <array>
 #include <iterator>
 
+#include "mistral-analogsim.h"
+
 namespace mistral {
   class CycloneV {
   public:
@@ -52,17 +54,45 @@ namespace mistral {
 #undef P
     };
 
+    enum timing_slot_t {
+      T_N55,
+      T_N40,
+      T_0,
+      T_85,
+      T_100,
+      T_125,
+      T_COUNT
+    };
+
+    enum edge_t {
+      EDGE_FALL,
+      EDGE_RISE
+    };
+
+    enum delay_type_t {
+      DELAY_MAX,
+      DELAY_MIN
+    };
+
     static const char *const rnode_type_names[];
     static const char *const block_type_names[];
     static const char *const port_type_names[];
     static const char *const bmux_type_names[];
     static const char *const driver_type_names[];
     static const char *const shape_type_names[];
+    static const char *const timing_slot_names[];
+    static const char *const edge_names[];
+    static const char *const delay_type_names[];
 
-    rnode_type_t rnode_type_lookup(const std::string &n) const;
-    block_type_t block_type_lookup(const std::string &n) const;
-    port_type_t  port_type_lookup (const std::string &n) const;
-    bmux_type_t  bmux_type_lookup (const std::string &n) const;
+    static const double timing_slot_temperature[];
+
+    rnode_type_t  rnode_type_lookup (const std::string &n) const;
+    block_type_t  block_type_lookup (const std::string &n) const;
+    port_type_t   port_type_lookup  (const std::string &n) const;
+    bmux_type_t   bmux_type_lookup  (const std::string &n) const;
+    timing_slot_t timing_slot_lookup(const std::string &n) const;
+    edge_t        edge_lookup       (const std::string &n) const;
+    delay_type_t  delay_type_lookup (const std::string &n) const;
 
     enum tile_type_t {
       T_EMPTY,
@@ -110,17 +140,6 @@ namespace mistral {
       SG_8_H6,
       SG_8_H7,
       SG_COUNT
-    };
-
-    enum timing_slot {
-      T_N55,
-      T_N40,
-      T_0,
-      T_85,
-      T_100,
-      T_125,
-      T_MIN,
-      T_COUNT
     };
 
     struct package_info_t {
@@ -491,6 +510,11 @@ namespace mistral {
       uint16_t driver_position;
       uint32_t fw_pos;
     }; // Followed by up to 44 sources and up to 56 targets and up to 56 target_positions.  Aligned to 4 bytes.
+
+    union rnode_target {
+      rnode_t rn;
+      float caps;
+    };
     
     struct rnode_line_information {
       float tc1;
@@ -498,6 +522,8 @@ namespace mistral {
       float r85;
       float c;
       uint32_t length;
+
+      double tcomp(double t) const { return 1 + tc1*(t-25) + tc2*(t-25)*(t-25); }
     };
 
     struct rmux_pattern {
@@ -694,6 +720,9 @@ namespace mistral {
     };
 
     rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
+
+    int rnode_timing_get_circuit_count(rnode_t rn);
+    void rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim);
 
   private:
     struct bmux_sel_entry {
@@ -993,12 +1022,35 @@ namespace mistral {
       return reinterpret_cast<const rnode_base *>(p);
     }
 
-    static inline const rnode_t *rnode_sources(const rnode_base &r)  {
-      return reinterpret_cast<const uint32_t *>(reinterpret_cast<const uint8_t *>(&r) + sizeof(rnode_base));
+    static inline const rnode_t *rnode_sources(const rnode_base *r) {
+      return reinterpret_cast<const uint32_t *>(reinterpret_cast<const uint8_t *>(r) + sizeof(rnode_base));
     }
 
-    static inline const rnode_t *rnode_sources(const rnode_base *r) {
-      return rnode_sources(*r);
+    static inline const rnode_t *rnode_sources(const rnode_base &r) {
+      return rnode_sources(&r);
+    }
+
+    static inline const rnode_target *rnode_targets(const rnode_base *r) {
+      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
+      p += sizeof(rnode_base);
+      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      return reinterpret_cast<const rnode_target *>(p);
+    }
+
+    static inline const rnode_target *rnode_targets(const rnode_base &r) {
+      return rnode_targets(&r);
+    }
+
+    static inline const uint16_t *rnode_target_positions(const rnode_base *r) {
+      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
+      p += sizeof(rnode_base);
+      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      p += 4*r->target_count;
+      return reinterpret_cast<const uint16_t *>(p);
+    }
+
+    static inline const uint16_t *rnode_target_positions(const rnode_base &r) {
+      return rnode_target_positions(&r);
     }
 
     uint32_t rmux_get_val(const rnode_base &r) const;
@@ -1079,6 +1131,9 @@ namespace mistral {
     }
 
     std::tuple<const uint8_t *, size_t> get_bin(const uint8_t *start, const uint8_t *end);
+
+    AnalogSim::table2_lookup dn_t2(uint16_t index) const;
+
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;

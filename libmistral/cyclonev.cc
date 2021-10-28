@@ -71,6 +71,25 @@ const char *const mistral::CycloneV::shape_type_names[] = {
   nullptr
 };
 
+const char *const mistral::CycloneV::timing_slot_names[] = {
+  "n55", "n40", "0", "85", "100", "125",
+  nullptr
+};
+
+const double mistral::CycloneV::timing_slot_temperature[T_COUNT] = {
+  -55, -40, 0, 85, 100, 125
+};
+
+const char *const mistral::CycloneV::edge_names[] = {
+  "fall", "rise",
+  nullptr
+};
+
+const char *const mistral::CycloneV::delay_type_names[] = {
+  "max", "min",
+  nullptr
+};
+
 mistral::CycloneV::rnode_type_t mistral::CycloneV::rnode_type_lookup(const std::string &n) const
 {
   return any_type_lookup(n, rnode_type_hash);
@@ -89,6 +108,33 @@ mistral::CycloneV::port_type_t mistral::CycloneV::port_type_lookup(const std::st
 mistral::CycloneV::bmux_type_t mistral::CycloneV::bmux_type_lookup(const std::string &n) const
 {
   return any_type_lookup(n, bmux_type_hash);
+}
+
+mistral::CycloneV::timing_slot_t mistral::CycloneV::timing_slot_lookup(const std::string &n) const
+{
+  for(int i = 0; i != T_COUNT; i++)
+    if(n == timing_slot_names[i])
+      return timing_slot_t(i);
+  fprintf(stderr, "Incorrect timing slot name %s\n", n.c_str());
+  exit(1);
+}
+
+mistral::CycloneV::edge_t mistral::CycloneV::edge_lookup(const std::string &n) const
+{
+  for(int i = 0; edge_names[i]; i++)
+    if(n == edge_names[i])
+      return edge_t(i);
+  fprintf(stderr, "Incorrect edge name %s\n", n.c_str());
+  exit(1);
+}
+
+mistral::CycloneV::delay_type_t mistral::CycloneV::delay_type_lookup(const std::string &n) const
+{
+  for(int i = 0; delay_type_names[i]; i++)
+    if(n == delay_type_names[i])
+      return delay_type_t(i);
+  fprintf(stderr, "Incorrect delay type name %s\n", n.c_str());
+  exit(1);
 }
 
 const mistral::CycloneV::block_type_t mistral::CycloneV::hps_index_to_type[I_HPS_COUNT] = {

@@ -10,7 +10,7 @@ list(APPEND mistral_SOURCES
     cyclonev.cc
 
     bdz-ph.cc
-    analogsim.cc
+    mistral-analogsim.cc
 )
 
 set(TOOLS ${CMAKE_CURRENT_SOURCE_DIR}/../tools)
@@ -127,6 +127,7 @@ if(NOT MISTRAL_DONT_INSTALL)
 install(TARGETS mistral DESTINATION lib)
 
 install(FILES cyclonev.h DESTINATION include)
+install(FILES mistral-analogsim.h DESTINATION include)
 install(FILES cv-blocktypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
 install(FILES cv-porttypes.ipp DESTINATION include)

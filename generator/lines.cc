@@ -54,7 +54,7 @@ void LinesParser::next()
   li.r85 = lookup_float(p);
   if(*p++ != ' ')
     error(st, "Space expected after r85");
-  li.c = lookup_float(p);
+  li.c = lookup_float(p) * 1e-15;
   if(*p++ != ' ')
     error(st, "Space expected after capacitance");
   driver_position = lookup_int(p);
@@ -73,6 +73,7 @@ void LinesParser::next()
     if(p[0] >= '0' && p[0] <= '9') {
       float tcap = lookup_float(p);
       targets[target_count].caps = tcap;
+      target_pos[target_count] = 0x8000 | pos;
     } else {
       char toto[64];
       memcpy(toto, p, 63);
@@ -83,6 +84,7 @@ void LinesParser::next()
 	error(st);
       }
       targets[target_count].rn = trn;
+      target_pos[target_count] = pos;
     }
     if(*p == ' ')
       p++;

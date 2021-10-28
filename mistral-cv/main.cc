@@ -910,6 +910,37 @@ static void show_rnodes(char **args)
   delete model;
 }
 
+static void show_tnet(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  uint8_t *rbf;
+  uint32_t rbfsize;
+  file_load(args[1], rbf, rbfsize);
+
+  model->rbf_load(rbf, rbfsize);
+  free(rbf);
+
+  auto temp = model->timing_slot_lookup(args[2]);
+  auto delay = model->delay_type_lookup(args[3]);
+  auto edge = model->edge_lookup(args[4]);
+  auto rn = get_rnode(model, args[5], "command-line", 1);
+
+  int netcount = model->rnode_timing_get_circuit_count(rn);
+  for(int i=0; i != netcount; i++) {
+    mistral::AnalogSim sim;
+    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim);
+    printf("  circuit %d/%d\n", i+1, netcount);
+    sim.show();
+  }
+
+  delete model;
+}
+
 struct fct {
   const char *name;
   int pmin, pmax;
@@ -918,20 +949,21 @@ struct fct {
 };
 
 static const fct fcts[] = {
-  { "models",   0, 0, show_models,   "models                          -- Dump the list of known CycloneV models" },
-  { "routes",   2, 2, show_routes,   "routes   model file.rbf         -- Dump the information of all active routes" },
-  { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf         -- Dump the information of all unresolved active routes" },
-  { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf         -- Dump the information of all active routes with intermediate pips" },
-  { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf   -- Load a rbf and save it again" },
-  { "bels",     1, 1, show_bels,     "bels     model                  -- Dump the list of logic blocks for a given model" },
-  { "p2r",      1, 1, show_p2r,      "p2r      model                  -- Dump the list of block port/routing nodes connections for peripheral blocks" },
-  { "p2ri",     1, 1, show_p2ri,     "p2ri     model                  -- Dump the list of block port/routing nodes connections for one tile per inner block" },
-  { "p2p",      1, 1, show_p2p,      "p2p      model                  -- Dump the list of block port/block port connections" },
-  { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt  -- Decompile the bitstream" },
-  { "comp",     2, 2, compile,       "comp     file.bt out.rbf        -- Compile to a bitstream" },
-  { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf    -- Compare two bitstrems" },
-  { "missing",  2, 2, missing,       "missing  model list.txt         -- List missing pnodes" },
-  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                  -- List all rnodes ids" },
+  { "models",   0, 0, show_models,   "models                                                   -- Dump the list of known CycloneV models" },
+  { "routes",   2, 2, show_routes,   "routes   model file.rbf                                  -- Dump the information of all active routes" },
+  { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf                                  -- Dump the information of all unresolved active routes" },
+  { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf                                  -- Dump the information of all active routes with intermediate pips" },
+  { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf                            -- Load a rbf and save it again" },
+  { "bels",     1, 1, show_bels,     "bels     model                                           -- Dump the list of logic blocks for a given model" },
+  { "p2r",      1, 1, show_p2r,      "p2r      model                                           -- Dump the list of block port/routing nodes connections for peripheral blocks" },
+  { "p2ri",     1, 1, show_p2ri,     "p2ri     model                                           -- Dump the list of block port/routing nodes connections for one tile per inner block" },
+  { "p2p",      1, 1, show_p2p,      "p2p      model                                           -- Dump the list of block port/block port connections" },
+  { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt                           -- Decompile the bitstream" },
+  { "comp",     2, 2, compile,       "comp     file.bt out.rbf                                 -- Compile to a bitstream" },
+  { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf                             -- Compare two bitstrems" },
+  { "missing",  2, 2, missing,       "missing  model list.txt                                  -- List missing pnodes" },
+  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                                           -- List all rnodes ids" },
+  { "tnet",     6, 6, show_tnet,     "tnet     model file.bf temp [min/max] [fall/rise] rnode  -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
   { }
 };
 

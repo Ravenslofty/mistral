@@ -59,6 +59,8 @@ void RDriverParser::next()
     if(dr2 == -1 || (*p != '\r' && *p != '\n'))
       error(st, "Bad right driver name");
   }
+  drivers[0] = dr1;
+  drivers[1] = dr2;
   if(*p == '\r')
     p++;
   if(*p != '\n')
