@@ -762,7 +762,7 @@ def load_hps(p2r, p2p):
 def header():
     print("// Generated file, edition is futile")
     print("")
-    print("#include \"cyclonev.h\"")
+    print("#include <cyclonev.h>")
     print("")
 
 def out_fixed(pram):

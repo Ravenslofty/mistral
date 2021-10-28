@@ -32,6 +32,12 @@ float lookup_float(const uint8_t *&p)
   return strtod(buf, nullptr);
 }
 
+void skipsp(const uint8_t *&p)
+{
+  while(*p == ' ')
+    p++;
+}
+
 std::vector<uint8_t> file_load(std::string fname)
 {
   std::vector<uint8_t> data;

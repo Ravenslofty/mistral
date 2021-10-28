@@ -8,7 +8,7 @@ if len(sys.argv) != 3:
 
 print("// Generated file, edition is futile")
 print("")
-print("#include \"cyclonev.h\"")
+print("#include <cyclonev.h>")
 print("")
 print("const mistral::CycloneV::inverter_info mistral::CycloneV::%s_inverters_info[] = {" % sys.argv[2])
 

@@ -1,4 +1,5 @@
 #include "cyclonev.h"
+#include <lzma.h>
 
 const mistral::CycloneV::package_info_t mistral::CycloneV::package_infos[5+3+3] = {
   {  256, 'f', 16, 16, 17, 17 },
@@ -52,6 +53,20 @@ const char *const mistral::CycloneV::port_type_names[] = {
 const char *const mistral::CycloneV::bmux_type_names[] = {
 #define P(x) #x
 #include <cv-bmuxtypes.ipp>
+#undef P
+  nullptr
+};
+
+const char *const mistral::CycloneV::driver_type_names[] = {
+#define P(x) #x
+#include <cv-drivertypes.ipp>
+#undef P
+  nullptr
+};
+
+const char *const mistral::CycloneV::shape_type_names[] = {
+#define P(x) #x
+#include <cv-shapetypes.ipp>
 #undef P
   nullptr
 };
@@ -251,3 +266,48 @@ void mistral::CycloneV::diff(const CycloneV *m) const
 	}
     }
 }
+
+std::tuple<const uint8_t *, size_t> mistral::CycloneV::get_bin(const uint8_t *start, const uint8_t *end)
+{
+  const uint8_t *data = start;
+  size_t dsize = end - start;
+
+  if(!memcmp(data, "\xfd" "7zXZ", 6)) {
+    const uint8_t *fptr = data + dsize - 12;
+    lzma_stream_flags stream_flags;
+    lzma_ret ret;
+
+    ret = lzma_stream_footer_decode(&stream_flags, fptr);
+    const uint8_t *iptr = fptr - stream_flags.backward_size;
+    lzma_index *index = nullptr;
+    uint64_t memlimit = UINT64_MAX;
+    size_t pos = 0;
+    lzma_index_buffer_decode(&index, &memlimit, nullptr, iptr, &pos, fptr - iptr);
+    size_t size = lzma_index_uncompressed_size(index);
+    lzma_index_end(index, nullptr);
+
+    decompressed_data_storage.emplace_back(std::make_unique<uint8_t[]>(size));
+
+    lzma_stream strm = LZMA_STREAM_INIT;
+    if ((ret = lzma_stream_decoder(&strm, UINT64_MAX, 0)) != LZMA_OK) {
+      fprintf(stderr, "failed to initialise liblzma: %d\n", ret);
+      exit(1);
+    }
+
+    strm.next_in = data;
+    strm.avail_in = dsize;
+    strm.next_out = decompressed_data_storage.back().get();
+    strm.avail_out = size;
+  
+    if((ret = lzma_code(&strm, LZMA_RUN)) != LZMA_STREAM_END) {
+      fprintf(stderr, "rmux data decompression failure: %d\n", ret);
+      exit(1);
+    }
+
+    data = decompressed_data_storage.back().get();
+    dsize = size;
+  }
+
+  return std::make_tuple(data, dsize);
+}
+

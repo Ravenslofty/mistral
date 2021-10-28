@@ -1,7 +1,6 @@
 #include "cyclonev.h"
 #include "bdz-ph.h"
 
-#include <lzma.h>
 #include <set>
 
 std::string mistral::CycloneV::rn2s(rnode_t rn)
@@ -31,53 +30,29 @@ std::string mistral::CycloneV::pn2s(pnode_t pn)
 }
 
 
+extern const uint8_t _binary_global_bin_start[];
+extern const uint8_t _binary_global_bin_end[];
+
 void mistral::CycloneV::rmux_load()
 {
-  const uint8_t *data = di.routing_data_start;
-  uint32_t dsize = di.routing_data_end - di.routing_data_start;
+  const uint8_t *data;
+  size_t size;
 
-  if(!memcmp(data, "\xfd" "7zXZ", 6)) {
-    const uint8_t *fptr = data + dsize - 12;
-    lzma_stream_flags stream_flags;
-    lzma_ret ret;
+  std::tie(data, size) = get_bin(di.routing_data_start, di.routing_data_end);
 
-    ret = lzma_stream_footer_decode(&stream_flags, fptr);
-    const uint8_t *iptr = fptr - stream_flags.backward_size;
-    lzma_index *index = nullptr;
-    uint64_t memlimit = UINT64_MAX;
-    size_t pos = 0;
-    lzma_index_buffer_decode(&index, &memlimit, nullptr, iptr, &pos, fptr - iptr);
-    size_t size = lzma_index_uncompressed_size(index);
-    lzma_index_end(index, nullptr);
-
-    decompressed_data_storage = std::make_unique<uint8_t[]>(size);
-
-    lzma_stream strm = LZMA_STREAM_INIT;
-    if ((ret = lzma_stream_decoder(&strm, UINT64_MAX, 0)) != LZMA_OK) {
-      fprintf(stderr, "failed to initialise liblzma: %d\n", ret);
-      exit(1);
-    }
-
-    strm.next_in = data;
-    strm.avail_in = dsize;
-    strm.next_out = decompressed_data_storage.get();
-    strm.avail_out = size;
-  
-    if((ret = lzma_code(&strm, LZMA_RUN)) != LZMA_STREAM_END) {
-      fprintf(stderr, "rmux data decompression failure: %d\n", ret);
-      exit(1);
-    }
-
-    data = decompressed_data_storage.get();
-    dsize = size;
-  }
-  
   dhead = reinterpret_cast<const data_header *>(data);
   rnode_info = data + dhead->off_rnode;
   rnode_info_end = data + dhead->off_rnode_end;
   rnode_hash = data + dhead->off_rnode_hash;
   rnode_hash_lookup = reinterpret_cast<const uint32_t *>(rnode_hash + dhead->size_rnode_opaque_hash);
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
+
+  std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
+  gdhead = reinterpret_cast<const global_data_header *>(data);
+  dn_lookup = reinterpret_cast<const dnode_lookup *>(data + gdhead->off_dnode_lookup);
+  dn_table2 = reinterpret_cast<const dnode_table2 *>(data + gdhead->off_dnode_table2);
+  dn_table3 = reinterpret_cast<const dnode_table3 *>(data + gdhead->off_dnode_table3);
+  dn_info   = reinterpret_cast<const dnode_info *>(data + gdhead->off_dnode_drivers);
 }
 
 uint32_t mistral::CycloneV::rmux_get_val(const rnode_base &r) const

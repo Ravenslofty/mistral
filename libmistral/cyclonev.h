@@ -23,7 +23,7 @@ namespace mistral {
 
     enum block_type_t {
 #define P(x) x
-#include <cv-blocktypes.ipp>
+#include "cv-blocktypes.ipp"
 #undef P
     };
 
@@ -39,10 +39,25 @@ namespace mistral {
 #undef P
     };
 
+    enum driver_type_t {
+#define P(x) DRV_ ## x
+#include "cv-drivertypes.ipp"
+#undef P
+      DRV_COUNT
+    };
+
+    enum shape_type_t {
+#define P(x) SHP_ ## x
+#include "cv-shapetypes.ipp"
+#undef P
+    };
+
     static const char *const rnode_type_names[];
     static const char *const block_type_names[];
     static const char *const port_type_names[];
     static const char *const bmux_type_names[];
+    static const char *const driver_type_names[];
+    static const char *const shape_type_names[];
 
     rnode_type_t rnode_type_lookup(const std::string &n) const;
     block_type_t block_type_lookup(const std::string &n) const;
@@ -93,7 +108,19 @@ namespace mistral {
       SG_7_H6,
       SG_8,
       SG_8_H6,
-      SG_8_H7
+      SG_8_H7,
+      SG_COUNT
+    };
+
+    enum timing_slot {
+      T_N55,
+      T_N40,
+      T_0,
+      T_85,
+      T_100,
+      T_125,
+      T_MIN,
+      T_COUNT
     };
 
     struct package_info_t {
@@ -447,14 +474,21 @@ namespace mistral {
       uint32_t size_rnode_opaque_hash;
       uint32_t count_rnode;
     };
+
+    struct global_data_header {
+      uint32_t off_dnode_lookup;
+      uint32_t off_dnode_table2;
+      uint32_t off_dnode_table3;
+      uint32_t off_dnode_drivers;
+    };
     
     struct rnode_base {
       rnode_t node;
       uint8_t pattern;
       uint8_t target_count;
+      uint8_t drivers[2];
       uint16_t line_info_index;
       uint16_t driver_position;
-      uint16_t padding;
       uint32_t fw_pos;
     }; // Followed by up to 44 sources and up to 56 targets and up to 56 target_positions.  Aligned to 4 bytes.
     
@@ -474,6 +508,53 @@ namespace mistral {
       uint16_t o_xy;
       uint16_t o_vals;
       uint16_t o_vhash;
+    };
+
+    struct dnode_table2 {
+      float value[11][11];
+    };
+
+    struct dnode_table3 {
+      float start;
+      float value[11][11][11];
+    };
+
+    struct caps_t {
+      float rf[2];
+    };
+
+    struct dnode_driver {
+      uint8_t shape;
+      uint8_t invert;
+      uint16_t driver;
+      uint16_t output;
+      uint16_t pass1;
+      uint16_t pass2;
+      uint16_t pullup;
+      caps_t cbuff;
+      caps_t cg0_pass;
+      caps_t cgd_buff;
+      caps_t cgd_drive;
+      caps_t cgd_pass;
+      caps_t cgs_pass;
+      caps_t cint;
+      caps_t coff;
+      caps_t con;
+      caps_t cout;
+      caps_t cstage1;
+      caps_t cstage2;
+      caps_t cwire;
+      float rnor_pup;
+      float rwire;
+      float rmult;
+    };
+
+    struct dnode_info {
+      dnode_driver drivers[DRV_COUNT];
+    };
+
+    struct dnode_lookup {
+      uint32_t index[SG_COUNT][T_COUNT][2]; // [speed grade][temperature][max=0,min=1]
     };
 
   public:
@@ -867,13 +948,19 @@ namespace mistral {
     std::unordered_map<pnode_t, rnode_t> p2r_map;
     std::unordered_map<rnode_t, pnode_t> r2p_map;
 
-    std::unique_ptr<uint8_t[]> decompressed_data_storage;
+    std::vector<std::unique_ptr<uint8_t[]>> decompressed_data_storage;
     const data_header *dhead;
     const uint8_t *rnode_info;
     const uint8_t *rnode_info_end;
     const uint8_t *rnode_hash;
     const uint32_t *rnode_hash_lookup;
     const rnode_line_information *rli_data;
+
+    const global_data_header *gdhead;
+    const dnode_lookup *dn_lookup;
+    const dnode_table2 *dn_table2;
+    const dnode_table3 *dn_table3;
+    const dnode_info *dn_info;
 
     void rbf_load_oram(const void *data, uint32_t size);
 
@@ -990,6 +1077,8 @@ namespace mistral {
       for(int i = 1; table[i]; i++)
 	h[table[i]] = T(i);
     }
+
+    std::tuple<const uint8_t *, size_t> get_bin(const uint8_t *start, const uint8_t *end);
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;
