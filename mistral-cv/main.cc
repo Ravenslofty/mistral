@@ -933,11 +933,16 @@ static void show_tnet(char **args)
   int netcount = model->rnode_timing_get_circuit_count(rn);
   for(int i=0; i != netcount; i++) {
     mistral::AnalogSim sim;
-    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim);
+    int input = -1;
+    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim, input, outputs);
     printf("  circuit %d/%d\n", i+1, netcount);
     sim.show();
+    printf("input %s (%d)\n", sim.get_node_name(input).c_str(), input);
+    for(const auto &o : outputs)
+      printf("output %s: %s (%d)\n", o.first ? mistral::CycloneV::rn2s(o.first).c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
   }
-
+  
   delete model;
 }
 

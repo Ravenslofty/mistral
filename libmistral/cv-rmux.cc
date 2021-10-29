@@ -859,6 +859,10 @@ int mistral::CycloneV::rnode_timing_get_circuit_count(rnode_t rn)
   if(rn2t(rn) == WM)
     return 0;
   const rnode_base *rb = rnode_lookup(rn);
+  if(!rb) {
+    fprintf(stderr, "Error: node doesn't exist.\n");
+    exit(1);
+  }
   if(rb->drivers[0] == 0xff)
     return 0;
   if(rb->line_info_index == 0xffff)
@@ -872,7 +876,131 @@ mistral::AnalogSim::table2_lookup mistral::CycloneV::dn_t2(uint16_t index) const
   return [](double, double) -> double { return 0; };
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim)
+void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
+						   const uint16_t *target_pos,
+						   int split_edge, int target_count,
+						   uint16_t split_pos,
+						   bool second_span,
+						   bool coalescing,
+						   double &caps, int &node,
+						   double line_r, edge_t edge,
+						   const rnode_line_information &rli,
+						   rnode_t rn,
+						   const dnode_driver *driver_bank,
+						   AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs)
+{
+  enum {
+    start_of_line,
+    in_line,
+    before_split,
+    after_split,
+    end_of_line
+  };
+
+  int mode = second_span ? after_split : start_of_line;
+  int tpos = second_span ? split_edge : 0;
+  double current_c = caps;
+  int pnode = node == -1 ? sim.gn() : node;
+  uint16_t current_pos = second_span ? split_pos : 0;
+
+  for(;;) {
+    static const char *const modenames[] = { "sol", "in", "bs", "as", "eol" };
+    double next_c;
+    uint16_t next_pos;
+    rnode_t active_target = 0;
+    if(mode != in_line) {
+      next_pos = mode == start_of_line ? 0 : (mode == before_split || mode == after_split) ? split_pos : rli.length;
+      next_c = 0;
+
+    } else if(target_pos[tpos] & 0x8000) {
+      next_pos = target_pos[tpos] & 0x7fff;
+      next_c = targets[tpos].caps;
+      
+    } else {
+      next_pos = target_pos[tpos];
+      const rnode_base *rnt = rnode_lookup(targets[tpos].rn);
+      int back_incoming_index = 0;
+      if(rnt->pattern == 16) {
+	const rnode_t *back_sources = rnode_sources(rnt);
+	int back_slot;
+	for(back_slot = 0; back_sources[back_slot] != rn; back_slot++);
+	back_incoming_index = back_slot == 4 || back_slot == 13;
+      }
+      const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
+      
+      if(rmux_get_source(*rnt) == rn) {
+	next_c = back_driver.con.rf[edge];
+	active_target = targets[tpos].rn;
+	sim.set_node_name(pnode, rn2s(targets[tpos].rn));
+      } else
+	next_c = back_driver.coff.rf[edge];
+    }
+
+    if(next_pos == current_pos || (coalescing && (next_pos - current_pos < 20))) {
+      current_c += next_c;
+      if(active_target) {
+	sim.set_node_name(pnode, rn2s(active_target));
+	outputs.emplace_back(std::make_pair(active_target, pnode));
+      }
+	
+    } else {
+      uint16_t dp = next_pos - current_pos;
+      uint16_t segments = (dp+199)/200;
+      double dp1 = dp / double(segments);
+      for(uint16_t seg=0; seg != segments; seg++) {
+	// split the capacitance between before and after the resistance
+	double wire_c = dp1 * rli.c;
+	current_c += wire_c/2;
+	int nnode = sim.gn();
+	if(active_target && seg+1 == segments) {
+	  sim.set_node_name(nnode, rn2s(active_target));
+	  outputs.emplace_back(std::make_pair(active_target, nnode));
+	}
+
+	sim.add_c(pnode, 0, current_c);
+	sim.add_r(pnode, nnode, line_r * dp1);
+	pnode = nnode;
+	current_c = wire_c/2;
+	current_c += next_c;
+	current_pos = next_pos;
+      }
+    }
+
+    switch(mode) {
+    case start_of_line:
+      mode = tpos == split_edge ? before_split : in_line;
+      break;
+
+    case before_split:
+      goto done;
+
+    case after_split:
+      mode = tpos == target_count ? end_of_line : in_line;
+      break;
+
+    case end_of_line:
+      goto done;
+
+    case in_line:
+      tpos++;
+      if(!second_span && tpos == split_edge)
+	mode = before_split;
+      if(second_span && tpos == target_count)
+	mode = end_of_line;
+      break;
+    }
+  }
+
+ done:
+  caps = current_c;
+  node = pnode;
+
+  if(current_c && mode == end_of_line)
+    sim.add_c(node, 0, current_c);
+}
+						   
+						   
+void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
 {
   const rnode_base *rb = rnode_lookup(rn);
   if(rn2t(rn) == WM || rb->drivers[0] == 0xff  || step != 0) {
@@ -887,16 +1015,35 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
       incoming_index = 1;
   }
 
+  sim.add_gnd_vdd(1.0);
+  input = sim.gn_input();
+
   const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
   const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
   const rnode_line_information &rli = rli_data[rb->line_info_index];
 
   double line_r = driver.rmult * rli.r85 * rli.tcomp(timing_slot_temperature[temp])/rli.tcomp(85);
 
-  sim.add_gnd_vdd(1.0);
-  int input = sim.gn_input();
-  int wire = sim.gn("wire");
-  double wire_root_to_gnd = driver.cwire.rf[edge];
+  const rnode_target *targets = rnode_targets(rb);
+  const uint16_t *target_pos = rnode_target_positions(rb);
+  int target_count = rb->target_count;
+
+  double wire_root_to_gnd = 0;
+  int split_edge;
+
+  for(split_edge = 0; split_edge < target_count; split_edge++)
+    if((target_pos[split_edge] & 0x7fff) >= rb->driver_position)
+      break;
+
+  int wire = -1;
+
+  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, false,
+			     wire_root_to_gnd, wire,
+			     line_r, edge, rli, rn, driver_bank, sim, outputs);
+
+  if(wire == -1)
+    wire = sim.gn();
+  wire_root_to_gnd += driver.cwire.rf[edge];
 
   switch(driver.shape) {
   case SHP_ppdb: {
@@ -927,72 +1074,8 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     exit(1);
   }
 
-  if(rb->driver_position) {
-    fprintf(stderr, "non-zero driver pos, not handling that yet, sorry\n");
-    exit(1);
-  }
-
-  const rnode_target *targets = rnode_targets(rb);
-  const uint16_t *target_pos = rnode_target_positions(rb);
-  int target_count = rb->target_count;
-
-  bool at_root = true;
-  double current_c = wire_root_to_gnd;
-  uint16_t current_pos = rb->driver_position;
-  int pnode = wire;
-
-  for(int i=0; i != target_count; i++) {
-    double target_c;
-    bool active_target = false;
-    if(target_pos[i] & 0x8000)
-      target_c = targets[i].caps;
-    else {
-      const rnode_base *rnt = rnode_lookup(targets[i].rn);
-      int back_incoming_index = 0;
-      if(rnt->pattern == 16) {
-	const rnode_t *back_sources = rnode_sources(rnt);
-	int back_slot;
-	for(back_slot = 0; back_sources[back_slot] != rn; back_slot++);
-	back_incoming_index = back_slot == 4 || back_slot == 13;
-      }
-      const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
-      
-      if(rmux_get_source(*rnt) == rn) {
-	target_c = back_driver.con.rf[edge];
-	active_target = true;
-	sim.set_node_name(pnode, rn2s(targets[i].rn));
-      } else
-	target_c = back_driver.coff.rf[edge];
-    }
-
-    uint16_t pos = target_pos[i] & 0x7fff;
-    if(pos - current_pos < 20) {
-      current_c += target_c;
-      if(active_target)
-	sim.set_node_name(pnode, rn2s(targets[i].rn));
-	
-    } else {
-      uint16_t dp = pos - current_pos;
-      uint16_t segments = (dp+199)/200;
-      double dp1 = dp / double(segments);
-      for(uint16_t seg=0; seg != segments; seg++) {
-	// split the capacitance between before and after the resistance
-	double wire_c = dp1 * rli.c;
-	current_c += wire_c/2;
-	int nnode = sim.gn();
-
-	if(active_target && seg+1 == segments)
-	  sim.set_node_name(nnode, rn2s(targets[i].rn));
-
-	sim.add_c(pnode, 0, current_c);
-	sim.add_r(pnode, nnode, line_r * dp1);
-	pnode = nnode;
-	current_c = wire_c/2;
-	current_c += target_c;
-	current_pos = pos;
-      }
-    }
-  }
-  sim.add_c(pnode, 0, current_c);
+  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, false,
+			     wire_root_to_gnd, wire,
+			     line_r, edge, rli, rn, driver_bank, sim, outputs);
 }
 

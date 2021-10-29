@@ -43,6 +43,10 @@ namespace mistral {
       nodes[n].name = name;
     }
 
+    std::string get_node_name(int n) const {
+      return nodes[n].name;
+    }
+
     void show() const;
     void run();
 

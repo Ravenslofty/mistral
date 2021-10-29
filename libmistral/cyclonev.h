@@ -722,7 +722,8 @@ namespace mistral {
     rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
 
     int rnode_timing_get_circuit_count(rnode_t rn);
-    void rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim);
+    void rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge,
+				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
 
   private:
     struct bmux_sel_entry {
@@ -1133,7 +1134,18 @@ namespace mistral {
     std::tuple<const uint8_t *, size_t> get_bin(const uint8_t *start, const uint8_t *end);
 
     AnalogSim::table2_lookup dn_t2(uint16_t index) const;
-
+    void rnode_timing_generate_line(const rnode_target *targets,
+				    const uint16_t *target_pos,
+				    int split_edge, int target_count,
+				    uint16_t split_pos,
+				    bool second_span,
+				    bool coalescing,
+				    double &caps, int &node,
+				    double line_r, edge_t edge,
+				    const rnode_line_information &rli,
+				    rnode_t rn,
+				    const dnode_driver *driver_bank,
+				    AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs);
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;
