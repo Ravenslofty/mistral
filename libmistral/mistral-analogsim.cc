@@ -69,21 +69,21 @@ void mistral::AnalogSim::show() const
   if(false) {
     for(size_t i=0; i != nodes.size(); i++)
       switch(nodes[i].type) {
-      case N_STD:   printf("node %3d: %s\n", i, nn(i));                             break;
-      case N_INPUT: printf("node %3d: %s input\n", i, nn(i));                     break;
-      case N_V:     printf("node %3d: %s voltage(%g)\n", i, nn(i), nodes[i].value); break;
+      case N_STD:   printf("node %3zu: %s\n", i, nn(i));                             break;
+      case N_INPUT: printf("node %3zu: %s input\n", i, nn(i));                     break;
+      case N_V:     printf("node %3zu: %s voltage(%g)\n", i, nn(i), nodes[i].value); break;
       }
   }
 
   for(size_t i=0; i != components.size(); i++) {
     const auto &c = components[i];
     switch(c.type) {
-    case C_R: printf("comp %3d: R(%s, %s, %g (%g))\n", i, nn(c.nodes[0]), nn(c.nodes[1]), c.param, 1/c.param); break;
-    case C_C: printf("comp %3d: C(%s, %s, %g)\n", i, nn(c.nodes[0]), nn(c.nodes[1]), c.param); break;
-    case C_PASS: printf("comp %3d: Pass(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
-    case C_BUFF: printf("comp %3d: Buff(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
-    case C_2PORT: printf("comp %3d: 2Port(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
-    case C_NOQPG: printf("comp %3d: NoQPg(%s, %s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1]), nn(c.nodes[2])); break;
+    case C_R: printf("comp %3zu: R(%s, %s, %g (%g))\n", i, nn(c.nodes[0]), nn(c.nodes[1]), c.param, 1/c.param); break;
+    case C_C: printf("comp %3zu: C(%s, %s, %g)\n", i, nn(c.nodes[0]), nn(c.nodes[1]), c.param); break;
+    case C_PASS: printf("comp %3zu: Pass(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
+    case C_BUFF: printf("comp %3zu: Buff(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
+    case C_2PORT: printf("comp %3zu: 2Port(%s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1])); break;
+    case C_NOQPG: printf("comp %3zu: NoQPg(%s, %s, %s)\n", i, nn(c.nodes[0]), nn(c.nodes[1]), nn(c.nodes[2])); break;
     }
   }
 }

@@ -143,7 +143,7 @@ void mistral::CycloneV::route_set_defaults()
   for(const auto &r : rnodes()) {
     const rmux_pattern &pat = rmux_patterns[r.pattern()];
     rmux_set_val(r, pat.def);
-  } 
+  }
 }
 
 std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_all_active_links() const
@@ -763,7 +763,7 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
   auto i = r2p_map.find(rn);
   if(i != r2p_map.end())
     return i->second;
-    
+
   return 0;
 }
 
@@ -915,7 +915,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
     } else if(target_pos[tpos] & 0x8000) {
       next_pos = target_pos[tpos] & 0x7fff;
       next_c = targets[tpos].caps;
-      
+
     } else {
       next_pos = target_pos[tpos];
       const rnode_base *rnt = rnode_lookup(targets[tpos].rn);
@@ -927,7 +927,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 	back_incoming_index = back_slot == 4 || back_slot == 13;
       }
       const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
-      
+
       if(rmux_get_source(*rnt) == rn) {
 	next_c = back_driver.con.rf[edge];
 	active_target = targets[tpos].rn;
@@ -942,7 +942,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 	sim.set_node_name(pnode, rn2s(active_target));
 	outputs.emplace_back(std::make_pair(active_target, pnode));
       }
-	
+
     } else {
       uint16_t dp = next_pos - current_pos;
       uint16_t segments = (dp+199)/200;
@@ -998,8 +998,8 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
   if(current_c && mode == end_of_line)
     sim.add_c(node, 0, current_c);
 }
-						   
-						   
+
+
 void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
 {
   const rnode_base *rb = rnode_lookup(rn);
@@ -1018,7 +1018,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   sim.add_gnd_vdd(1.0);
   input = sim.gn_input();
 
-  const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
+  const dnode_driver *driver_bank = dn_info[dn_lookup->index[static_cast<int>(model->speed_grade)][temp][delay]].drivers;
   const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
   const rnode_line_information &rli = rli_data[rb->line_info_index];
 
