@@ -1070,6 +1070,22 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     break;
   }
 
+  case SHP_ppd: {
+    int pass1 = sim.gn("pass1");
+    int pass2 = sim.gn("pass2");
+    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
+    sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
+    sim.add_r(pass2, 1, 1e9);
+    sim.add_2port(pass2, wire, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_c(pass2, wire, driver.cgd_buff.rf[edge]);
+    sim.add_r(wire, 0, 1e9);
+    wire_root_to_gnd += driver.cout.rf[edge];
+    break;
+  }
+
   case SHP_ppdb: {
     int pass1 = sim.gn("pass1");
     int pass2 = sim.gn("pass2");
@@ -1090,22 +1106,6 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     sim.add_r(buff, 0, 1e9);
     sim.add_c(buff, 0, driver.cout.rf[edge]);
     sim.add_r(buff, wire, driver.rwire);
-    break;
-  }
-
-  case SHP_ppd: {
-    int pass1 = sim.gn("pass1");
-    int pass2 = sim.gn("pass2");
-    sim.add_pass(input, pass1, dn_t2(driver.pass1));
-    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
-    sim.add_r(pass1, 1, 1e9);
-    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
-    sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
-    sim.add_r(pass2, 1, 1e9);
-    sim.add_2port(pass2, wire, dn_t2(driver.pullup), dn_t2(driver.output));
-    sim.add_c(pass2, wire, driver.cgd_buff.rf[edge]);
-    sim.add_r(wire, 0, 1e9);
-    wire_root_to_gnd += driver.cout.rf[edge];
     break;
   }
 
