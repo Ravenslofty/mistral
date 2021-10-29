@@ -1093,7 +1093,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     break;
   }
 
-  case SHP_ppd3: {
+  case SHP_ppd: {
     int pass1 = sim.gn("pass1");
     int pass2 = sim.gn("pass2");
     sim.add_pass(input, pass1, dn_t2(driver.pass1));
