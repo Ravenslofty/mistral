@@ -876,12 +876,18 @@ mistral::AnalogSim::table2_lookup mistral::CycloneV::dn_t2(uint16_t index) const
   return [](double, double) -> double { return 0; };
 }
 
+mistral::AnalogSim::table3_lookup mistral::CycloneV::dn_t3(uint16_t index) const
+{
+  assert(index != 0xffff);
+  return [](double, double, double) -> double { return 0; };
+}
+
 void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 						   const uint16_t *target_pos,
 						   int split_edge, int target_count,
 						   uint16_t split_pos,
 						   bool second_span,
-						   bool coalescing,
+						   uint16_t line_coalescing,
 						   double &caps, int &node,
 						   double line_r, edge_t edge,
 						   const rnode_line_information &rli,
@@ -913,19 +919,13 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
       next_c = 0;
 
     } else if(target_pos[tpos] & 0x8000) {
-      next_pos = target_pos[tpos] & 0x7fff;
+      next_pos = target_pos[tpos] & 0x3fff;
       next_c = targets[tpos].caps;
 
     } else {
-      next_pos = target_pos[tpos];
+      next_pos = target_pos[tpos] & 0x3fff;
       const rnode_base *rnt = rnode_lookup(targets[tpos].rn);
-      int back_incoming_index = 0;
-      if(rnt->pattern == 16) {
-	const rnode_t *back_sources = rnode_sources(rnt);
-	int back_slot;
-	for(back_slot = 0; back_sources[back_slot] != rn; back_slot++);
-	back_incoming_index = back_slot == 4 || back_slot == 13;
-      }
+      int back_incoming_index = target_pos[tpos] & 0x4000 ? 1 : 0;
       const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
 
       if(rmux_get_source(*rnt) == rn) {
@@ -936,7 +936,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 	next_c = back_driver.coff.rf[edge];
     }
 
-    if(next_pos == current_pos || (coalescing && (next_pos - current_pos < 20))) {
+    if(next_pos - current_pos < line_coalescing) {
       current_c += next_c;
       if(active_target) {
 	sim.set_node_name(pnode, rn2s(active_target));
@@ -1010,13 +1010,20 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
 
   int incoming_index = 0;
   if(rb->pattern == 16) {
-    int slotid = rmux_get_slot(*rb);
-    if(slotid == 4 || slotid == 13)
-      incoming_index = 1;
+    rnode_t rns = rmux_get_source(rb);
+    if(rns) {
+      const rnode_base *rbs = rnode_lookup(rns);
+      const rnode_target *stargets = rnode_targets(rbs);
+      for(int i=0; i != rbs->target_count; i++)
+	if(stargets[i].rn == rn) {
+	  incoming_index = (rnode_target_positions(rbs)[i] & 0x4000) ? 1 : 0;
+	  break;
+	}
+    }
   }
 
   sim.add_gnd_vdd(1.0);
-  input = sim.gn_input();
+  input = sim.gn_input(rn2s(rn).c_str());
 
   const dnode_driver *driver_bank = dn_info[dn_lookup->index[static_cast<int>(model->speed_grade)][temp][delay]].drivers;
   const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
@@ -1032,12 +1039,12 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   int split_edge;
 
   for(split_edge = 0; split_edge < target_count; split_edge++)
-    if((target_pos[split_edge] & 0x7fff) >= rb->driver_position)
+    if((target_pos[split_edge] & 0x3fff) >= rb->driver_position)
       break;
 
   int wire = -1;
 
-  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, false,
+  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, driver.line_coalescing,
 			     wire_root_to_gnd, wire,
 			     line_r, edge, rli, rn, driver_bank, sim, outputs);
 
@@ -1046,6 +1053,25 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   wire_root_to_gnd += driver.cwire.rf[edge];
 
   switch(driver.shape) {
+  case SHP_pdb: {
+    int pass1 = sim.gn("pass1");
+    int out = sim.gn("out");
+    int buff = sim.gn("buff");
+    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_2port(pass1, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_c(pass1, out, driver.cgd_buff.rf[edge]);
+    sim.add_r(out, 0, 1e9);
+    sim.add_c(out, 0, driver.cint.rf[edge]);
+    sim.add_buff(out, buff, dn_t2(driver.driver));
+    sim.add_c(out, buff, driver.cgd_drive.rf[edge]);
+    sim.add_r(buff, 0, 1e9);
+    sim.add_c(buff, 0, driver.cout.rf[edge]);
+    sim.add_r(buff, wire, driver.rwire);
+    break;
+  }
+
   case SHP_ppdb: {
     int pass1 = sim.gn("pass1");
     int pass2 = sim.gn("pass2");
@@ -1069,12 +1095,32 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     break;
   }
 
+  case SHP_td: {
+    int vcch = sim.gn_v(1.4, "vcch");
+    int gate = sim.gn("gate");
+    int pass1 = sim.gn("pass1");
+    int out = sim.gn("out");
+    sim.add_noqpg(pass1, gate, input, dn_t3(driver.pass1));
+    sim.add_c(input, gate, driver.cgd_pass.rf[edge]);
+    sim.add_c(gate, pass1, driver.cgs_pass.rf[edge]);
+    sim.add_c(gate, 0, driver.cg0_pass.rf[edge]);
+    sim.add_r(gate, vcch, driver.rnor_pup);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_2port(pass1, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_c(pass1, out, driver.cgd_buff.rf[edge]);
+    sim.add_r(out, 0, 1e9);
+    sim.add_c(out, 0, driver.cout.rf[edge]);
+    sim.add_r(out, wire, driver.rwire);
+    break;
+  }
+
   default:
     fprintf(stderr, "Currently unhandled shape %s\n", shape_type_names[driver.shape]);
     exit(1);
   }
 
-  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, false,
+  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, driver.line_coalescing,
 			     wire_root_to_gnd, wire,
 			     line_r, edge, rli, rn, driver_bank, sim, outputs);
 }

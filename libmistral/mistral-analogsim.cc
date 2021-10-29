@@ -66,7 +66,7 @@ void mistral::AnalogSim::add_noqpg(int n1, int n2, int n3, table3_lookup pass)
 
 void mistral::AnalogSim::show() const
 {
-  if(false) {
+  if(true) {
     for(size_t i=0; i != nodes.size(); i++)
       switch(nodes[i].type) {
       case N_STD:   printf("node %3zu: %s\n", i, nn(i));                             break;

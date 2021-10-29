@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="mux1_buff1_nor.svg"
+   sodipodi:docname="td.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,12 +23,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="3.5564303"
-     inkscape:cx="190.50001"
-     inkscape:cy="67.483398"
-     inkscape:window-width="1506"
+     inkscape:zoom="2.514776"
+     inkscape:cx="190.47422"
+     inkscape:cy="67.600455"
+     inkscape:window-width="1129"
      inkscape:window-height="1405"
-     inkscape:window-x="925"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
@@ -490,7 +490,7 @@
        sodipodi:nodetypes="ccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:normal;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.352777;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:normal;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';text-decoration-color:#000000;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.352777;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
        x="69.39949"
        y="136.26044"
        id="text141755"><tspan
@@ -498,7 +498,7 @@
          id="tspan141753"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.352778"
          x="69.39949"
-         y="136.26044">cgs_buff</tspan></text>
+         y="136.26044">cgs_pass</tspan></text>
     <rect
        style="font-variation-settings:normal;vector-effect:none;fill:#b3faff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.195086;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
        id="rect141757"

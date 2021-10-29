@@ -552,11 +552,13 @@ namespace mistral {
     struct dnode_driver {
       uint8_t shape;
       uint8_t invert;
+      uint16_t line_coalescing;
       uint16_t driver;
       uint16_t output;
       uint16_t pass1;
       uint16_t pass2;
       uint16_t pullup;
+      uint16_t padding;
       caps_t cbuff;
       caps_t cg0_pass;
       caps_t cgd_buff;
@@ -1058,6 +1060,9 @@ namespace mistral {
     void rmux_set_val(const rnode_base &r, uint32_t val);
     int rmux_get_slot(const rnode_base &r) const;
     rnode_t rmux_get_source(const rnode_base &r) const;
+    inline rnode_t rmux_get_source(const rnode_base *r) const {
+      return rmux_get_source(*r);
+    }
     bool rmux_is_default(rnode_t node) const;
     bool rnode_do_link(rnode_t n1, rnode_t n2);
     void route_set_defaults();
@@ -1134,12 +1139,13 @@ namespace mistral {
     std::tuple<const uint8_t *, size_t> get_bin(const uint8_t *start, const uint8_t *end);
 
     AnalogSim::table2_lookup dn_t2(uint16_t index) const;
+    AnalogSim::table3_lookup dn_t3(uint16_t index) const;
     void rnode_timing_generate_line(const rnode_target *targets,
 				    const uint16_t *target_pos,
 				    int split_edge, int target_count,
 				    uint16_t split_pos,
 				    bool second_span,
-				    bool coalescing,
+				    uint16_t line_coalescing,
 				    double &caps, int &node,
 				    double line_r, edge_t edge,
 				    const rnode_line_information &rli,

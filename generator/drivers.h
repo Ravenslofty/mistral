@@ -76,11 +76,13 @@ struct caps_t {
 struct dnode_driver {
   uint8_t shape;
   uint8_t invert;
+  uint16_t line_coalescing;
   uint16_t driver;
   uint16_t output;
   uint16_t pass1;
   uint16_t pass2;
   uint16_t pullup;
+  uint16_t padding;
   caps_t cbuff;
   caps_t cg0_pass;
   caps_t cgd_buff;

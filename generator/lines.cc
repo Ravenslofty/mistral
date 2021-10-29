@@ -83,8 +83,11 @@ void LinesParser::next()
 	fprintf(stderr, "[%s]\n", toto);
 	error(st);
       }
+      if(*p++ != ':')
+	error(st, "Incorrect subslot information");
+      uint16_t subslot_mask = *p++ == '1' ? 0x4000 : 0;
       targets[target_count].rn = trn;
-      target_pos[target_count] = pos;
+      target_pos[target_count] = pos | subslot_mask;
     }
     if(*p == ' ')
       p++;

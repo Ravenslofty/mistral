@@ -264,6 +264,11 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	error(st, "Bad inversion flag");
       dd.invert = *p++ == 'i';
       skipsp(p);
+      int line_coalescing = lookup_int(p);
+      if(line_coalescing == -1 || *p != ' ')
+	error(st, "Bad coalescing");
+      dd.line_coalescing = line_coalescing;
+      skipsp(p);
       int shape = shapematch.lookup(p);
       if(shape == -1 || *p != ' ')
 	error(st, "Bad shape");
