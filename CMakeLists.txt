@@ -4,6 +4,7 @@ project(Mistral VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+add_compile_options(-Wall)
 
 add_subdirectory(tools)
 add_subdirectory(generator)

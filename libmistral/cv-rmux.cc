@@ -865,8 +865,6 @@ int mistral::CycloneV::rnode_timing_get_circuit_count(rnode_t rn)
   }
   if(rb->drivers[0] == 0xff)
     return 0;
-  if(rb->line_info_index == 0xffff)
-    return 0;
   return 1;
 }
 
@@ -910,7 +908,6 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
   uint16_t current_pos = second_span ? split_pos : 0;
 
   for(;;) {
-    static const char *const modenames[] = { "sol", "in", "bs", "as", "eol" };
     double next_c;
     uint16_t next_pos;
     rnode_t active_target = 0;
@@ -1025,11 +1022,11 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   sim.add_gnd_vdd(1.0);
   input = sim.gn_input(rn2s(rn).c_str());
 
-  const dnode_driver *driver_bank = dn_info[dn_lookup->index[static_cast<int>(model->speed_grade)][temp][delay]].drivers;
+  const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
   const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
-  const rnode_line_information &rli = rli_data[rb->line_info_index];
+  const rnode_line_information *rli = rb->line_info_index == 0xffff ? nullptr : rli_data + rb->line_info_index;
 
-  double line_r = driver.rmult * rli.r85 * rli.tcomp(timing_slot_temperature[temp])/rli.tcomp(85);
+  double line_r = rli ? driver.rmult * rli->r85 * rli->tcomp(timing_slot_temperature[temp])/rli->tcomp(85) : 0;
 
   const rnode_target *targets = rnode_targets(rb);
   const uint16_t *target_pos = rnode_target_positions(rb);
@@ -1044,9 +1041,10 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
 
   int wire = -1;
 
-  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, driver.line_coalescing,
-			     wire_root_to_gnd, wire,
-			     line_r, edge, rli, rn, driver_bank, sim, outputs);
+  if(rli)
+    rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, driver.line_coalescing,
+			       wire_root_to_gnd, wire,
+			       line_r, edge, *rli, rn, driver_bank, sim, outputs);
 
   if(wire == -1)
     wire = sim.gn();
@@ -1095,6 +1093,22 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     break;
   }
 
+  case SHP_ppd3: {
+    int pass1 = sim.gn("pass1");
+    int pass2 = sim.gn("pass2");
+    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
+    sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
+    sim.add_r(pass2, 1, 1e9);
+    sim.add_2port(pass2, wire, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_c(pass2, wire, driver.cgd_buff.rf[edge]);
+    sim.add_r(wire, 0, 1e9);
+    wire_root_to_gnd += driver.cout.rf[edge];
+    break;
+  }
+
   case SHP_td: {
     int vcch = sim.gn_v(1.4, "vcch");
     int gate = sim.gn("gate");
@@ -1120,8 +1134,14 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     exit(1);
   }
 
-  rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, driver.line_coalescing,
-			     wire_root_to_gnd, wire,
-			     line_r, edge, rli, rn, driver_bank, sim, outputs);
+  if(rli)
+    rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, driver.line_coalescing,
+			       wire_root_to_gnd, wire,
+			       line_r, edge, *rli, rn, driver_bank, sim, outputs);
+  else {
+    if(wire_root_to_gnd)
+      sim.add_c(wire, 0, wire_root_to_gnd);
+    outputs.emplace_back(std::make_pair(rnode_t(0), wire));
+  }
 }
 

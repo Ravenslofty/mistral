@@ -456,8 +456,8 @@ namespace mistral {
       const variant_info &variant;
       package_type_t package;
       char temperature; // (C)ommercial, (I)ndustrial or (A)utomotive
-      char speed, speed_grade;
-      char pcie, gxb, hmc;
+      uint8_t speed, speed_grade;
+      uint8_t pcie, gxb, hmc;
       uint16_t io, gpio;
     };
 
