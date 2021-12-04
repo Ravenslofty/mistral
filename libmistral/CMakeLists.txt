@@ -1,3 +1,5 @@
+set(COMPRESSION_LEVEL 1 CACHE STRING "Internal data compression level (0=no compression, 1=good, 6=smaller but slow)")
+
 list(APPEND mistral_SOURCES
     cv-bmux-data.cc
     cv-bmux.cc
@@ -82,7 +84,7 @@ endforeach()
 foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
-       COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA} ${die} ${CMAKE_CURRENT_BINARY_DIR} 1
+       COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA} ${die} ${CMAKE_CURRENT_BINARY_DIR} ${COMPRESSION_LEVEL}
        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA}/${die}-r.txt.xz ${DATA}/${die}-l.txt.xz
     )
 
@@ -102,7 +104,7 @@ endforeach()
 
 add_custom_command(
    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/global.bin
-   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA} - ${CMAKE_CURRENT_BINARY_DIR} 1
+   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA} - ${CMAKE_CURRENT_BINARY_DIR} ${COMPRESSION_LEVEL}
    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA}/driver-models.txt.xz
 )
 

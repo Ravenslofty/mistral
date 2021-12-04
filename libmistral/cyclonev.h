@@ -537,12 +537,12 @@ namespace mistral {
     };
 
     struct dnode_table2 {
-      float value[11][11];
+      float value[11*11];
     };
 
     struct dnode_table3 {
       float start;
-      float value[11][11][11];
+      float value[11*11*11];
     };
 
     struct caps_t {
@@ -1138,8 +1138,25 @@ namespace mistral {
 
     std::tuple<const uint8_t *, size_t> get_bin(const uint8_t *start, const uint8_t *end);
 
-    AnalogSim::table2_lookup dn_t2(uint16_t index) const;
-    AnalogSim::table3_lookup dn_t3(uint16_t index) const;
+    struct t2_lookup : public AnalogSim::table2_lookup {
+      const dnode_table2 *table;
+      t2_lookup(std::string _name, const dnode_table2 *_table) : AnalogSim::table2_lookup(_name), table(_table) {}
+      virtual ~t2_lookup() = default;
+      virtual void lookup(double x, double y, double &v, double &dvx, double &dvy) const;
+      virtual double lookup(double x, double y) const;
+    };
+
+    struct t3_lookup : public AnalogSim::table3_lookup {
+      const dnode_table3 *table;
+      t3_lookup(std::string _name, const dnode_table3 *_table) : AnalogSim::table3_lookup(_name), table(_table) {}
+      virtual ~t3_lookup() = default;
+      virtual void lookup(double x, double y, double z, double &v, double &dvx, double &dvy, double &dvz) const;
+      virtual double lookup(double x, double y, double z) const;
+    };
+
+    static void table_pos_to_index(double v, size_t &p, double &pf, double &pf1);
+    std::unique_ptr<t2_lookup> dn_t2(int driver_id, const char *slot, uint16_t index) const;
+    std::unique_ptr<t3_lookup> dn_t3(int driver_id, const char *slot, uint16_t index) const;
     void rnode_timing_generate_line(const rnode_target *targets,
 				    const uint16_t *target_pos,
 				    int split_edge, int target_count,

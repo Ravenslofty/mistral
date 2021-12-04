@@ -2,6 +2,7 @@
 #include "bdz-ph.h"
 
 #include <set>
+#include <math.h>
 
 std::string mistral::CycloneV::rn2s(rnode_t rn)
 {
@@ -868,16 +869,120 @@ int mistral::CycloneV::rnode_timing_get_circuit_count(rnode_t rn)
   return 1;
 }
 
-mistral::AnalogSim::table2_lookup mistral::CycloneV::dn_t2(uint16_t index) const
+void mistral::CycloneV::table_pos_to_index(double v, size_t &p, double &pf, double &pf1)
 {
-  assert(index != 0xffff);
-  return [](double, double) -> double { return 0; };
+  if(v <= 0.0) {
+    p = 0;
+    pf = 10*v;
+  } else if(v >= 1.0) {
+    p = 9;
+    pf = 10*v-9;
+  } else {
+    double pi;
+    pf = modf(v*10.0, &pi);
+    p = pi;
+  }
+  pf1 = 1.0-pf;
 }
 
-mistral::AnalogSim::table3_lookup mistral::CycloneV::dn_t3(uint16_t index) const
+void mistral::CycloneV::t2_lookup::lookup(double x, double y, double &v, double &dvx, double &dvy) const
+{
+  size_t xp, yp;
+  double xpf, ypf, xpf1, ypf1;
+  table_pos_to_index(x, xp, xpf, xpf1);
+  table_pos_to_index(y, yp, ypf, ypf1);
+
+  //      xy
+  double v00 = table->value[xp*11 + yp +   0];
+  double v01 = table->value[xp*11 + yp +   1];
+  double v10 = table->value[xp*11 + yp +  11];
+  double v11 = table->value[xp*11 + yp +  12];
+
+  v = v00 * xpf1 * ypf1 + v01 * xpf1 * ypf + v10 * xpf * ypf1 + v11 * xpf * ypf;
+
+  dvx = ((v11 - v01) * ypf + (v10 - v00) * ypf1) * 10.0;
+  dvy = ((v11 - v10) * xpf + (v01 - v00) * xpf1) * 10.0;
+}
+
+double mistral::CycloneV::t2_lookup::lookup(double x, double y) const
+{
+  size_t xp, yp;
+  double xpf, ypf, xpf1, ypf1;
+  table_pos_to_index(x, xp, xpf, xpf1);
+  table_pos_to_index(y, yp, ypf, ypf1);
+
+  //      xy
+  double v00 = table->value[xp*11 + yp +   0];
+  double v01 = table->value[xp*11 + yp +   1];
+  double v10 = table->value[xp*11 + yp +  11];
+  double v11 = table->value[xp*11 + yp +  12];
+
+  return v00 * xpf1 * ypf1 + v01 * xpf1 * ypf + v10 * xpf * ypf1 + v11 * xpf * ypf;
+}
+
+void mistral::CycloneV::t3_lookup::lookup(double x, double y, double z, double &v, double &dvx, double &dvy, double &dvz) const
+{
+  size_t xp, yp, zp;
+  double xpf, ypf, zpf, xpf1, ypf1, zpf1;
+  table_pos_to_index(x,                xp, xpf, xpf1);
+  table_pos_to_index(y - table->start, yp, ypf, ypf1);
+  table_pos_to_index(z,                zp, zpf, zpf1);
+
+  //      xyz
+  double v000 = table->value[xp*121 + yp*11 + zp +   0];
+  double v001 = table->value[xp*121 + yp*11 + zp +   1];
+  double v010 = table->value[xp*121 + yp*11 + zp +  11];
+  double v011 = table->value[xp*121 + yp*11 + zp +  12];
+  double v100 = table->value[xp*121 + yp*11 + zp + 121];
+  double v101 = table->value[xp*121 + yp*11 + zp + 122];
+  double v110 = table->value[xp*121 + yp*11 + zp + 132];
+  double v111 = table->value[xp*121 + yp*11 + zp + 133];
+
+  v =
+    v000 * xpf1 * ypf1 * zpf1 + v010 * xpf1 * ypf * zpf1 + v100 * xpf * ypf1 * zpf1 + v110 * xpf * ypf * zpf1 +
+    v001 * xpf1 * ypf1 * zpf  + v011 * xpf1 * ypf * zpf  + v101 * xpf * ypf1 * zpf  + v111 * xpf * ypf * zpf;
+
+  dvx = ((v110 - v010) * ypf * zpf1 + (v100 - v000) * ypf1 * zpf1 + (v111 - v011) * ypf * zpf + (v101 - v001) * ypf1 * zpf) * 10.0;
+  dvy = ((v110 - v100) * xpf * zpf1 + (v010 - v000) * xpf1 * zpf1 + (v111 - v101) * xpf * zpf + (v011 - v001) * xpf1 * zpf) * 10.0;
+  dvz = ((v101 - v100) * xpf * ypf1 + (v001 - v000) * xpf1 * ypf1 + (v111 - v110) * xpf * ypf + (v011 - v010) * xpf1 * ypf) * 10.0;
+}
+
+double mistral::CycloneV::t3_lookup::lookup(double x, double y, double z) const
+{
+  size_t xp, yp, zp;
+  double xpf, ypf, zpf, xpf1, ypf1, zpf1;
+  table_pos_to_index(x,                xp, xpf, xpf1);
+  table_pos_to_index(y - table->start, yp, ypf, ypf1);
+  table_pos_to_index(z,                zp, zpf, zpf1);
+
+  //      xyz
+  double v000 = table->value[xp*121 + yp*11 + zp +   0];
+  double v001 = table->value[xp*121 + yp*11 + zp +   1];
+  double v010 = table->value[xp*121 + yp*11 + zp +  11];
+  double v011 = table->value[xp*121 + yp*11 + zp +  12];
+  double v100 = table->value[xp*121 + yp*11 + zp + 121];
+  double v101 = table->value[xp*121 + yp*11 + zp + 122];
+  double v110 = table->value[xp*121 + yp*11 + zp + 132];
+  double v111 = table->value[xp*121 + yp*11 + zp + 133];
+
+  return
+    v000 * xpf1 * ypf1 * zpf1 + v010 * xpf1 * ypf * zpf1 + v100 * xpf * ypf1 * zpf1 + v110 * xpf * ypf * zpf1 +
+    v001 * xpf1 * ypf1 * zpf  + v011 * xpf1 * ypf * zpf  + v101 * xpf * ypf1 * zpf  + v111 * xpf * ypf * zpf;
+}
+
+
+std::unique_ptr<mistral::CycloneV::t2_lookup> mistral::CycloneV::dn_t2(int driver_id, const char *slot, uint16_t index) const
 {
   assert(index != 0xffff);
-  return [](double, double, double) -> double { return 0; };
+  const dnode_table2 *table = dn_table2 + index;
+  return std::make_unique<t2_lookup>(std::string(driver_type_names[driver_id]) + '.' + slot, table);
+}
+
+std::unique_ptr<mistral::CycloneV::t3_lookup> mistral::CycloneV::dn_t3(int driver_id, const char *slot, uint16_t index) const
+{
+  assert(index != 0xffff);
+  const dnode_table3 *table = dn_table3 + index;
+  return std::make_unique<t3_lookup>(std::string(driver_type_names[driver_id]) + '.' + slot, table);
 }
 
 void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
@@ -1023,7 +1128,8 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   input = sim.gn_input(rn2s(rn).c_str());
 
   const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
-  const dnode_driver &driver = driver_bank[rb->drivers[incoming_index]];
+  int driver_id = rb->drivers[incoming_index];
+  const dnode_driver &driver = driver_bank[driver_id];
   const rnode_line_information *rli = rb->line_info_index == 0xffff ? nullptr : rli_data + rb->line_info_index;
 
   double line_r = rli ? driver.rmult * rli->r85 * rli->tcomp(timing_slot_temperature[temp])/rli->tcomp(85) : 0;
@@ -1040,11 +1146,12 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
       break;
 
   int wire = -1;
+  edge_t wire_edge = driver.invert ? edge_t(1-edge) :  edge;
 
   if(rli)
     rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, false, driver.line_coalescing,
 			       wire_root_to_gnd, wire,
-			       line_r, edge, *rli, rn, driver_bank, sim, outputs);
+			       line_r, wire_edge, *rli, rn, driver_bank, sim, outputs);
 
   if(wire == -1)
     wire = sim.gn();
@@ -1055,14 +1162,14 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     int pass1 = sim.gn("pass1");
     int out = sim.gn("out");
     int buff = sim.gn("buff");
-    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_pass(input, pass1, dn_t2(driver_id, "pass1", driver.pass1));
     sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
     sim.add_r(pass1, 1, 1e9);
-    sim.add_2port(pass1, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_2port(pass1, out, dn_t2(driver_id, "pullup", driver.pullup), dn_t2(driver_id, "output", driver.output));
     sim.add_c(pass1, out, driver.cgd_buff.rf[edge]);
     sim.add_r(out, 0, 1e9);
     sim.add_c(out, 0, driver.cint.rf[edge]);
-    sim.add_buff(out, buff, dn_t2(driver.driver));
+    sim.add_buff(out, buff, dn_t2(driver_id, "driver", driver.driver));
     sim.add_c(out, buff, driver.cgd_drive.rf[edge]);
     sim.add_r(buff, 0, 1e9);
     sim.add_c(buff, 0, driver.cout.rf[edge]);
@@ -1073,13 +1180,13 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   case SHP_ppd: {
     int pass1 = sim.gn("pass1");
     int pass2 = sim.gn("pass2");
-    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_pass(input, pass1, dn_t2(driver_id, "pass1", driver.pass1));
     sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
     sim.add_r(pass1, 1, 1e9);
-    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
+    sim.add_pass(pass1, pass2, dn_t2(driver_id, "pass2", driver.pass2));
     sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
     sim.add_r(pass2, 1, 1e9);
-    sim.add_2port(pass2, wire, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_2port(pass2, wire, dn_t2(driver_id, "pullup", driver.pullup), dn_t2(driver_id, "output", driver.output));
     sim.add_c(pass2, wire, driver.cgd_buff.rf[edge]);
     sim.add_r(wire, 0, 1e9);
     wire_root_to_gnd += driver.cout.rf[edge];
@@ -1091,17 +1198,17 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     int pass2 = sim.gn("pass2");
     int out = sim.gn("out");
     int buff = sim.gn("buff");
-    sim.add_pass(input, pass1, dn_t2(driver.pass1));
+    sim.add_pass(input, pass1, dn_t2(driver_id, "pass1", driver.pass1));
     sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
     sim.add_r(pass1, 1, 1e9);
-    sim.add_pass(pass1, pass2, dn_t2(driver.pass2));
+    sim.add_pass(pass1, pass2, dn_t2(driver_id, "pass2", driver.pass2));
     sim.add_c(pass2, 0, driver.cstage2.rf[edge]);
     sim.add_r(pass2, 1, 1e9);
-    sim.add_2port(pass2, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_2port(pass2, out, dn_t2(driver_id, "pullup", driver.pullup), dn_t2(driver_id, "output", driver.output));
     sim.add_c(pass2, out, driver.cgd_buff.rf[edge]);
     sim.add_r(out, 0, 1e9);
     sim.add_c(out, 0, driver.cint.rf[edge]);
-    sim.add_buff(out, buff, dn_t2(driver.driver));
+    sim.add_buff(out, buff, dn_t2(driver_id, "driver", driver.driver));
     sim.add_c(out, buff, driver.cgd_drive.rf[edge]);
     sim.add_r(buff, 0, 1e9);
     sim.add_c(buff, 0, driver.cout.rf[edge]);
@@ -1110,18 +1217,18 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   }
 
   case SHP_td: {
-    int vcch = sim.gn_v(1.4, "vcch");
-    int gate = sim.gn("gate");
-    int pass1 = sim.gn("pass1");
     int out = sim.gn("out");
-    sim.add_noqpg(pass1, gate, input, dn_t3(driver.pass1));
+    int pass1 = sim.gn("pass1");
+    int gate = sim.gn("gate");
+    int vcch = sim.gn_v(1.4, "vcch");
+    sim.add_noqpg(pass1, gate, input, dn_t3(driver_id, "pass1", driver.pass1));
     sim.add_c(input, gate, driver.cgd_pass.rf[edge]);
     sim.add_c(gate, pass1, driver.cgs_pass.rf[edge]);
     sim.add_c(gate, 0, driver.cg0_pass.rf[edge]);
     sim.add_r(gate, vcch, driver.rnor_pup);
     sim.add_r(pass1, 1, 1e9);
     sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
-    sim.add_2port(pass1, out, dn_t2(driver.pullup), dn_t2(driver.output));
+    sim.add_2port(pass1, out, dn_t2(driver_id, "pullup", driver.pullup), dn_t2(driver_id, "output", driver.output));
     sim.add_c(pass1, out, driver.cgd_buff.rf[edge]);
     sim.add_r(out, 0, 1e9);
     sim.add_c(out, 0, driver.cout.rf[edge]);
@@ -1137,7 +1244,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   if(rli)
     rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position, true, driver.line_coalescing,
 			       wire_root_to_gnd, wire,
-			       line_r, edge, *rli, rn, driver_bank, sim, outputs);
+			       line_r, wire_edge, *rli, rn, driver_bank, sim, outputs);
   else {
     if(wire_root_to_gnd)
       sim.add_c(wire, 0, wire_root_to_gnd);

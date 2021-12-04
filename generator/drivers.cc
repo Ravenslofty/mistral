@@ -227,13 +227,12 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
       table2.resize(table2.size()+1);
       dnode_table2 &t = table2.back();
       memset(&t, 0, sizeof(t));
-      for(int i=0; i != 11; i++)
-	for(int j=0; j != 11; j++) {
-	  if(*p != ' ')
-	    error(st, "Missing numbers");
-	  skipsp(p);
-	  t.value[i][j] = lookup_float(p);
-	}
+      for(int i=0; i != 11*11; i++) {
+	if(*p != ' ')
+	  error(st, "Missing numbers");
+	skipsp(p);
+	t.value[i] = lookup_float(p);
+      }
       if(*p != '\r' && *p != '\n')
 	error(st, "Extra stuff at the end");
       break;
@@ -245,14 +244,12 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
       memset(&t, 0, sizeof(t));
       skipsp(p);
       t.start = lookup_float(p);
-      for(int i=0; i != 11; i++)
-	for(int j=0; j != 11; j++)
-	  for(int k=0; k != 11; k++) {
-	    if(*p != ' ')
-	      error(st, "Missing numbers");
-	    skipsp(p);
-	    t.value[i][j][k] = lookup_float(p);
-	  }
+      for(int i=0; i != 11*11*11; i++) {
+	if(*p != ' ')
+	  error(st, "Missing numbers");
+	skipsp(p);
+	t.value[i] = lookup_float(p);
+      }
       if(*p != '\r' && *p != '\n')
 	error(st, "Extra stuff at the end");
       break;

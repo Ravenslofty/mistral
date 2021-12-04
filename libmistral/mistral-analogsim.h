@@ -4,12 +4,38 @@
 #include <vector>
 #include <functional>
 #include <string>
+#include <memory>
 
 namespace mistral {
   class AnalogSim {
   public:
-    using table2_lookup = std::function<double (double, double)>;
-    using table3_lookup = std::function<double (double, double, double)>;
+    struct time_slot {
+      double t, v;
+      time_slot(double _t, double _v) : t(_t), v(_v) {}
+    };
+
+    // Lookup functors return the value and the partial derivatives
+    struct table2_lookup {
+      std::string name;
+
+      table2_lookup(std::string _name) : name(_name) {}
+
+      virtual ~table2_lookup() = default;
+      virtual void lookup(double x, double y, double &v, double &dvx, double &dvy) const = 0;
+      virtual double lookup(double x, double y) const = 0;
+    };
+
+    struct table3_lookup {
+      std::string name;
+
+      table3_lookup(std::string _name) : name(_name) {}
+
+      virtual ~table3_lookup() = default;
+      virtual void lookup(double x, double y, double z, double &v, double &dvx, double &dvy, double &dvz) const = 0;
+      virtual double lookup(double x, double y, double z) const = 0;
+    };
+
+    using wave = std::vector<time_slot>;
 
     int gn(const char *name = nullptr);
     void gn(int &node, const char *name = nullptr) {
@@ -34,10 +60,10 @@ namespace mistral {
     void add_r(int n1, int n2, double r);
     void add_c(int n1, int n2, double c);
 
-    void add_pass(int n1, int n2, table2_lookup pass);
-    void add_buff(int n1, int n2, table2_lookup driver);
-    void add_2port(int n1, int n2, table2_lookup pullup, table2_lookup output);
-    void add_noqpg(int n1, int n2, int n3, table3_lookup pass);
+    void add_pass(int n1, int n2, std::unique_ptr<table2_lookup> pass);
+    void add_buff(int n1, int n2, std::unique_ptr<table2_lookup> driver);
+    void add_2port(int n1, int n2, std::unique_ptr<table2_lookup> pullup, std::unique_ptr<table2_lookup> output);
+    void add_noqpg(int n1, int n2, int n3, std::unique_ptr<table3_lookup> pass);
 
     void set_node_name(int n, std::string name) {
       nodes[n].name = name;
@@ -46,6 +72,9 @@ namespace mistral {
     std::string get_node_name(int n) const {
       return nodes[n].name;
     }
+
+    void set_input_wave(int node, const wave &w);
+    void set_output_wave(int node, wave &w);
 
     void show() const;
     void run();
@@ -71,18 +100,41 @@ namespace mistral {
       int type;
       double value;
       std::string name;
+      int w;
+
+      node(int _type, std::string _name) : type(_type), value(0), name(_name), w(-1) {}
+      node(int _type, double _value, std::string _name) : type(_type), value(_value), name(_name), w(-1) {}
     };
 
     struct component {
       int type;
-      int nodes[3];
+      int nodes[3], onodes[3];
       double param;
-      table2_lookup t2a, t2b;
-      table3_lookup t3a;
+      std::unique_ptr<table2_lookup> t2a, t2b;
+      std::unique_ptr<table3_lookup> t3a;
     };
+
+    double config_max_dv;
+    double config_min_dv;
+    double config_vdd;
+
+    double input_start_time, input_end_time;
 
     std::vector<node> nodes;
     std::vector<component> components;
+    std::vector<wave> input_waves;
+    std::vector<wave *> output_waves;
+
+    std::vector<bool> output_wave_is_rising;
+    std::vector<int> nodes_order, inverse_nodes_order;
+    int non_linear_nodes_count, first_fixed_node, node_count;
+
+    std::vector<double> voltages[4], previous_voltages, voltage_offsets, voltage_offsets_hold;
+    std::vector<double> matrix_r, matrix_c, linear_matrix, inverse_linear_matrix;
+    std::vector<double> non_linear_current;
+    std::vector<double> non_linear_current_deriv;
+    std::vector<double> node_functions, node_currents;
+    std::vector<double> jacobian, inverse_jacobian;
 
     const char *nn(int id) const {
       return nodes[id].name.c_str();
@@ -95,6 +147,49 @@ namespace mistral {
       sprintf(buf, "#%d", id);
       return std::string(buf);
     }
+
+
+    static void vector_alloc(std::vector<double> &vect, int size);
+    static void matrix_alloc(std::vector<double> &matrix, int sx, int sy);
+    static void vector_clear(std::vector<double> &vect);
+    static void matrix_clear(std::vector<double> &matrix);
+    static void matrix_identity(std::vector<double> &matrix, int size);
+    static void matrix_invert(std::vector<double> &matrix, std::vector<double> &inverse, int size);
+    static void matrix_mul(std::vector<double> &dest, const std::vector<double> &s1, const std::vector<double> &s2, int s1x, int s1y, int s2x, int s2y, int s1stride = 0, int s2stride = 0);
+    static void matrix_combine(std::vector<double> &dest, const std::vector<double> &s1, const std::vector<double> &s2, int sx, int sy, double s2_mul);
+    void vector_show(const std::vector<double> &vect, int size);
+    static void matrix_show(const std::vector<double> &matrix, int sx, int sy, bool full = true, int stride = 0);
+
+    bool node_fixed_voltage(int node) const;
+    bool node_fixed_voltage_ordered(int node) const;
+
+    void order_nodes();
+    void compute_time_range();
+    double input_voltage_at_time(int input, double time);
+    bool output_record(double time, bool test_end);
+    void init_voltages();
+    void update_input_voltages(double time);
+    void add_linear_matrix_entry(std::vector<double> &matrix, int n0, int n1, double v);
+    void build_resistor_matrix(std::vector<double> &matrix);
+    void build_capacitor_matrix(std::vector<double> &matrix);
+    void build_non_linear_connection_matrix();
+    void compute_non_linear_currents();
+    void add_non_linear_current(int n0, double v);
+    void add_non_linear_current_deriv(int n0, int n1, double v);
+    void compute_node_functions();
+    void compute_jacobian();
+    double step_new_dc_voltages();
+    void compute_linear_voltages();
+    void compute_linear_voltages_2();
+    void add_voltage_offset(int node, double v);
+    void recompute_voltage_offsets(double scale);
+    void apply_inverse_linear_matrix_to_voltage_offsets();
+    void converge_voltages();
+    double compute_max_delta_voltage() const;
+    void voltages_integration();
+    void voltages_step_history();
+
+    void show_nodes_order() const;
   };
 }
 

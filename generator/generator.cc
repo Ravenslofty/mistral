@@ -242,13 +242,3 @@ int main(int argc, char **argv)
 
   exit(0);
 }
-
-/*
-gx25f  size  43152740 entries  433482
-sx50f  size  55721800 entries  560293
-e50f   size  61597172 entries  612514
-gt75f  size  96691956 entries  959166
-sx120f size 132029132 entries 1303736
-gt150f size 173120316 entries 1707292
-gt300f size 339541444 entries 3330206
- */

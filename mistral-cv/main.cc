@@ -946,6 +946,75 @@ static void show_tnet(char **args)
   delete model;
 }
 
+static void trun(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  uint8_t *rbf;
+  uint32_t rbfsize;
+  file_load(args[1], rbf, rbfsize);
+
+  model->rbf_load(rbf, rbfsize);
+  free(rbf);
+
+  auto temp = model->timing_slot_lookup(args[2]);
+  auto delay = model->delay_type_lookup(args[3]);
+  auto edge = model->edge_lookup(args[4]);
+  auto rn = get_rnode(model, args[6], "command-line", 1);
+
+  mistral::AnalogSim::wave input_signal;
+  uint8_t *inps;
+  uint32_t inpssize;
+  file_load(args[5], inps, inpssize);
+
+  const char *start = (const char *)inps;
+  const char *end = start + inpssize;
+  while(start < end) {
+    char *n;
+    double t = strtod(start, &n);
+    assert(start != n);
+    start = n;
+    while(start < end && (*start == ' ' || *start == '\r' || *start == '\n'))
+      start++;
+    if(start == end)
+      break;
+    double v = strtod(start, &n);
+    input_signal.emplace_back(mistral::AnalogSim::time_slot(t, v));
+    assert(start != n);
+    start = n;
+    while(start < end && (*start == ' ' || *start == '\r' || *start == '\n'))
+      start++;
+    if(start == end)
+      break;
+  }
+
+  std::vector<mistral::AnalogSim::wave> output_waves;
+
+  int netcount = model->rnode_timing_get_circuit_count(rn);
+  if(netcount != 1) {
+    fprintf(stderr, "Unhandled netcount %d\n", netcount);
+    exit(1);
+  }
+
+  for(int i=0; i != netcount; i++) {
+    mistral::AnalogSim sim;
+    int input = -1;
+    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim, input, outputs);
+    sim.set_input_wave(input, input_signal);
+    output_waves.resize(outputs.size());
+    for(size_t o = 0; o != outputs.size(); o++)
+      sim.set_output_wave(outputs[o].second, output_waves[o]);
+    sim.run();
+  }
+
+  delete model;
+}
+
 struct fct {
   const char *name;
   int pmin, pmax;
@@ -954,21 +1023,22 @@ struct fct {
 };
 
 static const fct fcts[] = {
-  { "models",   0, 0, show_models,   "models                                                   -- Dump the list of known CycloneV models" },
-  { "routes",   2, 2, show_routes,   "routes   model file.rbf                                  -- Dump the information of all active routes" },
-  { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf                                  -- Dump the information of all unresolved active routes" },
-  { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf                                  -- Dump the information of all active routes with intermediate pips" },
-  { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf                            -- Load a rbf and save it again" },
-  { "bels",     1, 1, show_bels,     "bels     model                                           -- Dump the list of logic blocks for a given model" },
-  { "p2r",      1, 1, show_p2r,      "p2r      model                                           -- Dump the list of block port/routing nodes connections for peripheral blocks" },
-  { "p2ri",     1, 1, show_p2ri,     "p2ri     model                                           -- Dump the list of block port/routing nodes connections for one tile per inner block" },
-  { "p2p",      1, 1, show_p2p,      "p2p      model                                           -- Dump the list of block port/block port connections" },
-  { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt                           -- Decompile the bitstream" },
-  { "comp",     2, 2, compile,       "comp     file.bt out.rbf                                 -- Compile to a bitstream" },
-  { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf                             -- Compare two bitstrems" },
-  { "missing",  2, 2, missing,       "missing  model list.txt                                  -- List missing pnodes" },
-  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                                           -- List all rnodes ids" },
-  { "tnet",     6, 6, show_tnet,     "tnet     model file.bf temp [min/max] [fall/rise] rnode  -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
+  { "models",   0, 0, show_models,   "models                                                              -- Dump the list of known CycloneV models" },
+  { "routes",   2, 2, show_routes,   "routes   model file.rbf                                             -- Dump the information of all active routes" },
+  { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf                                             -- Dump the information of all unresolved active routes" },
+  { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf                                             -- Dump the information of all active routes with intermediate pips" },
+  { "cycle",    3, 3, show_cycle,    "cycle    model file.rbf n.rbf                                       -- Load a rbf and save it again" },
+  { "bels",     1, 1, show_bels,     "bels     model                                                      -- Dump the list of logic blocks for a given model" },
+  { "p2r",      1, 1, show_p2r,      "p2r      model                                                      -- Dump the list of block port/routing nodes connections for peripheral blocks" },
+  { "p2ri",     1, 1, show_p2ri,     "p2ri     model                                                      -- Dump the list of block port/routing nodes connections for one tile per inner block" },
+  { "p2p",      1, 1, show_p2p,      "p2p      model                                                      -- Dump the list of block port/block port connections" },
+  { "decomp",   3, 3, decompile,     "decomp   model file.rbf out.bt                                      -- Decompile the bitstream" },
+  { "comp",     2, 2, compile,       "comp     file.bt out.rbf                                            -- Compile to a bitstream" },
+  { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf                                        -- Compare two bitstrems" },
+  { "missing",  2, 2, missing,       "missing  model list.txt                                             -- List missing pnodes" },
+  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                                                      -- List all rnodes ids" },
+  { "tnet",     6, 6, show_tnet,     "tnet     model file.rbf temp [min/max] [fall/rise] rnode            -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
+  { "trun",     7, 7, trun,          "trun     model file.rbf temp [min/max] [fall/rise] input.txt rnode  -- Run the spice networks for a given temperature, min/max choice, rise/fall choice, impulse and routing node" },
   { }
 };
 

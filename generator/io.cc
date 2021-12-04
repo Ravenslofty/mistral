@@ -97,24 +97,29 @@ std::vector<uint8_t> file_load(std::string fname)
 void file_save(std::string fname, const std::vector<uint8_t> &output, int level)
 {
   std::vector<uint8_t> compressed(output.size());
-
   size_t compressed_size = 0;
-  
-  auto ret = lzma_easy_buffer_encode(level, LZMA_CHECK_NONE, nullptr, output.data(), output.size(), compressed.data(), &compressed_size, compressed.size());
-  if(ret != LZMA_OK) {
-    fprintf(stderr, "LZMA compression failure %d\n", ret);
-    exit(1);
+
+  if(level) {
+    auto ret = lzma_easy_buffer_encode(level, LZMA_CHECK_NONE, nullptr, output.data(), output.size(), compressed.data(), &compressed_size, compressed.size());
+    if(ret != LZMA_OK) {
+      fprintf(stderr, "LZMA compression failure %d\n", ret);
+      exit(1);
+    }
   }
 
   std::string msg = "Open " + fname;
-
+  
   FILE *fd = fopen(fname.c_str(), "wb");
   if(!fd) {
     perror(msg.c_str());
     exit(2);
   }
 
-  fwrite(compressed.data(), compressed_size, 1, fd);
+  if(level)
+    fwrite(compressed.data(), compressed_size, 1, fd);
+  else
+    fwrite(output.data(), output.size(), 1, fd);
+
   fclose(fd);
 }
 

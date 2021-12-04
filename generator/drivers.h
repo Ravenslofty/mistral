@@ -61,12 +61,12 @@ enum speed_info_t {
 };
 
 struct dnode_table2 {
-  float value[11][11];
+  float value[11*11];
 };
 
 struct dnode_table3 {
   float start;
-  float value[11][11][11];
+  float value[11*11*11];
 };
 
 struct caps_t {
