@@ -352,6 +352,20 @@ Inverters management
 
 .. code-block:: C++
 
+    enum invert_t {
+        INV_NO,
+        INV_YES,
+        INV_PROGRAMMABLE,
+        INV_UNKNOWN
+    };
+
+    invert_t rnode_is_inverting(rnode_t node) const;
+
+The rnode_is_inverting method allows to know whether a given rnode is
+inverting.  The information is not yet available for all nodes though.
+
+.. code-block:: C++
+
     struct inv_setting_t {
       rnode_t node;
       bool value;

@@ -295,9 +295,10 @@ static void show_p2r(char **args)
     exit(1);
   }
 
+  static const char invert[] = "nip?";
   auto r = model->get_all_p2r();
   for(const auto &e : r)
-    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str());
+    printf("%s %s %c\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str(), invert[model->rnode_is_inverting(e.second)]);
 
   delete model;
 }
@@ -335,7 +336,8 @@ static void show_p2ri(char **args)
       else
 	printf("- ");
     }
-    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str());
+    static const char invert[] = "nip?";
+    printf("%s %s %c\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str(), invert[model->rnode_is_inverting(e.second)]);
   }
 
   delete model;

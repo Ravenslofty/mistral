@@ -62,8 +62,13 @@ selects one TD between multiple ones followed by a DCMUX that selects
 between the TDMUX and a TCLK so that their clock-like inputs can be
 driven from either a clock or a data signal.
 
-Most GOUT and DCMUX connected to inputs to peripheral blocks are also
-provided with an optional inverter.
+Most of the periphery routing nodes (GIN, GOUT, DCMUX, GCLK, RCLK,
+PCLK) invert the signal.  The inner nodes of the data networks never
+invert, the situation with the clock network is not yet clear.  Most
+GOUT and DCMUX connected to inputs to peripheral blocks are also
+provided with an optional inverter.  Each block connection description
+indicates whether the node is inverting (n=no, i=yes, p=programmable,
+?=unknown yet).
 
 
 Inner logic blocks

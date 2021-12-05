@@ -54,6 +54,13 @@ namespace mistral {
 #undef P
     };
 
+    enum invert_t {
+      INV_NO,
+      INV_YES,
+      INV_PROGRAMMABLE,
+      INV_UNKNOWN
+    };
+
     enum timing_slot_t {
       T_N55,
       T_N40,
@@ -284,6 +291,8 @@ namespace mistral {
     // Routing
     rnode_t pnode_to_rnode(pnode_t pn) const;
     pnode_t rnode_to_pnode(rnode_t rn) const;
+    invert_t rnode_is_inverting(rnode_t rn) const;
+
     std::vector<pnode_t> p2p_from(pnode_t pn) const;
     pnode_t p2p_to(pnode_t pn) const;
     pnode_t hmc_get_bypass(pnode_t pn) const;

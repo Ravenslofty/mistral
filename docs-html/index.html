@@ -281,8 +281,13 @@ blocks tend to use a secondary structure composed from a TDMUX that
 selects one TD between multiple ones followed by a DCMUX that selects
 between the TDMUX and a TCLK so that their clock-like inputs can be
 driven from either a clock or a data signal.</p>
-<p>Most GOUT and DCMUX connected to inputs to peripheral blocks are also
-provided with an optional inverter.</p>
+<p>Most of the periphery routing nodes (GIN, GOUT, DCMUX, GCLK, RCLK,
+PCLK) invert the signal.  The inner nodes of the data networks never
+invert, the situation with the clock network is not yet clear.  Most
+GOUT and DCMUX connected to inputs to peripheral blocks are also
+provided with an optional inverter.  Each block connection description
+indicates whether the node is inverting (n=no, i=yes, p=programmable,
+?=unknown yet).</p>
 </section>
 <section id="inner-logic-blocks">
 <h3>Inner logic blocks<a class="headerlink" href="#inner-logic-blocks" title="Permalink to this headline"></a></h3>
@@ -860,14 +865,16 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <col style="width: 7%" />
 <col style="width: 6%" />
 <col style="width: 7%" />
-<col style="width: 11%" />
-<col style="width: 68%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -876,102 +883,119 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>TCLK</p></td>
+<td><p>i</p></td>
 <td><p>Common clock inputs for asynchronous clear of the FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>B</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>C</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>TCLK</p></td>
+<td><p>i</p></td>
 <td><p>Common clock inputs for clocking of the FFs</p></td>
 </tr>
 <tr class="row-odd"><td><p>D</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Common data inputs for enables, sync clear and load</p></td>
 </tr>
 <tr class="row-odd"><td><p>E0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>E1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>F0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-even"><td><p>F1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>n</p></td>
 <td><p>Data input to the lab cell</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFB0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the top FF of the bottom hslf of the lab cell or the bottomlut to data routing</p></td>
 </tr>
 <tr class="row-even"><td><p>FFB1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to data routing</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFB1L</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>LD</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the bottom FF of the bottom hslf of the lab cell or the bottom lut to local dispatch</p></td>
 </tr>
 <tr class="row-even"><td><p>FFT0</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the top FF of the top hslf of the lab cell or the top lut to data routing</p></td>
 </tr>
 <tr class="row-odd"><td><p>FFT1</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the bottom FF of the top hslf of the lab cell or the top lut to data routing</p></td>
 </tr>
 <tr class="row-even"><td><p>FFT1L</p></td>
 <td><p>0-9</p></td>
 <td></td>
 <td><p>LD</p></td>
+<td><p>i</p></td>
 <td><p>Output from either the bottom FF of the top hslf of the lab cell or the top lut to local dispatch</p></td>
 </tr>
 </tbody>
@@ -1674,17 +1698,19 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 10%" />
-<col style="width: 30%" />
-<col style="width: 17%" />
-<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 9%" />
+<col style="width: 29%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -1693,72 +1719,84 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACLR</p></td>
 <td></td>
 <td><p>2-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Asynchronous clear inputs</p></td>
 </tr>
 <tr class="row-even"><td><p>ACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>TCLK</p></td>
+<td><p>i</p></td>
 <td><p>Asynchronous clear inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>3-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Clock inputs</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>TCLK</p></td>
+<td><p>i</p></td>
 <td><p>Clock inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAIN</p></td>
 <td><p>0-11</p></td>
 <td><p>0-8</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>The 12 9-bit data input blocks</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Clock enable inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOADCONST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>NEGATE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RESULT</p></td>
 <td></td>
 <td><p>0-73</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Final multiplication output</p></td>
 </tr>
 <tr class="row-even"><td><p>SUB</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>UNK_IN</p></td>
 <td></td>
 <td><p>30-31, 62-63, 94-95, 126-127</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -2440,17 +2478,19 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 11%" />
 <col style="width: 12%" />
-<col style="width: 18%" />
-<col style="width: 46%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 42%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -2459,96 +2499,112 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Asynchronous clear</p></td>
 </tr>
 <tr class="row-odd"><td><p>ADDRA</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Address for port A</p></td>
 </tr>
 <tr class="row-even"><td><p>ADDRB</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Address for port B</p></td>
 </tr>
 <tr class="row-odd"><td><p>ADDRSTALLA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Lock address on port A</p></td>
 </tr>
 <tr class="row-even"><td><p>ADDRSTALLB</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Lock address on port B</p></td>
 </tr>
 <tr class="row-odd"><td><p>BYTEENABLEA</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Write enables for the two halves of port A</p></td>
 </tr>
 <tr class="row-even"><td><p>BYTEENABLEB</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Write enables for the two halves of port B</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>6-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Clock inputs, only 0-1 and 6-7 used</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>TCLK</p></td>
+<td><p>i</p></td>
 <td><p>Clock inputs, only 0-1 and 6-7 used</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAAIN</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Input data for port A</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAAOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output data for port A</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATABIN</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Input data for port B</p></td>
 </tr>
 <tr class="row-even"><td><p>DATABOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Output data for port A</p></td>
 </tr>
 <tr class="row-odd"><td><p>ENABLE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Clock enables</p></td>
 </tr>
 <tr class="row-even"><td><p>RDEN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Read enables</p></td>
 </tr>
 <tr class="row-odd"><td><p>WREN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>i</p></td>
 <td><p>Write enables</p></td>
 </tr>
 </tbody>
@@ -2880,17 +2936,19 @@ pins.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -2899,60 +2957,70 @@ pins.</p>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BSLIPMAX</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CEIN</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CEOUT</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN_IN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKIN_OUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAIN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OEIN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCLR</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -5403,17 +5471,19 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 23%" />
-<col style="width: 21%" />
+<col style="width: 24%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -5422,168 +5492,196 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK0_BAD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK1_BAD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKEN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKSEL</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CNT_SEL</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CSR_TEST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>EXTSWITCH</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>FBCLK_IN_L</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>FBCLK_IN_R</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NRESET</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PFDEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHASE_DONE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHASE_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_BYTE_EN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_MDIO_DIS</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_READ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_READDATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_REG_ADDR</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_RST_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_SER_SHIFT_LOAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_WRITE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_WRITEDATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>UP_DN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -5945,17 +6043,19 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 22%" />
-<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -5964,24 +6064,28 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>RCLKFB</p></td>
+<td><p>?</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKOUT</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>RCLK</p></td>
+<td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 <tr class="row-odd"><td><p>ENABLE</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Clock enable</p></td>
 </tr>
 </tbody>
@@ -6422,17 +6526,19 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
 <col style="width: 12%" />
-<col style="width: 13%" />
-<col style="width: 20%" />
-<col style="width: 42%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 37%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -6441,48 +6547,56 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Burst block counter value</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKFBOUT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GCLKFB</p></td>
+<td><p>?</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GCLK</p></td>
+<td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Clock enable</p></td>
 </tr>
 <tr class="row-odd"><td><p>SWITCHCLK</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Dynamically selected clock output</p></td>
 </tr>
 <tr class="row-even"><td><p>SWITCHIN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Dynamic clock selection input</p></td>
 </tr>
 <tr class="row-odd"><td><p>SYN_EN</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -6719,17 +6833,19 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 21%" />
-<col style="width: 39%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 34%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -6738,48 +6854,56 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKFBOUT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GCLKFB</p></td>
+<td><p>?</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GCLK</p></td>
+<td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Clock enable</p></td>
 </tr>
 <tr class="row-odd"><td><p>SWITCHCLK</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SWITCHIN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Dynamic clock selection input</p></td>
 </tr>
 <tr class="row-odd"><td><p>SYN_EN</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -7044,17 +7168,19 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 22%" />
-<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -7063,30 +7189,35 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKFBOUT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>RCLKFB</p></td>
+<td><p>?</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-11</p></td>
 <td></td>
 <td><p>RCLK</p></td>
+<td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE</p></td>
 <td><p>0-11</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Clock enable</p></td>
 </tr>
 </tbody>
@@ -7208,17 +7339,19 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 22%" />
-<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -7227,18 +7360,21 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-19</p></td>
 <td></td>
 <td><p>RCLK</p></td>
+<td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 <tr class="row-even"><td><p>ENABLE</p></td>
 <td><p>0-19</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Clock enable</p></td>
 </tr>
 </tbody>
@@ -7298,17 +7434,19 @@ selection mux depends on the instance:</p>
 <p>The CMUXP drive two PCLK each.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 22%" />
-<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -7317,12 +7455,14 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0</p></td>
 <td><p>DCMUX</p></td>
+<td><p>i</p></td>
 <td><p>Routing grid clock input</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>PCLK</p></td>
+<td><p>i</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
 </tbody>
@@ -7334,17 +7474,19 @@ selection mux depends on the instance:</p>
 <p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 10%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 18%" />
-<col style="width: 38%" />
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 35%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -7353,372 +7495,434 @@ selection mux depends on the instance:</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKDRUSER</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Internal oscillator clock output</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_OUT1</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Internal oscillator clock 1 output</p></td>
 </tr>
 <tr class="row-even"><td><p>CLOCK_CHIPID</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLOCK_CRC</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLOCK_OPREG</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLOCK_PR</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLOCK_RU</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLOCK_SPI</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CONFIG</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CORECTL_JTAG</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CORECTL_PR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CRCERROR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA0IN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA0OE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA0OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA1IN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA1OE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA1OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA2IN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA2OE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA2OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA3IN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA3OE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA3OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT</p></td>
 <td></td>
 <td><p>0-24</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DONE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>END_OF_ED_FULLCHIP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>EXTERNALREQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>NCE_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NTDOPINENA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OERROR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OSC_ENA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Internal oscillator enable</p></td>
 </tr>
 <tr class="row-even"><td><p>OUTPUT_ENABLE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PRREQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>READY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REGIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_OUT_CHIPID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_OUT_CRC</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>REG_OUT_OPREG</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REG_OUT_RU</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RSTTIMER</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RUNIDLEUSER</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCE_IN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SHIFTNLD_CHIPID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SHIFTNLD_CRC</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SHIFTNLD_OPREG</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SHIFTNLD_RU</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SHIFTUSER</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TCKCORE</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TCKUTAP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TDICORE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TDIUTAP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TDOCORE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TDOUTAP</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TMSCORE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TMSUTAP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>UPDATEUSER</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>USR1USER</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -11559,17 +11763,19 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
 <col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -11578,36 +11784,42 @@ serializing/deserializing capabilities of the FPGA.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CTRL_OUT</p></td>
 <td></td>
 <td><p>0-6</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCKED</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>UPNDN_IN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>UPNDN_IN_CLK_ENA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>UPNDN_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -14871,17 +15083,19 @@ connected to the corresponding PHYDDIO* ports.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 9%" />
-<col style="width: 36%" />
-<col style="width: 16%" />
+<col style="width: 23%" />
+<col style="width: 8%" />
+<col style="width: 33%" />
 <col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 13%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -14890,654 +15104,763 @@ connected to the corresponding PHYDDIO* ports.</p>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AFICTLREFRESHDONE</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AFISEQBUSY</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AVLADDRESS</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AVLREAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AVLREADDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AVLRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AVLWAITREQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AVLWRITE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AVLWRITEDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BONDINGIN</p></td>
 <td><p>0-2</p></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BONDINGOUT</p></td>
 <td><p>0-2</p></td>
 <td><p>0-5</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CTLCALREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>GLOBALRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTCMDDATA</p></td>
 <td><p>0-5</p></td>
 <td><p>0-41</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IAVSTCMDRESETN</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTRDCLK</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IAVSTRDREADY</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTRDRESETN</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IAVSTWRACKREADY</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTWRCLK</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IAVSTWRDATA</p></td>
 <td><p>0-3</p></td>
 <td><p>0-89</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTWRRESETN</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTADDRACLR</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTADDRDOUT</p></td>
 <td></td>
 <td><p>0-63</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTAFICALFAIL</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTAFICALSUCCESS</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTAFIRLAT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTAFIWLAT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTBAACLR</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTBADOUT</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTCASNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTCASNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTCKDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTCKEACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTCKEDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTCKNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTCSNACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTCSNDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDMDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQDIN</p></td>
 <td></td>
 <td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQDOUT</p></td>
 <td></td>
 <td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQOE</p></td>
 <td></td>
 <td><p>0-15, 18-33, 36-51, 54-69, 72-87</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSBDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSBOE</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSLOGICACLRFIFOCTRL</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSLOGICACLRPSTAMBLE</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSLOGICDQSENA</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSLOGICFIFORESET</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSLOGICINCRDATAEN</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSLOGICINCWRPTR</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSLOGICOCT</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSLOGICRDATAVALID</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTDQSLOGICREADLATENCY</p></td>
 <td></td>
 <td><p>0-24</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTDQSOE</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTODTACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTODTDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTRASNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTRASNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTRESETNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTRESETNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IOINTWENACLR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>IOINTWENDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALDEEPPOWERDNACK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOCALDEEPPOWERDNCHIP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALDEEPPOWERDNREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOCALINITDONE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALPOWERDOWNACK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOCALREFRESHACK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALREFRESHCHIP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOCALREFRESHREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALSELFRFSHACK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOCALSELFRFSHCHIP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOCALSELFRFSHREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRADDR</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRBE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRBURSTBEGIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRBURSTCOUNT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRCLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRRDATA</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRRDATAVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRREADREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRWAITREQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MMRWDATA</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>MMRWRITEREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OAMMREADY</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ORDAVSTDATA</p></td>
 <td><p>0-3</p></td>
 <td><p>0-79</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ORDAVSTVALID</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OWRACKAVSTDATA</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OWRACKAVSTVALID</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHYRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PLLLOCKED</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PORTCLK</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCADDR</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCBE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCBURSTBEGIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCBURSTCOUNT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCCLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCRDATA</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCRDATAVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCREADREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCWAITREQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCWDATA</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCWRITEREQ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SOFTRESETN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -15783,17 +16106,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 21%" />
+<col style="width: 30%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
 <col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -15802,36 +16127,42 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BOOT_FROM_FPGA_READY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BSEL</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BSEL_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CSEL</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CSEL_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -15928,17 +16259,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_CLOCKS_RESETS<a class="headerlink" href="#hps-clocks-resets" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 30%" />
+<col style="width: 27%" />
+<col style="width: 12%" />
 <col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 22%" />
 <col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -15947,48 +16280,56 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>F2H_DBG_RST_REQ_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>F2H_PENDING_RST_ACK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>F2H_PERIPH_REF_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>F2H_SDRAM_REF_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>F2H_WARM_RST_REQ_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_PENDING_RST_REQ_N</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PTP_REF_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -15998,17 +16339,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_CROSS_TRIGGER<a class="headerlink" href="#hps-cross-trigger" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 15%" />
 <col style="width: 17%" />
-<col style="width: 26%" />
-<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16017,42 +16360,49 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TRIG_IN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TRIG_INACK</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TRIG_OUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TRIG_OUTACK</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16062,17 +16412,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_DBG_APB<a class="headerlink" href="#hps-dbg-apb" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 24%" />
-<col style="width: 14%" />
-<col style="width: 16%" />
-<col style="width: 24%" />
 <col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16081,78 +16433,91 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_ADDR</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_ADDR_31</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_CLK_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_ENABLE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_RDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_READY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_RESET_N</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_SEL</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_SLV_ERR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>P_WDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>P_WRITE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16162,17 +16527,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16181,18 +16548,21 @@ through 37 specialized blocks of 28 different types.</p>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REQ</p></td>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SINGLE</p></td>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16202,17 +16572,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_FPGA2HPS<a class="headerlink" href="#hps-fpga2hps" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
 <col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16221,240 +16593,280 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARID</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARUSER</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWADDR</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWID</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWUSER</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BID</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PORT_SIZE_CONFIG</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RDATA</p></td>
 <td></td>
 <td><p>0-127</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RID</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WDATA</p></td>
 <td></td>
 <td><p>0-127</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WID</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WSTRB</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16464,17 +16876,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_FPGA2SDRAM<a class="headerlink" href="#hps-fpga2sdram" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 28%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 23%" />
+<col style="width: 25%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16483,138 +16897,161 @@ through 37 specialized blocks of 28 different types.</p>
 <td><p>0-1</p></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CFG_AXI_MM_SELECT</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CFG_CPORT_RFIFO_MAP</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CFG_CPORT_TYPE</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CFG_CPORT_WFIFO_MAP</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CFG_PORT_WIDTH</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CFG_RFIFO_CPORT_MAP</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CFG_WFIFO_CPORT_MAP</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CMD_DATA</p></td>
 <td><p>0-5</p></td>
 <td><p>0-59</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CMD_PORT_CLK</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CMD_READY</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CMD_VALID</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RD_CLK</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RD_DATA</p></td>
 <td><p>0-3</p></td>
 <td><p>0-79</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RD_READY</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RD_VALID</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WRACK_DATA</p></td>
 <td><p>0-5</p></td>
 <td><p>0-9</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WRACK_READY</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WRACK_VALID</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WR_CLK</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WR_DATA</p></td>
 <td><p>0-3</p></td>
 <td><p>0-89</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WR_READY</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WR_VALID</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16624,17 +17061,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_HPS2FPGA<a class="headerlink" href="#hps-hps2fpga" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
 <col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16643,228 +17082,266 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-29</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWADDR</p></td>
 <td></td>
 <td><p>0-29</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PORT_SIZE_CONFIG</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RDATA</p></td>
 <td></td>
 <td><p>0-127</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WDATA</p></td>
 <td></td>
 <td><p>0-127</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WSTRB</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16874,17 +17351,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_HPS2FPGA_LIGHT_WEIGHT<a class="headerlink" href="#hps-hps2fpga-light-weight" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -16893,222 +17372,259 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-20</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ARSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ARVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWADDR</p></td>
 <td></td>
 <td><p>0-20</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWBURST</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWCACHE</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWLEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWLOCK</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWPROT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>AWSIZE</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>AWVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RRESP</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WDATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WID</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WLAST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WREADY</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WSTRB</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WVALID</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17118,17 +17634,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
+<col style="width: 23%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17137,126 +17655,147 @@ through 37 specialized blocks of 28 different types.</p>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_CLKMGR_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_CTI_IRQ_N</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_DMA_ABORT_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_DMA_IRQ</p></td>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_EMAC_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_FPGA_MAN_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_GPIO_IRQ</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_I2C_EMAC_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_I2C_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_L4SP_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_MPUWAKEUP_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_NAND_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_OSC_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_QSPI_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_SDMMC_IRQ</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_SPI_IRQ</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_UART_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_USB_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_WDOG_IRQ</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IRQ</p></td>
 <td></td>
 <td><p>0-63</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17266,17 +17805,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_JTAG<a class="headerlink" href="#hps-jtag" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
 <col style="width: 15%" />
-<col style="width: 17%" />
-<col style="width: 26%" />
 <col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17285,30 +17826,35 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NTRST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TCK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TDI</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TMS</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17318,17 +17864,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_LOAN_IO<a class="headerlink" href="#hps-loan-io" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
 <col style="width: 15%" />
-<col style="width: 17%" />
-<col style="width: 26%" />
 <col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17337,24 +17885,28 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>0-13</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOANIO_IN</p></td>
 <td></td>
 <td><p>0-70</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>LOANIO_OE</p></td>
 <td></td>
 <td><p>0-70</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>LOANIO_OUT</p></td>
 <td></td>
 <td><p>0-70</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17364,17 +17916,19 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_MPU_EVENT_STANDBY<a class="headerlink" href="#hps-mpu-event-standby" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
 <col style="width: 15%" />
-<col style="width: 17%" />
-<col style="width: 26%" />
 <col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17383,24 +17937,28 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>EVENTO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>STANDBYWFE</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>STANDBYWFI</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17413,17 +17971,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 0xff706014 (fpga to arm).</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
-<col style="width: 32%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 28%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17432,12 +17992,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>Port from fpga to arm</p></td>
 </tr>
 <tr class="row-odd"><td><p>GP_OUT</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>Port from arm to fpga</p></td>
 </tr>
 </tbody>
@@ -17448,17 +18010,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17467,12 +18031,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TXD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17483,17 +18049,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 24%" />
+<col style="width: 23%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17502,108 +18070,126 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_TX_I</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>GMII_MDC_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>GMII_MDI_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>GMII_MDO_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>GMII_MDO_O_E</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHY_COL_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHY_CRS_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHY_RXDV_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHY_RXD_I</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHY_RXER_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHY_TXD_O</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PHY_TXEN_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PHY_TXER_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PTP_AUX_TS_TRIG_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PTP_PPS_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RST_CLK_RX_N_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RST_CLK_TX_N_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17614,17 +18200,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(4 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17633,24 +18221,28 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OUT_DATA</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SCL</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SDA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17660,17 +18252,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_PERIPHERAL_NAND<a class="headerlink" href="#hps-peripheral-nand" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17679,60 +18273,70 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ADQ_OE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>ADQ_OUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>ALE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CEBAR</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RDY_BUSY</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>REBAR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>WEBAR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WPBAR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17742,17 +18346,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_PERIPHERAL_QSPI<a class="headerlink" href="#hps-peripheral-qspi" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17761,24 +18367,28 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MO</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>N_MO_EN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>N_SS_OUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17788,17 +18398,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_PERIPHERAL_SDMMC<a class="headerlink" href="#hps-peripheral-sdmmc" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 15%" />
 <col style="width: 17%" />
-<col style="width: 26%" />
-<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17807,84 +18419,98 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CCLK_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CDN_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLK_IN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CMD_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CMD_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>CMD_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA_EN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATA_I</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA_O</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PWR_ENA_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RSTN_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>VS_O</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>WP_I</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17895,17 +18521,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17914,30 +18542,35 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SSI_OE_N</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SS_IN_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SS_N</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TXD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17948,17 +18581,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -17967,30 +18602,35 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCLK_IN</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SSI_OE_N</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>SS_IN_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TXD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18001,17 +18641,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -18020,54 +18662,63 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DCD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DSR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DTR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OUT_N</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RTS</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RXD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TXD</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18078,17 +18729,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <p>(2 blocks)</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 15%" />
 <col style="width: 17%" />
-<col style="width: 26%" />
-<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -18097,42 +18750,49 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAIN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATA_OUT_EN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DIR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>STP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18142,17 +18802,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_STM_EVENT<a class="headerlink" href="#hps-stm-event" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -18161,6 +18823,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td><p>0-27</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18170,17 +18833,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_TEST<a class="headerlink" href="#hps-test" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
+<col style="width: 36%" />
+<col style="width: 10%" />
 <col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
 <col style="width: 17%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -18189,978 +18854,1141 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_ATPG_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_AVSTCMDPORTCLK_TESTEN</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_AVSTRDCLK_TESTEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_AVSTWRCLK_TESTEN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_BISTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_BIST_CPU_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_BIST_L2_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_BIST_NRST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_BIST_PERI_SI</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_BIST_SE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_CANTESTEN</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_CFGTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_CTICLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DBGATTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_DBGTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DBGTMTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_DBGTRTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DDR2XDQSTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_DDRDQSTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DDRDQTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_DLLNRST</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DLLUPDWNEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_DLLUPNDN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_DQSUPDTEN</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_ECCBYP</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_EMACTESTEN</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_F2SAXICLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_F2SPCLKDBG_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_FMBHNIOTRI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_FMCSREN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_FMNIOTRI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_FMPLNIOTRI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_GPIODBTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_HIOCLKIN0</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_HIOSCANCLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_HIOSCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_HIOSCANIN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_HIOSCLR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_IPSCCLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_IPSCENABLE</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_IPSCIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_IPSCUPDATE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_L3MAINTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_L3MPTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_L3SPTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_L4MAINTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_L4MPTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_L4SPTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_LWH2FAXICLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_MEM_CPU_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_L2_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_MEM_PERI_SI</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_SE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_MPUL2RAMTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_MPUPERITESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_MPUTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_MPU_SCAN_MODE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_MTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_NANDTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_NANDXTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_OCTCLKENUSR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_OCTCLKUSR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_OCTENSERUSER</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_OCTNCLRUSR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_OCTS2PLOAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_OCTSCANCLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_OCTSCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_OCTSCANIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_OCTSERDATA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_OSC1TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PIPELINE_SE_ENABLE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLLBYPASS</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLLBYPASS_SEL</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLLTEST_INPUT_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_ADVANCE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_BG_PWRDN</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_BG_RESET</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_BWADJ</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_CLKF</p></td>
 <td></td>
 <td><p>0-12</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_CLKOD</p></td>
 <td></td>
 <td><p>0-8</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_CLKR</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_CLK_SELECT</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_ENSAT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_FASTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_OUTRESET</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_OUTRESETALL</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_PWRDN</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_EXT_SEL</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_REG_PWRDN</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_RESET</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_REG_TEST_DRV</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_TEST_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_REG_TEST_REP</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_TEST_SEL</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_RESET</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_STEP</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_TEST</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_TESTBUS_SEL</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PSTDQSENA</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_QSPITESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_S2FAXICLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_SCANIN</p></td>
 <td></td>
 <td><p>0-389</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_SCAN_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_SDMMCTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_SPIMTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_TEST_CKEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_TEST_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_TEST_CLKOFF</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_TPIUTRACECLKIN_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_USBMPTESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_USBULPICLK_TESTEN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_VIOSCANCLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_VIOSCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_VIOSCANIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_HPS_TESTMODE_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_BIST_CPU_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_BIST_L2_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_BIST_PERI_SO</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_DLLLOCKED</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_DLLSETTING</p></td>
 <td></td>
 <td><p>0-6</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_DLLUPDWNCORE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_HIOCDATA3IN</p></td>
 <td></td>
 <td><p>0-44</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_HIODQSOUT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_HIODQSUNGATING</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_HIOOCTRT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_HIOSCANOUT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_IPSCOUT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_MEM_CPU_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_MEM_L2_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_MEM_PERI_SO</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTCLKUSRDFT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RDN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RUP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_OCTSCANOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTSERDATA</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_PLL_TESTBUS_OUT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_PSTTRACKSAMPLE</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_PSTVFIFO</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_100_126</p></td>
 <td></td>
 <td><p>0-26</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_131_250</p></td>
 <td></td>
 <td><p>0-119</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_15_83</p></td>
 <td></td>
 <td><p>0-68</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_254_264</p></td>
 <td></td>
 <td><p>0-10</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_271_389</p></td>
 <td></td>
 <td><p>0-118</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_2_3</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_OUT_FPGA_VIOSCANOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_IN_FPGA_T2_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_IN_FPGA_T2_DATAIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_IN_FPGA_T2_SCAN_EN_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_OUT_FPGA_DATA</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_OUT_FPGA_DCLK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_OUT_FPGA_OSC1_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_OUT_FPGA_PR_REQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_OUT_FPGA_S2F_DATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_OUT_FPGA_SDRAM_OBSERVE</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_OUT_FPGA_T2_DATAOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_SCAN_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_SCAN_DIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_SCAN_DOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFX_SCAN_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFX_SCAN_LOAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>F2S_CTRL</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>F2S_JTAG_ENABLE_CORE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -19170,17 +19998,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h5>HPS_TPIU_TRACE<a class="headerlink" href="#hps-tpiu-trace" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21%" />
-<col style="width: 15%" />
-<col style="width: 16%" />
-<col style="width: 25%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
 <col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
 <th class="head"><p>Instance</p></th>
 <th class="head"><p>Port bits</p></th>
 <th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
 <th class="head"><p>Documentation</p></th>
 </tr>
 </thead>
@@ -19189,18 +20019,21 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>TRACECLK_CTL</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TRACE_DATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -19707,6 +20540,18 @@ the bmux_*_set sets it per-type.</p>
 </section>
 <section id="inverters-management">
 <h3>Inverters management<a class="headerlink" href="#inverters-management" title="Permalink to this headline"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">invert_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">INV_NO</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">INV_YES</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">INV_PROGRAMMABLE</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">INV_UNKNOWN</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">invert_t</span><span class="w"> </span><span class="nf">rnode_is_inverting</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The rnode_is_inverting method allows to know whether a given rnode is
+inverting.  The information is not yet available for all nodes though.</p>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">inv_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">node</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>

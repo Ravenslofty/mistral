@@ -34,7 +34,7 @@ for die in ['e50f', 'gx25f', 'gt75f', 'gt150f', 'gt300f', 'sx50f', 'sx120f']:
         else:
             a = port[p['p']]
         if r['t'] not in a:
-            a[r['t']] = [[p['i']], [p['ip']]]
+            a[r['t']] = [[p['i']], [p['ip']], ls[2]]
         else:
             if p['i'] not in a[r['t']][0]:
                 a[r['t']][0].append(p['i'])
@@ -76,16 +76,16 @@ def mkinst(gl):
     return vals
 
 entries = []
-head = ["Port Name", "Instance", "Port bits", "Route node type", "Documentation" ]
+head = ["Port Name", "Instance", "Port bits", "Route node type", "Inverter", "Documentation" ]
 for p,g in port.items():
     for gg,gl in g.items():
 
         binst = mkinst(gl[0])
         pinst = mkinst(gl[1])
-
+        inv = gl[2]
         key = block + '.' + p
         doc = 'TODO' if key not in docs else docs[key]
-        entries.append([p, binst, pinst, gg, doc])
+        entries.append([p, binst, pinst, gg, inv, doc])
 
 entries.sort(key = lambda e: [e[0], e[3]])
 
