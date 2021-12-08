@@ -22,14 +22,12 @@ Some quick tests on a good laptop are in the following table.  The run
 time is for running the bels command for a 5CGTFD9C5F23I7 (gt300f, the
 biggest).
 
-+--------------------+--------------+----------+--------------+
 | Compression level  | Compile time | Run time | Library size |
-+--------------------+--------------+----------+--------------+
+| ------------------ | ------------ | -------- | ------------ |
 | 0 (no compression) | 0:52         | 0.71     | 2G           |
 | 1 (default)        | 1:30         | 7.61     | 269M         |
 | 6 (lzma default)   | 5:20         | 7.33     | 153M         |
 | 9                  | 6:39         | 7.22     | 154M         |
-+--------------------+--------------+----------+--------------+
 
 
 Go into the lib directory, run 'make'.  This will generate a
