@@ -1,7 +1,7 @@
 #ifndef RDRIVER_H
 #define RDRIVER_H
 
-#include "rnode.h"
+#include "nodes.h"
 #include "prefixtree.h"
 
 #include <vector>
@@ -12,12 +12,12 @@ public:
   rnode_t rn;
   uint8_t drivers[2];
 
-  RDriverParser(const RNodeReader &rnr, const std::vector<uint8_t> &data);
+  RDriverParser(const NodesReader &nr, const std::vector<uint8_t> &data);
 
   void next();
 
 private:
-  const RNodeReader &rnr;
+  const NodesReader &nr;
   PrefixTree drivermatch;
   const uint8_t *p, *e;
 

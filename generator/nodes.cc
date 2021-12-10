@@ -1,4 +1,4 @@
-#include "rnode.h"
+#include "nodes.h"
 #include "io.h"
 
 #include <stdio.h>
@@ -10,12 +10,26 @@ const char *const rnode_type_names[] = {
   nullptr
 };
 
+const char *const block_type_names[] = {
+#define P(x) #x
+#include "cv-blocktypes.ipp"
+#undef P
+  nullptr
+};
 
-RNodeReader::RNodeReader() : rnames(rnode_type_names)
+const char *const port_type_names[] = {
+#define P(x) #x
+#include "cv-porttypes.ipp"
+#undef P
+  nullptr
+};
+
+
+NodesReader::NodesReader() : rnames(rnode_type_names), bnames(block_type_names), pnames(port_type_names)
 {
 }
 
-rnode_t RNodeReader::lookup(const uint8_t *&p) const
+rnode_t NodesReader::lookup_r(const uint8_t *&p) const
 {
   int t = rnames.lookup(p);
   if(t == -1) {
@@ -50,5 +64,25 @@ rnode_t RNodeReader::lookup(const uint8_t *&p) const
     return 0;
   }
   return rnode(t, x, y, z);
+}
+
+block_type_t NodesReader::lookup_block(const uint8_t *&p) const
+{
+  int t = bnames.lookup(p);
+  if(t == -1) {
+    fprintf(stderr, "Block type unknown\n");
+    return BNONE;
+  }
+  return block_type_t(t);
+}
+
+port_type_t NodesReader::lookup_port(const uint8_t *&p) const
+{
+  int t = pnames.lookup(p);
+  if(t == -1) {
+    fprintf(stderr, "Port type unknown\n");
+    return PNONE;
+  }
+  return port_type_t(t);
 }
 

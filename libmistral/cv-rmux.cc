@@ -47,6 +47,7 @@ void mistral::CycloneV::rmux_load()
   rnode_hash = data + dhead->off_rnode_hash;
   rnode_hash_lookup = reinterpret_cast<const uint32_t *>(rnode_hash + dhead->size_rnode_opaque_hash);
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
+  p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r_info);
 
   std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
   gdhead = reinterpret_cast<const global_data_header *>(data);
@@ -227,17 +228,17 @@ std::vector<std::vector<mistral::CycloneV::rnode_t>> mistral::CycloneV::route_fr
 
 void mistral::CycloneV::init_p2r_maps()
 {
-  for(const p2r_info *p2r = di.p2r; p2r->p; p2r++) {
-    p2r_map[p2r->p] = p2r->r;
-    r2p_map[p2r->r] = p2r->p;
-  };
+  for(uint32_t i = 0; i != dhead->count_p2r; i++) {
+    p2r_map[p2r_infos[i].p] = p2r_infos[i].r;
+    r2p_map[p2r_infos[i].r] = p2r_infos[i].p;
+  }
 }
 
 std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::get_all_p2r() const
 {
   std::vector<std::pair<pnode_t, rnode_t>> result;
-  for(const p2r_info *p2r = di.p2r; p2r->p; p2r++)
-    result.emplace_back(std::make_pair(p2r->p, p2r->r));
+  for(uint32_t i = 0; i != dhead->count_p2r; i++)
+    result.emplace_back(std::make_pair(p2r_infos[i].p, p2r_infos[i].r));
   return result;
 }
 

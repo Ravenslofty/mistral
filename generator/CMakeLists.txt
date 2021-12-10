@@ -3,11 +3,12 @@ project(generator)
 set(generator_SOURCES
     prefixtree.cc
     io.cc
-    rnode.cc
+    nodes.cc
     routes.cc
     rdriver.cc
     lines.cc
     drivers.cc
+    p2r.cc
     generator.cc
     ../libmistral/bdz-ph.cc
 )

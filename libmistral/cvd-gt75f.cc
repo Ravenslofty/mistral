@@ -75,7 +75,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
   gt75f_bel_spans_info,
   gt75f_ioblocks_info,
   gt75f_dqs16_info,
-  gt75f_p2r_info,
   gt75f_p2p_info,
   gt75f_fixed_blocks_info,
   gt75f_inverters_info,

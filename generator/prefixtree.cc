@@ -15,6 +15,10 @@ PrefixTree::PrefixTree(const char *const *words)
 	cmap[c] = nentries++;
     }
 
+  for(int i = 'a'; i <= 'z'; i++)
+    if(cmap[i] == 0xff)
+      cmap[i] = cmap[i - ('a' - 'A')];
+
   root = block_alloc();
   int id = 0;
   for(const char *const *w = words; *w; w++) {

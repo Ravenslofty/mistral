@@ -1,7 +1,7 @@
 #ifndef ROUTES_H
 #define ROUTES_H
 
-#include "rnode.h"
+#include "nodes.h"
 
 #include <vector>
 #include <stdint.h>
@@ -25,12 +25,12 @@ public:
   uint32_t fw_pos;
   rnode_t sources[44];
 
-  RoutesParser(const RNodeReader &rnr, const std::vector<uint8_t> &data, uint32_t width);
+  RoutesParser(const NodesReader &nr, const std::vector<uint8_t> &data, uint32_t width);
 
   void next();
 
 private:
-  const RNodeReader &rnr;
+  const NodesReader &nr;
   const uint8_t *p, *e;
 
   uint32_t width;

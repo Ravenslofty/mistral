@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-LinesParser::LinesParser(const RNodeReader &_rnr, const std::vector<uint8_t> &data) : rnr(_rnr)
+LinesParser::LinesParser(const NodesReader &_nr, const std::vector<uint8_t> &data) : nr(_nr)
 {
   p = data.data();
   e = data.data() + data.size();
@@ -39,7 +39,7 @@ void LinesParser::next()
 
   const uint8_t *st = p;
 
-  rn = rnr.lookup(p);
+  rn = nr.lookup_r(p);
   if(!rn)
     error(st);
   if(*p++ != ' ')
@@ -78,7 +78,7 @@ void LinesParser::next()
       char toto[64];
       memcpy(toto, p, 63);
       toto[63] = 0;
-      rnode_t trn = rnr.lookup(p);
+      rnode_t trn = nr.lookup_r(p);
       if(!trn) {
 	fprintf(stderr, "[%s]\n", toto);
 	error(st);

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-RDriverParser::RDriverParser(const RNodeReader &_rnr, const std::vector<uint8_t> &data) : rnr(_rnr), drivermatch(DriversParser::driver_type_names)
+RDriverParser::RDriverParser(const NodesReader &_nr, const std::vector<uint8_t> &data) : nr(_nr), drivermatch(DriversParser::driver_type_names)
 {
   p = data.data();
   e = data.data() + data.size();
@@ -23,7 +23,7 @@ void RDriverParser::error(const uint8_t *st, const char *err) const
   std::string line(st, en);
   fprintf(stderr, "line: %s\n", line.c_str());
   exit(1);
-};
+}
 
 void RDriverParser::next()
 {
@@ -37,7 +37,7 @@ void RDriverParser::next()
   const uint8_t *st = p;
 
  rerere:
-  rn = rnr.lookup(p);
+  rn = nr.lookup_r(p);
   if(!rn)
     error(st);
   if(*p++ != ' ')

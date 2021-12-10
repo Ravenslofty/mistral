@@ -94,7 +94,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
   sx120f_bel_spans_info,
   sx120f_ioblocks_info,
   sx120f_dqs16_info,
-  sx120f_p2r_info,
   sx120f_p2p_info,
   sx120f_fixed_blocks_info,
   sx120f_inverters_info,

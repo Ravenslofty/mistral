@@ -1,7 +1,7 @@
 #ifndef LINES_H
 #define LINES_H
 
-#include "rnode.h"
+#include "nodes.h"
 
 #include <vector>
 #include <stdint.h>
@@ -30,12 +30,12 @@ public:
     float caps;
   } targets[56];
 
-  LinesParser(const RNodeReader &rnr, const std::vector<uint8_t> &data);
+  LinesParser(const NodesReader &nr, const std::vector<uint8_t> &data);
 
   void next();
 
 private:
-  const RNodeReader &rnr;
+  const NodesReader &nr;
   const uint8_t *p, *e;
 
   void error(const uint8_t *st, const char *err = nullptr) const;

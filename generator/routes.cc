@@ -82,7 +82,7 @@ const rmux_pattern rmux_patterns[70+4] = {
   {  5,  5,   9,    0x08,  17,   7,    8 },
 };
 
-RoutesParser::RoutesParser(const RNodeReader &_rnr, const std::vector<uint8_t> &data, uint32_t _width) : rnr(_rnr), width(_width)
+RoutesParser::RoutesParser(const NodesReader &_nr, const std::vector<uint8_t> &data, uint32_t _width) : nr(_nr), width(_width)
 {
   p = data.data();
   e = data.data() + data.size();
@@ -114,7 +114,7 @@ void RoutesParser::next()
 
   const uint8_t *st = p;
 
-  rn = rnr.lookup(p);
+  rn = nr.lookup_r(p);
   if(!rn)
     error(st);
   if(*p++ != ' ')
@@ -151,7 +151,7 @@ void RoutesParser::next()
     int slot = lookup_int(p);
     if(slot == -1 || slot >= 44 || *p++ != ':')
       error(st, "Incorrect slot number");
-    uint32_t srn = rnr.lookup(p);
+    uint32_t srn = nr.lookup_r(p);
     if(!srn)
       error(st);
     sources[slot] = srn;

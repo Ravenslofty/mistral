@@ -830,13 +830,6 @@ def out_f1ram(f1ram):
         print("  { %d, %d }," % (e[0], e[1]))
     print("};")
     
-def out_p2r(p2r):
-    print("const mistral::CycloneV::p2r_info mistral::CycloneV::%s_p2r_info[] = {" % sys.argv[2])
-    for i in p2r:
-        print("  { %s, %s }," % (opn(i[0]), orn(i[1])))
-    print("  { }")
-    print("};")
-
 def out_p2p(p2p):
     print("const mistral::CycloneV::p2p_info mistral::CycloneV::%s_p2p_info[] = {" % sys.argv[2])
     for i in p2p:
@@ -875,7 +868,5 @@ if sys.argv[2] != 'e50f':
 if len(f1ram) != 0:
     print("")
     out_f1ram(f1ram)
-print("")
-out_p2r(p2r)
 print("")
 out_p2p(p2p)
