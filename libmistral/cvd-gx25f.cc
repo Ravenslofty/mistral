@@ -70,7 +70,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   gx25f_bel_spans_info,
   gx25f_ioblocks_info,
   gx25f_dqs16_info,
-  gx25f_p2p_info,
   gx25f_fixed_blocks_info,
   gx25f_inverters_info,
   gx25f_dcram_pos,

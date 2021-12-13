@@ -79,7 +79,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   sx50f_bel_spans_info,
   sx50f_ioblocks_info,
   sx50f_dqs16_info,
-  sx50f_p2p_info,
   sx50f_fixed_blocks_info,
   sx50f_inverters_info,
   sx50f_dcram_pos,

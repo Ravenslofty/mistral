@@ -20,6 +20,15 @@ add_custom_command(
 )
 list(APPEND tools_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/cv-shapetypes.ipp)
 
+# Ports enum
+
+add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cv-porttypes.ipp
+   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/porttypes_to_source.py ${DATA} > ${CMAKE_CURRENT_BINARY_DIR}/cv-porttypes.ipp
+   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/porttypes_to_source.py ${DATA}/e50f-p2p.txt ${DATA}/e50f-p2r.txt ${DATA}/gt150f-p2p.txt ${DATA}/gt150f-p2r.txt ${DATA}/gt300f-p2p.txt ${DATA}/gt300f-p2r.txt ${DATA}/gt75f-p2p.txt ${DATA}/gt75f-p2r.txt ${DATA}/gx25f-p2p.txt ${DATA}/gx25f-p2r.txt ${DATA}/sx120f-p2p.txt ${DATA}/sx120f-p2r.txt ${DATA}/sx50f-p2p.txt ${DATA}/sx50f-p2r.txt
+)
+list(APPEND tools_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/cv-porttypes.ipp)
+
 
 # Blocks muxes header
 
@@ -37,5 +46,6 @@ if(NOT MISTRAL_DONT_INSTALL)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cv-bmuxtypes.ipp DESTINATION include)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cv-drivertypes.ipp DESTINATION include)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cv-shapetypes.ipp DESTINATION include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cv-porttypes.ipp DESTINATION include)
 
 endif()

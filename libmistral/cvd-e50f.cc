@@ -70,7 +70,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   e50f_bel_spans_info,
   e50f_ioblocks_info,
   e50f_dqs16_info,
-  e50f_p2p_info,
   e50f_fixed_blocks_info,
   e50f_inverters_info,
   nullptr,

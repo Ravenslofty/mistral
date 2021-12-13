@@ -88,7 +88,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   gt300f_bel_spans_info,
   gt300f_ioblocks_info,
   gt300f_dqs16_info,
-  gt300f_p2p_info,
   gt300f_fixed_blocks_info,
   gt300f_inverters_info,
   gt300f_dcram_pos,

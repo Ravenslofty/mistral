@@ -17,7 +17,12 @@ std::string mistral::CycloneV::pn2s(pnode_t pn)
   char buf[4096];
   auto bi = pn2bi(pn);
   auto pi = pn2pi(pn);
-  if(bi == -1)
+  if(pn2pt(pn) == PNONE)
+    if(bi == -1)
+      sprintf(buf, "%s.%03d.%03d", block_type_names[pn2bt(pn)], pn2x(pn), pn2y(pn));
+    else
+      sprintf(buf, "%s.%03d.%03d.%d", block_type_names[pn2bt(pn)], pn2x(pn), pn2y(pn), bi);
+  else if(bi == -1)
     if(pi == -1)
       sprintf(buf, "%s.%03d.%03d:%s", block_type_names[pn2bt(pn)], pn2x(pn), pn2y(pn), port_type_names[pn2pt(pn)]);
     else
@@ -48,6 +53,7 @@ void mistral::CycloneV::rmux_load()
   rnode_hash_lookup = reinterpret_cast<const uint32_t *>(rnode_hash + dhead->size_rnode_opaque_hash);
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
   p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r_info);
+  p2p_infos = reinterpret_cast<const p2p_info *>(data + dhead->off_p2p_info);
 
   std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
   gdhead = reinterpret_cast<const global_data_header *>(data);
@@ -245,8 +251,8 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> m
 std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::pnode_t>> mistral::CycloneV::get_all_p2p() const
 {
   std::vector<std::pair<pnode_t, pnode_t>> result;
-  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
-    result.emplace_back(std::make_pair(p2p->s, p2p->d));
+  for(uint32_t i = 0; i != dhead->count_p2p; i++)
+    result.emplace_back(std::make_pair(p2p_infos[i].s, p2p_infos[i].d));
   return result;
 }
 
@@ -772,17 +778,17 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
 std::vector<mistral::CycloneV::pnode_t> mistral::CycloneV::p2p_from(pnode_t pn) const
 {
   std::vector<pnode_t> res;
-  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
-    if(p2p->s == pn)
-      res.push_back(p2p->d);
+  for(uint32_t i = 0; i != dhead->count_p2p; i++)
+    if(p2p_infos[i].s == pn)
+      res.push_back(p2p_infos[i].d);
   return res;
 }
 
 mistral::CycloneV::pnode_t mistral::CycloneV::p2p_to(pnode_t pn) const
 {
-  for(const p2p_info *p2p = di.p2p; p2p->s; p2p++)
-    if(p2p->d == pn)
-      return p2p->s;
+  for(uint32_t i = 0; i != dhead->count_p2p; i++)
+    if(p2p_infos[i].d == pn)
+      return p2p_infos[i].s;
   return 0;
 }
 

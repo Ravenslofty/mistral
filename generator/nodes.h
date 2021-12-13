@@ -18,7 +18,7 @@ enum block_type_t {
 
 enum port_type_t {
 #define P(x) x
-#include "cv-porttypes.ipp"
+#include <cv-porttypes.ipp>
 #undef P
 };
 
@@ -34,8 +34,8 @@ static constexpr rnode_t rnode(uint32_t type, uint32_t x, uint32_t y, uint32_t z
   return (type << 24) | (x << 17) | (y << 10) | z;
 }
 
-static constexpr pnode_t pnode(block_type_t bt, uint32_t x, uint32_t y, port_type_t pt, int8_t bindex, int16_t pindex) {
-  return (uint64_t(bt) << 50) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff);
+static constexpr pnode_t pnode(uint32_t bt, uint32_t x, uint32_t y, uint32_t pt, int8_t bindex, int16_t pindex) {
+  return (uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff);
 }
 
 

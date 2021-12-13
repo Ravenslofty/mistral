@@ -253,15 +253,15 @@ namespace mistral {
     static constexpr uint32_t rn2z(rnode_t rn) { return rn & 0x3ff; }
 
     static constexpr pnode_t pnode(block_type_t bt, pos_t pos, port_type_t pt, int8_t bindex, int16_t pindex) {
-      return (uint64_t(bt) << 50) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (pos << 16) | (pindex & 0xffff);
+      return (uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (pos << 16) | (pindex & 0xffff);
     }
 
     static constexpr pnode_t pnode(block_type_t bt, uint32_t x, uint32_t y, port_type_t pt, int8_t bindex, int16_t pindex) {
-      return (uint64_t(bt) << 50) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff);
+      return (uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff);
     }
 
-    static constexpr block_type_t pn2bt(pnode_t pn) { return block_type_t((pn >> 50) & 0xff); }
-    static constexpr port_type_t  pn2pt(pnode_t pn) { return port_type_t((pn >> 40) & 0x3ff); }
+    static constexpr block_type_t pn2bt(pnode_t pn) { return block_type_t((pn >> 52) & 0xff); }
+    static constexpr port_type_t  pn2pt(pnode_t pn) { return port_type_t((pn >> 40) & 0xfff); }
     static constexpr pos_t        pn2p (pnode_t pn) { return (pn >> 16) & 0x3fff; }
     static constexpr uint32_t     pn2x (pnode_t pn) { return (pn >> 23) & 0x7f; }
     static constexpr uint32_t     pn2y (pnode_t pn) { return (pn >> 16) & 0x7f; }
@@ -444,7 +444,6 @@ namespace mistral {
       const uint8_t *const bel_spans;
       const ioblock_info *const ioblocks;
       const dqs16_info *const dqs16s;
-      const p2p_info *const p2p;
       const fixed_block_info *const fixed_blocks;
       const inverter_info *const inverters;
       const dcram_info *const dcram_pos;
@@ -499,9 +498,11 @@ namespace mistral {
       uint32_t off_rnode_hash;
       uint32_t off_line_info;
       uint32_t off_p2r_info;
+      uint32_t off_p2p_info;
       uint32_t size_rnode_opaque_hash;
       uint32_t count_rnode;
       uint32_t count_p2r;
+      uint32_t count_p2p;
     };
 
     struct global_data_header {
@@ -864,7 +865,6 @@ namespace mistral {
     static const uint8_t e50f_bel_spans_info[];
     static const ioblock_info e50f_ioblocks_info[];
     static const dqs16_info e50f_dqs16_info[];
-    static const p2p_info e50f_p2p_info[];
     static const fixed_block_info e50f_fixed_blocks_info[FB_COUNT];
     static const inverter_info e50f_inverters_info[];
     static const dcram_info e50f_forced_1_info[12];
@@ -877,7 +877,6 @@ namespace mistral {
     static const uint8_t gx25f_bel_spans_info[];
     static const ioblock_info gx25f_ioblocks_info[];
     static const dqs16_info gx25f_dqs16_info[];
-    static const p2p_info gx25f_p2p_info[];
     static const fixed_block_info gx25f_fixed_blocks_info[FB_COUNT];
     static const inverter_info gx25f_inverters_info[];
     static const dcram_info gx25f_dcram_pos[];
@@ -889,7 +888,6 @@ namespace mistral {
     static const uint8_t gt75f_bel_spans_info[];
     static const ioblock_info gt75f_ioblocks_info[];
     static const dqs16_info gt75f_dqs16_info[];
-    static const p2p_info gt75f_p2p_info[];
     static const fixed_block_info gt75f_fixed_blocks_info[FB_COUNT];
     static const inverter_info gt75f_inverters_info[];
     static const dcram_info gt75f_dcram_pos[];
@@ -903,7 +901,6 @@ namespace mistral {
     static const uint8_t gt150f_bel_spans_info[];
     static const ioblock_info gt150f_ioblocks_info[];
     static const dqs16_info gt150f_dqs16_info[];
-    static const p2p_info gt150f_p2p_info[];
     static const fixed_block_info gt150f_fixed_blocks_info[FB_COUNT];
     static const inverter_info gt150f_inverters_info[];
     static const dcram_info gt150f_dcram_pos[];
@@ -916,7 +913,6 @@ namespace mistral {
     static const uint8_t gt300f_bel_spans_info[];
     static const ioblock_info gt300f_ioblocks_info[];
     static const dqs16_info gt300f_dqs16_info[];
-    static const p2p_info gt300f_p2p_info[];
     static const fixed_block_info gt300f_fixed_blocks_info[FB_COUNT];
     static const inverter_info gt300f_inverters_info[];
     static const dcram_info gt300f_dcram_pos[];
@@ -930,7 +926,6 @@ namespace mistral {
     static const uint8_t sx50f_bel_spans_info[];
     static const ioblock_info sx50f_ioblocks_info[];
     static const dqs16_info sx50f_dqs16_info[];
-    static const p2p_info sx50f_p2p_info[];
     static const fixed_block_info sx50f_fixed_blocks_info[FB_COUNT];
     static const inverter_info sx50f_inverters_info[];
     static const dcram_info sx50f_dcram_pos[];
@@ -941,7 +936,6 @@ namespace mistral {
     static const uint8_t sx120f_bel_spans_info[];
     static const ioblock_info sx120f_ioblocks_info[];
     static const dqs16_info sx120f_dqs16_info[];
-    static const p2p_info sx120f_p2p_info[];
     static const fixed_block_info sx120f_fixed_blocks_info[FB_COUNT];
     static const inverter_info sx120f_inverters_info[];
     static const dcram_info sx120f_dcram_pos[];
@@ -997,6 +991,7 @@ namespace mistral {
     const rnode_line_information *rli_data;
 
     const p2r_info *p2r_infos;
+    const p2p_info *p2p_infos;
 
     const global_data_header *gdhead;
     const dnode_lookup *dn_lookup;
