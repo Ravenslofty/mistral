@@ -1,7 +1,7 @@
 g idcode                                r:8     6.19 6.20 6.21 6.22 6.23 6.24 6.25 6.26
 g compression_dis                       b-      6.35
 g crc_error_detection_en                b-      2.13
-g crc_divide_order                      n:8     6.28 6.28 6.29 6.30 6.31 6.32 6.33 6.34
+g crc_divide_order                      n:8     6.27 6.28 6.29 6.30 6.31 6.32 6.33 6.34
   00 0 !
   01 1
   02 2
