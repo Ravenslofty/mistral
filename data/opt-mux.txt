@@ -17,7 +17,11 @@ g jtag_id                               r:32    7.8 7.9 7.10 7.11 7.12 7.13 7.14
 g drive_strength                        r-:2    1.39 12.39
 g cvpcie_mode                           r-:2    2.21 2.22
 g iocsr_ready_from_csr_done_en          b-      0.2
-g external_clk_spi                      r1:3    0.7 0.8 0.9
+g external_clk_spi                      n1:3    0.7 0.8 0.9
+  1 100 !
+  3 50
+  5 25
+  7 12
 g cvp_conf_done_en                      b-      6.2
 g release_clears_before_tristates_dis   b-      6.3
 g device_wide_reset_en                  b-      6.4
