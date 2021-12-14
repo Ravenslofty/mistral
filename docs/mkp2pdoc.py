@@ -9,7 +9,7 @@ if len(sys.argv) != 4:
 def pnodes(n):
     nn = n.split(":")
     p1 = nn[0].split(".")
-    p2 = nn[1].split(".")
+    p2 = ['PNONE'] if len(nn) == 1 else nn[1].split(".")
     return { 'b':p1[0], 'x':int(p1[1]), 'y':int(p1[2]), 'i':(-1 if len(p1) < 4 else int(p1[3])), 'p':p2[0], 'ip':(-1 if len(p2) < 2 else int(p2[1])) }
 
 

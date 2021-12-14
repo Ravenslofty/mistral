@@ -132,6 +132,5 @@ install(FILES cyclonev.h DESTINATION include)
 install(FILES mistral-analogsim.h DESTINATION include)
 install(FILES cv-blocktypes.ipp DESTINATION include)
 install(FILES cv-rnodetypes.ipp DESTINATION include)
-install(FILES cv-porttypes.ipp DESTINATION include)
 
 endif()

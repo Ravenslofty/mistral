@@ -1,8 +1,8 @@
-idcode
-compression_dis
+idcode Low 8 bits of the IDCODE of the device
+compression_dis Bitstream compression flag
 crc_error_detection_en
 crc_divide_order
-jtag_id
+jtag_id 32-bits JTAG id
 drive_strength
 cvpcie_mode
 iocsr_ready_from_csr_done_en
@@ -16,3 +16,4 @@ nceo_dis
 start_up_clock
 opt_a
 opt_b
+external_clk_spi Choose the (rough, +/- 20%) frequency of the internal oscillator

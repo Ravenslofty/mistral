@@ -118,8 +118,6 @@ A MLAB is a lab that can optionally be turned into a 640-bits RAM or
 ROM.  The wiring is identical to the LAB, only some additional muxes
 are provided to select the RAM/ROM mode.
 
-TODO: address/data wiring in RAM/ROM mode.
-
 .. include:: gendoc/mlab-dmux.rst
 
 
@@ -179,8 +177,6 @@ M10K
 
 The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.
 
-TODO: everything, GOUT/GIN/DCMUX mapping is done
-
 .. include:: gendoc/m10k-dmux.rst
 
 .. include:: gendoc/m10k-dp2r.rst
@@ -197,8 +193,6 @@ The GPIO blocks connect the FPGA with the exterior through the package
 pins.  Each block controls 4 pads, which are connected to up to 4
 pins.
 
-TODO: everything, GOUT/GIN/DCMUX mapping is done
-
 .. include:: gendoc/gpio-dmux.rst
 
 .. include:: gendoc/gpio-dp2r.rst
@@ -212,9 +206,9 @@ DQS16
 The DQS16 blocks handle differential signaling protocols.  Each
 supervises 4 GPIO blocks for a total of 16 signals, hence their name.
 
-TODO: everything
-
 .. include:: gendoc/dqs16-dmux.rst
+
+.. include:: gendoc/dqs16-dp2r.rst
 
 .. include:: gendoc/dqs16-dp2p.rst
 
@@ -223,8 +217,6 @@ FPLL
 ^^^^
 
 The Fractional PLL blocks synthesize 9 frequencies from an input with integer or fractional ratios.
-
-TODO: everything, GOUT/GIN/DCMUX mapping is done
 
 .. include:: gendoc/fpll-dmux.rst
 
@@ -237,6 +229,8 @@ CBUF
 ^^^^
 
 .. include:: gendoc/cbuf-dmux.rst
+
+.. include:: gendoc/cbuf-dp2p.rst
 
 
 CMUXCR
@@ -338,15 +332,17 @@ The CMUXP drive two PCLK each.
 
 .. include:: gendoc/cmuxp-dp2r.rst
 
+.. include:: gendoc/cmuxp-dp2p.rst
+
 
 CTRL
 ^^^^
 
 The Control block gives access to a number of anciliary functions of the FPGA.
 
-TODO: everything, GOUT/GIN/DCMUX mapping is done
-
 .. include:: gendoc/ctrl-dp2r.rst
+
+.. include:: gendoc/ctrl-dp2p.rst
 
 
 HSSI
@@ -355,9 +351,11 @@ HSSI
 The High speed serial interface blocks control the
 serializing/deserializing capabilities of the FPGA.
 
-TODO: everything
-
 .. include:: gendoc/hssi-dmux.rst
+
+.. include:: gendoc/hssi-dp2r.rst
+
+.. include:: gendoc/hssi-dp2p.rst
 
 
 HIP
@@ -365,9 +363,11 @@ HIP
 
 The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.
 
-TODO: everything
-
 .. include:: gendoc/hip-dmux.rst
+
+.. include:: gendoc/hip-dp2r.rst
+
+.. include:: gendoc/hip-dp2p.rst
 
 
 DLL
@@ -389,9 +389,9 @@ SERPAR
 
 Unclear yet.
 
-TODO: everything
-
 .. include:: gendoc/serpar-dmux.rst
+
+.. include:: gendoc/serpar-dp2r.rst
 
 
 LVL
@@ -399,11 +399,11 @@ LVL
 
 The Leveling Delay Chain does something linked to the DQS16.
 
-TODO: everything
-
 .. include:: gendoc/lvl-dmux.rst
 
 .. include:: gendoc/lvl-dp2p.rst
+
+.. include:: gendoc/lvl-dp2r.rst
 
 
 TERM
@@ -411,17 +411,17 @@ TERM
 
 The TERM blocks control the On-Chip Termination circuitry
 
-TODO: everything
-
 .. include:: gendoc/term-dmux.rst
+
+.. include:: gendoc/term-dp2r.rst
+
+.. include:: gendoc/term-dp2p.rst
 
 
 PMA3
 ^^^^
 
 The PMA3 blocks control triplets of channels used with the HSSI.
-
-TODO: everything
 
 .. include:: gendoc/pma3-dmux.rst
 
@@ -477,6 +477,8 @@ HPS_CLOCKS_RESETS
 
 .. include:: gendoc/hps_clocks_resets-dp2r.rst
 
+.. include:: gendoc/hps_clocks_resets-dp2p.rst
+
 
 HPS_CROSS_TRIGGER
 """""""""""""""""
@@ -531,6 +533,8 @@ HPS_JTAG
 
 .. include:: gendoc/hps_jtag-dp2r.rst
 
+.. include:: gendoc/hps_jtag-dp2p.rst
+
 
 HPS_LOAN_IO
 """""""""""
@@ -567,6 +571,8 @@ HPS_PERIPHERAL_EMAC
 
 .. include:: gendoc/hps_peripheral_emac-dp2r.rst
 
+.. include:: gendoc/hps_peripheral_emac-dp2p.rst
+
 
 HPS_PERIPHERAL_I2C
 """"""""""""""""""
@@ -586,6 +592,8 @@ HPS_PERIPHERAL_QSPI
 
 .. include:: gendoc/hps_peripheral_qspi-dp2r.rst
 
+.. include:: gendoc/hps_peripheral_qspi-dp2p.rst
+
 
 HPS_PERIPHERAL_SDMMC
 """"""""""""""""""""
@@ -598,6 +606,8 @@ HPS_PERIPHERAL_SPI_MASTER
 (2 blocks)
 
 .. include:: gendoc/hps_peripheral_spi_master-dp2r.rst
+
+.. include:: gendoc/hps_peripheral_spi_master-dp2p.rst
 
 
 HPS_PERIPHERAL_SPI_SLAVE
@@ -637,6 +647,8 @@ HPS_TPIU_TRACE
 """"""""""""""
 
 .. include:: gendoc/hps_tpiu_trace-dp2r.rst
+
+.. include:: gendoc/hps_tpiu_trace-dp2p.rst
 
 
 Options

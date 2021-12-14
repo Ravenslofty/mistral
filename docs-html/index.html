@@ -1006,7 +1006,6 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <p>A MLAB is a lab that can optionally be turned into a 640-bits RAM or
 ROM.  The wiring is identical to the LAB, only some additional muxes
 are provided to select the RAM/ROM mode.</p>
-<p>TODO: address/data wiring in RAM/ROM mode.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 29%" />
@@ -1805,7 +1804,6 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 <section id="m10k">
 <h4>M10K<a class="headerlink" href="#m10k" title="Permalink to this headline"></a></h4>
 <p>The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.</p>
-<p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 27%" />
@@ -2618,7 +2616,6 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 <p>The GPIO blocks connect the FPGA with the exterior through the package
 pins.  Each block controls 4 pads, which are connected to up to 4
 pins.</p>
-<p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
@@ -2981,14 +2978,14 @@ pins.</p>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKIN_IN</p></td>
+<tr class="row-even"><td><p>CLKIN</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLKIN_OUT</p></td>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
 <td><p>DCMUX</p></td>
@@ -2997,16 +2994,16 @@ pins.</p>
 </tr>
 <tr class="row-even"><td><p>DATAIN</p></td>
 <td><p>0-3</p></td>
-<td><p>0-3</p></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
+<td><p>0-4</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
 <td><p>0-3</p></td>
-<td><p>0-4</p></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
+<td><p>0-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OEIN</p></td>
@@ -3027,7 +3024,7 @@ pins.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
+<col style="width: 11%" />
 <col style="width: 9%" />
 <col style="width: 10%" />
 <col style="width: 5%" />
@@ -3044,288 +3041,351 @@ pins.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ACLR</p></td>
+<tr class="row-even"><td></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>DQS16</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOADDRACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR</p></td>
-<td><p>1</p></td>
+<tr class="row-even"><td><p>ACLR</p></td>
+<td><p>0-2</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOBAACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR</p></td>
+<tr class="row-odd"><td><p>ACLR</p></td>
 <td><p>2</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCASNACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR</p></td>
+<tr class="row-even"><td><p>ACLR</p></td>
 <td><p>2-3</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCKEACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR</p></td>
+<tr class="row-odd"><td><p>ACLR</p></td>
 <td><p>0-1</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCSNACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR</p></td>
+<tr class="row-even"><td><p>ACLR</p></td>
 <td><p>2-3</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOODTACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR</p></td>
+<tr class="row-odd"><td><p>ACLR</p></td>
 <td><p>3</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIORASNACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR</p></td>
+<tr class="row-even"><td><p>ACLR</p></td>
 <td><p>2</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIORESETNACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR</p></td>
+<tr class="row-odd"><td><p>ACLR</p></td>
 <td><p>2</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOWENACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>BUFFER_IN</p></td>
+<td><p>1, 3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>CTRL:SPIDATAOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BUFFER_IN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>CTRL:SPIDCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BUFFER_IN</p></td>
+<td><p>1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>CTRL:SPISCE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BUFFER_OUT</p></td>
+<td><p>1, 3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CTRL:SPIDATAIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXCR:CLKPIN</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXCR:NCLKPIN</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHG:CLKPIN</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHG:NCLKPIN</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHR:CLKPIN</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHR:NCLKPIN</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVG:CLKPIN</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVG:NCLKPIN</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVR:CLKPIN</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVR:NCLKPIN</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>COMBOUT</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>0</p></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>FPLL:CLKIN</p></td>
 <td><p>Raising-edge or differential clock pin to pll</p></td>
 </tr>
-<tr class="row-even"><td><p>COMBOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
 <td><p>2</p></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>FPLL:ZDB_IN</p></td>
-<td><p>Zero-delay buffer pin to pll</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>0-3</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOADDRDOUT</p></td>
+<td><p>FPLL:DB_IN0</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>0-2</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOBADOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>2</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOCASNDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>0</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOCKDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>2-3</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOCKEDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>1</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOCKNDOUT</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:DATAIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>0-1</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOCSNDOUT</p></td>
+<tr class="row-odd"><td><p>COMBOUT</p></td>
+<td><p>1, 3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:REFCLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>2</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIODMDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>0-3</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIODQDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>1</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIODQSBDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>0</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIODQSDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
+<tr class="row-even"><td><p>COMBOUT</p></td>
 <td><p>2-3</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOODTDOUT</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>TERM:RZQIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>3</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIORASNDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAIN</p></td>
-<td><p>2</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIORESETNDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATAIN</p></td>
-<td><p>2</p></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HMC:PHYDDIOWENDOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATAOUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
 <td><p>HMC:DDIOPHYDQDIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>OEIN</p></td>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOADDRDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0-2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOBADOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOCASNDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOCKDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOCKEDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOCKNDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOCSNDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODMDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSBDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOODTDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIORASNDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIORESETNDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DATAOUT</p></td>
+<td><p>0-3</p></td>
+<td><p>2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIOWENDOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:DATAOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>OEIN</p></td>
+<td><p>0-1</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQOE</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>OEIN</p></td>
-<td><p>1</p></td>
+<tr class="row-odd"><td><p>OEIN</p></td>
 <td><p>0-1</p></td>
+<td><p>1</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSBOE</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>OEIN</p></td>
-<td><p>0</p></td>
+<tr class="row-even"><td><p>OEIN</p></td>
 <td><p>0-1</p></td>
+<td><p>0</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSOE</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PLLDIN</p></td>
-<td><p>3</p></td>
+<tr class="row-odd"><td><p>PLLDIN</p></td>
+<td><p>2-3</p></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>FPLL:EXTCLK</p></td>
@@ -3338,7 +3398,6 @@ pins.</p>
 <h4>DQS16<a class="headerlink" href="#dqs16" title="Permalink to this headline"></a></h4>
 <p>The DQS16 blocks handle differential signaling protocols.  Each
 supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 36%" />
@@ -4430,12 +4489,166 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 15%" />
-<col style="width: 17%" />
-<col style="width: 8%" />
+<col style="width: 25%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 20%" />
-<col style="width: 23%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ACLR_FIFOCTRL</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR_PSTAMBLE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CORE_DELAY_CTRL</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORE_DQS_UPDATE_ENA</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DIN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DOUT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DQS_SAMPLE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>EN</p></td>
+<td></td>
+<td><p>0-16</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FIFO_CORE_RESET</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>INCR_VFIFO</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>OCT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSTAMBLE</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>QVALID</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RDATA_EN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RDATA_VALID</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RD_LATENCY</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>UPDATE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 5%" />
+<col style="width: 36%" />
+<col style="width: 16%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -4448,10 +4661,115 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td></td>
+<td><p>0-15</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACLR_FIFOCTRL</p></td>
 <td></td>
 <td></td>
 <td><p>&lt;</p></td>
-<td><p>HMC</p></td>
+<td><p>HMC:PHYDDIODQSLOGICACLRFIFOCTRL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>ACLR_PSTAMBLE</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICACLRPSTAMBLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DELAY_CTRL_IN</p></td>
+<td><p>1-2</p></td>
+<td><p>0-6</p></td>
+<td><p>&lt;</p></td>
+<td><p>DLL:DELAY_CTRL_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DQS_2X_CLK_X</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:LDC_CLKOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DQS_CLK_X</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:LDC_CLKOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DQS_UPDATE_ENA</p></td>
+<td><p>1-2</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>DLL:DQS_UPDATE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DQ_CLK_X</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:LDC_CLKOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FIFO_CORE_RESET</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICFIFORESET</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>INCR_VFIFO</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICINCWRPTR</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NOCT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICOCT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>NPOSTAMBLE</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICDQSENA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RDATA_EN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICINCRDATAEN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RDATA_VALID</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HMC:DDIOPHYDQSLOGICRDATAVALID</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RD_LATENCY</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>&lt;</p></td>
+<td><p>HMC:PHYDDIODQSLOGICREADLATENCY</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SEQ_HR_CLK_X</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:LDC_CLKOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -4460,7 +4778,6 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <section id="fpll">
 <h4>FPLL<a class="headerlink" href="#fpll" title="Permalink to this headline"></a></h4>
 <p>The Fractional PLL blocks synthesize 9 frequencies from an input with integer or fractional ratios.</p>
-<p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
@@ -5471,12 +5788,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 24%" />
+<col style="width: 27%" />
 <col style="width: 12%" />
 <col style="width: 13%" />
 <col style="width: 20%" />
 <col style="width: 12%" />
-<col style="width: 18%" />
+<col style="width: 17%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -5488,25 +5805,11 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ATPGMODE</p></td>
+<tr class="row-even"><td><p>ATPGMODE0</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK0_BAD</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK1_BAD</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKEN</p></td>
@@ -5516,168 +5819,182 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKSEL</p></td>
+<tr class="row-even"><td><p>CLKSEL0</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CNT_SEL</p></td>
+<tr class="row-odd"><td><p>CLK_BAD0</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CNT_SEL0</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CSR_TEST</p></td>
+<tr class="row-odd"><td><p>CORECLK0</p></td>
 <td></td>
 <td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
+<td><p>PMUX</p></td>
+<td><p>?</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>EXTSWITCH</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>FBCLK_IN_L</p></td>
-<td></td>
-<td></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>FBCLK_IN_R</p></td>
-<td></td>
-<td></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>LOCK</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>NRESET</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PFDEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PHASE_DONE</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PHASE_EN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>REG_BYTE_EN</p></td>
+<tr class="row-even"><td><p>DPRIO0_BYTE_EN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>REG_CLK</p></td>
+<tr class="row-odd"><td><p>DPRIO0_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>REG_CLK</p></td>
+<tr class="row-even"><td><p>DPRIO0_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>REG_MDIO_DIS</p></td>
+<tr class="row-odd"><td><p>DPRIO0_MDIO_DIS</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>REG_READ</p></td>
+<tr class="row-even"><td><p>DPRIO0_READ</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>REG_READDATA</p></td>
+<tr class="row-odd"><td><p>DPRIO0_READDATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>REG_REG_ADDR</p></td>
+<tr class="row-even"><td><p>DPRIO0_REG_ADDR</p></td>
 <td></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>REG_RST_N</p></td>
+<tr class="row-odd"><td><p>DPRIO0_RST_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>REG_SER_SHIFT_LOAD</p></td>
+<tr class="row-even"><td><p>DPRIO0_SER_SHIFT_LOAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>REG_WRITE</p></td>
+<tr class="row-odd"><td><p>DPRIO0_WRITE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>REG_WRITEDATA</p></td>
+<tr class="row-even"><td><p>DPRIO0_WRITEDATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>SCANEN</p></td>
+<tr class="row-odd"><td><p>EXTSWITCH0</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>UP_DN</p></td>
+<tr class="row-even"><td><p>FBCLK_IN_L0</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FBCLK_IN_R0</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FFPLL_CSR_TEST0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOCK0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NRESET0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PFDEN0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHASE_DONE0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHASE_EN0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCANEN0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>UP_DN0</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
@@ -5688,12 +6005,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 5%" />
 <col style="width: 14%" />
-<col style="width: 48%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 4%" />
+<col style="width: 25%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -5705,68 +6022,187 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKDOUT</p></td>
-<td></td>
-<td><p>0</p></td>
-<td><p>&gt;</p></td>
-<td><p>DLL:CLKIN</p></td>
-<td><p>Dedicated differential I/O PLL counter to DLL</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKIN</p></td>
+<tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Raising-edge or differential clock pin to pll</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKOUT</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXCR:PLLIN</p></td>
-<td><p>PLL counter output to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXHG:PLLIN</p></td>
-<td><p>PLL counter output to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKOUT</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXHR:PLLIN</p></td>
-<td><p>PLL counter output to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td></td>
-<td><p>5-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXVG:PLLIN</p></td>
-<td><p>PLL counter output to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKOUT</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXVR:PLLIN</p></td>
-<td><p>PLL counter output to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>EXTCLK</p></td>
-<td></td>
-<td></td>
-<td><p>&gt;</p></td>
-<td><p>GPIO:PLLDIN</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>ZDB_IN</p></td>
+<tr class="row-odd"><td><p>DB_IN0</p></td>
 <td></td>
 <td></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
-<td><p>Zero-delay buffer pin to pll</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DPACLK0_I</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:PMA_FFPLL_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DPACLK0_I</p></td>
+<td></td>
+<td><p>4</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:PMA_FFPLL_CLKB</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>EXTCLK</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO:PLLDIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FBCLK_FPLL0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_FBCLK_FFPLL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FBCLK_IN_L0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>CMUXHG:CLKFBOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FBLVDS_IN0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>CBUF:FBCLKIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FBLVDS_OUT0</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CBUF:FBCLKOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FPLL0_REF_IQCLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:PMA_FFPLL_REF_IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>IQTXRXCLK_FPLL0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_FFPLL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOADEN0</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&gt;</p></td>
+<td><p>CBUF:LVDS_LOADEN0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LVDS_CLK0</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&gt;</p></td>
+<td><p>CBUF:LVDS_CLK0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLCOUT</p></td>
+<td></td>
+<td><p>0-8</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXCR:PLLIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLCOUT</p></td>
+<td></td>
+<td><p>0-8</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:PLLIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLCOUT</p></td>
+<td></td>
+<td><p>0-8</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHR:PLLIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLCOUT</p></td>
+<td></td>
+<td><p>5-8</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXVG:PLLIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLCOUT</p></td>
+<td></td>
+<td><p>0-8</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXVR:PLLIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLDOUT0</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>DLL:CLOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLMOUT0</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXCR:PLLMIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMOUT0</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:PLLMIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLMOUT0</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXVG:PLLMIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_CAS_OUT1</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:PLL_CAS_IN0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFCLK_FPLL0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>REF_IQCLK_FPLL0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT_MUXED</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RX_IQCLK_FPLL0</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT_MUXED</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -5888,6 +6324,76 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 25%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLOCK_OUT</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>LVL:FFPLL_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FBCLKIN</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:FBLVDS_IN0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FBCLKOUT</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:FBLVDS_OUT0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LVDS_CLK0</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:LVDS_CLK0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LVDS_CLKA</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>LVL:FFPLL_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LVDS_CLKB</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>LVL:FFPLL_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LVDS_LOADEN0</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:LOADEN0</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -6060,28 +6566,21 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKFBOUT</p></td>
-<td></td>
-<td><p>0-1</p></td>
-<td><p>RCLKFB</p></td>
-<td><p>?</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKIN</p></td>
+<tr class="row-even"><td><p>CLKIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>Routing grid clock inputs</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKOUT</p></td>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>RCLK</p></td>
 <td><p>?</p></td>
 <td><p>Clock mux clock grid driver</p></td>
 </tr>
-<tr class="row-odd"><td><p>ENABLE</p></td>
+<tr class="row-even"><td><p>ENABLE</p></td>
 <td><p>0-5</p></td>
 <td></td>
 <td><p>GOUT</p></td>
@@ -6092,12 +6591,12 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
 <col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 6%" />
-<col style="width: 16%" />
-<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 24%" />
+<col style="width: 38%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -6116,19 +6615,47 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>NCLKPIN</p></td>
+<tr class="row-odd"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>6-9</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>IQTXRXCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
+<tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKOUT</p></td>
-<td><p>PLL counter output to clock mux</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -6603,12 +7130,12 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
 <col style="width: 5%" />
-<col style="width: 20%" />
-<col style="width: 40%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -6620,12 +7147,40 @@ selection mux depends on the instance:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKPIN</p></td>
+<tr class="row-even"><td><p>CLKFBOUT</p></td>
+<td></td>
+<td><p>2-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:FBCLK_IN_L0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKPIN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>6-9</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>IQTXRXCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NCLKPIN</p></td>
 <td></td>
@@ -6636,17 +7191,24 @@ selection mux depends on the instance:</p>
 </tr>
 <tr class="row-even"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>0-17, 19</p></td>
+<td><p>0-17, 19-20</p></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKOUT</p></td>
-<td><p>PLL counter output to clock mux</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:CLKOUT</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -6910,12 +7472,12 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
 <col style="width: 5%" />
-<col style="width: 20%" />
-<col style="width: 40%" />
+<col style="width: 23%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -6945,15 +7507,22 @@ selection mux depends on the instance:</p>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKOUT</p></td>
-<td><p>PLL counter output to clock mux</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
 <td><p>4-7</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:CLKOUT</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0, 2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -7224,12 +7793,12 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
 <col style="width: 5%" />
-<col style="width: 20%" />
-<col style="width: 39%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -7248,26 +7817,47 @@ selection mux depends on the instance:</p>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Raising-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-odd"><td><p>NCLKPIN</p></td>
+<tr class="row-odd"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>IQCLK</p></td>
+<td></td>
+<td><p>6-9</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>IQTXRXCLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>&lt;</p></td>
 <td><p>GPIO:COMBOUT</p></td>
 <td><p>Falling-edge clock pin to clock mux</p></td>
 </tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
+<tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
 <td><p>0-25</p></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKOUT</p></td>
-<td><p>PLL counter output to clock mux</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
+<tr class="row-even"><td><p>PLLIN</p></td>
 <td></td>
 <td><p>0-6, 20-21</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:CLKOUT</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -7381,11 +7971,11 @@ selection mux depends on the instance:</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
 <col style="width: 5%" />
-<col style="width: 20%" />
+<col style="width: 23%" />
 <col style="width: 39%" />
 </colgroup>
 <thead>
@@ -7414,17 +8004,17 @@ selection mux depends on the instance:</p>
 </tr>
 <tr class="row-even"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>0-8, 18-24</p></td>
+<td><p>0-24</p></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKOUT</p></td>
-<td><p>PLL counter output to clock mux</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PLLIN</p></td>
 <td></td>
-<td><p>0-8</p></td>
+<td><p>9-17</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:CLKOUT</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -7452,14 +8042,14 @@ selection mux depends on the instance:</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0-1</p></td>
 <td></td>
-<td><p>0</p></td>
 <td><p>DCMUX</p></td>
 <td><p>i</p></td>
 <td><p>Routing grid clock input</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKOUT</p></td>
-<td></td>
+<td><p>0-1</p></td>
 <td><p>0-1</p></td>
 <td><p>PCLK</p></td>
 <td><p>i</p></td>
@@ -7467,11 +8057,52 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_C_PCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_PLD_8G_RX_CLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_PLD_8G_TX_CLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="ctrl">
 <h4>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline"></a></h4>
 <p>The Control block gives access to a number of anciliary functions of the FPGA.</p>
-<p>TODO: everything, GOUT/GIN/DCMUX mapping is done</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -7491,191 +8122,135 @@ selection mux depends on the instance:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CAPTNUPDT_RU</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKDRUSER</p></td>
+<tr class="row-even"><td><p>ATBCOMPOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLK_OUT</p></td>
+<tr class="row-odd"><td><p>CAPTNUPDT_RU</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKDRUSER</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK_OUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>Internal oscillator clock output</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLK_OUT1</p></td>
+<tr class="row-even"><td><p>CLK_OUT1</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>Internal oscillator clock 1 output</p></td>
 </tr>
-<tr class="row-even"><td><p>CLOCK_CHIPID</p></td>
+<tr class="row-odd"><td><p>CLOCK_CHIPID</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLOCK_CRC</p></td>
+<tr class="row-even"><td><p>CLOCK_CRC</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLOCK_OPREG</p></td>
+<tr class="row-odd"><td><p>CLOCK_OPREG</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLOCK_PR</p></td>
+<tr class="row-even"><td><p>CLOCK_PR</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLOCK_RU</p></td>
+<tr class="row-odd"><td><p>CLOCK_RU</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLOCK_SPI</p></td>
+<tr class="row-even"><td><p>CLOCK_SPI</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CONFIG</p></td>
+<tr class="row-odd"><td><p>CONFIG</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CORECTL_JTAG</p></td>
+<tr class="row-even"><td><p>CORECTL_JTAG</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CORECTL_PR</p></td>
+<tr class="row-odd"><td><p>CORECTL_PR</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CRCERROR</p></td>
+<tr class="row-even"><td><p>CRCERROR</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DATA</p></td>
+<tr class="row-odd"><td><p>DATA</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DATA0IN</p></td>
+<tr class="row-even"><td><p>DATAIN</p></td>
 <td></td>
-<td></td>
+<td><p>0-3</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DATA0OE</p></td>
+<tr class="row-odd"><td><p>DATAOE</p></td>
 <td></td>
-<td></td>
+<td><p>0-3</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DATA0OUT</p></td>
+<tr class="row-even"><td><p>DATAOUT</p></td>
 <td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATA1IN</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATA1OE</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATA1OUT</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATA2IN</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATA2OE</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATA2OUT</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATA3IN</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DATA3OE</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DATA3OUT</p></td>
-<td></td>
-<td></td>
+<td><p>0-3</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
@@ -7927,12 +8502,67 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 37%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ATBOUT</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMAAUX_L0_ATBOUTBIDIROUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPIDATAIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:BUFFER_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SPIDATAOUT</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO:BUFFER_IN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPIDCLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO:BUFFER_IN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SPISCE</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO:BUFFER_IN</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="hssi">
 <h4>HSSI<a class="headerlink" href="#hssi" title="Permalink to this headline"></a></h4>
 <p>The High speed serial interface blocks control the
 serializing/deserializing capabilities of the FPGA.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 35%" />
@@ -9505,11 +10135,1242 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PMAAUX_L0_CAL_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMAAUX_L0_CAL_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMAAUX_L0_CAL_PDB</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMAAUX_L0_ZRX_TX_50</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_CRU_RSTN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_EARLY_EIOS</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_LTD</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_LTR</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_PCIE_SWITCH</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_PCIE_SW_DONE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_PFDMODE_LOCK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_RS_LPBK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_RXPLL_LOCK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_RX_DETECT_VALID</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_RX_FOUND</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_SIGDET</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_TXDETECTRX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_TXPMA_RSTN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_C_TX_ELEC_IDLE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_PLDCLK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_PMA_RESERVED_IN</p></td>
+<td><p>0-11</p></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_RX_DET_CLK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_AVMM_BYTE_EN</p></td>
+<td><p>0-3</p></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_AVMM_CLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_AVMM_READ</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_AVMM_READDATA</p></td>
+<td><p>0-3</p></td>
+<td><p>0-15</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_AVMM_REG_ADDR</p></td>
+<td><p>0-3</p></td>
+<td><p>0-10</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_AVMM_RESERVED_IN</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_AVMM_RESERVED_OUT</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_AVMM_RST_N</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_AVMM_WRITE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_AVMM_WRITEDATA</p></td>
+<td><p>0-3</p></td>
+<td><p>0-15</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_DPRIO_REFCLK_DIG</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_DPRIO_SCAN_MODE_N</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_DPRIO_SCAN_SHIFT_N</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_INTERFACE_SEL</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_A1A2_K1K2_FLAG</p></td>
+<td><p>0-11</p></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_A1A2_SIZE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_ALIGN_STATUS</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_BISTDONE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_BISTERR</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_BITLOC_REV_EN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_BITSLIP</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_BYTEORD_FLAG</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_BYTE_REV_EN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_BYTORDPLD</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_CMPFIFOURST_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_EMPTY_RMF</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_EMPTY_RX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_EMPTY_TX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_ENCDT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_FULL_RMF</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_FULL_RX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_FULL_TX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_PHFIFOURST_RX_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_PHFIFOURST_TX_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_PHYSTATUS</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_PLD_RX_CLK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_PLD_TX_CLK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_POLINV_RX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_POLINV_TX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_POWERDOWN</p></td>
+<td><p>0-11</p></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_PRBS_CID_EN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RDDISABLE_TX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RDENABLE_RMF</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RDENABLE_RX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_REFCLK_DIG</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_REFCLK_DIG2</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_REV_LOOPBK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RLV_LT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RXELECIDLE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RXPOLARITY</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RXSTATUS</p></td>
+<td><p>0-11</p></td>
+<td><p>0-2</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RXURSTPCS_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RXVALID</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_RX_CLK_OUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RX_DATA_VALID</p></td>
+<td><p>0-11</p></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_SIGNAL_DETECT_OUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_TXDEEMPH</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_TXDETECTRXLOOPBACK</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_TXELECIDLE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_TXMARGIN</p></td>
+<td><p>0-11</p></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_TXSWING</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_TXURSTPCS_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_TX_BOUNDARY_SEL</p></td>
+<td><p>0-11</p></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_TX_CLK_OUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_TX_DATA_VALID</p></td>
+<td><p>0-11</p></td>
+<td><p>0-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_WA_BOUNDARY</p></td>
+<td><p>0-11</p></td>
+<td><p>0-4</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_WRDISABLE_RX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_WRENABLE_RMF</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_WRENABLE_TX</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_AGG_REFCLK_DIG</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_CLKLOW</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_EIDLEINFERSEL</p></td>
+<td><p>0-11</p></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_FREF</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_LTR</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_PARTIAL_RECONFIG_IN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_PCS_PMA_IF_REFCLK_DIG</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_RATE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_RESERVED_IN</p></td>
+<td><p>0-11</p></td>
+<td><p>0-11</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_RESERVED_OUT</p></td>
+<td><p>0-11</p></td>
+<td><p>0-10</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_RXPMA_RSTB_IN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_RX_CLK_SLIP_IN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_RX_DATA</p></td>
+<td><p>0-11</p></td>
+<td><p>0-63</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_SCAN_MODE_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_SCAN_SHIFT_N</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_SYNC_SM_EN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_TEST_DATA</p></td>
+<td><p>0-11</p></td>
+<td><p>0-19</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_TX_DATA</p></td>
+<td><p>0-11</p></td>
+<td><p>0-43</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_SER_SHIFT_LOAD</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_TESTBUS</p></td>
+<td><p>0-11</p></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_TESTSEL</p></td>
+<td><p>0-11</p></td>
+<td><p>0-3</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 23%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DATAIN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DATAOUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>GPIO:DATAOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMAAUX_L0_ATBOUTBIDIROUT</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CTRL:ATBOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_C_PCLK</p></td>
+<td><p>0-23</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXP:CLKIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_FBCLK_FFPLL</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:FBCLK_FPLL0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_FFPLL_CLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:DPACLK0_I</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_FFPLL_CLKB</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:DPACLK0_I</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_FFPLL_REF_IQCLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:FPLL0_REF_IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_IQTXRXCLK_FFPLL</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:IQTXRXCLK_FPLL0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_IQTXRXCLK_PLD</p></td>
+<td><p>0-3</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXCR:IQTXRXCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_IQTXRXCLK_PLD</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:IQTXRXCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_IQTXRXCLK_PLD</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHR:IQTXRXCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_REF_IQCLK_OUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXCR:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_REF_IQCLK_OUT</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_REF_IQCLK_OUT</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHR:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_REF_IQCLK_OUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:REFCLK_FPLL0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_REF_IQCLK_OUT_MUXED</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:REF_IQCLK_FPLL0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_RX_IQCLK_OUT</p></td>
+<td><p>0-3</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXCR:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_RX_IQCLK_OUT</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMA_RX_IQCLK_OUT</p></td>
+<td><p>0-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHR:IQCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PMA_RX_IQCLK_OUT_MUXED</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:RX_IQCLK_FPLL0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFCLKIN</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_EIDLE_INFER_SEL</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:EIDLEINFERSEL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_FREF_CLK</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:FREFCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_FREF_CLK2</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:FREFCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_PCLK_C</p></td>
+<td><p>0-2, 5-8</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:PCLKCH</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_PHYSTATUS</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:PHYSTATUS</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_PLL_FIXED_CLK_C</p></td>
+<td><p>0-2, 5-8</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:PLLFIXEDCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_POWERDOWN</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:POWERDOWN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RATE</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RATE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RATE2</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RATE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RXELECIDLE</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXELECIDLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RXFREQLOCKED</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXFREQLOCKED</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RXPOLARITY</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RXPOLARITY</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RXSTATUS</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-2</p></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXSTATUS</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RXVALID</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXVALID</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RX_DATA</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-7</p></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXDATA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RX_DATAK</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXDATAK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RX_FREQ_TX_CMU_PLL_LOCK</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXFREQTXCMUPLLLOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RX_FREQ_TX_CMU_PLL_LOCK2</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXFREQTXCMUPLLLOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RX_PCS_RST2_N</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RXPCSRSTN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RX_PCS_RST_N</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RXPCSRSTN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RX_PLL_PHASE_LOCK</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXPLLPHASELOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RX_PLL_PHASE_LOCK2</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HIP:RXPLLPHASELOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_RX_PMA_RST2B</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RXPMARSTB</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_RX_PMA_RSTB</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:RXPMARSTB</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_TXCOMPL</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXCOMPL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_TXDATA</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXDATA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_TXDATAK</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXDATAK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_TXDETECTRX</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXDETECTRX</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_TXELECIDLE</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXELECIDLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_TX_DEEMPH</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXDEEMPH</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_TX_MARGIN</p></td>
+<td><p>0-3, 5-9</p></td>
+<td><p>0-2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXMARGIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_TX_PCS_RST2_N</p></td>
+<td><p>3, 7</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXPCSRSTN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_HIP_TX_PCS_RST_N</p></td>
+<td><p>0-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXPCSRSTN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_HIP_TX_SWING</p></td>
+<td><p>0-3, 5-9</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HIP:TXSWING</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SMRT_PACK_PLD_8G_RX_CLK_OUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXP:CLKIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMRT_PACK_PLD_8G_TX_CLK_OUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXP:CLKIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="hip">
 <h4>HIP<a class="headerlink" href="#hip" title="Permalink to this headline"></a></h4>
 <p>The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 31%" />
@@ -11590,6 +13451,1399 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AVMMADDRESS</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVMMBYTEEN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>AVMMCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVMMCLK</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>AVMMREAD</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVMMREADDATA</p></td>
+<td></td>
+<td><p>0-15</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>AVMMRSTN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVMMWRITE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>AVMMWRITEDATA</p></td>
+<td></td>
+<td><p>0-15</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTDONEARCV</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTDONEARPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTDONEBRCV</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTDONEBRPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTENN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTPASSRCV</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTPASSRPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTSCANENN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTSCANIN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTSCANOUTRCV</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>BISTSCANOUTRPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>BISTTESTENN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLRRXPATH</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CORECLKIN</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORECLKIN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CORECLKOUT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORECRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>COREPOR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORERST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CORESRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPLERR</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CPLERRFUNC</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPLPENDING</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DBGPIPEX1RX</p></td>
+<td></td>
+<td><p>0-14</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DERRCOREXTRCV</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DERRCOREXTRPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DERRRPL</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DLCOMCLKREG</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DLCTRLLINK2</p></td>
+<td></td>
+<td><p>0-12</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DLCURRENTSPEED</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DLLTSSM</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DLUPEXIT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DLVCCTRL</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DPRIOREFCLKDIG</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DPRIOREFCLKDIG</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>EV128NS</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>EV1US</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FLRRESET</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FLRSTS</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>HIPEXTRACLKIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>HIPEXTRACLKIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>HIPEXTRACLKOUT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>HIPEXTRAIN</p></td>
+<td></td>
+<td><p>0-29</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>HIPEXTRAOUT</p></td>
+<td></td>
+<td><p>0-29</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>HIPPARTIALRECONFIGN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>HOTRSTEXIT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTERFACESEL</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>INTSTATUS</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>L2EXIT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LANEACT</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LMIACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LMIADDR</p></td>
+<td></td>
+<td><p>0-14</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LMIDIN</p></td>
+<td></td>
+<td><p>0-31</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LMIDOUT</p></td>
+<td></td>
+<td><p>0-31</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LMIRDEN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LMIWREN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LTSSML0STATE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PCIERR</p></td>
+<td></td>
+<td><p>0-15</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHYRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYSRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLDCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLDCLK</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLDCLKINUSE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLDCLRHIPN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLDCLRPCSHIPN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLDCLRPMAPCSHIPN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLDCOREREADY</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLDPERSTN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLDRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLDSRST</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMODE</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>R2CERREXT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RESETSTATUS</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXBARDECFUNCNUMVC0</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXBARDECVC0</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXBEVC0</p></td>
+<td><p>0-1</p></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXDATAVC0</p></td>
+<td><p>0-1</p></td>
+<td><p>0-63</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXEOPVC0</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXERRVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXFIFOEMPTYVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXFIFOFULLVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXFIFORDPVC0</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXFIFOWRPVC0</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXMASKVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXREADYVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXSOPVC0</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXVALIDVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCANENN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCANMODEN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SERROUT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SERSHIFTLOAD</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SUCCESSFULSPEEDNEGOTIATIONINT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWDNIN</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SWDNWAKE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWUPHOTRST</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SWUPIN</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TESTINHIP</p></td>
+<td></td>
+<td><p>0-39</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TESTOUTHIP</p></td>
+<td></td>
+<td><p>0-63</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAERMSINUM</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTAACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTAFUNCNUM</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTASTS</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTBACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTBFUNCNUM</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTBSTS</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTCACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTCFUNCNUM</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTCSTS</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTDACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPINTDFUNCNUM</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPINTDSTS</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPMSIACK</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPMSIFUNC</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPMSINUM</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLAPPMSIREQ</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLAPPMSITC</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLCFGADD</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLCFGCTL</p></td>
+<td></td>
+<td><p>0-31</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLCFGCTLWR</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLCFGSTS</p></td>
+<td></td>
+<td><p>0-122</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLCFGSTSWR</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLHPGCTRLER</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLPEXMSINUM</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLPMAUXPWR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLPMDATA</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLPMETOCR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLPMETOSR</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLPMEVENT</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TLPMEVENTFUNC</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TLSLOTCLKCFG</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXCREDDATAFCCP</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXCREDDATAFCNP</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXCREDDATAFCP</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXCREDFCHIPCONS</p></td>
+<td></td>
+<td><p>0-5</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXCREDFCINFINITE</p></td>
+<td></td>
+<td><p>0-5</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXCREDHDRFCCP</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXCREDHDRFCNP</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXCREDHDRFCP</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXCREDVC0</p></td>
+<td></td>
+<td><p>0-35</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXDATAVC0</p></td>
+<td><p>0-1</p></td>
+<td><p>0-63</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXEOPVC0</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXERRVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXFIFOEMPTYVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXFIFOFULLVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXFIFORDPVC0</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXFIFOWRPVC0</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXREADYVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXSOPVC0</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXVALIDVC0</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>WAKEOEN</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EIDLEINFERSEL</p></td>
+<td><p>0-3</p></td>
+<td><p>0-2</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_EIDLE_INFER_SEL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FREFCLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_FREF_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FREFCLK</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_FREF_CLK2</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PCLKCH</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_PCLK_C</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYSTATUS</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_PHYSTATUS</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLFIXEDCLK</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_PLL_FIXED_CLK_C</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>POWERDOWN</p></td>
+<td><p>0-3</p></td>
+<td><p>0-1</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_POWERDOWN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RATE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RATE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RATE</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RATE2</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXDATA</p></td>
+<td><p>0-3</p></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_DATA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXDATAK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_DATAK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXELECIDLE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RXELECIDLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXFREQLOCKED</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RXFREQLOCKED</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXFREQTXCMUPLLLOCK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_FREQ_TX_CMU_PLL_LOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXFREQTXCMUPLLLOCK</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_FREQ_TX_CMU_PLL_LOCK2</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXPCSRSTN</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PCS_RST2_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXPCSRSTN</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PCS_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXPLLPHASELOCK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PLL_PHASE_LOCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXPLLPHASELOCK</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PLL_PHASE_LOCK2</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXPMARSTB</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PMA_RST2B</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXPMARSTB</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RX_PMA_RSTB</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXPOLARITY</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RXPOLARITY</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>RXSTATUS</p></td>
+<td><p>0-3</p></td>
+<td><p>0-2</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RXSTATUS</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>RXVALID</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_RXVALID</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXCOMPL</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TXCOMPL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXDATA</p></td>
+<td><p>0-3</p></td>
+<td><p>0-7</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TXDATA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXDATAK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TXDATAK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXDEEMPH</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TX_DEEMPH</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXDETECTRX</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TXDETECTRX</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXELECIDLE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TXELECIDLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXMARGIN</p></td>
+<td><p>0-3</p></td>
+<td><p>0-2</p></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TX_MARGIN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXPCSRSTN</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TX_PCS_RST2_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>TXPCSRSTN</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TX_PCS_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TXSWING</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HSSI:SMRT_PACK_HIP_TX_SWING</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="dll">
 <h4>DLL<a class="headerlink" href="#dll" title="Permalink to this headline"></a></h4>
@@ -11780,14 +15034,14 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ASYNC_LOAD</p></td>
+<tr class="row-even"><td><p>ASYNCH_LOAD</p></td>
 <td></td>
-<td></td>
+<td><p>0</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CTRL_OUT</p></td>
+<tr class="row-odd"><td><p>DELAY_CTRL_OUT</p></td>
 <td></td>
 <td><p>0-6</p></td>
 <td><p>GIN</p></td>
@@ -11826,12 +15080,12 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 5%" />
+<col style="width: 20%" />
+<col style="width: 13%" />
 <col style="width: 14%" />
-<col style="width: 48%" />
+<col style="width: 6%" />
+<col style="width: 28%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -11843,12 +15097,33 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
+<tr class="row-even"><td><p>CLOCK</p></td>
 <td></td>
 <td></td>
 <td><p>&lt;</p></td>
-<td><p>FPLL:CLKDOUT</p></td>
-<td><p>Dedicated differential I/O PLL counter to DLL</p></td>
+<td><p>FPLL:PLLDOUT0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DELAY_CTRL_OUT</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:DELAY_CTRL_IN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DELAY_CTRL_OUT</p></td>
+<td></td>
+<td><p>0-6</p></td>
+<td><p>&gt;</p></td>
+<td><p>LVL:CTL_DLL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DQS_UPDATE</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:DQS_UPDATE_ENA</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -11856,7 +15131,6 @@ serializing/deserializing capabilities of the FPGA.</p>
 <section id="serpar">
 <h4>SERPAR<a class="headerlink" href="#serpar" title="Permalink to this headline"></a></h4>
 <p>Unclear yet.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -11889,11 +15163,52 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S2PLOAD</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCANCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCANENABLE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="lvl">
 <h4>LVL<a class="headerlink" href="#lvl" title="Permalink to this headline"></a></h4>
 <p>The Leveling Delay Chain does something linked to the DQS16.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -12036,12 +15351,12 @@ serializing/deserializing capabilities of the FPGA.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 15%" />
-<col style="width: 17%" />
-<col style="width: 8%" />
-<col style="width: 20%" />
 <col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 25%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -12053,11 +15368,130 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td><p>CTL_DLL</p></td>
+<td><p>1-2</p></td>
+<td><p>0-6</p></td>
 <td><p>&lt;</p></td>
-<td><p>HMC</p></td>
+<td><p>DLL:DELAY_CTRL_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFPLL_CLK</p></td>
+<td><p>1-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>CBUF:CLOCK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FFPLL_CLK</p></td>
+<td><p>1-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>CBUF:LVDS_CLKA</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFPLL_CLK</p></td>
+<td><p>1-2</p></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>CBUF:LVDS_CLKB</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LDC_CLKOUT</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:DQS_2X_CLK_X</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LDC_CLKOUT</p></td>
+<td><p>1</p></td>
+<td><p>0-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:DQS_CLK_X</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>LDC_CLKOUT</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:DQ_CLK_X</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>LDC_CLKOUT</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:SEQ_HR_CLK_X</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_ADDR_CMD_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HMC:PLLADDRCMDCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_AFI_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HMC:PLLAFICLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_AVL_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HMC:PLLAVLCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CORE_DQCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORE_DQS2XCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CORE_DQSCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CORE_HRCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -12066,7 +15500,6 @@ serializing/deserializing capabilities of the FPGA.</p>
 <section id="term">
 <h4>TERM<a class="headerlink" href="#term" title="Permalink to this headline"></a></h4>
 <p>The TERM blocks control the On-Chip Termination circuitry</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 26%" />
@@ -12268,11 +15701,150 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKENUSR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKUSR</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKUSRDFTOUT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>COMPOUTRDN</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>COMPOUTRUP</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENSERUSR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLRUSR</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCANCLK</p></td>
+<td></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCANEN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCANIN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCANOUT</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SERDATAFROMCORE</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SERDATATOCORE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 8%" />
+<col style="width: 21%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RZQIN</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="pma3">
 <h4>PMA3<a class="headerlink" href="#pma3" title="Permalink to this headline"></a></h4>
 <p>The PMA3 blocks control triplets of channels used with the HSSI.</p>
-<p>TODO: everything</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 28%" />
@@ -15171,14 +18743,14 @@ connected to the corresponding PHYDDIO* ports.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>BONDINGIN</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td><p>0-5</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>BONDINGOUT</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td><p>0-5</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
@@ -15241,8 +18813,8 @@ connected to the corresponding PHYDDIO* ports.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>IAVSTWRCLK</p></td>
-<td></td>
 <td><p>0-3</p></td>
+<td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
@@ -15710,8 +19282,8 @@ connected to the corresponding PHYDDIO* ports.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OAMMREADY</p></td>
-<td></td>
 <td><p>0-5</p></td>
+<td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
@@ -15867,12 +19439,12 @@ connected to the corresponding PHYDDIO* ports.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 24%" />
+<col style="width: 8%" />
+<col style="width: 32%" />
+<col style="width: 4%" />
 <col style="width: 19%" />
-<col style="width: 10%" />
-<col style="width: 38%" />
-<col style="width: 5%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
+<col style="width: 12%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -15884,214 +19456,284 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td></td>
-<td><p>0-4</p></td>
-<td></td>
-<td><p>&gt;</p></td>
-<td><p>DQS16</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td></td>
-<td></td>
-<td><p>&gt;</p></td>
-<td><p>LVL</p></td>
-<td><p>TODO</p></td>
-</tr>
 <tr class="row-even"><td><p>DDIOPHYDQDIN</p></td>
 <td></td>
 <td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>&lt;</p></td>
-<td><p>GPIO:DATAOUT</p></td>
+<td><p>GPIO:DATAIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOADDRACLR</p></td>
+<tr class="row-odd"><td><p>DDIOPHYDQSLOGICRDATAVALID</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>&lt;</p></td>
+<td><p>DQS16:RDATA_VALID</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYDDIOADDRACLR</p></td>
 <td></td>
 <td><p>0-15</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOADDRDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIOADDRDOUT</p></td>
 <td></td>
 <td><p>0-63</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOBAACLR</p></td>
+<tr class="row-even"><td><p>PHYDDIOBAACLR</p></td>
 <td></td>
-<td></td>
+<td><p>0-2</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOBADOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIOBADOUT</p></td>
 <td></td>
 <td><p>0-11</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOCASNACLR</p></td>
+<tr class="row-even"><td><p>PHYDDIOCASNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOCASNDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIOCASNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOCKDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIOCKDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOCKEACLR</p></td>
+<tr class="row-odd"><td><p>PHYDDIOCKEACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOCKEDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIOCKEDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOCKNDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIOCKNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOCSNACLR</p></td>
+<tr class="row-even"><td><p>PHYDDIOCSNACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOCSNDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIOCSNDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIODMDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIODMDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIODQDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIODQDOUT</p></td>
 <td></td>
 <td><p>0-31, 36-67, 72-103, 108-139, 144-175</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIODQOE</p></td>
+<tr class="row-even"><td><p>PHYDDIODQOE</p></td>
 <td></td>
 <td><p>0-15, 18-33, 36-51, 54-69, 72-87</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:OEIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIODQSBDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIODQSBDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIODQSBOE</p></td>
+<tr class="row-even"><td><p>PHYDDIODQSBOE</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:OEIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIODQSDOUT</p></td>
+<tr class="row-odd"><td><p>PHYDDIODQSDOUT</p></td>
 <td></td>
 <td><p>0-19</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIODQSOE</p></td>
+<tr class="row-even"><td><p>PHYDDIODQSLOGICACLRFIFOCTRL</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:ACLR_FIFOCTRL</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHYDDIODQSLOGICACLRPSTAMBLE</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:ACLR_PSTAMBLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYDDIODQSLOGICDQSENA</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:NPOSTAMBLE</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHYDDIODQSLOGICFIFORESET</p></td>
+<td></td>
+<td><p>0-4</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:FIFO_CORE_RESET</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYDDIODQSLOGICINCRDATAEN</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:RDATA_EN</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHYDDIODQSLOGICINCWRPTR</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:INCR_VFIFO</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYDDIODQSLOGICOCT</p></td>
+<td></td>
+<td><p>0-9</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:NOCT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHYDDIODQSLOGICREADLATENCY</p></td>
+<td></td>
+<td><p>0-24</p></td>
+<td><p>&gt;</p></td>
+<td><p>DQS16:RD_LATENCY</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PHYDDIODQSOE</p></td>
 <td></td>
 <td><p>0-9</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:OEIN</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOODTACLR</p></td>
+<tr class="row-odd"><td><p>PHYDDIOODTACLR</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOODTDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIOODTDOUT</p></td>
 <td></td>
 <td><p>0-7</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIORASNACLR</p></td>
+<tr class="row-odd"><td><p>PHYDDIORASNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIORASNDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIORASNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIORESETNACLR</p></td>
+<tr class="row-odd"><td><p>PHYDDIORESETNACLR</p></td>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIORESETNDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIORESETNDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>PHYDDIOWENACLR</p></td>
+<tr class="row-odd"><td><p>PHYDDIOWENACLR</p></td>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
 <td><p>GPIO:ACLR</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>PHYDDIOWENDOUT</p></td>
+<tr class="row-even"><td><p>PHYDDIOWENDOUT</p></td>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>GPIO:DATAIN</p></td>
+<td><p>GPIO:DATAOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLADDRCMDCLK</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:PLL_ADDR_CMD_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLAFICLK</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:PLL_AFI_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLAVLCLK</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>LVL:PLL_AVL_CLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16207,12 +19849,12 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 12%" />
-<col style="width: 13%" />
-<col style="width: 6%" />
 <col style="width: 17%" />
-<col style="width: 38%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 5%" />
+<col style="width: 39%" />
+<col style="width: 16%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -16224,33 +19866,89 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CLKOUT</p></td>
-<td><p>0</p></td>
+<tr class="row-even"><td><p>EMAC_TX_CLK_O</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_PERIPHERAL_EMAC:PHY_TXCLK_O</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>HPS_TCK</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_JTAG:TCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>QSPI_SCK_OUT</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_PERIPHERAL_QSPI:SCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2F_CLK_R</p></td>
+<td></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHG:PLLIN</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0</p></td>
+<tr class="row-even"><td><p>S2F_CLK_R</p></td>
+<td></td>
 <td><p>0-8</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXHR:PLLIN</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKOUT</p></td>
-<td><p>1</p></td>
+<tr class="row-odd"><td><p>S2F_CLK_T</p></td>
+<td></td>
 <td><p>5-8</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVG:PLLIN</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>1</p></td>
+<tr class="row-even"><td><p>S2F_CLK_T</p></td>
+<td></td>
 <td><p>0-8</p></td>
 <td><p>&gt;</p></td>
 <td><p>CMUXVR:PLLIN</p></td>
-<td><p>HPS clock output to clock mux</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2F_COLD_RST_N</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS_RESETS:H2F_COLD_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>S2F_RST_N</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS_RESETS:H2F_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>S2F_USER_CLK</p></td>
+<td><p>0-2</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS_RESETS:H2F_USER_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SPIM_SCLK_OUT</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_PERIPHERAL_SPI_MASTER:SCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>TPIU_TRACE_CLK</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_TPIU_TRACE:TRACECLK</p></td>
+<td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
@@ -16330,6 +20028,48 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 32%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H2F_COLD_RST_N</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:S2F_COLD_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>H2F_RST_N</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:S2F_RST_N</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>H2F_USER_CLK</p></td>
+<td><p>0-2</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:S2F_USER_CLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16527,12 +20267,12 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 23%" />
-<col style="width: 14%" />
 <col style="width: 20%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -16544,25 +20284,25 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ACK</p></td>
+<tr class="row-even"><td><p>CHANNEL_REQ</p></td>
+<td><p>0-7</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CHANNEL_SINGLE</p></td>
+<td><p>0-7</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CHANNEL_XX_ACK</p></td>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>REQ</p></td>
-<td><p>0-7</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>SINGLE</p></td>
-<td><p>0-7</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -16894,7 +20634,7 @@ through 37 specialized blocks of 28 different types.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>BONDING_OUT</p></td>
-<td><p>0-1</p></td>
+<td><p>1-2</p></td>
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
@@ -17634,12 +21374,12 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
 <col style="width: 23%" />
-<col style="width: 12%" />
-<col style="width: 13%" />
-<col style="width: 21%" />
-<col style="width: 12%" />
-<col style="width: 18%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -17651,142 +21391,72 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>H2F_CAN_IRQ</p></td>
+<tr class="row-even"><td><p>CAN</p></td>
+<td></td>
 <td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKMGR</p></td>
+<td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>H2F_CLKMGR_IRQ</p></td>
+<tr class="row-even"><td><p>CTI_IRQ</p></td>
 <td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_CTI_IRQ_N</p></td>
 <td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA_ABORT</p></td>
+<td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>H2F_DMA_ABORT_IRQ</p></td>
+<tr class="row-even"><td><p>DMA_IRQ</p></td>
 <td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_DMA_IRQ</p></td>
 <td><p>0-7</p></td>
-<td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>H2F_EMAC_IRQ</p></td>
+<tr class="row-odd"><td><p>EMAC</p></td>
+<td></td>
 <td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FPGA_MAN</p></td>
+<td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>H2F_FPGA_MAN_IRQ</p></td>
+<tr class="row-odd"><td><p>HGPIO</p></td>
 <td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_GPIO_IRQ</p></td>
 <td><p>0-2</p></td>
-<td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>H2F_I2C_EMAC_IRQ</p></td>
+<tr class="row-even"><td><p>I2C</p></td>
+<td></td>
 <td><p>0-1</p></td>
-<td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>H2F_I2C_IRQ</p></td>
+<tr class="row-odd"><td><p>I2C_EMAC</p></td>
+<td></td>
 <td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_L4SP_IRQ</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_MPUWAKEUP_IRQ</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_NAND_IRQ</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_OSC_IRQ</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_QSPI_IRQ</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_SDMMC_IRQ</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_SPI_IRQ</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_UART_IRQ</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>H2F_USB_IRQ</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>H2F_WDOG_IRQ</p></td>
-<td><p>0-1</p></td>
-<td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
@@ -17796,6 +21466,76 @@ through 37 specialized blocks of 28 different types.</p>
 <td><p>0-63</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>L4SP</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>MPUWAKEUP</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>NAND</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>OSC</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>QSPI</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SDMMC</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPI</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>UART</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>USB</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>WDOG</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -17855,6 +21595,34 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 28%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TCK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:HPS_TCK</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18194,6 +21962,34 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 33%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PHY_TXCLK_O</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:EMAC_TX_CLK_O</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="hps-peripheral-i2c">
 <h5>HPS_PERIPHERAL_I2C<a class="headerlink" href="#hps-peripheral-i2c" title="Permalink to this headline"></a></h5>
@@ -18371,7 +22167,21 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MO</p></td>
-<td><p>0-3</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>MO2_WPN</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>MO3_HOLD</p></td>
+<td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
@@ -18389,6 +22199,34 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>0-3</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 32%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SCLK_OUT</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:QSPI_SCK_OUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18545,25 +22383,25 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>SSI_OE_N</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>SS_IN_N</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>SS_N</p></td>
+<tr class="row-odd"><td><p>SS</p></td>
 <td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SSI_OE</p></td>
+<td></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>SS_IN</p></td>
+<td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>TXD</p></td>
@@ -18571,6 +22409,34 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 33%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SCLK_OUT</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:SPIM_SCLK_OUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -18612,14 +22478,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>SSI_OE_N</p></td>
+<tr class="row-even"><td><p>SSI_OE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>SS_IN_N</p></td>
+<tr class="row-odd"><td><p>SS_IN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
@@ -18686,8 +22552,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>OUT_N</p></td>
-<td><p>0-1</p></td>
+<tr class="row-even"><td><p>OUT</p></td>
+<td><p>1-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
@@ -19151,48 +23017,6 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_L3MAINTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_L3MPTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_L3SPTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_L4MAINTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_L4MPTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_L4SPTESTEN</p></td>
-<td></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_LWH2FAXICLK_TESTEN</p></td>
 <td></td>
 <td></td>
@@ -19200,29 +23024,43 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_MEM_CPU_SI</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_MAINTESTEN</p></td>
+<td><p>3-4</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_CPU_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_L2_SI</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_MEM_L2_SI</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_MEM_PERI_SI</p></td>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_PERI_SI</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_MEM_SE</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_MEM_SE</p></td>
 <td></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_MPTESTEN</p></td>
+<td><p>3-4</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19383,14 +23221,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_BG_PWRDN</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_BG_RESET</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19425,7 +23263,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_CLK_SELECT</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19446,21 +23284,21 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_OUTRESET</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_OUTRESETALL</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_PWRDN</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19474,14 +23312,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_REG_PWRDN</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_RESET</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19509,14 +23347,14 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_IN_FPGA_PLL_REG_TEST_SEL</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_RESET</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19530,7 +23368,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_PLL_TEST</p></td>
-<td><p>0-2</p></td>
+<td><p>1-3</p></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
@@ -19573,7 +23411,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 <tr class="row-odd"><td><p>DFT_IN_FPGA_SCAN_EN</p></td>
 <td></td>
-<td></td>
+<td><p>0</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
@@ -19592,399 +23430,406 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_TEST_CKEN</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_SPTESTEN</p></td>
+<td><p>3-4</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_TEST_CKEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_TEST_CLK</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_TEST_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>DCMUX</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_TEST_CLKOFF</p></td>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_TEST_CLKOFF</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_TPIUTRACECLKIN_TESTEN</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_TPIUTRACECLKIN_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_USBMPTESTEN</p></td>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_USBMPTESTEN</p></td>
 <td></td>
-<td></td>
+<td><p>0</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_USBULPICLK_TESTEN</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_USBULPICLK_TESTEN</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_VIOSCANCLK_TESTEN</p></td>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_VIOSCANCLK_TESTEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_FPGA_VIOSCANEN</p></td>
+<tr class="row-even"><td><p>DFT_IN_FPGA_VIOSCANEN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_IN_FPGA_VIOSCANIN</p></td>
+<tr class="row-odd"><td><p>DFT_IN_FPGA_VIOSCANIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_IN_HPS_TESTMODE_N</p></td>
+<tr class="row-even"><td><p>DFT_IN_HPS_TESTMODE_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_BIST_CPU_SO</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_BIST_CPU_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_BIST_L2_SO</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_BIST_L2_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_BIST_PERI_SO</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_BIST_PERI_SO</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_DLLLOCKED</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_DLLLOCKED</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_DLLSETTING</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_DLLSETTING</p></td>
 <td></td>
 <td><p>0-6</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_DLLUPDWNCORE</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_DLLUPDWNCORE</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_HIOCDATA3IN</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_HIOCDATA3IN</p></td>
 <td></td>
 <td><p>0-44</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_HIODQSOUT</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_HIODQSOUT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_HIODQSUNGATING</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_HIODQSUNGATING</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_HIOOCTRT</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_HIOOCTRT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_HIOSCANOUT</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_HIOSCANOUT</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_IPSCOUT</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_IPSCOUT</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_MEM_CPU_SO</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_MEM_CPU_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_MEM_L2_SO</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_MEM_L2_SO</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_MEM_PERI_SO</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_MEM_PERI_SO</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTCLKUSRDFT</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_OCTCLKUSRDFT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RDN</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RDN</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RUP</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_OCTCOMPOUT_RUP</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_OCTSCANOUT</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTSCANOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_OCTSERDATA</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_OCTSERDATA</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_PLL_TESTBUS_OUT</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_PLL_TESTBUS_OUT</p></td>
 <td></td>
 <td><p>0-2</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_PSTTRACKSAMPLE</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_PSTTRACKSAMPLE</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_PSTVFIFO</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_PSTVFIFO</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_100_126</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_100_126</p></td>
 <td></td>
 <td><p>0-26</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_131_250</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_131_250</p></td>
 <td></td>
 <td><p>0-119</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_15_83</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_15_83</p></td>
 <td></td>
 <td><p>0-68</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_254_264</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_254_264</p></td>
 <td></td>
 <td><p>0-10</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_271_389</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_271_389</p></td>
 <td></td>
 <td><p>0-118</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_OUT_FPGA_SCANOUT_2_3</p></td>
+<tr class="row-odd"><td><p>DFT_OUT_FPGA_SCANOUT_2_3</p></td>
 <td></td>
 <td><p>0-1</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFT_OUT_FPGA_VIOSCANOUT</p></td>
+<tr class="row-even"><td><p>DFT_OUT_FPGA_VIOSCANOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_IN_FPGA_T2_CLK</p></td>
+<tr class="row-odd"><td><p>DFX_IN_FPGA_T2_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_IN_FPGA_T2_DATAIN</p></td>
+<tr class="row-even"><td><p>DFX_IN_FPGA_T2_DATAIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_IN_FPGA_T2_SCAN_EN_N</p></td>
+<tr class="row-odd"><td><p>DFX_IN_FPGA_T2_SCAN_EN_N</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_OUT_FPGA_DATA</p></td>
+<tr class="row-even"><td><p>DFX_OUT_FPGA_DATA</p></td>
 <td></td>
 <td><p>0-17</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_OUT_FPGA_DCLK</p></td>
+<tr class="row-odd"><td><p>DFX_OUT_FPGA_DCLK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_OUT_FPGA_OSC1_CLK</p></td>
+<tr class="row-even"><td><p>DFX_OUT_FPGA_OSC1_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_OUT_FPGA_PR_REQUEST</p></td>
+<tr class="row-odd"><td><p>DFX_OUT_FPGA_PR_REQUEST</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_OUT_FPGA_S2F_DATA</p></td>
+<tr class="row-even"><td><p>DFX_OUT_FPGA_S2F_DATA</p></td>
 <td></td>
 <td><p>0-31</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_OUT_FPGA_SDRAM_OBSERVE</p></td>
+<tr class="row-odd"><td><p>DFX_OUT_FPGA_SDRAM_OBSERVE</p></td>
 <td></td>
 <td><p>0-4</p></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_OUT_FPGA_T2_DATAOUT</p></td>
+<tr class="row-even"><td><p>DFX_OUT_FPGA_T2_DATAOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_SCAN_CLK</p></td>
+<tr class="row-odd"><td><p>DFX_SCAN_CLK</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_SCAN_DIN</p></td>
+<tr class="row-even"><td><p>DFX_SCAN_DIN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_SCAN_DOUT</p></td>
+<tr class="row-odd"><td><p>DFX_SCAN_DOUT</p></td>
 <td></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>DFX_SCAN_EN</p></td>
+<tr class="row-even"><td><p>DFX_SCAN_EN</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>DFX_SCAN_LOAD</p></td>
+<tr class="row-odd"><td><p>DFX_SCAN_LOAD</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>F2S_CTRL</p></td>
+<tr class="row-even"><td><p>F2S_CTRL</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
 <td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>F2S_JTAG_ENABLE_CORE</p></td>
+<tr class="row-odd"><td><p>F2S_JTAG_ENABLE_CORE</p></td>
 <td></td>
 <td></td>
 <td><p>GOUT</p></td>
@@ -20038,6 +23883,34 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 34%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TRACECLK</p></td>
+<td></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>HPS_CLOCKS:TPIU_TRACE_CLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 </section>
@@ -20045,11 +23918,11 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 46%" />
-<col style="width: 8%" />
-<col style="width: 16%" />
-<col style="width: 11%" />
-<col style="width: 19%" />
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 10%" />
+<col style="width: 7%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -20070,7 +23943,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
-<td><p>TODO</p></td>
+<td><p>Bitstream compression flag</p></td>
 </tr>
 <tr class="row-even"><td><p>CRC_DIVIDE_ORDER</p></td>
 <td><p>Num</p></td>
@@ -20111,61 +23984,73 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>0</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>IDCODE</p></td>
+<tr class="row-even"><td><p>EXTERNAL_CLK_SPI</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>12</p></li>
+<li><p>25</p></li>
+<li><p>50</p></li>
+<li><p>100</p></li>
+</ul>
+</td>
+<td><p>100</p></td>
+<td><p>Choose the (rough, +/- 20%) frequency of the internal oscillator</p></td>
+</tr>
+<tr class="row-odd"><td><p>IDCODE</p></td>
 <td><p>Ram</p></td>
 <td><p>00-ff</p></td>
 <td></td>
-<td><p>TODO</p></td>
+<td><p>Low 8 bits of the IDCODE of the device</p></td>
 </tr>
-<tr class="row-odd"><td><p>IOCSR_READY_FROM_CSR_DONE_EN</p></td>
+<tr class="row-even"><td><p>IOCSR_READY_FROM_CSR_DONE_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>JTAG_ID</p></td>
+<tr class="row-odd"><td><p>JTAG_ID</p></td>
 <td><p>Ram</p></td>
 <td><p>32 bits</p></td>
 <td></td>
-<td><p>TODO</p></td>
+<td><p>32-bits JTAG id</p></td>
 </tr>
-<tr class="row-odd"><td><p>NCEO_DIS</p></td>
+<tr class="row-even"><td><p>NCEO_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>OCT_DONE_DIS</p></td>
+<tr class="row-odd"><td><p>OCT_DONE_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>OPT_A</p></td>
+<tr class="row-even"><td><p>OPT_A</p></td>
 <td><p>Ram</p></td>
 <td><p>0000-ffff</p></td>
 <td></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>OPT_B</p></td>
+<tr class="row-odd"><td><p>OPT_B</p></td>
 <td><p>Ram</p></td>
 <td><p>64 bits</p></td>
 <td></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>RELEASE_CLEARS_BEFORE_TRISTATES_DIS</p></td>
+<tr class="row-even"><td><p>RELEASE_CLEARS_BEFORE_TRISTATES_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>RETRY_CONFIG_ON_ERROR_EN</p></td>
+<tr class="row-odd"><td><p>RETRY_CONFIG_ON_ERROR_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>START_UP_CLOCK</p></td>
+<tr class="row-even"><td><p>START_UP_CLOCK</p></td>
 <td><p>Ram</p></td>
 <td><p>00-ff</p></td>
 <td><p>40</p></td>
