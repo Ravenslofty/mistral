@@ -23,7 +23,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   49, 40,                  // hps (arm) processor core position
   259,                     // IO blocks count
   14,                      // dqs16 count
-  5922,                    // inverters count
   20,                      // count of forced-1 bits
   xy2pos(0, 2),            // control block position
 
@@ -71,7 +70,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   gx25f_ioblocks_info,
   gx25f_dqs16_info,
   gx25f_fixed_blocks_info,
-  gx25f_inverters_info,
   gx25f_dcram_pos,
   gx25f_forced_1_info,
   nullptr,

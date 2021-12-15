@@ -15,6 +15,8 @@ public:
 
   P2RLoader(const NodesReader &nr, const std::vector<uint8_t> &data);
 
+  pnode_t find_r(rnode_t node) const;
+
 private:
   const NodesReader &nr;
 

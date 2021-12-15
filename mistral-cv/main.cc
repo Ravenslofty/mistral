@@ -449,7 +449,7 @@ static void decompile(char **args)
     }
 
   for(const auto &s : model->inv_get())
-    if(!s.def || !model->rnode_to_pnode(s.node)) {
+    if(!s.def) {
       auto p = model->rnode_to_pnode(s.node);
       fprintf(fd, "i %s %d",
 	      p ? mistral::CycloneV::pn2s(p).c_str() : mistral::CycloneV::rn2s(s.node).c_str(), s.value);

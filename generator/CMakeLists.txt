@@ -10,6 +10,7 @@ set(generator_SOURCES
     drivers.cc
     p2r.cc
     p2p.cc
+    inv.cc
     generator.cc
     ../libmistral/bdz-ph.cc
 )

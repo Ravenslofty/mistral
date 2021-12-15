@@ -89,3 +89,11 @@ void P2RLoader::error(const uint8_t *st, const char *err) const
   fprintf(stderr, "line: %s\n", line.c_str());
   exit(1);
 }
+
+pnode_t P2RLoader::find_r(rnode_t node) const
+{
+  for(const auto &n : data)
+    if(n.r == node)
+      return n.p;
+  return 0;
+}

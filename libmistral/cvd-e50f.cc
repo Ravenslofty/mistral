@@ -21,7 +21,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   55, 46,                  // hps (arm) processor core position
   293,                     // IO blocks count
   17,                      // dqs16 count
-  5845,                    // inverters count
   12,                      // count of forced-1 bits
   xy2pos(0, 4),            // control block position
 
@@ -71,7 +70,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   e50f_ioblocks_info,
   e50f_dqs16_info,
   e50f_fixed_blocks_info,
-  e50f_inverters_info,
   nullptr,
   e50f_forced_1_info,
   nullptr,

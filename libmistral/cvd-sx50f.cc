@@ -27,7 +27,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   31, 17,                  // hps (arm) processor core position
   438,                     // IO blocks count
   19,                      // dqs16 count
-  9863,                    // inverters count
   0,                       // count of forced-1 bits
   xy2pos(0, 3),            // control block position
 
@@ -80,7 +79,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   sx50f_ioblocks_info,
   sx50f_dqs16_info,
   sx50f_fixed_blocks_info,
-  sx50f_inverters_info,
   sx50f_dcram_pos,
   nullptr,
   sx50f_hps_info,

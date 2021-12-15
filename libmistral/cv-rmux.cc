@@ -54,6 +54,7 @@ void mistral::CycloneV::rmux_load()
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
   p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r_info);
   p2p_infos = reinterpret_cast<const p2p_info *>(data + dhead->off_p2p_info);
+  inverter_infos = reinterpret_cast<const inverter_info *>(data + dhead->off_inv_info);
 
   std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
   gdhead = reinterpret_cast<const global_data_header *>(data);

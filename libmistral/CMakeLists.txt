@@ -66,16 +66,6 @@ foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     )
     list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-pkg.cc)
 
-
-    # inverters information
-
-    add_custom_command(
-       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-inv.cc
-       COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/inv_to_source.py ${DATA} ${die} > ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-inv.cc
-       DEPENDS ${TOOLS}/inv_to_source.py ${DATA}/${die}-inv.txt
-    )
-    list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-inv.cc)
-
 endforeach()
 
 
@@ -85,7 +75,7 @@ foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     add_custom_command(
        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${die}-r.bin
        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA} ${die} ${CMAKE_CURRENT_BINARY_DIR} ${COMPRESSION_LEVEL}
-       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA}/${die}-r.txt.xz ${DATA}/${die}-l.txt.xz
+       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/../generator/generator ${DATA}/${die}-r.txt.xz ${DATA}/${die}-l.txt.xz ${DATA}/${die}-d.txt.xz ${DATA}/${die}-p2r.txt ${DATA}/${die}-p2p.txt ${DATA}/${die}-inv.txt
     )
 
     add_custom_command(

@@ -23,7 +23,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   122, 116,                // hps (arm) processor core position
   637,                     // IO blocks count
   35,                      // dqs16 count
-  14714,                   // inverters count
   28,                      // count of forced-1 bits
   xy2pos(0, 3),            // control block position
 
@@ -89,7 +88,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   gt300f_ioblocks_info,
   gt300f_dqs16_info,
   gt300f_fixed_blocks_info,
-  gt300f_inverters_info,
   gt300f_dcram_pos,
   gt300f_forced_1_info,
   nullptr,
