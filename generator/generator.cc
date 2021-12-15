@@ -253,7 +253,7 @@ int main(int argc, char **argv)
     memcpy(output.data() + dh->off_p2r_info, p2r.data.data(), p2rs);
     memcpy(output.data() + dh->off_p2p_info, p2p.data.data(), p2ps);
 
-    fprintf(stderr, "%-6s size %9d nodeinfo %9d hash %9d hashmap %9d nodes %7d lines %5d p2r %5d p2p %5d\n", chip.c_str(), int(output.size()), dh->off_rnode_end - dh->off_rnode, int(len1), int(len2), dh->count_rnode, int(rli_data.size()), int(p2r.data.size()), int(p2p.data.size()));
+    fprintf(stderr, "%-6s size %9d nodeinfo %9d hash %9d hashmap %9d nodes %7d lines %5d p2r %5d p2p %4d\n", chip.c_str(), int(output.size()), dh->off_rnode_end - dh->off_rnode, int(len1), int(len2), dh->count_rnode, int(rli_data.size()), int(p2r.data.size()), int(p2p.data.size()));
 
     file_save(dest_dir + '/' + chip + "-r.bin", output, strtol(argv[4], nullptr, 10));
   }
