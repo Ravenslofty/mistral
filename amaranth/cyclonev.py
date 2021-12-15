@@ -1,4 +1,4 @@
-from nmigen import *
+from amaranth import *
 
 class hps_general_purpose(Elaboratable):
     def __init__(self):
