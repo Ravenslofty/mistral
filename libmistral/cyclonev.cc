@@ -207,6 +207,7 @@ void mistral::CycloneV::clear()
   bmux_set_defaults();
   route_set_defaults();
   forced_1_set();
+  inv_default_set();
   oram_clear();
 }
 

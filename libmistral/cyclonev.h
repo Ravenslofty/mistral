@@ -1116,6 +1116,7 @@ namespace mistral {
     const bmux *bmux_find(const bmux *pmux, bmux_type_t mux, int variant = 0) const;
 
     void forced_1_set();
+    void inv_default_set();
 
     void opt_get_one(const bmux *muxes, opt_setting_t &bms) const;
 

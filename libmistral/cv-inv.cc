@@ -28,6 +28,33 @@ std::vector<mistral::CycloneV::inv_setting_t> mistral::CycloneV::inv_get() const
   return res;
 }
 
+void mistral::CycloneV::inv_default_set()
+{
+  for(uint32_t i = 0; i != dhead->count_inv; i++) {
+    const auto &inf = inverter_infos[i];
+    uint32_t pos = inf.pos_and_def & ~inverter_info::DEF_MASK;
+    bool def = false;
+    switch(inf.pos_and_def & inverter_info::DEF_MASK) {
+    case inverter_info::DEF_0: def = false; break;
+    case inverter_info::DEF_1: def = true; break;
+
+    case inverter_info::DEF_GP_0:
+    case inverter_info::DEF_GP_1: {
+      def = (inf.pos_and_def & inverter_info::DEF_MASK) == inverter_info::DEF_GP_0;
+      pnode_t pnode = rnode_to_pnode(inf.node);
+      if(pin_find_pnode(pnode))
+	def = !def;
+      break;
+    }
+    }
+
+    if(def)
+      cram[pos >> 3] |= 1 << (pos & 7);
+    else
+      cram[pos >> 3] &= ~(1 << (pos & 7));
+  }
+}
+
 bool mistral::CycloneV::inv_set(rnode_t node, bool value)
 {
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
