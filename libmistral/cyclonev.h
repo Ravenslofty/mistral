@@ -841,8 +841,8 @@ namespace mistral {
 	DEF_0    = 0x10000000,
 	DEF_1    = 0x20000000,
 
-	DEF_GP_0 = 0x30000000, // 0 if the GPIO pin is connected, 1 otherwise
-	DEF_GP_1 = 0x40000000, // 1 if the GPIO pin is connected, 0 otherwise
+	DEF_GP   = 0x30000000, // Algorithmic, GPIO
+	DEF_HMC  = 0x40000000, // Algorithmic, bypassable HMC
 
 	DEF_MASK = 0xf0000000,
       };
@@ -1115,6 +1115,7 @@ namespace mistral {
     void bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux, uint32_t &base, const bmux *&pmux, bmux_ram_t &mode) const;
     const bmux *bmux_find(const bmux *pmux, bmux_type_t mux, int variant = 0) const;
 
+    int inv_get_default(const inverter_info &inf) const;
     void forced_1_set();
     void inv_default_set();
 

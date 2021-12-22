@@ -61,7 +61,7 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_t node, ui
 {
   if(!(pos & inverter_info::DEF_MASK)) {
     pnode_t pn = p2r.find_r(node);
-
+    auto pt = pn2pt(pn);
     if(pn) {
       switch(pn2bt(pn)) {
       case CTRL: pos |= inverter_info::DEF_0; break;
@@ -101,25 +101,17 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_t node, ui
       case SERPAR: pos |= inverter_info::DEF_0; break;
       case TERM: pos |= inverter_info::DEF_0; break;
 
-      case FPLL: pos |= (pn2pt(pn) == CLKEN || pn2pt(pn) == EXTSWITCH0 ? inverter_info::DEF_1 : inverter_info::DEF_0); break;
-      case HPS_CROSS_TRIGGER: pos |= pn2pt(pn) == CLK_EN ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
-      case HPS_TEST: pos |= pos |= pn2pt(pn) == CFG_DFX_BYPASS_ENABLE ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
-      case HSSI: pos |= ((pn2pt(pn) == PMA_PMA_RESERVED_IN && pn2pi(pn) == 0) || pn2pt(pn) == SMRT_PACK_PLD_8G_TXELECIDLE) ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
+      case FPLL: pos |= (pt == CLKEN || pt == EXTSWITCH0 ? inverter_info::DEF_1 : inverter_info::DEF_0); break;
+      case HPS_CROSS_TRIGGER: pos |= pt == CLK_EN ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
+      case HPS_TEST: pos |= pos |= pt == CFG_DFX_BYPASS_ENABLE ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
+      case HSSI: pos |= ((pt == PMA_PMA_RESERVED_IN && pn2pi(pn) == 0) || pt == SMRT_PACK_PLD_8G_TXELECIDLE) ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
 
       case GPIO:
-	if(pn2pt(pn) == DATAOUT || (pn2pt(pn) == OEIN && pn2pi(pn) == 0))
-	  pos |= inverter_info::DEF_GP_0;
-	else if(pn2pt(pn) == OEIN && pn2pi(pn) == 1)
-	  pos |= inverter_info::DEF_GP_1;
-	else
-	  pos |= inverter_info::DEF_0;
+	pos |= inverter_info::DEF_GP;
 	break;
       
       case HMC:
-	if(pn2pt(pn) == IOINTDQOE || pn2pt(pn) == IOINTDQSOE || pn2pt(pn) == IOINTDQSBOE)
-	  pos |= (pn2pi(pn) & 1) ? inverter_info::DEF_GP_1 : inverter_info::DEF_GP_0;
-	else
-	  pos |= inverter_info::DEF_0;
+	pos |= inverter_info::DEF_HMC;
 	break;
 
       default: break;

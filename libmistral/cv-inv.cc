@@ -1,5 +1,53 @@
 #include "cyclonev.h"
 
+int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
+{
+  switch(inf.pos_and_def & inverter_info::DEF_MASK) {
+  case inverter_info::DEF_0: return 0; break;
+  case inverter_info::DEF_1: return 1; break;
+
+  case inverter_info::DEF_GP: {
+    pnode_t pnode = rnode_to_pnode(inf.node);
+    if(pn2pt(pnode) != DATAOUT && pn2pt(pnode) != OEIN)
+      return 0;
+
+    bool is_wired = pin_find_pos(pn2p(pnode), pn2bi(pnode));
+    if(pn2pt(pnode) == DATAOUT || pn2pi(pnode) == 0)
+      return is_wired ? 0 : 1;
+    return is_wired ? 1 : 0;
+  }
+
+  case inverter_info::DEF_HMC: {
+    pnode_t pnode = rnode_to_pnode(inf.node);
+    pnode = hmc_get_bypass(pnode);
+    if(!pnode)
+      return 0;
+
+    auto gpio = p2p_to(pnode);
+    if(!gpio) {
+      auto gpiol = p2p_from(pnode);
+      for(pnode_t gp : gpiol)
+	if(pn2bt(gp) == GPIO) {
+	  gpio = gp;
+	  break;
+	}
+    }
+    if(!gpio)
+      return 0;
+
+    if(pn2pt(gpio) != OEIN && pn2pt(gpio) != DATAOUT)
+      return 0;
+
+    bool is_wired = pin_find_pos(pn2p(gpio), pn2bi(gpio));
+    if(pn2pt(gpio) == DATAOUT || pn2pi(gpio) == 0)
+      return is_wired ? 0 : 1;
+    return is_wired ? 1 : 0;
+  }
+  }
+
+  return -1;
+}
+
 std::vector<mistral::CycloneV::inv_setting_t> mistral::CycloneV::inv_get() const
 {
   std::vector<inv_setting_t> res;
@@ -7,23 +55,8 @@ std::vector<mistral::CycloneV::inv_setting_t> mistral::CycloneV::inv_get() const
     const auto &inf = inverter_infos[i];
     uint32_t pos = inf.pos_and_def & ~inverter_info::DEF_MASK;
     bool value = (cram[pos >> 3] >> (pos & 7)) & 1;
-    bool def = false;
-    switch(inf.pos_and_def & inverter_info::DEF_MASK) {
-    case inverter_info::DEF_0: def = value == false; break;
-    case inverter_info::DEF_1: def = value == true; break;
-
-    case inverter_info::DEF_GP_0:
-    case inverter_info::DEF_GP_1: {
-      bool base = (inf.pos_and_def & inverter_info::DEF_MASK) == inverter_info::DEF_GP_0;
-      pnode_t pnode = rnode_to_pnode(inf.node);
-      if(pin_find_pnode(pnode))
-	base = !base;
-      def = value == base;
-      break;
-    }
-    }
-      
-    res.emplace_back(inv_setting_t{inf.node, value, def});
+    int def = inv_get_default(inf);
+    res.emplace_back(inv_setting_t{inf.node, value, int(value) == def});
   }
   return res;
 }
@@ -33,20 +66,7 @@ void mistral::CycloneV::inv_default_set()
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
     const auto &inf = inverter_infos[i];
     uint32_t pos = inf.pos_and_def & ~inverter_info::DEF_MASK;
-    bool def = false;
-    switch(inf.pos_and_def & inverter_info::DEF_MASK) {
-    case inverter_info::DEF_0: def = false; break;
-    case inverter_info::DEF_1: def = true; break;
-
-    case inverter_info::DEF_GP_0:
-    case inverter_info::DEF_GP_1: {
-      def = (inf.pos_and_def & inverter_info::DEF_MASK) == inverter_info::DEF_GP_0;
-      pnode_t pnode = rnode_to_pnode(inf.node);
-      if(pin_find_pnode(pnode))
-	def = !def;
-      break;
-    }
-    }
+    bool def = inv_get_default(inf) == 1;
 
     if(def)
       cram[pos >> 3] |= 1 << (pos & 7);

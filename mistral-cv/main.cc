@@ -456,6 +456,21 @@ static void decompile(char **args)
       auto pin = model->pin_find_pnode(p);
       if(pin)
 	fprintf(fd, " ; %s", pin->name);
+      if(mistral::CycloneV::pn2bt(p) == mistral::CycloneV::HMC) {
+	auto p1 = model->hmc_get_bypass(p);
+	if(p1) {
+	  fprintf(fd, " ; %s", mistral::CycloneV::pn2s(p1).c_str());
+	  auto gpio = model->p2p_to(p1);
+	  if(!gpio)
+	    for(auto gp : model->p2p_from(p1))
+	      if(mistral::CycloneV::pn2bt(gp) == mistral::CycloneV::GPIO) {
+		gpio = gp;
+		break;
+	      }
+	  if(mistral::CycloneV::pn2bt(gpio) == mistral::CycloneV::GPIO)
+	    fprintf(fd, " %s", mistral::CycloneV::pn2s(gpio).c_str());
+	}
+      }
       fprintf(fd, "\n");
     }
   

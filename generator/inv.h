@@ -12,8 +12,8 @@ struct inverter_info {
     DEF_0    = 0x10000000,
     DEF_1    = 0x20000000,
 
-    DEF_GP_0 = 0x30000000, // 0 if the GPIO pin is connected, 1 otherwise
-    DEF_GP_1 = 0x40000000, // 1 if the GPIO pin is connected, 0 otherwise
+    DEF_GP   = 0x30000000, // Algorithmic, GPIO
+    DEF_HMC  = 0x40000000, // Algorithmic, bypassable HMC
 
     DEF_MASK = 0xf0000000,
   };
