@@ -497,11 +497,6 @@ def load_pram():
             if ls[2] not in r:
                 r[ls[2]] = {}
             r = r[ls[2]]
-        for i in range(4, len(ls)):
-            id = int(ls[i])
-            if id not in r:
-                r[id] = {}
-            r = r[id]
         pp = ls[0].split('.')
         pp1 = pp[1].split('-')
         r['block'] = int(pp[0])
@@ -509,6 +504,8 @@ def load_pram():
         r['prame'] = int(pp1[1])
         if len(ls) > 3:
             r['instance'] = int(ls[3])
+        if len(ls) > 4:
+            r['var'] = int(ls[4])
     return res
 
 def load_dcram():
@@ -798,9 +795,10 @@ def out_gpio(gpio, pram):
     for i in gpio:
         if i['type'] == 'gpio':
             ent = pram['gpio']["%03d.%03d" % (i['x'], i['y'])]
-            print("  { xy2pos(%d, %d), %d, %d, %d, GPIO, %s }," % (i['x'], i['y'], i['idx'], i['tidx'], 1 if 'serdes' in i else 0, pr(ent)))
+            ent['instance'] = 1 if 'serdes' in i else 0
+            print("  { xy2pos(%d, %d), %d, %d, GPIO, %s }," % (i['x'], i['y'], i['idx'], i['tidx'], pr(ent)))
         else:
-            print("  { xy2pos(%d, %d), %d, %d, 0, %s }," % (i['x'], i['y'], i['idx'], i['tidx'], nmap[i['type']]))
+            print("  { xy2pos(%d, %d), %d, %d, %s }," % (i['x'], i['y'], i['idx'], i['tidx'], nmap[i['type']]))
     print("};")
 
 def out_dqs16(cram):
@@ -809,7 +807,7 @@ def out_dqs16(cram):
     for e in sorted(d.keys()):
         xy = e.split('.')
         r = d[e][0]
-        print("  { xy2pos(%d, %d), (1 << 23) | (%d << 22) | (%d << 16) | %d }," % (int(xy[0]), int(xy[1]), 1 if d[e][1]['prams'] > r['prams'] else 0, r['block'], r['prams']))
+        print("  { xy2pos(%d, %d), (%d << 24) | (1 << 23) | (%d << 22) | (%d << 16) | %d }," % (int(xy[0]), int(xy[1]), r['var'], 1 if d[e][1]['prams'] > r['prams'] else 0, r['block'], r['prams']))
     print("};")
 
 def out_hps(hps):

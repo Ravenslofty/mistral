@@ -21,6 +21,8 @@ mistral::CycloneV *mistral::CycloneV::get_model(std::string model_name)
 {
   if(model_name == "ms")
     model_name = "5CSEBA6U23I7";
+  if(model_name == "ap")
+    model_name = "5CEBA4F23C8";
 
   for(const Model *m = models; m->name; m++)
     if(model_name == m->name)

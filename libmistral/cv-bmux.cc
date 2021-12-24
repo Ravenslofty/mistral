@@ -120,6 +120,105 @@ void mistral::CycloneV::bmux_dqs16_adjust(uint32_t &pos, uint32_t offset, bool u
     pos -= offset >= 768 ? 3*191 + 256*5 + 836 : offset >= 512 ? 2*191 + 256*4 : offset >= 256 ? 191 + 256*2 : 0;
 }
 
+void mistral::CycloneV::bmux_b_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+{
+  switch(btype) {
+  case GPIO:
+    if(mux->mux == USE_WEAK_PULLUP) {
+      if(pin_find_pos(pos, idx))
+	def = 1;
+      else
+	def = 0;
+    }
+    break;
+
+  case FPLL:
+    def = (base & (1 << 24)) ? 1 : 0;
+    break;
+
+  case TERM:
+    def = (base & (1 << 24)) ? 0 : 1;
+    break;
+
+  case PMA3:
+    def = (base >> 29) & 1;
+    break;
+
+  case DQS16: {
+    int type = (base >> 24) & 1;
+    if(mux->mux == RB_2X_CLK_DQS_INV || mux->mux == RB_ACLR_LFIFO_EN)
+      def = type ? 1 : 0;
+    if(mux->mux == RB_LFIFO_BYPASS)
+      def = type ? 0 : 1;
+    break;
+  }
+
+  default: break;
+  }
+}
+
+void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+{
+  switch(btype) {
+  case GPIO:
+    if(mux->mux == DRIVE_STRENGTH) {
+      if(pin_find_pos(pos, idx))
+	def = OFF;
+      else
+	def = PROG_GND;
+    }
+    break;
+
+  case PMA3:
+    if(mux->mux == FFPLL_IQCLK_DIRECTION) {
+      bmux_type_t bdef[6] = { UP, UP, DOWN, UP, TRISTATE, TRISTATE };
+      def = bdef[((base >> 26) & 3) * 2 + idx];
+    }
+    if(mux->mux == HCLK_TOP_OUT_DRIVER)
+      def = ((base >> 28) & 1 ) ? DOWN_EN : TRISTATE;
+    break;
+
+  case DQS16: {
+    if(mux->mux == INPUT_REG4_SEL)
+      def = SEL_BYPASS;
+    break;
+  }
+
+  default: break;
+  }
+}
+
+void mistral::CycloneV::bmux_r_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+{
+  switch(btype) {
+  case HSSI: {
+    static const uint16_t hssi_defvals[3][3] = { { 0x096, 0x226, 0x3b6 }, { 0x0fa, 0x28a, 0x41a }, { 0x064, 0x1f4, 0x384 } };
+    if(mux->mux == PCS8G_BASE_ADDR)
+      def = hssi_defvals[0][idx];
+    else if(mux->mux == PLD_PCS_IF_BASE_ADDR)
+      def = hssi_defvals[1][idx];
+    else if(mux->mux == PMA_PCS_IF_BASE_ADDR)
+      def = hssi_defvals[2][idx];
+    break;
+  }
+
+  case PMA3: {
+    static const uint16_t pma3_defvals[3] = { 0x000, 0x190, 0x320 };
+    if(mux->mux == DPRIO_REG_PLD_PMA_IF_BADDR)
+      def = pma3_defvals[idx];
+    break;
+  }
+
+  case DQS16: {
+    if(mux->mux == RB_T9_SEL_EREG_CFF_DELAY)
+      def = 0x00;
+    break;
+  }
+
+  default: break;
+  }
+}
+
 uint64_t mistral::CycloneV::bmux_val_read(uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
 {
   uint64_t val = 0;
@@ -283,16 +382,15 @@ std::pair<mistral::CycloneV::bmux_type_t, bool> mistral::CycloneV::bmux_m_read(b
   for(uint8_t m = 0; m != mux->entries; m++)
     if(sel[m].mask == val) {
       auto v = sel[m].sel;
-      if(mux->def == -2) {
-	if(btype == GPIO && mux->mux == DRIVE_STRENGTH) {
-	  if(pin_find_pos(pos, idx))
-	    return std::make_pair(v, v == OFF);
-	  else
-	    return std::make_pair(v, v == PROG_GND);
-	}
-	return std::make_pair(v, false);
+      int def = mux->def;
+      if(def == -2) {
+	bmux_m_solve_default(btype, pos, idx, mux, base, def);
+	if(def != -2)
+	  return std::make_pair(v, v == def);
+	else
+	  return std::make_pair(v, false);
       }
-      return std::make_pair(v, m == mux->def);
+      return std::make_pair(v, m == def);
     }
   return std::make_pair(BMNONE, false);
 }
@@ -310,16 +408,10 @@ std::pair<int, bool> mistral::CycloneV::bmux_n_read(block_type_t btype, pos_t po
 std::pair<bool, bool> mistral::CycloneV::bmux_b_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
 {
   bool r = bmux_val_read(base, mux, idx, mode);
-  if(mux->def == -2) {
-    if(btype == GPIO && mux->mux == USE_WEAK_PULLUP) {
-      if(pin_find_pos(pos, idx))
-	return std::make_pair(r, r == true);
-      else
-	return std::make_pair(r, r == false);
-    }
-    return std::make_pair(r, false);
-  }
-  return std::make_pair(r, r == mux->def);
+  int def = mux->def;
+  if(def == -2)
+    bmux_b_solve_default(btype, pos, idx, mux, base, def);
+  return std::make_pair(r, r == def);
 }
 
 bool mistral::CycloneV::bmux_r_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode, std::vector<uint8_t> &r) const
@@ -384,32 +476,27 @@ bool mistral::CycloneV::bmux_r_read(block_type_t btype, pos_t pos, uint32_t base
   }
   }
 
-  if(mux->def == -2) {
-    if(btype == HSSI || btype == PMA3) {
-      static const uint16_t hssi_defvals[3][3] = { { 0x096, 0x226, 0x3b6 }, { 0x0fa, 0x28a, 0x41a }, { 0x064, 0x1f4, 0x384 } };
-      static const uint16_t pma3_defvals[3] = { 0x000, 0x190, 0x320 };
-      uint16_t defval = 0x5555;
-      if(mux->mux == PCS8G_BASE_ADDR)
-	defval = hssi_defvals[0][idx];
-      else if(mux->mux == PLD_PCS_IF_BASE_ADDR)
-	defval = hssi_defvals[1][idx];
-      else if(mux->mux == PMA_PCS_IF_BASE_ADDR)
-	defval = hssi_defvals[2][idx];
-      else if(mux->mux == DPRIO_REG_PLD_PMA_IF_BADDR)
-	defval = pma3_defvals[idx];
-      return defval != 0x5555 && r[0] == (defval & 0xff) && r[1] == (defval >> 8);
-    }
-    return false;
-  }
+  int def = mux->def;
 
-  if(mux->def == -1)
+  if(def == -2)
+    bmux_r_solve_default(btype, pos, idx, mux, base, def);
+
+  if(def == -2)
+    return false;
+  if(def == -1)
     return all_1;
-  if(mux->def == 0)
+  if(def == 0)
     return all_0;
-  for(unsigned int p = 1; p != r.size(); p++)
+  for(unsigned int p = 3; p < r.size(); p++)
     if(r[p] != 0)
       return false;
-  return r[0] == mux->def;
+  if(r[0] != (def & 0xff))
+    return false;
+  if(r.size() > 1 && (r[1] != ((def >> 8) & 0xff)))
+    return false;
+  if(r.size() > 2 && (r[2] != ((def >> 16) & 0xff)))
+    return false;
+  return true;
 }
 
 void mistral::CycloneV::bmux_get_any(block_type_t btype, pos_t pos, uint32_t base, const bmux *muxes, bmux_ram_t mode, std::vector<bmux_setting_t> &res, int variant) const
@@ -467,11 +554,14 @@ void mistral::CycloneV::bmux_set_default(block_type_t btype, pos_t pos, uint32_t
       for(int idx=0; idx != span; idx++) {
 	switch(mux->stype) {
 	case MT_MUX: {
-	  auto def = mux->def;
-	  if(def == -2 && btype == GPIO && mux->mux == DRIVE_STRENGTH) {
-	    auto want = pin_find_pos(pos, idx) ? OFF : PROG_GND;
-	    const bmux_sel_entry *sel = bmux_sel_entries + mux->entries_offset;
-	    for(def = 0; sel[def].sel != want; def++);
+	  int def = mux->def;
+	  if(def == -2) {
+	    bmux_m_solve_default(btype, pos, idx, mux, base, def);
+	    if(def != -2) {
+	      int want = def;
+	      const bmux_sel_entry *sel = bmux_sel_entries + mux->entries_offset;
+	      for(def = 0; sel[def].sel != want; def++);
+	    }
 	  }
 	  if(def != -2) {
 	    const bmux_sel_entry *sel = bmux_sel_entries + mux->entries_offset;
@@ -488,100 +578,92 @@ void mistral::CycloneV::bmux_set_default(block_type_t btype, pos_t pos, uint32_t
 	  break;
 
 	case MT_BOOL: {
-	  auto def = mux->def;
-	  if(def == -2 && btype == GPIO && mux->mux == USE_WEAK_PULLUP)
-	    def = pin_find_pos(pos, idx) != nullptr;
+	  int def = mux->def;
+	  if(def == -2)
+	    bmux_b_solve_default(btype, pos, idx, mux, base, def);
 	  if(def != -2)
 	    bmux_val_set(base, mux, idx, mode, def);
 	  break;
 	}
 	  
-	case MT_RAM:
-	  if(mux->def != -2) {
-	    if(mux->def <= 0) {
-	      switch(mode) {
-	      case BM_CRAM: {
-		const uint16_t *bt = bmux_cram_bpos + 2*(mux->bit_offset + idx * mux->bits);
-		if(mux->def) {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    uint32_t pos = base + bt[1] * di.cram_sx + bt[0];
-		    cram[pos >> 3] |= 1 << (pos & 7);
-		    bt += 2;
-		  }
-		} else {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    uint32_t pos = base + bt[1] * di.cram_sx + bt[0];
-		    cram[pos >> 3] &= ~(1 << (pos & 7));
-		    bt += 2;
-		  }
-		}
-		break;
-	      }
-	      case BM_PRAM: {
-		const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
-		auto &prami = pram[(base >> 16) & 31];
-		bool v = mux->def != 0;
+	case MT_RAM: {
+	  int def = mux->def;
+	  if(def == -2)
+	    bmux_r_solve_default(btype, pos, idx, mux, base, def);
+	  
+	  if(def == -2)
+	    break;
+
+	  if(def <= 0) {
+	    switch(mode) {
+	    case BM_CRAM: {
+	      const uint16_t *bt = bmux_cram_bpos + 2*(mux->bit_offset + idx * mux->bits);
+	      if(def) {
 		for(uint8_t b = 0; b != mux->bits; b++) {
-		  uint32_t pos = (base & 0xffff) + bt[0];
-		  if(base & (1<<23))
-		    bmux_dqs16_adjust(pos, bt[0], base & (1 << 22));
-		  prami[pos] = v;
+		  uint32_t pos = base + bt[1] * di.cram_sx + bt[0];
+		  cram[pos >> 3] |= 1 << (pos & 7);
+		  bt += 2;
+		}
+	      } else {
+		for(uint8_t b = 0; b != mux->bits; b++) {
+		  uint32_t pos = base + bt[1] * di.cram_sx + bt[0];
+		  cram[pos >> 3] &= ~(1 << (pos & 7));
+		  bt += 2;
+		}
+	      }
+	      break;
+	    }
+	    case BM_PRAM: {
+	      const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
+	      auto &prami = pram[(base >> 16) & 31];
+	      bool v = def != 0;
+	      for(uint8_t b = 0; b != mux->bits; b++) {
+		uint32_t pos = (base & 0xffff) + bt[0];
+		if(base & (1<<23))
+		  bmux_dqs16_adjust(pos, bt[0], base & (1 << 22));
+		prami[pos] = v;
+		bt ++;
+	      }
+	      break;
+	    }
+	    case BM_ORAM: {
+	      const uint16_t *bt = bmux_oram_bpos + 2*(mux->bit_offset + idx * mux->bits);
+	      if(def) {
+		for(uint8_t b = 0; b != mux->bits; b++) {
+		  oram[bt[0]] |= uint64_t(1) << bt[1];
+		  bt += 2;
+		}
+	      } else {
+		for(uint8_t b = 0; b != mux->bits; b++) {
+		  oram[bt[0]] &= ~(uint64_t(1) << bt[1]);
+		  bt += 2;
+		}
+	      }
+	      break;
+	    }
+	    case BM_DCRAM: {
+	      const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
+	      if(def) {
+		for(uint8_t b = 0; b != mux->bits; b++) {
+		  uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+		  cram[pos >> 3] |= 1 << (pos & 7);
 		  bt ++;
 		}
-		break;
-	      }
-	      case BM_ORAM: {
-		const uint16_t *bt = bmux_oram_bpos + 2*(mux->bit_offset + idx * mux->bits);
-		if(mux->def) {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    oram[bt[0]] |= uint64_t(1) << bt[1];
-		    bt += 2;
-		  }
-		} else {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    oram[bt[0]] &= ~(uint64_t(1) << bt[1]);
-		    bt += 2;
-		  }
+	      } else {
+		for(uint8_t b = 0; b != mux->bits; b++) {
+		  uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+		  cram[pos >> 3] &= ~(1 << (pos & 7));
+		  bt ++;
 		}
-		break;
 	      }
-	      case BM_DCRAM: {
-		const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
-		if(mux->def) {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
-		    cram[pos >> 3] |= 1 << (pos & 7);
-		    bt ++;
-		  }
-		} else {
-		  for(uint8_t b = 0; b != mux->bits; b++) {
-		    uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
-		    cram[pos >> 3] &= ~(1 << (pos & 7));
-		    bt ++;
-		  }
-		}
-		break;
-	      }
-	      }
-	    } else
-	      bmux_val_set(base, mux, idx, mode, mux->def);
-	  } else {
-	    if(btype == HSSI || btype == PMA3) {
-	      static const uint16_t defvals[3][3] = { { 0x096, 0x226, 0x3b6 }, { 0x0fa, 0x28a, 0x41a }, { 0x064, 0x1f4, 0x384 } };
-	      static const uint16_t pma3_defvals[3] = { 0x000, 0x190, 0x320 };
-	      uint16_t defval = 0x5555;
-	      if(mux->mux == PCS8G_BASE_ADDR)
-		defval = defvals[0][idx];
-	      else if(mux->mux == PLD_PCS_IF_BASE_ADDR)
-		defval = defvals[1][idx];
-	      else if(mux->mux == PMA_PCS_IF_BASE_ADDR)
-		defval = defvals[2][idx];
-	      else if(mux->mux == DPRIO_REG_PLD_PMA_IF_BADDR)
-		defval = pma3_defvals[idx];
-	      if(defval != 0x5555)
-		bmux_val_set(base, mux, idx, mode, defval);
+	      break;
 	    }
+	    }
+	    break;
 	  }
+	  bmux_val_set(base, mux, idx, mode, def);
+	  break;
+	}
 	}
       }
     }
@@ -605,7 +687,7 @@ std::vector<mistral::CycloneV::bmux_setting_t> mistral::CycloneV::bmux_get() con
 
   for(uint32_t i = 0; i != di.ioblocks_count; i++)
     if(di.ioblocks[i].idx == 0 && di.ioblocks[i].btype == GPIO)
-      bmux_get_any(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, res, di.ioblocks[i].variant);
+      bmux_get_any(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, res, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
 
   for(uint32_t i = 0; i != di.dqs16_count; i++)
     bmux_get_any(DQS16, di.dqs16s[i].pos, di.dqs16s[i].pram, bm_dqs16, BM_PRAM, res);
@@ -661,7 +743,7 @@ void mistral::CycloneV::bmux_set_defaults()
 
   for(uint32_t i = 0; i != di.ioblocks_count; i++)
     if(di.ioblocks[i].idx == 0 && di.ioblocks[i].btype == GPIO)
-      bmux_set_default(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, di.ioblocks[i].variant);
+      bmux_set_default(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
 
   for(uint32_t i = 0; i != di.dqs16_count; i++)
     bmux_set_default(DQS16, di.dqs16s[i].pos, di.dqs16s[i].pram, bm_dqs16, BM_PRAM);
@@ -761,7 +843,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     for(uint32_t i = 0; i != di.ioblocks_count; i++)
       if(di.ioblocks[i].pos == pos) {
 	base = di.ioblocks[i].pram;
-	pmux = bmux_find(bm_gpio, mux, di.ioblocks[i].variant);
+	pmux = bmux_find(bm_gpio, mux, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
 	mode = BM_PRAM;
 	break;
       }

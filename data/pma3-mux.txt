@@ -1,6 +1,6 @@
 i tx_cgb_enable                 b-    776 | 8 | 392
 i tx_cgb_mux_power_down         b-    791 | 23 | 407
-i auto_negotiation              b-    1040 |  272 | 656
+i auto_negotiation              b-    1040 | 272 | 656
 i tx_mode_bits                  n:3   789 879 788 | 21 111 20 | 405 495 404
   0  8 !
   1 10
@@ -573,7 +573,7 @@ i iq_clk_to_ch2_sel             m:8
 g hclk_top_out_driver           m:2   699 700
   0 tristate
   1 up_en
-  2 down_en !
+  2 down_en
 q ref_iqclk_buf_en              b-    701 | 702 | 703 | 704
 q rx_iqclk_buf_en               b-    712 | 713 | 714 | 715
 g fpll_sel_ref_iqclk            m:4   315 316 317 318
@@ -603,7 +603,7 @@ g fpll_refclk_sel_iq_tx_rx_clk  m:4   327 328 329 330
   5 iq_tx_rx_clk4
   6 iq_tx_rx_clk5
   e pd !
-g fpll_drv_en                   b+    339
+g fpll_drv_en                   b     339
 d ffpll_iqclk_direction         m:2   1083 1084 | 1085 1086
   0 tristate
   1 up

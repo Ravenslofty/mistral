@@ -819,7 +819,6 @@ namespace mistral {
       pos_t pos;
       uint8_t idx;
       uint8_t tidx;
-      uint8_t variant;
       block_type_t btype;
       uint32_t pram;
     };
@@ -1101,6 +1100,9 @@ namespace mistral {
 
     static void bmux_dqs16_adjust(uint32_t &pos, uint32_t offset, bool up);
 
+    void bmux_b_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const;
+    void bmux_m_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const;
+    void bmux_r_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const;
     uint64_t bmux_val_read(uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const;
     std::pair<bmux_type_t, bool> bmux_m_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const;
     std::pair<int, bool> bmux_n_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const;

@@ -25,8 +25,8 @@ g hr_clk_pst_sel                         m:1   1563
   0 dqs_clkout
   1 seq_hr_clk !
 g hr_clk_pst_inv                         b+    1562
-g rb_aclr_lfifo_en                       b-    1548
-g rb_lfifo_bypass                        b+    1547
+g rb_aclr_lfifo_en                       b     1548
+g rb_lfifo_bypass                        b     1547
 g rb_lfifo_phy_clk_sel                   r-:1  1546
 g rb_lfifo_phy_clk_inv                   b-    1545
 g rb_lfifo                               r-:32 1513 1514 1515 1516 1517 1518 1519 1520 1521 1522 1523 1524 1525 1526 1527 1528 1529 1530 1531 1532 1533 1534 1535 1536 1537 1538 1539 1540 1541 1542 1543 1544
@@ -51,7 +51,7 @@ g rb_fr_clk_oct_inv                      b-    1507
 g rb_2x_clk_oct_en                       b-    1506
 g rb_2x_clk_oct_inv                      b-    1505
 g rb_2x_clk_dqs_en                       b-    1499
-g rb_2x_clk_dqs_inv                      b-    1498
+g rb_2x_clk_dqs_inv                      b     1498
 g rb_clk_op_en                           b-    1497
 g rb_clk_op_sel                          m:1   1496
   0 clk0 !
@@ -107,7 +107,7 @@ i rb_t9_sel_oreg_dff_delay               r-:5
 i rb_t9_sel_ereg_ipen                    m:1   1440 | 1413 | 1386 | 1359 | 1332 | 1305 | 1278 | 1251 | 1224 | 1197 | 1170 | 1143 | 1116 | 1089 | 1062 | 1035
   0 cff !
   1 ip_sc
-i rb_t9_sel_ereg_cff_delay               r-:5
+i rb_t9_sel_ereg_cff_delay               r:5
   * 1435 1436 1437 1438 1439
   * 1408 1409 1410 1411 1412
   * 1381 1382 1383 1384 1385
@@ -269,7 +269,7 @@ i input_reg3_sel                         m:2   999 1000 | 935 936 | 871 872 | 80
   2 sel_cdatamxin3
   3 sel_cdatamxin8
 i input_reg4_sel                         m:2   997 998 | 933 934 | 869 870 | 805 806 | 741 742 | 677 678 | 613 614 | 549 550 | 485 486 | 421 422 | 357 358 | 293 294 | 229 230 | 165 166 | 101 102 | 37 38
-  0 sel_bypass !
+  0 sel_bypass
   1 sel_locked_dpa
   2 sel_cdatamxin4
   3 sel_cdatamxin9

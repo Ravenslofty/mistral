@@ -173,15 +173,15 @@ g pl_aux_bypass_mode_ctrl_current  b-    643
 g pl_aux_bg_powerdown              b-    641
 g pl_aux_atb                       b-    640
 g pl_aux_atb_mode                  r-:5  800 801 802 803 804
-g pl_aux_atb_en0                   b-    638
-g pl_aux_atb_en1                   b-    799
-g pl_aux_atb_en0_precomp           b-    683
-g pl_aux_atb_en1_precomp           b-    682
+g pl_aux_atb_en0                   b     638
+g pl_aux_atb_en1                   b     799
+g pl_aux_atb_en0_precomp           b     683
+g pl_aux_atb_en1_precomp           b     682
 g pl_aux_atb_comp_minus            b-    636
 g pl_aux_atb_comp_plus             b-    637
 g pl_aux_comp_powerdown            b-    639
-g pl_aux_bg_kickstart              b-    623
-g pl_aux_vbgmon_powerdown          b-    805
+g pl_aux_bg_kickstart              b     623
+g pl_aux_vbgmon_powerdown          b     805
 g pm_aux_term_cal                  b-    648
 g pm_aux_term_cal_rx_over_val_en   b-    649
 g pm_aux_term_cal_rx_over_val      r-:5  650 651 652 653 654

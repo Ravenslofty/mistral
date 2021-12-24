@@ -8,7 +8,7 @@ g nclrusr_inv                 b-      4
 g scanen_inv                  b-      5
 g user_oct_inv                b-      7
 g powerup                     b-      8
-g intosc_2_en                 b+      16
+g intosc_2_en                 b       16
 g pllbias_en                  b-      15
 g vrefl_level                 m:2     13 14
   0 vref_m !
