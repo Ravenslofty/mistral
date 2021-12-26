@@ -200,6 +200,12 @@ namespace mistral {
       int index;
     };
 
+    struct pkg_info_t {
+      const pin_info_t *pins;
+      uint16_t dqs_pos;
+      uint8_t dqs_index;
+    };
+
     enum hps_index_t {
       I_HPS_BOOT,
       I_HPS_CLOCKS,
@@ -436,7 +442,7 @@ namespace mistral {
       uint16_t x_to_bx[122];
       tile_type_t column_types[122];
 
-      const pin_info_t *const packages[5+3+3];
+      const pkg_info_t *const packages[5+3+3];
 
       const uint8_t *const routing_data_start;
       const uint8_t *const routing_data_end;
@@ -877,11 +883,16 @@ namespace mistral {
     static const dqs16_info e50f_dqs16_info[];
     static const fixed_block_info e50f_fixed_blocks_info[FB_COUNT];
     static const dcram_info e50f_forced_1_info[12];
-    static const pin_info_t e50f_package_f17[256];
-    static const pin_info_t e50f_package_f23[484];
-    static const pin_info_t e50f_package_u15[324];
-    static const pin_info_t e50f_package_u19[484];
-    static const pin_info_t e50f_package_m13[383];
+    static const pin_info_t e50f_pins_f17[256];
+    static const pin_info_t e50f_pins_f23[484];
+    static const pin_info_t e50f_pins_u15[324];
+    static const pin_info_t e50f_pins_u19[484];
+    static const pin_info_t e50f_pins_m13[383];
+    static const pkg_info_t e50f_package_f17;
+    static const pkg_info_t e50f_package_f23;
+    static const pkg_info_t e50f_package_u15;
+    static const pkg_info_t e50f_package_u19;
+    static const pkg_info_t e50f_package_m13;
 
     static const uint8_t gx25f_bel_spans_info[];
     static const ioblock_info gx25f_ioblocks_info[];
@@ -889,9 +900,12 @@ namespace mistral {
     static const fixed_block_info gx25f_fixed_blocks_info[FB_COUNT];
     static const dcram_info gx25f_dcram_pos[];
     static const dcram_info gx25f_forced_1_info[20];
-    static const pin_info_t gx25f_package_f23[484];
-    static const pin_info_t gx25f_package_u15[324];
-    static const pin_info_t gx25f_package_u19[484];
+    static const pin_info_t gx25f_pins_f23[484];
+    static const pin_info_t gx25f_pins_u15[324];
+    static const pin_info_t gx25f_pins_u19[484];
+    static const pkg_info_t gx25f_package_f23;
+    static const pkg_info_t gx25f_package_u15;
+    static const pkg_info_t gx25f_package_u19;
 
     static const uint8_t gt75f_bel_spans_info[];
     static const ioblock_info gt75f_ioblocks_info[];
@@ -899,22 +913,32 @@ namespace mistral {
     static const fixed_block_info gt75f_fixed_blocks_info[FB_COUNT];
     static const dcram_info gt75f_dcram_pos[];
     static const dcram_info gt75f_forced_1_info[20];
-    static const pin_info_t gt75f_package_f23[484];
-    static const pin_info_t gt75f_package_f27[672];
-    static const pin_info_t gt75f_package_u19[484];
-    static const pin_info_t gt75f_package_m11[301];
-    static const pin_info_t gt75f_package_m13[383];
+    static const pin_info_t gt75f_pins_f23[484];
+    static const pin_info_t gt75f_pins_f27[672];
+    static const pin_info_t gt75f_pins_u19[484];
+    static const pin_info_t gt75f_pins_m11[301];
+    static const pin_info_t gt75f_pins_m13[383];
+    static const pkg_info_t gt75f_package_f23;
+    static const pkg_info_t gt75f_package_f27;
+    static const pkg_info_t gt75f_package_u19;
+    static const pkg_info_t gt75f_package_m11;
+    static const pkg_info_t gt75f_package_m13;
 
     static const uint8_t gt150f_bel_spans_info[];
     static const ioblock_info gt150f_ioblocks_info[];
     static const dqs16_info gt150f_dqs16_info[];
     static const fixed_block_info gt150f_fixed_blocks_info[FB_COUNT];
     static const dcram_info gt150f_dcram_pos[];
-    static const pin_info_t gt150f_package_f23[484];
-    static const pin_info_t gt150f_package_f27[672];
-    static const pin_info_t gt150f_package_f31[896];
-    static const pin_info_t gt150f_package_u19[484];
-    static const pin_info_t gt150f_package_m15[484];
+    static const pin_info_t gt150f_pins_f23[484];
+    static const pin_info_t gt150f_pins_f27[672];
+    static const pin_info_t gt150f_pins_f31[896];
+    static const pin_info_t gt150f_pins_u19[484];
+    static const pin_info_t gt150f_pins_m15[484];
+    static const pkg_info_t gt150f_package_f23;
+    static const pkg_info_t gt150f_package_f27;
+    static const pkg_info_t gt150f_package_f31;
+    static const pkg_info_t gt150f_package_u19;
+    static const pkg_info_t gt150f_package_m15;
 
     static const uint8_t gt300f_bel_spans_info[];
     static const ioblock_info gt300f_ioblocks_info[];
@@ -922,11 +946,16 @@ namespace mistral {
     static const fixed_block_info gt300f_fixed_blocks_info[FB_COUNT];
     static const dcram_info gt300f_dcram_pos[];
     static const dcram_info gt300f_forced_1_info[28];
-    static const pin_info_t gt300f_package_f23[484];
-    static const pin_info_t gt300f_package_f27[672];
-    static const pin_info_t gt300f_package_f31[896];
-    static const pin_info_t gt300f_package_f35[1152];
-    static const pin_info_t gt300f_package_u19[484];
+    static const pin_info_t gt300f_pins_f23[484];
+    static const pin_info_t gt300f_pins_f27[672];
+    static const pin_info_t gt300f_pins_f31[896];
+    static const pin_info_t gt300f_pins_f35[1152];
+    static const pin_info_t gt300f_pins_u19[484];
+    static const pkg_info_t gt300f_package_f23;
+    static const pkg_info_t gt300f_package_f27;
+    static const pkg_info_t gt300f_package_f31;
+    static const pkg_info_t gt300f_package_f35;
+    static const pkg_info_t gt300f_package_u19;
 
     static const uint8_t sx50f_bel_spans_info[];
     static const ioblock_info sx50f_ioblocks_info[];
@@ -934,8 +963,10 @@ namespace mistral {
     static const fixed_block_info sx50f_fixed_blocks_info[FB_COUNT];
     static const dcram_info sx50f_dcram_pos[];
     static const pos_t sx50f_hps_info[I_HPS_COUNT];
-    static const pin_info_t sx50f_package_u19[484];
-    static const pin_info_t sx50f_package_u23[672];
+    static const pin_info_t sx50f_pins_u19[484];
+    static const pin_info_t sx50f_pins_u23[672];
+    static const pkg_info_t sx50f_package_u19;
+    static const pkg_info_t sx50f_package_u23;
 
     static const uint8_t sx120f_bel_spans_info[];
     static const ioblock_info sx120f_ioblocks_info[];
@@ -944,9 +975,12 @@ namespace mistral {
     static const dcram_info sx120f_dcram_pos[];
     static const dcram_info sx120f_forced_1_info[72];
     static const pos_t sx120f_hps_info[I_HPS_COUNT];
-    static const pin_info_t sx120f_package_f31[896];
-    static const pin_info_t sx120f_package_u19[484];
-    static const pin_info_t sx120f_package_u23[672];
+    static const pin_info_t sx120f_pins_f31[896];
+    static const pin_info_t sx120f_pins_u19[484];
+    static const pin_info_t sx120f_pins_u23[672];
+    static const pkg_info_t sx120f_package_f31;
+    static const pkg_info_t sx120f_package_u19;
+    static const pkg_info_t sx120f_package_u23;
 
     static const die_info *const die_infos[7];
 

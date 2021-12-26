@@ -84,8 +84,8 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
   },
 
   {
-      nullptr, nullptr, nullptr, sx120f_package_f31, nullptr,
-      nullptr, sx120f_package_u19, sx120f_package_u23,
+      nullptr, nullptr, nullptr, &sx120f_package_f31, nullptr,
+      nullptr, &sx120f_package_u19, &sx120f_package_u23,
       nullptr, nullptr, nullptr,
   },
 

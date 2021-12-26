@@ -60,8 +60,8 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   },
 
   {
-      nullptr, gx25f_package_f23, nullptr, nullptr, nullptr,
-      gx25f_package_u15, gx25f_package_u19, nullptr,
+      nullptr, &gx25f_package_f23, nullptr, nullptr, nullptr,
+      &gx25f_package_u15, &gx25f_package_u19, nullptr,
       nullptr, nullptr, nullptr,
   },
 

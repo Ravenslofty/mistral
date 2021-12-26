@@ -1,4 +1,4 @@
-u19 width:22 height:22 widthmm:19 heightmm:19
+u19 width:22 height:22 widthmm:19 heightmm:19 dqs:018.061.7
    0  0 A1   gpio:023.061.3 dedicated_programming_pad:25 ioblock:9A r:0.47864 c:1.32e-12 l:4.21e-09 len:0.00821 d:75
    0  1 B1   f:GND t:vss
    0  2 C1   f:GND t:vss gpio:024.061.3 dedicated_programming_pad:29 ioblock:9A r:0.45752 c:1.21e-12 l:3.9e-09 len:0.00766 d:69
@@ -483,7 +483,7 @@ u19 width:22 height:22 widthmm:19 heightmm:19
   21 19 Y22  f:VCCIO5A t:vccn
   21 20 AA22 gpio:068.012.3 ioblock:5A r:0.60605 c:1.44e-12 l:5.12e-09 len:0.00978 d:86
   21 21 AB22 gpio:068.012.2 ioblock:5A r:0.63115 c:1.53e-12 l:5.54e-09 len:0.01018 d:92
-u23 width:28 height:28 widthmm:23 heightmm:23
+u23 width:28 height:28 widthmm:23 heightmm:23 dqs:004.061.11
    0  1 B1   f:RREF_TL t:gxp-reference-resistor
    0  2 C1   f:GND t:vss
    0  3 D1   f:DNU t:do-not-use

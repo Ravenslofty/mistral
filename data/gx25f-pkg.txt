@@ -1,4 +1,4 @@
-u15 width:18 height:18 widthmm:15 heightmm:15
+u15 width:18 height:18 widthmm:15 heightmm:15 dqs:012.039.10
    0  0 A1   f:RREF_TL t:gxp-reference-resistor
    0  1 B1   f:GND t:vss
    0  2 C1   gpio:012.039.2 ioblock:8A r:0.69619 c:1.86e-12 l:5.96e-09 len:0.01206 d:105
@@ -323,7 +323,7 @@ u15 width:18 height:18 widthmm:15 heightmm:15
   17 15 T18  f:VCCIO4A t:vccn
   17 16 U18  gpio:028.000.3 ioblock:4A r:0.73602 c:1.79e-12 l:5.6e-09 len:0.01147 d:100
   17 17 V18  f:GND t:vss
-f23 width:22 height:22 widthmm:23 heightmm:23
+f23 width:22 height:22 widthmm:23 heightmm:23 dqs:012.039.14
    0  0 A1   f:RREF_TL t:gxp-reference-resistor
    0  1 B1   f:GND t:vss
    0  2 C1   f:NC t:nc
@@ -808,7 +808,7 @@ f23 width:22 height:22 widthmm:23 heightmm:23
   21 19 Y22  gpio:041.000.3 ioblock:4A r:0.85077 c:2.18e-12 l:7.37e-09 len:0.01393 d:127
   21 20 AA22 gpio:039.000.2 ioblock:4A r:0.87627 c:2.18e-12 l:7.65e-09 len:0.01442 d:129
   21 21 AB22 gpio:039.000.3 ioblock:4A r:0.92518 c:2.19e-12 l:7.78e-09 len:0.01504 d:131
-u19 width:22 height:22 widthmm:19 heightmm:19
+u19 width:22 height:22 widthmm:19 heightmm:19 dqs:004.039.7
    0  0 A1   f:RREF_TL t:gxp-reference-resistor
    0  1 B1   f:GND t:vss
    0  2 C1   f:NC t:nc

@@ -35,17 +35,31 @@ def f(ls, s):
     return False
 
 in_package = False
+pkgid = None
+dqs = None
+
+def end_package():
+    print("};")
+    print("")
+    print("const mistral::CycloneV::pkg_info_t mistral::CycloneV::%s_package_%s = { " % (sys.argv[2], pkgid))
+    print("  %s_pins_%s," % (sys.argv[2], pkgid))
+    print("  xy2pos(%d, %d), %d," % (int(dqs[0]), int(dqs[1]), int(dqs[2])))
+    print("};")
 
 for l in open(sys.argv[1] + '/' + sys.argv[2] + '-pkg.txt'):
     ls = l.rstrip('\r\n').split()
 
     if l[0] != ' ':
         if in_package:
-            print("};")
+            end_package()
         in_package = True
 
+        for ll in ls[1:]:
+            if ll[:4] == 'dqs:':
+                dqs = ll[4:].split('.')
+        pkgid = ls[0]
         print("")
-        print("const mistral::CycloneV::pin_info_t mistral::CycloneV::%s_package_%s[%d] = {" % (sys.argv[2], ls[0], package_codes[ls[0]]))
+        print("const mistral::CycloneV::pin_info_t mistral::CycloneV::%s_pins_%s[%d] = {" % (sys.argv[2], pkgid, package_codes[ls[0]]))
     else:
         s = '  { %2d, %2d,' % (int(ls[0]), int(ls[1]))
         if f(ls, 'gpio'):
@@ -126,4 +140,4 @@ for l in open(sys.argv[1] + '/' + sys.argv[2] + '-pkg.txt'):
         print(s)        
         
 if in_package:
-    print("};")
+    end_package()

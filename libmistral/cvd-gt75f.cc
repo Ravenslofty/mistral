@@ -65,9 +65,9 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
   },
 
   {
-      nullptr, gt75f_package_f23, gt75f_package_f27, nullptr, nullptr,
-      nullptr, gt75f_package_u19, nullptr,
-      gt75f_package_m11, gt75f_package_m13, nullptr,
+      nullptr, &gt75f_package_f23, &gt75f_package_f27, nullptr, nullptr,
+      nullptr, &gt75f_package_u19, nullptr,
+      &gt75f_package_m11, &gt75f_package_m13, nullptr,
   },
 
   _binary_gt75f_r_bin_start, _binary_gt75f_r_bin_end,

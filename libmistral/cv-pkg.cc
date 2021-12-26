@@ -4,7 +4,7 @@ const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pos(pos_t pos, 
 {
     uint16_t key = pos | (index << 14);
     int np = package_infos[model->package].pin_count;
-    const pin_info_t *pins = di.packages[model->package];
+    const pin_info_t *pins = di.packages[model->package]->pins;
     for(int i=0; i != np; i++)
 	if(pins[i].pad == key)
 	    return pins+i;
@@ -43,7 +43,7 @@ const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pnode(mistral::
 const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_name(const std::string &name) const
 {
   int np = package_infos[model->package].pin_count;
-  const pin_info_t *pins = di.packages[model->package];
+  const pin_info_t *pins = di.packages[model->package]->pins;
   for(int i=0; i != np; i++)
     if(std::string(pins[i].name) == name)
       return pins+i;

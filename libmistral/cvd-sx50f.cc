@@ -70,7 +70,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
 
   {
       nullptr, nullptr, nullptr, nullptr, nullptr,
-      nullptr, sx50f_package_u19, sx50f_package_u23,
+      nullptr, &sx50f_package_u19, &sx50f_package_u23,
       nullptr, nullptr, nullptr,
   },
 

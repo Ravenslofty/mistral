@@ -60,9 +60,9 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   },
 
   {
-      e50f_package_f17, e50f_package_f23, nullptr, nullptr, nullptr,
-      e50f_package_u15, e50f_package_u19, nullptr,
-      nullptr, e50f_package_m13, nullptr,
+      &e50f_package_f17, &e50f_package_f23, nullptr, nullptr, nullptr,
+      &e50f_package_u15, &e50f_package_u19, nullptr,
+      nullptr, &e50f_package_m13, nullptr,
   },
 
   _binary_e50f_r_bin_start, _binary_e50f_r_bin_end,

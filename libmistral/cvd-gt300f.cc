@@ -78,8 +78,8 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   },
 
   {
-      nullptr, gt300f_package_f23, gt300f_package_f27, gt300f_package_f31, gt300f_package_f35,
-      nullptr, gt300f_package_u19, nullptr,
+      nullptr, &gt300f_package_f23, &gt300f_package_f27, &gt300f_package_f31, &gt300f_package_f35,
+      nullptr, &gt300f_package_u19, nullptr,
       nullptr, nullptr, nullptr,
   },
 

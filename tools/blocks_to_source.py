@@ -478,7 +478,10 @@ def opn(n):
 
 def pr(r):
     if 'instance' in r:
-        return '(%d << 24) | (%d << 16) | %d' % (r['instance'], r['block'], r['prams'])
+        if 'var' in r:
+            return '(%d << 25) | (%d << 24) | (%d << 16) | %d' % (r['var'], r['instance'], r['block'], r['prams'])
+        else:
+            return '(%d << 24) | (%d << 16) | %d' % (r['instance'], r['block'], r['prams'])
     else:
         return '(%d << 16) | %d' % (r['block'], r['prams'])
 
@@ -502,7 +505,7 @@ def load_pram():
         r['block'] = int(pp[0])
         r['prams'] = int(pp1[0])
         r['prame'] = int(pp1[1])
-        if len(ls) > 3:
+        if len(ls) > 3 and ls[3] != '-':
             r['instance'] = int(ls[3])
         if len(ls) > 4:
             r['var'] = int(ls[4])

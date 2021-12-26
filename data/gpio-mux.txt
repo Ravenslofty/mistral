@@ -232,7 +232,7 @@ x drive_strength               m:20
   0804a sstl2_12ma
   0f098 sstl2_16ma
 i iocsr_std                    m:2  161 162 | 35 36 | 119 120 | 77 78
-  0 nvr_high !
+  0 nvr_high
   1 nvr_low
   2 vr
   3 dis

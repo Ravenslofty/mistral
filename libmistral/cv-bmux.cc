@@ -167,6 +167,13 @@ void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int 
       else
 	def = PROG_GND;
     }
+    if(mux->mux == IOCSR_STD) {
+      for(uint32_t i = 0; i != di.ioblocks_count; i++)
+	if(di.ioblocks[i].pos == pos && di.ioblocks[i].idx == idx && di.ioblocks[i].btype == GPIO) {
+	  def = (di.ioblocks[i].pram & (1 << 25)) ? NVR_LOW : NVR_HIGH;
+	  break;
+	}
+    }
     break;
 
   case PMA3:
@@ -180,7 +187,7 @@ void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int 
 
   case DQS16: {
     if(mux->mux == INPUT_REG4_SEL)
-      def = SEL_BYPASS;
+      def = pos == di.packages[model->package]->dqs_pos && idx == di.packages[model->package]->dqs_index ? SEL_LOCKED_DPA : SEL_BYPASS;
     break;
   }
 
@@ -211,7 +218,7 @@ void mistral::CycloneV::bmux_r_solve_default(block_type_t btype, pos_t pos, int 
 
   case DQS16: {
     if(mux->mux == RB_T9_SEL_EREG_CFF_DELAY)
-      def = 0x00;
+      def = pos == di.packages[model->package]->dqs_pos && idx == di.packages[model->package]->dqs_index ? 0x1f : 0x00;
     break;
   }
 

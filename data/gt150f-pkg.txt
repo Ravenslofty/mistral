@@ -1,4 +1,4 @@
-f23 width:22 height:22 widthmm:23 heightmm:23
+f23 width:22 height:22 widthmm:23 heightmm:23 dqs:036.081.14
    0  0 A1   f:RREF_TL t:gxp-reference-resistor
    0  1 B1   f:GND t:vss
    0  2 C1   gpio:000.034.0 hssi_input:11 ioblock:B1L
@@ -483,7 +483,7 @@ f23 width:22 height:22 widthmm:23 heightmm:23
   21 19 Y22  gpio:066.000.3 ioblock:4A r:0.99525 c:1.89e-12 l:7.97e-09 len:0.01436 d:123
   21 20 AA22 gpio:064.000.2 ioblock:4A r:0.90488 c:1.79e-12 l:7.48e-09 len:0.01316 d:116
   21 21 AB22 gpio:064.000.3 ioblock:4A r:0.91626 c:1.79e-12 l:7.32e-09 len:0.01315 d:114 dq
-f31 width:30 height:30 widthmm:31 heightmm:31
+f31 width:30 height:30 widthmm:31 heightmm:31 dqs:012.081.11
    0  1 B1   f:GND t:vss
    0  2 C1   f:RREF_TL t:gxp-reference-resistor
    0  3 D1   f:GND t:vss
@@ -1380,7 +1380,7 @@ f31 width:30 height:30 widthmm:31 heightmm:31
   29 26 AG30 f:VCCIO5B t:vccn
   29 27 AH30 gpio:089.023.3 ioblock:5B r:1.22104 c:2.36e-12 l:9.45e-09 len:0.01791 d:149
   29 28 AJ30 gpio:089.023.2 ioblock:5B r:1.20661 c:2.6e-12 l:9.71e-09 len:0.01847 d:159
-m15 width:28 height:28 widthmm:15 heightmm:15
+m15 width:28 height:28 widthmm:15 heightmm:15 dqs:028.081.3
    0  0 A1   f:GND t:vss
    0  1 B1   f:RREF_TL t:gxp-reference-resistor
    0  2 C1   f:GND t:vss
@@ -1865,7 +1865,7 @@ m15 width:28 height:28 widthmm:15 heightmm:15
   27 25 AF28 gpio:068.000.3 ioblock:4A r:0.49853 c:1.42e-12 l:4.62e-09 len:0.00787 d:81 dq
   27 26 AG28 gpio:066.000.2 ioblock:4A r:0.46714 c:1.16e-12 l:4.55e-09 len:0.00703 d:73 dq
   27 27 AH28 gpio:066.000.3 ioblock:4A r:0.49816 c:8.7e-13 l:5.53e-09 len:0.00681 d:70
-f27 width:26 height:26 widthmm:27 heightmm:27
+f27 width:26 height:26 widthmm:27 heightmm:27 dqs:036.081.2
    0  1 B1   f:RREF_TL t:gxp-reference-resistor
    0  2 C1   f:GND t:vss
    0  3 D1   f:GND t:vss
@@ -2538,7 +2538,7 @@ f27 width:26 height:26 widthmm:27 heightmm:27
   25 22 AC26 f:GND t:vss
   25 23 AD26 gpio:084.000.2 ioblock:4A r:0.9057 c:1.65e-12 l:7.36e-09 len:0.01322 d:110
   25 24 AE26 gpio:084.000.3 ioblock:4A r:1.07132 c:1.74e-12 l:6.98e-09 len:0.0136 d:110
-u19 width:22 height:22 widthmm:19 heightmm:19
+u19 width:22 height:22 widthmm:19 heightmm:19 dqs:028.081.7
    0  0 A1   f:RREF_TL t:gxp-reference-resistor
    0  1 B1   f:GND t:vss
    0  2 C1   f:NC t:nc

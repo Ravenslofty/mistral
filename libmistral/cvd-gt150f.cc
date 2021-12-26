@@ -75,9 +75,9 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt150f = {
   },
 
   {
-      nullptr, gt150f_package_f23, gt150f_package_f27, gt150f_package_f31, nullptr,
-      nullptr, gt150f_package_u19, nullptr,
-      nullptr, nullptr, gt150f_package_m15,
+      nullptr, &gt150f_package_f23, &gt150f_package_f27, &gt150f_package_f31, nullptr,
+      nullptr, &gt150f_package_u19, nullptr,
+      nullptr, nullptr, &gt150f_package_m15,
   },
 
   _binary_gt150f_r_bin_start, _binary_gt150f_r_bin_end,
