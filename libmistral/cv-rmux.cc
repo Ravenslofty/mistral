@@ -166,6 +166,9 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
       rnode_t dnode = r.id();
       if(rn2t(dnode) == DCMUX && rn2t(snode) == TCLK && rmux_is_default(snode))
 	continue;
+      if(rn2t(dnode) == SCLK && rmux_is_default(dnode)) {
+	continue; // Should test if there's a downlink link.
+      }
 
       links.emplace_back(std::make_pair(snode, dnode));
     } else {
