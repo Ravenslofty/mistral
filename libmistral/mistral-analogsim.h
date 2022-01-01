@@ -129,12 +129,13 @@ namespace mistral {
     std::vector<int> nodes_order, inverse_nodes_order;
     int non_linear_nodes_count, first_fixed_node, node_count;
 
-    std::vector<double> voltages[4], previous_voltages, voltage_offsets, voltage_offsets_hold;
+    std::vector<double> voltages[4], voltages_filtered, voltage_offsets, voltage_offsets_hold;
     std::vector<double> matrix_r, matrix_c, linear_matrix, inverse_linear_matrix;
     std::vector<double> non_linear_current;
     std::vector<double> non_linear_current_deriv;
     std::vector<double> node_functions, node_currents;
     std::vector<double> jacobian, inverse_jacobian;
+    std::array<double, 3> timestep;
 
     const char *nn(int id) const {
       return nodes[id].name.c_str();
