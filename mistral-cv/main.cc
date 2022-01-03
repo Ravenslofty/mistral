@@ -1010,6 +1010,7 @@ static void trun(char **args)
   }
 
   std::vector<mistral::AnalogSim::wave> output_waves;
+  std::vector<mistral::AnalogSim::time_interval> output_delays;
 
   int netcount = model->rnode_timing_get_circuit_count(rn);
   if(netcount != 1) {
@@ -1024,8 +1025,9 @@ static void trun(char **args)
     model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim, input, outputs);
     sim.set_input_wave(input, input_signal);
     output_waves.resize(outputs.size());
+    output_delays.resize(outputs.size());
     for(size_t o = 0; o != outputs.size(); o++)
-      sim.set_output_wave(outputs[o].second, output_waves[o]);
+      sim.set_output_wave(outputs[o].second, output_waves[o], output_delays[o]);
     sim.run();
   }
 

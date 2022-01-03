@@ -41,7 +41,8 @@ enum driver_type_t {
 #include <cv-drivertypes.ipp>
 #undef P
   DRV_COUNT,
-  DRV_TABLE2 = DRV_COUNT,
+  DRV_GLOBALS = DRV_COUNT,
+  DRV_TABLE2,
   DRV_TABLE3
 };
 
@@ -58,6 +59,12 @@ enum speed_info_t {
   SI_M,
   SI_MS,
   SI_COUNT
+};
+
+enum driver_globals_t {
+  DRVG_TIMING_SCALE,
+  DRVG_VDD,
+  DRVG_VCCH
 };
 
 struct dnode_table2 {
@@ -96,12 +103,17 @@ struct dnode_driver {
   caps_t cstage1;
   caps_t cstage2;
   caps_t cwire;
+  caps_t cor_factor;     // Not a caps, but rise/fall dependant
+  caps_t min_cor_factor; // Same
   float rnor_pup;
   float rwire;
   float rmult;
 };
 
 struct dnode_info {
+  double timing_scale;
+  double vdd;
+  double vcch;
   dnode_driver drivers[DRV_COUNT];
 };
 
@@ -118,6 +130,7 @@ public:
   static const char *const temp_info[];
   static const char *const info_types[];
   static const char *const table_types[];
+  static const char *const globals_types[];
 
   std::vector<dnode_table2> table2;
   std::vector<dnode_table3> table3;
@@ -128,10 +141,11 @@ public:
   DriversParser(const std::vector<uint8_t> &data);
 
 private:
-  PrefixTree speedmatch, tempmatch, drivermatch, shapematch, infomatch, tablematch;
+  PrefixTree speedmatch, tempmatch, drivermatch, shapematch, infomatch, tablematch, globalsmatch;
 
   void error(const uint8_t *st, const char *err = nullptr) const;
 
+  dnode_info &di_get(int speed, int temp);
   dnode_driver &dd_get(int speed, int temp, int driver);
   uint16_t *tidx_get(int speed, int temp, const uint8_t *st, const uint8_t *&p);
 };

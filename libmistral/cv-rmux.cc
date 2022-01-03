@@ -1135,13 +1135,16 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
     }
   }
 
-  sim.add_gnd_vdd(1.0);
-  input = sim.gn_input(rn2s(rn).c_str());
 
-  const dnode_driver *driver_bank = dn_info[dn_lookup->index[model->speed_grade][temp][delay]].drivers;
+  const dnode_info &di = dn_info[dn_lookup->index[model->speed_grade][temp][delay]];
+  const dnode_driver *driver_bank = di.drivers;
   int driver_id = rb->drivers[incoming_index];
   const dnode_driver &driver = driver_bank[driver_id];
   const rnode_line_information *rli = rb->line_info_index == 0xffff ? nullptr : rli_data + rb->line_info_index;
+
+  sim.set_timing_scale(di.timing_scale * driver.cor_factor.rf[edge] * driver.min_cor_factor.rf[edge], di.timing_scale * driver.cor_factor.rf[edge]);
+  sim.add_gnd_vdd(di.vdd);
+  input = sim.gn_input(rn2s(rn).c_str());
 
   double line_r = rli ? driver.rmult * rli->r85 * rli->tcomp(timing_slot_temperature[temp])/rli->tcomp(85) : 0;
 
@@ -1228,10 +1231,10 @@ void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_
   }
 
   case SHP_td: {
-    int out = sim.gn("out");
-    int pass1 = sim.gn("pass1");
-    int gate = sim.gn("gate");
-    int vcch = sim.gn_v(1.4, "vcch");
+    int out = sim.gn_g(edge ? di.vdd : 0.0, "out");
+    int pass1 = sim.gn_g(edge ? 0.0 : di.vdd, "pass1");
+    int gate = sim.gn_g(edge ? di.vdd : 0.0, "gate");
+    int vcch = sim.gn_v(di.vcch, "vcch");
     sim.add_noqpg(pass1, gate, input, dn_t3(driver_id, "pass1", driver.pass1));
     sim.add_c(input, gate, driver.cgd_pass.rf[edge]);
     sim.add_c(gate, pass1, driver.cgs_pass.rf[edge]);

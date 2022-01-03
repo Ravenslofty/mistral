@@ -143,6 +143,13 @@ int mistral::AnalogSim::gn(const char *name)
   return id;
 }
 
+int mistral::AnalogSim::gn_g(double v, const char *name)
+{
+  int id = nodes.size();
+  nodes.emplace_back(node(N_STD, v, mkname(name, id)));
+  return id;
+}
+
 int mistral::AnalogSim::gn_v(double v, const char *name)
 {
   int id = nodes.size();
@@ -223,15 +230,42 @@ void mistral::AnalogSim::show() const
 
 void mistral::AnalogSim::set_input_wave(int node, const wave &w)
 {
+  double threshold = config_vdd/2;
+
+  double cross_time = -1;
+  for(size_t i = 0; i != w.size(); i++)
+    if(w[i].v == threshold) {
+      cross_time = w[i].t;
+      break;
+    }
+      
+  if(cross_time == -1) {
+    for(size_t i = 0; i != w.size()-1; i++) {
+      bool po = w[i].v > threshold;
+      bool no = w[i+1].v > threshold;
+      if(po != no) {
+	double cross_dt = (threshold - w[i].v)/(w[i+1].v - w[i].v);
+	cross_time = w[i].t * (1-cross_dt) + w[i+1].t * cross_dt;
+	break;
+      }
+    }
+  }
+  if(cross_time == -1) {
+    fprintf(stderr, "Input wave does not cross the %gV threshold.", threshold);
+    exit(1);
+  }
+
   nodes[node].w = input_waves.size();
-  input_waves.push_back(w);
+  input_waves.emplace_back(std::make_pair(w, cross_time));
 }
 
-void mistral::AnalogSim::set_output_wave(int node, wave &w)
+void mistral::AnalogSim::set_output_wave(int node, wave &w, time_interval &transition_delay)
 {
   assert(nodes[node].type == N_STD);
   nodes[node].w = output_waves.size();
-  output_waves.push_back(&w);
+  transition_delay.mi = -1;
+  transition_delay.mx = -1;
+  output_waves.push_back(std::make_pair(&w, &transition_delay));
 }
 
 bool mistral::AnalogSim::node_fixed_voltage(int node) const
@@ -311,9 +345,9 @@ void mistral::AnalogSim::show_nodes_order() const
 void mistral::AnalogSim::compute_time_range()
 {
   input_start_time = input_end_time = 0;
-  for(const wave &w : input_waves) {
-    double start = w.front().t;
-    double end = w.back().t;
+  for(const auto &w : input_waves) {
+    double start = w.first.front().t;
+    double end = w.first.back().t;
     if(!input_end_time || start < input_start_time)
       input_start_time = start;
     if(end > input_end_time)
@@ -326,7 +360,7 @@ double mistral::AnalogSim::input_voltage_at_time(int input, double time)
   const node &n = nodes[nodes_order[input]];
   assert(n.type == N_INPUT);
   assert(n.w != -1);
-  const wave &w = input_waves[n.w];
+  const wave &w = input_waves[n.w].first;
   if(time <= w.front().t)
     return w.front().v;
   if(time >= w.back().t)
@@ -360,16 +394,40 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
     const auto &n = nodes[nodes_order[i]];
     if(n.w != -1) {
       printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
-      output_waves[n.w]->emplace_back(time_slot(time, voltages[0][i]));
+      output_waves[n.w].first->emplace_back(time_slot(time, voltages[0][i]));
     }
   }
 
   if(test_end) {
+    double threshold = config_vdd / 2;
     bool done = true;
     for(int i = 0; i != first_fixed_node; i++) {
       const auto &n = nodes[nodes_order[i]];
       if(n.w != -1) {
+	double cross_time = -1;
 	double v = voltages[0][i];
+	if(v == threshold)
+	  cross_time = time;
+	else {
+	  double pv = output_waves[n.w].first->end()[-2].v;
+	  bool po = pv > threshold;
+	  bool no = v > threshold;
+	  if(po != no) {
+	    double cross_dt = (threshold - pv)/(v - pv);
+	    cross_time = output_waves[n.w].first->end()[-2].t * (1-cross_dt) + time * cross_dt;
+	  }
+	}
+	if(cross_time != -1) {
+	  double input_cross_time = 0;
+	  for(const auto &w : input_waves)
+	    if(w.second > input_cross_time)
+	      input_cross_time = w.second;
+	  double delay = cross_time - input_cross_time;
+	  fprintf(stderr, "delay %g %g\n", delay*config_timing_scale_min, delay*config_timing_scale_max);
+	  output_waves[n.w].second->mi = delay * config_timing_scale_min;
+	  output_waves[n.w].second->mx = delay * config_timing_scale_max;
+	}
+
 	if(output_wave_is_rising[n.w]) {
 	  if(v < 0.9*config_vdd)
 	    done = false;
@@ -389,32 +447,15 @@ void mistral::AnalogSim::init_voltages()
   vector_clear(voltages[0]);
   vector_clear(voltage_offsets);
 
-  for(int i = first_fixed_node; i != node_count; i++) {
+  for(int i = 0; i != node_count; i++) {
     const auto &n = nodes[nodes_order[i]];
-    if(n.type == N_V)
+    if(n.type == N_V || n.type == N_STD)
       voltages[0][i] = n.value;
     else
       voltages[0][i] = input_voltage_at_time(i, input_start_time);
-    voltage_offsets[i] = -voltages[0][i];
   }
-
-  for(const auto &c : components)
-    if(c.type == C_R) {
-      int n0 = c.onodes[0];
-      int n1 = c.onodes[1];
-      bool f0 = node_fixed_voltage_ordered(n0);
-      bool f1 = node_fixed_voltage_ordered(n1);
-      if(f0 && !f1) {
-	voltage_offsets[n1] = -voltages[0][n0];
-	if(c.param == 1e9)
-	  voltages[0][n1] = voltages[0][n0];
-      }
-      if(!f0 && f1) {
-	voltage_offsets[n0] = -voltages[0][n1];
-	if(c.param == 1e9)
-	  voltages[0][n0] = voltages[0][n1];
-      }
-    }
+  for(int i = first_fixed_node; i != node_count; i++)
+    voltage_offsets[i] = -voltages[0][i];
 }
 
 void mistral::AnalogSim::update_input_voltages(double time)
@@ -625,7 +666,6 @@ void mistral::AnalogSim::converge_voltages()
     matrix_mul(node_currents, inverse_jacobian, node_functions, non_linear_nodes_count, non_linear_nodes_count, 1, non_linear_nodes_count);
 
     double max_dv = step_new_dc_voltages();
-
     if(max_dv < config_min_dv)
       break;
   }
@@ -668,12 +708,33 @@ void mistral::AnalogSim::voltages_step_history()
   voltages[0] = std::move(v);
 }
 
+mistral::AnalogSim::AnalogSim() :
+  config_vdd(1.0),
+  config_max_dv(0.10),
+  config_min_dv(1e-9),
+  config_timing_scale_min(1.0),
+  config_timing_scale_max(1.0)  
+{
+}
+
+void mistral::AnalogSim::set_max_dv(double max_dv)
+{
+  config_max_dv = max_dv;
+}
+
+void mistral::AnalogSim::set_min_dv(double min_dv)
+{
+  config_min_dv = min_dv;
+}
+
+void mistral::AnalogSim::set_timing_scale(double scale_min, double scale_max)
+{
+  config_timing_scale_min = scale_min;
+  config_timing_scale_max = scale_max;
+}
+
 void mistral::AnalogSim::run()
 {
-  config_vdd = 1.0;
-  config_max_dv = 0.1;
-  config_min_dv = 1e-9;
-
   order_nodes();
 
   for(int i=0; i != 4; i++)
@@ -693,9 +754,9 @@ void mistral::AnalogSim::run()
   vector_alloc(node_currents, non_linear_nodes_count);
 
   init_voltages();
-
   build_resistor_matrix(linear_matrix);
   matrix_invert(linear_matrix, inverse_linear_matrix, node_count);
+  apply_inverse_linear_matrix_to_voltage_offsets();
   converge_voltages();
   compute_linear_voltages();
 

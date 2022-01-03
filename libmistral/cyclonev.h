@@ -589,12 +589,17 @@ namespace mistral {
       caps_t cstage1;
       caps_t cstage2;
       caps_t cwire;
+      caps_t cor_factor;     // Not a caps, but rise/fall dependant
+      caps_t min_cor_factor; // Same
       float rnor_pup;
       float rwire;
       float rmult;
     };
 
     struct dnode_info {
+      double timing_scale;
+      double vdd;
+      double vcch;
       dnode_driver drivers[DRV_COUNT];
     };
 

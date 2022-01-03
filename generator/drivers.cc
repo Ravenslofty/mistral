@@ -9,6 +9,7 @@ const char *const DriversParser::driver_type_names[] = {
 #define P(x) #x
 #include <cv-drivertypes.ipp>
 #undef P
+  "globals",
   "table2",
   "table3",
   nullptr
@@ -35,11 +36,13 @@ enum info_type_t {
   IT_cstage1,
   IT_cstage2,
   IT_cwire,
+  IT_cor_factor,
+  IT_min_cor_factor,
   IT_rnor_pup,
   IT_rwire,
   IT_rmult,
   IT_first_c = IT_cbuff,
-  IT_last_c = IT_cwire,
+  IT_last_c = IT_min_cor_factor,
   IT_first_r = IT_rnor_pup,
   IT_last_r = IT_rmult,
 };
@@ -78,6 +81,13 @@ const char *const DriversParser::table_types[] = {
   nullptr
 };
 
+const char *const DriversParser::globals_types[] = {
+  "timing_scale",
+  "vdd",
+  "vcch",
+  nullptr
+};
+
 const char *const DriversParser::info_types[] = {
   "cbuff",
   "cg0_pass",
@@ -92,6 +102,8 @@ const char *const DriversParser::info_types[] = {
   "cstage1",
   "cstage2",
   "cwire",
+  "cor_factor",
+  "min_cor_factor",
   "rnor_pup",
   "rwire",
   "rmult",
@@ -111,7 +123,7 @@ void DriversParser::error(const uint8_t *st, const char *err) const
   exit(1);
 };
 
-dnode_driver &DriversParser::dd_get(int speed, int temp, int driver)
+dnode_info &DriversParser::di_get(int speed, int temp)
 {
   int sg = -1, sm = -1;
   switch(speed) {
@@ -164,9 +176,14 @@ dnode_driver &DriversParser::dd_get(int speed, int temp, int driver)
       break;
     }
   }
-
-  return drivers[idx].drivers[driver];
+  return drivers[idx];
 }
+
+dnode_driver &DriversParser::dd_get(int speed, int temp, int driver)
+{
+  return di_get(speed, temp).drivers[driver];
+}
+
 
 uint16_t *DriversParser::tidx_get(int speed, int temp, const uint8_t *st, const uint8_t *&p)
 {
@@ -198,7 +215,8 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
   drivermatch(driver_type_names),
   shapematch(shape_type_names),
   infomatch(info_types),
-  tablematch(table_types)
+  tablematch(table_types),
+  globalsmatch(globals_types)
 {
   memset(&lookup, 0xff, sizeof(lookup));
 
@@ -222,6 +240,22 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
     skipsp(p);
 
     switch(driver) {
+    case DRV_GLOBALS: {
+      dnode_info &di = di_get(speed, temp);
+      int global = globalsmatch.lookup(p);
+      if(global == -1)
+	error(st, "unknown global");
+      skipsp(p);
+      double value = lookup_float(p);
+      skipsp(p);
+      switch(global) {
+      case DRVG_TIMING_SCALE: di.timing_scale = value; break;
+      case DRVG_VDD: di.vdd = value; break;
+      case DRVG_VCCH: di.vcch = value; break;
+      }
+      break;
+    }
+
     case DRV_TABLE2: {
       *tidx_get(speed, temp, st, p) = table2.size();
       table2.resize(table2.size()+1);
@@ -299,6 +333,8 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	  case IT_cstage1: dd.cstage1 = cc; break;
 	  case IT_cstage2: dd.cstage2 = cc; break;
 	  case IT_cwire: dd.cwire = cc; break;
+	  case IT_cor_factor: dd.cor_factor = cc; break;
+	  case IT_min_cor_factor: dd.min_cor_factor = cc; break;
 	  default: fprintf(stderr, "caps failure\n"); exit(1);
 	  }
 	} else {

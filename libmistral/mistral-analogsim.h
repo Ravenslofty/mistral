@@ -14,6 +14,10 @@ namespace mistral {
       time_slot(double _t, double _v) : t(_t), v(_v) {}
     };
 
+    struct time_interval {
+      double mi, mx;
+    };
+
     // Lookup functors return the value and the partial derivatives
     struct table2_lookup {
       std::string name;
@@ -43,6 +47,12 @@ namespace mistral {
 	node = gn(name);
     }
 
+    int gn_g(double v, const char *name = nullptr);
+    void gn_g(int &node, double v, const char *name = nullptr) {
+      if(node == -1)
+	node = gn_g(v, name);
+    }
+
     int gn_v(double v, const char *name = nullptr);
     void gn_v(int &node, double v, const char *name = nullptr) {
       if(node == -1)
@@ -54,6 +64,11 @@ namespace mistral {
       if(node == -1)
 	node = gn_input(name);
     }
+
+    AnalogSim();
+    void set_timing_scale(double scale_min, double scale_max);
+    void set_max_dv(double max_dv);
+    void set_min_dv(double min_dv);
 
     void add_gnd_vdd(double vdd);
 
@@ -74,7 +89,7 @@ namespace mistral {
     }
 
     void set_input_wave(int node, const wave &w);
-    void set_output_wave(int node, wave &w);
+    void set_output_wave(int node, wave &w, time_interval &transition_delay);
 
     void show() const;
     void run();
@@ -114,16 +129,17 @@ namespace mistral {
       std::unique_ptr<table3_lookup> t3a;
     };
 
+    double config_vdd;
     double config_max_dv;
     double config_min_dv;
-    double config_vdd;
+    double config_timing_scale_min, config_timing_scale_max;
 
     double input_start_time, input_end_time;
 
     std::vector<node> nodes;
     std::vector<component> components;
-    std::vector<wave> input_waves;
-    std::vector<wave *> output_waves;
+    std::vector<std::pair<wave, double>> input_waves;
+    std::vector<std::pair<wave *, time_interval *>> output_waves;
 
     std::vector<bool> output_wave_is_rising;
     std::vector<int> nodes_order, inverse_nodes_order;
