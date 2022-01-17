@@ -1087,30 +1087,36 @@ static void timing(char **args)
     std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
     auto est = delay == mistral::CycloneV::DELAY_MAX ? mistral::CycloneV::EST_SLOW : mistral::CycloneV::EST_FAST;
 
-    for(size_t i=0; i != path.size()-1; i++) {
+    for(size_t i=0; i != path.size(); i++) {
       auto src = path[i];
-      auto dst = path[i+1];
+      auto dst = i+1 == path.size() ? 0 : path[i+1];
 
       auto psrc = model->rnode_to_pnode(src);
       auto pdst = model->rnode_to_pnode(dst);
 
       printf("  %-30s %-30s",
 	     (psrc ? mistral::CycloneV::pn2s(psrc) : mistral::CycloneV::rn2s(src)).c_str(),
-	     (pdst ? mistral::CycloneV::pn2s(pdst) : mistral::CycloneV::rn2s(dst)).c_str());
+	     dst ? (pdst ? mistral::CycloneV::pn2s(pdst) : mistral::CycloneV::rn2s(dst)).c_str() : "-");
+
+      if(mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXVG || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXVR || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXHG || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXHR || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXCR) {
+	printf("  ip2ip delay\n");
+	continue;
+      }
+
+      if(mistral::CycloneV::rn2t(src) == mistral::CycloneV::WM) {
+	printf("  no delay\n");
+	continue;
+      }
 
       int cc = model->rnode_timing_get_circuit_count(src);
-      if(cc == 0 && mistral::CycloneV::rn2t(src) != mistral::CycloneV::WM) {
+      if(cc == 0) {
 	printf("  -> unhandled, no circuits\n");
 	break;
       }
+
       if(cc > 1) {
 	printf("  -> unhandled, multiple circuits\n");
 	break;
-      }
-
-      if(cc == 0) {
-	printf("  no delay\n");
-	continue;
       }
 
       bool inverting = model->rnode_is_inverting(src) == 1;
