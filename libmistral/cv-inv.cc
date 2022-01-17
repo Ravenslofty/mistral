@@ -108,6 +108,6 @@ mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_t rn) co
   if(rb->drivers[0] == 0xff)
     return INV_UNKNOWN;
   int driver = rb->drivers[0];
-  return dn_info[dn_lookup->index[model->speed_grade][T_85][DELAY_MAX]].drivers[driver].invert ? INV_YES : INV_NO;
+  return dn_info[dn_lookup->index_si[SI_TT][T_85]].drivers[driver].invert ? INV_YES : INV_NO;
 }
 

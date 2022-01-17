@@ -1029,9 +1029,139 @@ static void trun(char **args)
     for(size_t o = 0; o != outputs.size(); o++)
       sim.set_output_wave(outputs[o].second, output_waves[o], output_delays[o]);
     sim.run();
+    printf("Delays %g %g\n", output_delays[0].mi, output_delays[0].mx);
   }
 
   delete model;
+}
+
+static void timing(char **args)
+{
+  auto model = mistral::CycloneV::get_model(args[0]);
+  if(!model) {
+    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
+    exit(1);
+  }
+
+  uint8_t *rbf;
+  uint32_t rbfsize;
+  file_load(args[1], rbf, rbfsize);
+
+  model->rbf_load(rbf, rbfsize);
+  free(rbf);
+
+  auto temp = model->timing_slot_lookup(args[2]);
+  auto delay = model->delay_type_lookup(args[3]);
+
+  auto links = model->route_frontier_links_with_path();
+  links.erase(links.begin());
+  for(const auto &path : links) {
+    std::string p;
+    for(auto rn : path) {
+      if(!p.empty())
+	p += ' ';
+      auto pn = model->rnode_to_pnode(rn);
+      p += pn ? mistral::CycloneV::pn2s(pn) : mistral::CycloneV::rn2s(rn);
+    }
+    auto s = model->rnode_to_pnode(path.front());
+    auto d = model->rnode_to_pnode(path.back());
+    bool has_comment = false;
+    const mistral::CycloneV::pin_info_t *pin;
+    pin = model->pin_find_pnode(s);
+    if(pin) {
+      p = p + " ; " + pin->name;
+      has_comment = true;
+    }
+    pin = model->pin_find_pnode(d);
+    if(pin) {
+      if(!has_comment) {
+	p += " ;";
+	has_comment = true;
+      }
+      p = p + " " + pin->name;
+    }
+    printf("Path %s\n", p.c_str());
+
+    bool inverted = false;
+    mistral::AnalogSim::wave input_wave[2], output_wave[2];
+    mistral::AnalogSim::time_interval output_delays[2];
+    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    
+    for(size_t i=0; i != path.size()-1; i++) {
+      auto src = path[i];
+      auto dst = path[i+1];
+
+      auto psrc = model->rnode_to_pnode(src);
+      auto pdst = model->rnode_to_pnode(dst);
+
+      printf("  %-30s %-30s",
+	     (psrc ? mistral::CycloneV::pn2s(psrc) : mistral::CycloneV::rn2s(src)).c_str(),
+	     (pdst ? mistral::CycloneV::pn2s(pdst) : mistral::CycloneV::rn2s(dst)).c_str());
+
+      int cc = model->rnode_timing_get_circuit_count(src);
+      if(cc == 0 && mistral::CycloneV::rn2t(src) != mistral::CycloneV::WM) {
+	printf("  -> unhandled, no circuits\n");
+	break;
+      }
+      if(cc > 1) {
+	printf("  -> unhandled, multiple circuits\n");
+	break;
+      }
+
+      if(cc == 0) {
+	printf("  no delay\n");
+	continue;
+      }
+
+      bool inverting = model->rnode_is_inverting(src) == 1;
+      for(int edge = 0; edge != 2; edge++) {
+	auto actual_edge = edge ? inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL : inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE;
+	mistral::AnalogSim sim;
+	int input = -1;
+	std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+	model->rnode_timing_build_circuit(src, 0, temp, delay, actual_edge, sim, input, outputs);
+	if(i == 0) {
+	  model->rnode_timing_build_input_wave(src, temp, delay, actual_edge, input_wave[edge]);
+	  if(input_wave[edge].empty()) {
+	    printf("  -> unhandled, no input wave\n");
+	    break;
+	  }
+	}
+
+#if 0
+	printf("  input wave\n");
+	for(const auto &w : input_wave[edge])
+	  printf("     %10g %10g\n", w.t, w.v);
+	//	sim.show();
+#endif
+
+	sim.set_input_wave(input, input_wave[edge]);
+	size_t o;
+	for(o = 0; o != outputs.size() && outputs[o].first != dst; o++);
+	if(o == outputs.size()) {
+	  fprintf(stderr, "Internal error - output not in outputs\n");
+	  exit(1);
+	}
+
+	output_wave[edge].clear();
+	sim.set_output_wave(outputs[o].second, output_wave[edge], output_delays[edge]);
+	//	printf("\n");
+	//	sim.show();
+	//	printf("sim run %s %d\n", mistral::CycloneV::rn2s(src).c_str(), actual_edge);
+	sim.run();
+	//	printf("sim run end\n");
+	model->rnode_timing_trim_wave(temp, delay, output_wave[edge], input_wave[edge]);
+      }
+
+      printf("  %s: %6.1f - %6.1f %s: %6.1f - %6.1f\n",
+	     inverted ? inverting ? "fr" : "ff" : inverting ? "rf" : "rr",
+	     output_delays[0].mi*1e12, output_delays[0].mx*1e12,
+	     inverted ? inverting ? "rf" : "rr" : inverting ? "fr" : "ff",
+	     output_delays[1].mi*1e12, output_delays[1].mx*1e12);
+      if(inverting)
+	inverted = !inverted;
+    }
+  }
 }
 
 struct fct {
@@ -1058,6 +1188,7 @@ static const fct fcts[] = {
   { "rnodes",   1, 1, show_rnodes,   "rnodes   model                                                      -- List all rnodes ids" },
   { "tnet",     6, 6, show_tnet,     "tnet     model file.rbf temp [min/max] [fall/rise] rnode            -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
   { "trun",     7, 7, trun,          "trun     model file.rbf temp [min/max] [fall/rise] input.txt rnode  -- Run the spice networks for a given temperature, min/max choice, rise/fall choice, impulse and routing node" },
+  { "timing",   4, 4, timing,        "timing   model file.rbf temp [min/max/ss/tt/ff]                     -- Precise timing of everything (not everything, subject to availability) in a design" },
   { }
 };
 

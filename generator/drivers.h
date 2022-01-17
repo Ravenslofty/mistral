@@ -31,9 +31,44 @@ enum timing_slot {
   T_COUNT
 };
 
-enum {
-  CRF_FALL,
-  CRF_RISE
+enum lab_output_type {
+  LAB_OUTPUTT_COMB,
+  LAB_OUTPUTT_FF,
+  LAB_OUTPUTT_COUNT
+};
+
+enum lab_output_connectivity {
+  LAB_OUTPUTC_GLOBAL,
+  LAB_OUTPUTC_LOCAL,
+  LAB_OUTPUTC_COUNT
+};
+
+enum edge_type {
+  EDGE_IO,
+  EDGE_MLAB,
+  EDGE_JTAG,
+  EDGE_OSC,
+  EDGE_CRC,
+  EDGE_RUBLOCK,
+  EDGE_TSD,
+  EDGE_BIASGEN,
+  EDGE_OCT,
+  EDGE_DSP,
+  EDGE_GCLK,
+  EDGE_RCLK,
+  EDGE_COUNT
+};
+
+enum edge_speed_type {
+  EST_FAST,
+  EST_SLOW,
+  EST_COUNT
+};
+
+enum edge_t {
+  RF_FALL,
+  RF_RISE,
+  RF_COUNT
 };
 
 enum driver_type_t {
@@ -43,7 +78,9 @@ enum driver_type_t {
   DRV_COUNT,
   DRV_GLOBALS = DRV_COUNT,
   DRV_TABLE2,
-  DRV_TABLE3
+  DRV_TABLE3,
+  DRV_WAVE,
+  DRV_EDGES
 };
 
 enum shape_type_t {
@@ -58,6 +95,9 @@ enum speed_info_t {
   SI_8,
   SI_M,
   SI_MS,
+  SI_SS,
+  SI_TT,
+  SI_FF,
   SI_COUNT
 };
 
@@ -76,8 +116,8 @@ struct dnode_table3 {
   float value[11*11*11];
 };
 
-struct caps_t {
-  float rf[2];
+struct rf_t {
+  float rf[RF_COUNT];
 };
 
 struct dnode_driver {
@@ -90,35 +130,46 @@ struct dnode_driver {
   uint16_t pass2;
   uint16_t pullup;
   uint16_t padding;
-  caps_t cbuff;
-  caps_t cg0_pass;
-  caps_t cgd_buff;
-  caps_t cgd_drive;
-  caps_t cgd_pass;
-  caps_t cgs_pass;
-  caps_t cint;
-  caps_t coff;
-  caps_t con;
-  caps_t cout;
-  caps_t cstage1;
-  caps_t cstage2;
-  caps_t cwire;
-  caps_t cor_factor;     // Not a caps, but rise/fall dependant
-  caps_t min_cor_factor; // Same
+  rf_t cbuff;
+  rf_t cg0_pass;
+  rf_t cgd_buff;
+  rf_t cgd_drive;
+  rf_t cgd_pass;
+  rf_t cgs_pass;
+  rf_t cint;
+  rf_t coff;
+  rf_t con;
+  rf_t cout;
+  rf_t cstage1;
+  rf_t cstage2;
+  rf_t cwire;
+  rf_t cor_factor;
+  rf_t min_cor_factor;
   float rnor_pup;
   float rwire;
   float rmult;
+};
+
+struct input_waveform_info {
+  struct {
+    double time;
+    double vdd;
+  } wave[10];
 };
 
 struct dnode_info {
   double timing_scale;
   double vdd;
   double vcch;
+  
+  rf_t edges[EDGE_COUNT][EST_COUNT];
+  input_waveform_info input_waveforms[LAB_OUTPUTT_COUNT][RF_COUNT][LAB_OUTPUTC_COUNT];
   dnode_driver drivers[DRV_COUNT];
 };
 
 struct dnode_lookup {
-  uint32_t index[SG_COUNT][T_COUNT][2]; // [speed grade][temperature][max=0,min=1]
+  uint32_t index_sg[SG_COUNT][T_COUNT][2]; // [speed grade][temperature][max=0,min=1]
+  uint32_t index_si[SI_COUNT][T_COUNT];    // [speed info][temperature]
 };
 
 class DriversParser {
@@ -131,6 +182,11 @@ public:
   static const char *const info_types[];
   static const char *const table_types[];
   static const char *const globals_types[];
+  static const char *const lab_output_type_info[];
+  static const char *const lab_output_connectivity_info[];
+  static const char *const edge_type_info[];
+  static const char *const edge_speed_info[];
+  static const char *const rise_fall_info[];
 
   std::vector<dnode_table2> table2;
   std::vector<dnode_table3> table3;
@@ -141,7 +197,7 @@ public:
   DriversParser(const std::vector<uint8_t> &data);
 
 private:
-  PrefixTree speedmatch, tempmatch, drivermatch, shapematch, infomatch, tablematch, globalsmatch;
+  PrefixTree speedmatch, tempmatch, drivermatch, shapematch, infomatch, tablematch, globalsmatch, lotmatch, locmatch, etmatch, esmatch, rfmatch;
 
   void error(const uint8_t *st, const char *err = nullptr) const;
 

@@ -1089,3 +1089,48 @@ bool mistral::CycloneV::bmux_r_set(block_type_t btype, pos_t pos, bmux_type_t mu
   bmux_val_set(base, pmux, midx, mode, s);
   return true;
 }
+
+bool mistral::CycloneV::bmux_get(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, bmux_setting_t &s) const
+{
+  uint32_t base;
+  const bmux *pmux;
+  bmux_ram_t mode;
+
+  bmux_find(btype, pos, mux, base, pmux, mode);
+  if(!pmux || midx < 0 || midx >= pmux->span)
+    return false;
+
+  s.btype = btype;
+  s.pos = pos;
+  s.mux = mux;
+  s.midx = midx;
+  s.type = pmux->stype;
+
+  switch(pmux->stype) {
+  case MT_MUX: {
+    auto r = bmux_m_read(btype, pos, base, pmux, midx, mode);
+    s.s = r.first;
+    s.def = r.second;
+    break;
+  }
+  case MT_NUM: {
+    auto r = bmux_n_read(btype, pos, base, pmux, midx, mode);
+    s.s = r.first;
+    s.def = r.second;
+    break;
+  }
+  case MT_BOOL: {
+    auto r = bmux_b_read(btype, pos, base, pmux, midx, mode);
+    s.s = r.first;
+    s.def = r.second;
+    break;
+  }
+  case MT_RAM: {
+    s.s = pmux->bits;
+    s.def = bmux_r_read(btype, pos, base, pmux, midx, mode, s.r);
+    break;
+  }
+  }
+
+  return true;
+}

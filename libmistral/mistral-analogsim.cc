@@ -348,7 +348,7 @@ void mistral::AnalogSim::compute_time_range()
   for(const auto &w : input_waves) {
     double start = w.first.front().t;
     double end = w.first.back().t;
-    if(!input_end_time || start < input_start_time)
+    if(!input_start_time || start < input_start_time)
       input_start_time = start;
     if(end > input_end_time)
       input_end_time = end;
@@ -393,10 +393,17 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
   for(int i = 0; i != first_fixed_node; i++) {
     const auto &n = nodes[nodes_order[i]];
     if(n.w != -1) {
-      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
+      //      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
       output_waves[n.w].first->emplace_back(time_slot(time, voltages[0][i]));
     }
   }
+
+#if 0
+  printf("### %8.2f", time*1e12);
+  for(int i = 0; i != node_count; i++)
+    printf(" %5.3f", voltages[0][i]);
+  printf("\n");
+#endif
 
   if(test_end) {
     double threshold = config_vdd / 2;
@@ -423,7 +430,7 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
 	    if(w.second > input_cross_time)
 	      input_cross_time = w.second;
 	  double delay = cross_time - input_cross_time;
-	  fprintf(stderr, "delay %g %g\n", delay*config_timing_scale_min, delay*config_timing_scale_max);
+	  //	  fprintf(stderr, "delay %g %g\n", delay*config_timing_scale_min, delay*config_timing_scale_max);
 	  output_waves[n.w].second->mi = delay * config_timing_scale_min;
 	  output_waves[n.w].second->mx = delay * config_timing_scale_max;
 	}
@@ -452,7 +459,7 @@ void mistral::AnalogSim::init_voltages()
     if(n.type == N_V || n.type == N_STD)
       voltages[0][i] = n.value;
     else
-      voltages[0][i] = input_voltage_at_time(i, input_start_time);
+      voltages[0][i] = input_voltage_at_time(i, 0.0);
   }
   for(int i = first_fixed_node; i != node_count; i++)
     voltage_offsets[i] = -voltages[0][i];
@@ -554,6 +561,29 @@ void mistral::AnalogSim::compute_non_linear_currents()
       break;
     }
 
+    case C_PASS: {
+      double v, dvx, dvy;
+      c.t2a->lookup(voltages[0][c.onodes[0]], voltages[0][c.onodes[1]], v, dvx, dvy);
+
+      add_non_linear_current(c.onodes[0], -v);
+      add_non_linear_current(c.onodes[1],  v);
+      add_non_linear_current_deriv(c.onodes[0], c.onodes[0], -dvx);
+      add_non_linear_current_deriv(c.onodes[1], c.onodes[0],  dvx);
+      add_non_linear_current_deriv(c.onodes[0], c.onodes[1], -dvy);
+      add_non_linear_current_deriv(c.onodes[1], c.onodes[1],  dvy);
+      break;
+    }
+
+    case C_BUFF: {
+      double v, dvx, dvy;
+      c.t2a->lookup(voltages[0][c.onodes[0]], voltages[0][c.onodes[1]], v, dvx, dvy);
+
+      add_non_linear_current(c.onodes[1],  v);
+      add_non_linear_current_deriv(c.onodes[1], c.onodes[0],  dvx);
+      add_non_linear_current_deriv(c.onodes[1], c.onodes[1],  dvy);
+      break;
+    }
+
     default:
       printf("Type %d\n", c.type);
       break;
@@ -640,6 +670,21 @@ void mistral::AnalogSim::recompute_voltage_offsets(double scale)
       double v = c.t3a->lookup(voltages[1][c.onodes[0]], voltages[1][c.onodes[1]], voltages[1][c.onodes[2]]);
       add_voltage_offset(c.onodes[0],  v);
       add_voltage_offset(c.onodes[2], -v);
+      break;
+    }
+
+    case C_PASS: {
+      double v = c.t2a->lookup(voltages[1][c.onodes[0]], voltages[1][c.onodes[1]]);
+
+      add_voltage_offset(c.onodes[0], -v);
+      add_voltage_offset(c.onodes[1],  v);
+      break;
+    }
+
+    case C_BUFF: {
+      double v = c.t2a->lookup(voltages[1][c.onodes[0]], voltages[1][c.onodes[1]]);
+
+      add_voltage_offset(c.onodes[1],  v);
       break;
     }
 
@@ -763,6 +808,7 @@ void mistral::AnalogSim::run()
   for(int i=1; i != 4; i++)
     std::copy(voltages[0].begin(), voltages[0].end(), voltages[i].begin());
 
+  compute_time_range();
   double current_time = input_start_time;
   output_record(current_time, false);
   timestep[0] = 2e-11;

@@ -12,6 +12,8 @@ const char *const DriversParser::driver_type_names[] = {
   "globals",
   "table2",
   "table3",
+  "wave",
+  "edges",
   nullptr
 };
 
@@ -55,9 +57,33 @@ enum table_type_t {
   TT_pullup
 };
 
-const char *const DriversParser::speed_info[] = { "6", "7", "8", "m", "ms", nullptr };
+const char *const DriversParser::speed_info[] = { "6", "7", "8", "m", "ms", "ss", "tt", "ff", nullptr };
 
 const char *const DriversParser::temp_info[] = { "n55", "n40", "0", "85", "100", "125", nullptr };
+
+const char *const DriversParser::lab_output_type_info[] = { "comb", "ff", nullptr };
+
+const char *const DriversParser::lab_output_connectivity_info[] = { "global", "local", nullptr };
+
+const char *const DriversParser::edge_type_info[] = {
+  "io",
+  "mlab",
+  "jtag",
+  "osc",
+  "crc",
+  "rublock",
+  "tsd",
+  "biasgen",
+  "oct",
+  "dsp",
+  "gclk",
+  "rclk",
+  nullptr
+};
+
+const char *const DriversParser::edge_speed_info[] = { "fast", "slow", nullptr };
+
+const char *const DriversParser::rise_fall_info[] = { "fall", "rise", nullptr };
 
 const char *const DriversParser::sg_info[] = {
   "6",
@@ -125,16 +151,7 @@ void DriversParser::error(const uint8_t *st, const char *err) const
 
 dnode_info &DriversParser::di_get(int speed, int temp)
 {
-  int sg = -1, sm = -1;
-  switch(speed) {
-  case SI_6:  sg = SG_6; sm = 0; break;
-  case SI_7:  sg = SG_7; sm = 0; break;
-  case SI_8:  sg = SG_8; sm = 0; break;
-  case SI_M:  sg = SG_6; sm = 1; break;
-  case SI_MS: sg = SG_7_H5S; sm = 1; break;
-  }
-
-  uint32_t idx = lookup.index[sg][temp][sm];
+  uint32_t idx = lookup.index_si[speed][temp];
   if(idx == 0xffffffff) {
     idx = drivers.size();
     drivers.resize(idx+1);
@@ -145,34 +162,38 @@ dnode_info &DriversParser::di_get(int speed, int temp)
       dn.rmult = 1.0;
       dn.driver = dn.output = dn.pass1 = dn.pass2 = dn.pullup = 0xffff;
     }
+    lookup.index_si[speed][temp] = idx;
+
     switch(speed) {
     case SI_6:
-      lookup.index[SG_6][temp][0] = idx;
-      lookup.index[SG_6_H6][temp][0] = idx;
+      lookup.index_sg[SG_6][temp][0] = idx;
+      lookup.index_sg[SG_6_H6][temp][0] = idx;
       break;
     case SI_7:
-      lookup.index[SG_7][temp][0] = idx;
-      lookup.index[SG_7_H5][temp][0] = idx;
-      lookup.index[SG_7_H5S][temp][0] = idx;
-      lookup.index[SG_7_H6][temp][0] = idx;
+      lookup.index_sg[SG_7][temp][0] = idx;
+      lookup.index_sg[SG_7_H5][temp][0] = idx;
+      lookup.index_sg[SG_7_H5S][temp][0] = idx;
+      lookup.index_sg[SG_7_H6][temp][0] = idx;
       break;
     case SI_8:
-      lookup.index[SG_8][temp][0] = idx;
-      lookup.index[SG_8_H6][temp][0] = idx;
-      lookup.index[SG_8_H7][temp][0] = idx;
+      lookup.index_sg[SG_8][temp][0] = idx;
+      lookup.index_sg[SG_8_H6][temp][0] = idx;
+      lookup.index_sg[SG_8_H7][temp][0] = idx;
       break;
     case SI_M:
-      lookup.index[SG_6][temp][1] = idx;
-      lookup.index[SG_6_H6][temp][1] = idx;
-      lookup.index[SG_7][temp][1] = idx;
-      lookup.index[SG_7_H5][temp][1] = idx;
-      lookup.index[SG_7_H6][temp][1] = idx;
-      lookup.index[SG_8][temp][1] = idx;
-      lookup.index[SG_8_H6][temp][1] = idx;
-      lookup.index[SG_8_H7][temp][1] = idx;
+      lookup.index_sg[SG_6][temp][1] = idx;
+      lookup.index_sg[SG_6_H6][temp][1] = idx;
+      lookup.index_sg[SG_7][temp][1] = idx;
+      lookup.index_sg[SG_7_H5][temp][1] = idx;
+      lookup.index_sg[SG_7_H6][temp][1] = idx;
+      lookup.index_sg[SG_8][temp][1] = idx;
+      lookup.index_sg[SG_8_H6][temp][1] = idx;
+      lookup.index_sg[SG_8_H7][temp][1] = idx;
       break;
     case SI_MS:
-      lookup.index[SG_7_H5S][temp][1] = idx;
+      lookup.index_sg[SG_7_H5S][temp][1] = idx;
+      break;
+    default:
       break;
     }
   }
@@ -216,7 +237,12 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
   shapematch(shape_type_names),
   infomatch(info_types),
   tablematch(table_types),
-  globalsmatch(globals_types)
+  globalsmatch(globals_types),
+  lotmatch(lab_output_type_info),
+  locmatch(lab_output_connectivity_info),
+  etmatch(edge_type_info),
+  esmatch(edge_speed_info),
+  rfmatch(rise_fall_info)
 {
   memset(&lookup, 0xff, sizeof(lookup));
 
@@ -288,6 +314,47 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	error(st, "Extra stuff at the end");
       break;
     }
+    case DRV_WAVE: {
+      dnode_info &di = di_get(speed, temp);
+      int lot = lotmatch.lookup(p);
+      if(lot == -1)
+	error(st, "unknown lab output type");
+      skipsp(p);
+      int rf = rfmatch.lookup(p);
+      if(rf == -1)
+	error(st, "unknown rise/fall type");
+      skipsp(p);
+      int loc = locmatch.lookup(p);
+      if(loc == -1)
+	error(st, "unknown lab connectivity type");
+      auto &wave = di.input_waveforms[lot][rf][loc];
+      for(int i=0; i != 10; i++) {
+	skipsp(p);
+	wave.wave[i].time = lookup_float(p);
+	skipsp(p);
+	wave.wave[i].vdd = lookup_float(p);
+      }
+      if(*p != '\r' && *p != '\n')
+	error(st, "Extra stuff at the end");
+      break;
+    }
+    case DRV_EDGES: {
+      dnode_info &di = di_get(speed, temp);
+      int et = etmatch.lookup(p);
+      if(et == -1)
+	error(st, "unknown edge type");
+      skipsp(p);
+      di.edges[et][EST_SLOW].rf[RF_RISE] = lookup_float(p);
+      skipsp(p);
+      di.edges[et][EST_SLOW].rf[RF_FALL] = lookup_float(p);
+      skipsp(p);
+      di.edges[et][EST_FAST].rf[RF_RISE] = lookup_float(p);
+      skipsp(p);
+      di.edges[et][EST_FAST].rf[RF_FALL] = lookup_float(p);
+      if(*p != '\r' && *p != '\n')
+	error(st, "Extra stuff at the end");
+      break;
+    }
     default: {
       dnode_driver &dd = dd_get(speed, temp, driver);
       skipsp(p);
@@ -311,13 +378,13 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	  error(st, "unknown key");
 	p++;
 	if(key >= IT_first_c && key <= IT_last_c) {
-	  caps_t cc;
-	  cc.rf[CRF_RISE] = lookup_float(p);
+	  rf_t cc;
+	  cc.rf[RF_RISE] = lookup_float(p);
 	  if(*p == '/') {
 	    p++;
-	    cc.rf[CRF_FALL] = lookup_float(p);
+	    cc.rf[RF_FALL] = lookup_float(p);
 	  } else
-	    cc.rf[CRF_FALL] = cc.rf[CRF_RISE];
+	    cc.rf[RF_FALL] = cc.rf[RF_RISE];
 
 	  switch(key) {
 	  case IT_cbuff: dd.cbuff = cc; break;
@@ -362,12 +429,9 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
     p++;
   }
 
-  // seu die -55 min info is missing, use the non-seu one instead
-  lookup.index[SG_7_H5S][T_N55][1] = lookup.index[SG_6][T_N55][1];
-
   // seu die 125 min info is missing for a part of the drivers, use the non-seu info instead
-  const dnode_info &dis = drivers[lookup.index[SG_6][T_125][1]];
-  dnode_info &did = drivers[lookup.index[SG_7_H5S][T_125][1]];
+  const dnode_info &dis = drivers[lookup.index_sg[SG_6][T_125][1]];
+  dnode_info &did = drivers[lookup.index_sg[SG_7_H5S][T_125][1]];
   for(int l = 0; l != DRV_COUNT; l++)
     if(did.drivers[l].shape == 0xff)
       memcpy(&did.drivers[l], &dis.drivers[l], sizeof(dnode_driver));
@@ -376,11 +440,11 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
   for(int i=0; i != SG_COUNT; i++)
     for(int j=0; j != T_COUNT; j++)
       for(int k=0; k != 2; k++)
-	if(lookup.index[i][j][k] == 0xffffffff) {
+	if(lookup.index_sg[i][j][k] == 0xffffffff) {
 	  fprintf(stderr, "Missing %s %s %s\n", sg_info[i], temp_info[j], k ? "min" : "max");
 	  bad = true;
 	} else {
-	  const dnode_info &di = drivers[lookup.index[i][j][k]];
+	  const dnode_info &di = drivers[lookup.index_sg[i][j][k]];
 	  for(int l = 0; l != DRV_COUNT; l++)
 	    if(di.drivers[l].shape == 0xff) {
 	      fprintf(stderr, "Missing %s %s %s %s\n", sg_info[i], temp_info[j], k ? "min" : "max", driver_type_names[l]);
