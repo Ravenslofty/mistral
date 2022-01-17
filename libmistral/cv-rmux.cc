@@ -1149,17 +1149,17 @@ void mistral::CycloneV::rnode_timing_trim_wave(int didx, const AnalogSim::wave &
     dw.emplace_back(sw[splice++]);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
 {
-  rnode_timing_build_input_wave(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, edge, w);
+  rnode_timing_build_input_wave(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
 {
-  rnode_timing_build_input_wave(dn_lookup->index_si[si][temp], rn, edge, w);
+  rnode_timing_build_input_wave(dn_lookup->index_si[si][temp], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
 {
   const dnode_info &di = dn_info[didx];
 
@@ -1189,6 +1189,19 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
       w.emplace_back(AnalogSim::time_slot(wi.wave[i].time, wi.wave[i].vdd));
     return;
   }
+
+  int edge_type = -1;
+  switch(pn2bt(pn)) {
+  case GPIO: edge_type = EDGE_IO; break;
+  default: break;
+  }
+
+  if(edge_type == -1)
+    return;
+
+  w.clear();
+  w.emplace_back(AnalogSim::time_slot(0.0, edge == RF_RISE ? 0.0 : di.vdd));
+  w.emplace_back(AnalogSim::time_slot(di.edges[edge_type][est].rf[edge], edge == RF_RISE ? di.vdd : 0.0));
 }
 
 void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
@@ -1314,6 +1327,16 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, int ste
     sim.add_c(out, 0, driver.cint.rf[edge]);
     sim.add_buff(out, buff, dn_t2(driver_id, "driver", driver.driver));
     sim.add_c(out, buff, driver.cgd_drive.rf[edge]);
+    sim.add_r(buff, 0, 1e9);
+    sim.add_c(buff, 0, driver.cout.rf[edge]);
+    sim.add_r(buff, wire, driver.rwire);
+    break;
+  }
+
+  case SHP_b: {
+    int buff = sim.gn_g(edge ? 0.0 : di.vdd, "buff");
+    sim.add_buff(input, buff, dn_t2(driver_id, "driver", driver.driver));
+    sim.add_c(input, buff, driver.cgd_drive.rf[edge]);
     sim.add_r(buff, 0, 1e9);
     sim.add_c(buff, 0, driver.cout.rf[edge]);
     sim.add_r(buff, wire, driver.rwire);

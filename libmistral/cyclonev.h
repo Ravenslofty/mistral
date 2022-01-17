@@ -813,8 +813,8 @@ namespace mistral {
     void rnode_timing_build_circuit_si(rnode_t rn, int step, timing_slot_t temp, speed_info_t si, edge_t edge,
 				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
     
-    void rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim::wave &w);
-    void rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim::wave &w);
+    void rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
+    void rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
 
     void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw);
     void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw);
@@ -1290,7 +1290,7 @@ namespace mistral {
 				    const dnode_driver *driver_bank,
 				    AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs);
     void rnode_timing_build_circuit(int didx, rnode_t rn, int step, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
-    void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, AnalogSim::wave &w);
+    void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
     void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw);
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;

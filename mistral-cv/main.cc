@@ -1054,7 +1054,6 @@ static void timing(char **args)
   auto delay = model->delay_type_lookup(args[3]);
 
   auto links = model->route_frontier_links_with_path();
-  links.erase(links.begin());
   for(const auto &path : links) {
     std::string p;
     for(auto rn : path) {
@@ -1086,7 +1085,8 @@ static void timing(char **args)
     mistral::AnalogSim::wave input_wave[2], output_wave[2];
     mistral::AnalogSim::time_interval output_delays[2];
     std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
-    
+    auto est = delay == mistral::CycloneV::DELAY_MAX ? mistral::CycloneV::EST_SLOW : mistral::CycloneV::EST_FAST;
+
     for(size_t i=0; i != path.size()-1; i++) {
       auto src = path[i];
       auto dst = path[i+1];
@@ -1121,10 +1121,10 @@ static void timing(char **args)
 	std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
 	model->rnode_timing_build_circuit(src, 0, temp, delay, actual_edge, sim, input, outputs);
 	if(i == 0) {
-	  model->rnode_timing_build_input_wave(src, temp, delay, actual_edge, input_wave[edge]);
+	  model->rnode_timing_build_input_wave(src, temp, delay, actual_edge, est, input_wave[edge]);
 	  if(input_wave[edge].empty()) {
 	    printf("  -> unhandled, no input wave\n");
-	    break;
+	    goto unhandled;
 	  }
 	}
 
@@ -1161,6 +1161,8 @@ static void timing(char **args)
       if(inverting)
 	inverted = !inverted;
     }
+  unhandled:
+    ;
   }
 }
 
