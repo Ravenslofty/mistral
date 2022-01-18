@@ -107,7 +107,7 @@ i rb_t9_sel_oreg_dff_delay               r-:5
 i rb_t9_sel_ereg_ipen                    m:1   1440 | 1413 | 1386 | 1359 | 1332 | 1305 | 1278 | 1251 | 1224 | 1197 | 1170 | 1143 | 1116 | 1089 | 1062 | 1035
   0 cff !
   1 ip_sc
-i rb_t9_sel_ereg_cff_delay               r:5
+i rb_t9_sel_ereg_cff_delay               r-:5
   * 1435 1436 1437 1438 1439
   * 1408 1409 1410 1411 1412
   * 1381 1382 1383 1384 1385
@@ -269,7 +269,7 @@ i input_reg3_sel                         m:2   999 1000 | 935 936 | 871 872 | 80
   2 sel_cdatamxin3
   3 sel_cdatamxin8
 i input_reg4_sel                         m:2   997 998 | 933 934 | 869 870 | 805 806 | 741 742 | 677 678 | 613 614 | 549 550 | 485 486 | 421 422 | 357 358 | 293 294 | 229 230 | 165 166 | 101 102 | 37 38
-  0 sel_bypass
+  0 sel_bypass !
   1 sel_locked_dpa
   2 sel_cdatamxin4
   3 sel_cdatamxin9

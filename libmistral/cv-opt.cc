@@ -159,7 +159,7 @@ void mistral::CycloneV::oram_clear()
   for(int i = 0x10; i != 0x20; i++)
     oram[i] = 0xffffffffff;
 
-  opt_r_set(JTAG_ID, model->variant.idcode);
+  bmux_set_default(BNONE, 0, 0, bm_opt, BM_ORAM, 0);
 }
 
 void mistral::CycloneV::oram_load(const uint8_t *data)

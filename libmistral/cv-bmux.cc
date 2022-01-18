@@ -152,7 +152,6 @@ void mistral::CycloneV::bmux_b_solve_default(block_type_t btype, pos_t pos, int 
       def = type ? 0 : 1;
     break;
   }
-
   default: break;
   }
 }
@@ -185,12 +184,6 @@ void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int 
       def = ((base >> 28) & 1 ) ? DOWN_EN : TRISTATE;
     break;
 
-  case DQS16: {
-    if(mux->mux == INPUT_REG4_SEL)
-      def = pos == di.packages[model->package]->dqs_pos && idx == di.packages[model->package]->dqs_index ? SEL_LOCKED_DPA : SEL_BYPASS;
-    break;
-  }
-
   default: break;
   }
 }
@@ -216,11 +209,12 @@ void mistral::CycloneV::bmux_r_solve_default(block_type_t btype, pos_t pos, int 
     break;
   }
 
-  case DQS16: {
-    if(mux->mux == RB_T9_SEL_EREG_CFF_DELAY)
-      def = pos == di.packages[model->package]->dqs_pos && idx == di.packages[model->package]->dqs_index ? 0x1f : 0x00;
+  case BNONE: // options
+    if(mux->mux == IDCODE)
+      def = model->variant.idcode;
+    else if(mux->mux == OPT_A)
+      def = 0x1dff;
     break;
-  }
 
   default: break;
   }

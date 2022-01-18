@@ -149,10 +149,11 @@ bool mistral::CycloneV::rmux_is_default(rnode_t node) const
 
 void mistral::CycloneV::route_set_defaults()
 {
-  for(const auto &r : rnodes()) {
-    const rmux_pattern &pat = rmux_patterns[r.pattern()];
-    rmux_set_val(r, pat.def);
-  }
+  for(const auto &r : rnodes())
+    if(r.pattern() != 0xff) {
+      const rmux_pattern &pat = rmux_patterns[r.pattern()];
+      rmux_set_val(r, pat.def);
+    }
 }
 
 std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_all_active_links() const
