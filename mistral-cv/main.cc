@@ -445,6 +445,16 @@ static void decompile(char **args)
 	if(pin)
 	  fprintf(fd, " ; %s", pin->name);
       }
+
+      if(s.btype == mistral::CycloneV::DQS16 && s.midx != -1) {
+	auto gpiov = model->p2p_from(mistral::CycloneV::pnode(mistral::CycloneV::DQS16, s.pos, mistral::CycloneV::PNONE, s.midx, -1));
+	if(!gpiov.empty()) {
+	  auto pin = model->pin_find_pos(mistral::CycloneV::pn2p(gpiov[0]), mistral::CycloneV::pn2bi(gpiov[0]));
+	if(pin)
+	  fprintf(fd, " ; %s", pin->name);
+	}
+      }
+
       fprintf(fd, "\n");
     }
 

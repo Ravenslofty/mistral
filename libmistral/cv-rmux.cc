@@ -783,9 +783,10 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
 std::vector<mistral::CycloneV::pnode_t> mistral::CycloneV::p2p_from(pnode_t pn) const
 {
   std::vector<pnode_t> res;
-  for(uint32_t i = 0; i != dhead->count_p2p; i++)
+  for(uint32_t i = 0; i != dhead->count_p2p; i++) {
     if(p2p_infos[i].s == pn)
       res.push_back(p2p_infos[i].d);
+  }
   return res;
 }
 
