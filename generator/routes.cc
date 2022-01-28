@@ -119,33 +119,40 @@ void RoutesParser::next()
     error(st);
   if(*p++ != ' ')
     error(st, "Space expected after destination node");
-  
-  int pat = lookup_int(p);
-  if(pat == -1 || (*p != ':' && *p != '.'))
-    error(st, "Incorrect pattern number");
-  if(*p == '.') {
-    if(pat != 6)
-      error(st, "Only pattern 6 has options");
+
+  if(*p == '-') {
     p++;
-    int patopt = lookup_int(p);
-    if(pat == -1 || *p != ':')
-      error(st, "Incorrect pattern option");
-    pat = 70 + patopt;
+    skipsp(p);
+    pattern = 0xfe;
+    fw_pos = 0;
+
+  } else {
+    int pat = lookup_int(p);
+    if(pat == -1 || (*p != ':' && *p != '.'))
+      error(st, "Incorrect pattern number");
+    if(*p == '.') {
+      if(pat != 6)
+	error(st, "Only pattern 6 has options");
+      p++;
+      int patopt = lookup_int(p);
+      if(pat == -1 || *p != ':')
+	error(st, "Incorrect pattern option");
+      pat = 70 + patopt;
+    }
+    p++;
+    pattern = pat;
+    
+    int pat_x = lookup_int(p);
+    if(pat_x == -1 || *p++ != '_')
+      error(st, "Incorrect pattern x position");
+    
+    int pat_y = lookup_int(p);
+    if(pat_y == -1 || (*p != ' ' && *p != '\r' && *p != '\n'))
+      error(st, "Incorrect pattern y position");
+    skipsp(p);
+    
+    fw_pos = pat_x + pat_y * width;
   }
-  p++;
-  pattern = pat;
-
-  int pat_x = lookup_int(p);
-  if(pat_x == -1 || *p++ != '_')
-    error(st, "Incorrect pattern x position");
-
-  int pat_y = lookup_int(p);
-  if(pat_y == -1 || (*p != ' ' && *p != '\r' && *p != '\n'))
-    error(st, "Incorrect pattern y position");
-  if(*p == ' ')
-    p++;
-
-  fw_pos = pat_x + pat_y * width;
 
   while(*p != '\r' && *p != '\n') {
     int slot = lookup_int(p);

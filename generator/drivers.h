@@ -130,12 +130,12 @@ struct dnode_driver {
   uint16_t pass2;
   uint16_t pullup;
   uint16_t padding;
-  rf_t cbuff;
   rf_t cg0_pass;
   rf_t cgd_buff;
   rf_t cgd_drive;
   rf_t cgd_pass;
   rf_t cgs_pass;
+  rf_t cnand;
   rf_t cint;
   rf_t coff;
   rf_t con;

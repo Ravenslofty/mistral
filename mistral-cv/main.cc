@@ -1,20 +1,23 @@
 #undef _FORTIFY_SOURCE
 
-/*
-e50   5CEBA4F23C7
-gt75  5CGTFD5C5F23I7
-gt150 5CGTFD7C5F23I7
-gt300 5CGTFD9C5F23I7
-gx25  5CGXFC3B6F23C6
-sx50  5CSEBA4U23I7
-sx120 5CSEBA6U23I7
-*/
-
 #include "cyclonev.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+static struct {
+  const char *diename;
+  const char *sku;
+} die_lookup[7] = {
+  { "e50f",   "5CEBA4F23C7" },
+  { "gt75f",  "5CGTFD5C5F23I7" },
+  { "gt150f", "5CGTFD7C5F23I7" },
+  { "gt300f", "5CGTFD9C5F23I7" },
+  { "gx25f",  "5CGXFC3B6F23C6" },
+  { "sx50f",  "5CSEBA4U23I7" },
+  { "sx120f", "5CSEBA6U23I7" },
+};
 
 void file_load(const char *fname, uint8_t *&data, uint32_t &size)
 {
@@ -58,6 +61,16 @@ static void show_models(char **args)
 	   m->variant.idcode, m->variant.die.name, m->variant.name,
 	   pkg.type, pkg.width_in_mm, pkg.pin_count,
 	   m->temperature, m->speed);
+  }
+}
+
+static void validate(char **args)
+{
+  for(int i=0; i != 7; i++) {
+    printf("Validating %s\n", die_lookup[i].diename);
+    auto model = mistral::CycloneV::get_model(die_lookup[i].sku);
+    model->validate_fw_bw();
+    delete model;
   }
 }
 
@@ -957,18 +970,25 @@ static void show_tnet(char **args)
   auto edge = model->edge_lookup(args[4]);
   auto rn = get_rnode(model, args[5], "command-line", 1);
 
-  int netcount = model->rnode_timing_get_circuit_count(rn);
-  for(int i=0; i != netcount; i++) {
+  auto mode = model->rnode_timing_get_mode(rn);
+  if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
     std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
-    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim, input, outputs);
-    printf("  circuit %d/%d\n", i+1, netcount);
+    model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.show();
     printf("input %s (%d)\n", sim.get_node_name(input).c_str(), input);
     for(const auto &o : outputs)
       printf("output %s: %s (%d)\n", o.first ? mistral::CycloneV::rn2s(o.first).c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
-  }
+
+  } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
+    printf("Unsupported node\n");
+
+  else if(mode == mistral::CycloneV::RTM_NO_DELAY)
+    printf("Zero-delay node\n");
+
+  else if(mode == mistral::CycloneV::RTM_P2P)
+    printf("Point-to-point node\n");
   
   delete model;
 }
@@ -1022,25 +1042,31 @@ static void trun(char **args)
   std::vector<mistral::AnalogSim::wave> output_waves;
   std::vector<mistral::AnalogSim::time_interval> output_delays;
 
-  int netcount = model->rnode_timing_get_circuit_count(rn);
-  if(netcount != 1) {
-    fprintf(stderr, "Unhandled netcount %d\n", netcount);
-    exit(1);
-  }
-
-  for(int i=0; i != netcount; i++) {
+  auto mode = model->rnode_timing_get_mode(rn);
+  if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
     std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
-    model->rnode_timing_build_circuit(rn, i, temp, delay, edge, sim, input, outputs);
+    model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.set_input_wave(input, input_signal);
     output_waves.resize(outputs.size());
     output_delays.resize(outputs.size());
     for(size_t o = 0; o != outputs.size(); o++)
       sim.set_output_wave(outputs[o].second, output_waves[o], output_delays[o]);
     sim.run();
-    printf("Delays %g %g\n", output_delays[0].mi, output_delays[0].mx);
-  }
+    for(size_t o = 0; o != outputs.size(); o++)
+      printf("%-30s %g - %g\n",
+	     outputs[o].first ? mistral::CycloneV::rn2s(outputs[o].first).c_str() : "<output>",
+	     output_delays[o].mi, output_delays[o].mx);
+
+  } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
+    printf("Unsupported node\n");
+
+  else if(mode == mistral::CycloneV::RTM_NO_DELAY)
+    printf("Zero-delay node\n");
+
+  else if(mode == mistral::CycloneV::RTM_P2P)
+    printf("Point-to-point node\n");
 
   delete model;
 }
@@ -1108,41 +1134,44 @@ static void timing(char **args)
 	     (psrc ? mistral::CycloneV::pn2s(psrc) : mistral::CycloneV::rn2s(src)).c_str(),
 	     dst ? (pdst ? mistral::CycloneV::pn2s(pdst) : mistral::CycloneV::rn2s(dst)).c_str() : "-");
 
-      if(mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXVG || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXVR || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXHG || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXHR || mistral::CycloneV::pn2bt(psrc) == mistral::CycloneV::CMUXCR) {
-	printf("  ip2ip delay\n");
+      auto mode = model->rnode_timing_get_mode(src);
+      if(mode == mistral::CycloneV::RTM_UNSUPPORTED) {
+	printf("  unsupported, stopping path\n");
+	break;
+      }
+
+      auto inverting = model->rnode_is_inverting(src);
+
+      if(mode == mistral::CycloneV::RTM_P2P) {
+	printf("  p2p delay\n");
+	if(inverting == mistral::CycloneV::INV_YES || inverting == mistral::CycloneV::INV_PROGRAMMABLE)
+	  inverted = !inverted;
 	continue;
       }
 
-      if(mistral::CycloneV::rn2t(src) == mistral::CycloneV::WM) {
+      if(mode == mistral::CycloneV::RTM_NO_DELAY) {
 	printf("  no delay\n");
+	if(inverting)
+	  inverted = !inverted;
 	continue;
       }
 
-      int cc = model->rnode_timing_get_circuit_count(src);
-      if(cc == 0) {
-	printf("  -> unhandled, no circuits\n");
-	break;
+
+      if(i == 0) {
+	model->rnode_timing_build_input_wave(src, temp, delay, inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE, est, input_wave[0]);
+	model->rnode_timing_build_input_wave(src, temp, delay, inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL, est, input_wave[1]);
+	if(input_wave[mistral::CycloneV::RF_RISE].empty()) {
+	  printf("  unsupported, no input wave\n");
+	  break;
+	}
       }
 
-      if(cc > 1) {
-	printf("  -> unhandled, multiple circuits\n");
-	break;
-      }
-
-      bool inverting = model->rnode_is_inverting(src) == 1;
       for(int edge = 0; edge != 2; edge++) {
 	auto actual_edge = edge ? inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL : inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE;
 	mistral::AnalogSim sim;
 	int input = -1;
 	std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
-	model->rnode_timing_build_circuit(src, 0, temp, delay, actual_edge, sim, input, outputs);
-	if(i == 0) {
-	  model->rnode_timing_build_input_wave(src, temp, delay, actual_edge, est, input_wave[edge]);
-	  if(input_wave[edge].empty()) {
-	    printf("  -> unhandled, no input wave\n");
-	    goto unhandled;
-	  }
-	}
+	model->rnode_timing_build_circuit(src, temp, delay, actual_edge, sim, input, outputs);
 
 #if 0
 	printf("  input wave\n");
@@ -1174,11 +1203,10 @@ static void timing(char **args)
 	     output_delays[0].mi*1e12, output_delays[0].mx*1e12,
 	     inverted ? inverting ? "rf" : "rr" : inverting ? "fr" : "ff",
 	     output_delays[1].mi*1e12, output_delays[1].mx*1e12);
-      if(inverting)
+
+      if(inverting == mistral::CycloneV::INV_YES || inverting == mistral::CycloneV::INV_PROGRAMMABLE)
 	inverted = !inverted;
     }
-  unhandled:
-    ;
   }
 }
 
@@ -1191,6 +1219,7 @@ struct fct {
 
 static const fct fcts[] = {
   { "models",   0, 0, show_models,   "models                                                              -- Dump the list of known CycloneV models" },
+  { "validate", 0, 0, validate,      "validate                                                            -- Internal tables validation" },
   { "routes",   2, 2, show_routes,   "routes   model file.rbf                                             -- Dump the information of all active routes" },
   { "routes2",  2, 2, show_routes2,  "routes2  model file.rbf                                             -- Dump the information of all unresolved active routes" },
   { "routesp",  2, 2, show_routesp,  "routesp  model file.rbf                                             -- Dump the information of all active routes with intermediate pips" },

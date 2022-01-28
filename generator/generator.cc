@@ -64,7 +64,7 @@ struct rnode_base {
   uint16_t line_info_index;
   uint16_t driver_position;
   uint32_t fw_pos;
-}; // Followed by up to 44 sources and up to 56 targets and up to 56 target_positions.  Aligned to 4 bytes.
+}; // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
 
 std::vector<rnode_line_information> rli_data;
 std::unordered_map<uint32_t, std::vector<uint16_t>> rli_lookup;
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
     P2PLoader p2p(nr, p2p_data);
     InvLoader inv(nr, inv_data, width, p2r, p2p);
 
-    std::vector<uint8_t> output(800*1024*1024, 0);
+    std::vector<uint8_t> output(1024*1024*1024, 0);
     data_header *dh = reinterpret_cast<data_header *>(output.data());
 
     dh->off_rnode = sizeof(data_header);
@@ -170,15 +170,11 @@ int main(int argc, char **argv)
     while(rparse.rn || lparse.rn) {
 
       rnode_base rb;
-      rnode_t rn = rparse.rn && (!lparse.rn || rparse.rn <= lparse.rn) ? rparse.rn : lparse.rn;
-
-      if(dparse.rn && dparse.rn < rn) {
-	// Currently extra-complete, so skip
-	while(dparse.rn && dparse.rn < rn)
-	  dparse.next();
-	//	fprintf(stderr, "Driver list has extra node\n");
-	//	exit(1);
-      }
+      rnode_t rn = rparse.rn;
+      if(!rn || rn > lparse.rn)
+	rn = lparse.rn;
+      if(!rn || rn > dparse.rn)
+	rn = dparse.rn;
 
       rnode_vec.push_back(rn);
       rnode_pos.push_back(opos - output.data() - dh->off_rnode);
@@ -196,7 +192,7 @@ int main(int argc, char **argv)
       rb.driver_position = lv ? lparse.driver_position : 0;
       rb.fw_pos = rv ? rparse.fw_pos : 0;
 
-      uint32_t span = rv ? rmux_patterns[rparse.pattern].span : 0;
+      uint32_t span = rv ? rparse.pattern == 0xfe ? 1 : rmux_patterns[rparse.pattern].span : 0;
     
       memcpy(opos, &rb, sizeof(rb));
       opos += sizeof(rb);

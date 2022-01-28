@@ -25,12 +25,12 @@ const char *const DriversParser::shape_type_names[] = {
 };
 
 enum info_type_t {
-  IT_cbuff,
   IT_cg0_pass,
   IT_cgd_buff,
   IT_cgd_drive,
   IT_cgd_pass,
   IT_cgs_pass,
+  IT_cnand,
   IT_cint,
   IT_coff,
   IT_con,
@@ -43,7 +43,7 @@ enum info_type_t {
   IT_rnor_pup,
   IT_rwire,
   IT_rmult,
-  IT_first_c = IT_cbuff,
+  IT_first_c = IT_cg0_pass,
   IT_last_c = IT_min_cor_factor,
   IT_first_r = IT_rnor_pup,
   IT_last_r = IT_rmult,
@@ -115,12 +115,12 @@ const char *const DriversParser::globals_types[] = {
 };
 
 const char *const DriversParser::info_types[] = {
-  "cbuff",
   "cg0_pass",
   "cgd_buff",
   "cgd_drive",
   "cgd_pass",
   "cgs_pass",
+  "cnand",
   "cint",
   "coff",
   "con",
@@ -387,12 +387,12 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	    cc.rf[RF_FALL] = cc.rf[RF_RISE];
 
 	  switch(key) {
-	  case IT_cbuff: dd.cbuff = cc; break;
 	  case IT_cg0_pass: dd.cg0_pass = cc; break;
 	  case IT_cgd_buff: dd.cgd_buff = cc; break;
 	  case IT_cgd_drive: dd.cgd_drive = cc; break;
 	  case IT_cgd_pass: dd.cgd_pass = cc; break;
 	  case IT_cgs_pass: dd.cgs_pass = cc; break;
+	  case IT_cnand: dd.cnand = cc; break;
 	  case IT_cint: dd.cint = cc; break;
 	  case IT_coff: dd.coff = cc; break;
 	  case IT_con: dd.con = cc; break;
@@ -430,12 +430,16 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
   }
 
   // seu die 125 min info is missing for a part of the drivers, use the non-seu info instead
-  const dnode_info &dis = drivers[lookup.index_sg[SG_6][T_125][1]];
+  const dnode_info &dis = drivers[lookup.index_sg[SG_7][T_125][1]];
   dnode_info &did = drivers[lookup.index_sg[SG_7_H5S][T_125][1]];
   for(int l = 0; l != DRV_COUNT; l++)
     if(did.drivers[l].shape == 0xff)
       memcpy(&did.drivers[l], &dis.drivers[l], sizeof(dnode_driver));
-    
+
+  // seu die -55 min info is fully missing, use non-seu instead
+  lookup.index_sg[SG_7_H5S][T_N55][1] = lookup.index_sg[SG_7][T_N55][1];
+  lookup.index_si[SI_MS][T_N55] = lookup.index_si[SI_M][T_N55];
+
   bool bad = false;
   for(int i=0; i != SG_COUNT; i++)
     for(int j=0; j != T_COUNT; j++)

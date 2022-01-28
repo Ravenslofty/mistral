@@ -5,8 +5,15 @@ P(GCLK),    // Global clock, rooted at the clockbuf in the middle of the horizon
 P(RCLK),    // Regional clock (quarter of the die), rooted to the three corners of the quarters on the border
 P(PCLK),    // Peripheral clock, driven from a HSSI or a DCMUX on the left column
 P(SCLK),    // Sector clock, spans a rectangular zone, connects from GCLK/RCLK/PCLK
+P(SCLKB1),  // First post-sclk buffer
+P(SCLKB2),  // Second post-sclk buffer
 P(BCLK),    // Border clock, rooted at regular distance on the top and bottom lines, connects from SCLK
+P(BCLKB),   // Border clock buffer
 P(HCLK),    // Horizontal clock, spans 10-15 tiles horizontally, connects from SCLK
+P(HCLKB),   // Horizontal clock buffer
+P(XCLKB1),  // Common first post-h/bclk buffer
+P(XCLKB2A), // Second buffer
+P(XCLKB2B), // Alternative second buffer
 P(TCLK),    // Tile clock, connects from HCLK or BCLK
 P(PMUX),    // Selects between multiple SCLK at the input of a PLL
 

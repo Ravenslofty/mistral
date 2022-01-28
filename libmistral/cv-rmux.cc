@@ -150,7 +150,7 @@ bool mistral::CycloneV::rmux_is_default(rnode_t node) const
 void mistral::CycloneV::route_set_defaults()
 {
   for(const auto &r : rnodes())
-    if(r.pattern() != 0xff) {
+    if(r.pattern() < 0xfe) {
       const rmux_pattern &pat = rmux_patterns[r.pattern()];
       rmux_set_val(r, pat.def);
     }
@@ -160,7 +160,7 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
 {
   std::vector<std::pair<rnode_t, rnode_t>> links;
   for(const auto &r : rnodes()) {
-    if(r.pattern() == 0xff)
+    if(r.pattern() < 0xfe)
       continue;
     rnode_t snode = rmux_get_source(r);
     if(snode) {
@@ -868,18 +868,26 @@ mistral::CycloneV::pnode_t mistral::CycloneV::hmc_get_bypass(pnode_t pn) const
   return pnode(HMC, pn2p(pn), npt, pn2bi(pn), pn2pi(pn));
 }
 
-int mistral::CycloneV::rnode_timing_get_circuit_count(rnode_t rn)
+mistral::CycloneV::rnode_timing_mode_t mistral::CycloneV::rnode_timing_get_mode(rnode_t rn) const
 {
-  if(rn2t(rn) == WM)
-    return 0;
-  const rnode_base *rb = rnode_lookup(rn);
-  if(!rb) {
-    fprintf(stderr, "Error: node doesn't exist.\n");
-    exit(1);
+  switch(rn2t(rn)) {
+  case WM:
+    return RTM_NO_DELAY;
+  case GCLK:
+  case RCLK:
+    return RTM_P2P;
+  default: {
+    const rnode_base *rb = rnode_lookup(rn);
+    if(!rb) {
+      fprintf(stderr, "Error: node doesn't exist.\n");
+      exit(1);
+    }
+
+    if(rb->drivers[0] != 0xff)
+      return RTM_CIRCUIT;
+    return RTM_UNSUPPORTED;
   }
-  if(rb->drivers[0] == 0xff)
-    return 0;
-  return 1;
+  }
 }
 
 void mistral::CycloneV::table_pos_to_index(double v, size_t &p, double &pf, double &pf1)
@@ -1010,7 +1018,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 						   const rnode_line_information &rli,
 						   rnode_t rn,
 						   const dnode_driver *driver_bank,
-						   AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs)
+						   AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs) const
 {
   enum {
     start_of_line,
@@ -1121,17 +1129,17 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
     sim.add_c(node, 0, current_c);
 }
 
-void mistral::CycloneV::rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw)
+void mistral::CycloneV::rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw) const
 {
   rnode_timing_trim_wave(dn_lookup->index_sg[model->speed_grade][temp][delay], sw, dw);
 }
 
-void mistral::CycloneV::rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw)
+void mistral::CycloneV::rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw) const
 {
   rnode_timing_trim_wave(dn_lookup->index_si[si][temp], sw, dw);
 }
 
-void mistral::CycloneV::rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw)
+void mistral::CycloneV::rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw) const
 {
   double vdd = dn_info[didx].vdd;
   dw.clear();
@@ -1151,17 +1159,17 @@ void mistral::CycloneV::rnode_timing_trim_wave(int didx, const AnalogSim::wave &
     dw.emplace_back(sw[splice++]);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   rnode_timing_build_input_wave(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   rnode_timing_build_input_wave(dn_lookup->index_si[si][temp], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w)
+void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   const dnode_info &di = dn_info[didx];
 
@@ -1206,21 +1214,21 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
   w.emplace_back(AnalogSim::time_slot(di.edges[edge_type][est].rf[edge], edge == RF_RISE ? di.vdd : 0.0));
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
+void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
 {
-  rnode_timing_build_circuit(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, step, temp, edge, sim, input, outputs);
+  rnode_timing_build_circuit(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, temp, edge, sim, input, outputs);
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit_si(rnode_t rn, int step, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
+void mistral::CycloneV::rnode_timing_build_circuit_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
 {
-  rnode_timing_build_circuit(dn_lookup->index_si[si][temp], rn, step, temp, edge, sim, input, outputs);
+  rnode_timing_build_circuit(dn_lookup->index_si[si][temp], rn, temp, edge, sim, input, outputs);
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, int step, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs)
+void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
 {
   const rnode_base *rb = rnode_lookup(rn);
-  if(rn2t(rn) == WM || rb->drivers[0] == 0xff || step != 0) {
-    fprintf(stderr, "Incorrect circuit number");
+  if(rb->drivers[0] == 0xff) {
+    fprintf(stderr, "rnode_timing_build_circuit unsupported node\n");
     abort();
   }
 

@@ -196,6 +196,13 @@ namespace mistral {
       SI_COUNT
     };
 
+    enum rnode_timing_mode_t {
+      RTM_NO_DELAY,
+      RTM_CIRCUIT,
+      RTM_P2P,
+      RTM_UNSUPPORTED
+    };
+
     struct package_info_t {
       int pin_count;
       char type; // 'f', 'u' or 'm'
@@ -456,6 +463,7 @@ namespace mistral {
 
     // Debug stuff
     void diff(const CycloneV *m) const;
+    void validate_fw_bw() const;
 
   private:
     struct ioblock_info;
@@ -573,7 +581,7 @@ namespace mistral {
       uint16_t line_info_index;
       uint16_t driver_position;
       uint32_t fw_pos;
-    }; // Followed by up to 44 sources and up to 56 targets and up to 56 target_positions.  Aligned to 4 bytes.
+    }; // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
 
     union rnode_target {
       rnode_t rn;
@@ -623,12 +631,12 @@ namespace mistral {
       uint16_t pass2;
       uint16_t pullup;
       uint16_t padding;
-      rf_t cbuff;
       rf_t cg0_pass;
       rf_t cgd_buff;
       rf_t cgd_drive;
       rf_t cgd_pass;
       rf_t cgs_pass;
+      rf_t cnand;
       rf_t cint;
       rf_t coff;
       rf_t con;
@@ -807,17 +815,17 @@ namespace mistral {
 
     rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
 
-    int rnode_timing_get_circuit_count(rnode_t rn);
-    void rnode_timing_build_circuit(rnode_t rn, int step, timing_slot_t temp, delay_type_t delay, edge_t edge,
-				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
-    void rnode_timing_build_circuit_si(rnode_t rn, int step, timing_slot_t temp, speed_info_t si, edge_t edge,
-				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
+    rnode_timing_mode_t rnode_timing_get_mode(rnode_t rn) const;
+    void rnode_timing_build_circuit(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge,
+				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
+    void rnode_timing_build_circuit_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge,
+				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
     
-    void rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
-    void rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
+    void rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+    void rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
 
-    void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw);
-    void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw);
+    void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
+    void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
 
   private:
     struct bmux_sel_entry {
@@ -1133,7 +1141,7 @@ namespace mistral {
     static inline const rnode_base *rnode_next(const rnode_base *r) {
       const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
       p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
       p += 4*r->target_count;
       p += 2*((r->target_count+1) & ~1);
       return reinterpret_cast<const rnode_base *>(p);
@@ -1150,7 +1158,7 @@ namespace mistral {
     static inline const rnode_target *rnode_targets(const rnode_base *r) {
       const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
       p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
       return reinterpret_cast<const rnode_target *>(p);
     }
 
@@ -1161,7 +1169,7 @@ namespace mistral {
     static inline const uint16_t *rnode_target_positions(const rnode_base *r) {
       const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
       p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : 4*rmux_patterns[r->pattern].span;
+      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
       p += 4*r->target_count;
       return reinterpret_cast<const uint16_t *>(p);
     }
@@ -1288,10 +1296,10 @@ namespace mistral {
 				    const rnode_line_information &rli,
 				    rnode_t rn,
 				    const dnode_driver *driver_bank,
-				    AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs);
-    void rnode_timing_build_circuit(int didx, rnode_t rn, int step, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs);
-    void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w);
-    void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw);
+				    AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs) const;
+    void rnode_timing_build_circuit(int didx, rnode_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
+    void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+    void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;

@@ -24,11 +24,11 @@ public:
   rnode_line_information li;
   uint16_t driver_position;
   uint16_t target_count;
-  uint16_t target_pos[56];
+  uint16_t target_pos[64];
   union {
     rnode_t rn;
     float caps;
-  } targets[56];
+  } targets[64];
 
   LinesParser(const NodesReader &nr, const std::vector<uint8_t> &data);
 
