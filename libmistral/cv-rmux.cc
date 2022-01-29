@@ -156,26 +156,48 @@ void mistral::CycloneV::route_set_defaults()
     }
 }
 
+bool mistral::CycloneV::rnode_active(const rnode_base *rn, rnode_t previous) const
+{
+  if(rn->pattern == 0xff)
+    return false;
+  if(rn->pattern == 0xfe) {
+    const rnode_target *rnt = rnode_targets(rn);
+    for(int i=0; i != rn->target_count; i++)
+      if(!(rnt[i].rn & 0x80000000) && rnode_active(rnode_lookup(rnt[i].rn), rn->node))
+	return true;
+    return false;
+  }
+  if(previous == 0)
+    return false;
+  return rmux_get_source(rn) == previous;
+}
+
 std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_all_active_links() const
 {
   std::vector<std::pair<rnode_t, rnode_t>> links;
   for(const auto &r : rnodes()) {
-    if(r.pattern() < 0xfe)
+    if(r.pattern() == 0xff)
       continue;
-    rnode_t snode = rmux_get_source(r);
-    if(snode) {
-      rnode_t dnode = r.id();
-      if(rn2t(dnode) == DCMUX && rn2t(snode) == TCLK && rmux_is_default(snode))
-	continue;
-      if(rn2t(dnode) == SCLK && rmux_is_default(dnode)) {
-	continue; // Should test if there's a downlink link.
-      }
+    if(r.pattern() == 0xfe) {
+      if(rnode_active(r.rn, 0))
+	  links.emplace_back(std::make_pair(*r.sources().begin(), r.id()));
 
-      links.emplace_back(std::make_pair(snode, dnode));
     } else {
-      uint32_t val = rmux_get_val(r);
-      if(val != rmux_patterns[r.pattern()].def)
-	fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r.id()).c_str(), r.pattern(), (rmux_patterns[r.pattern()].bits+3)/4, val);
+      rnode_t snode = rmux_get_source(r);
+      if(snode) {
+	rnode_t dnode = r.id();
+	if(rn2t(dnode) == DCMUX && rn2t(snode) == TCLK && rmux_is_default(snode))
+	  continue;
+	if(rn2t(dnode) == SCLK && rmux_is_default(dnode)) {
+	  continue; // Should test if there's a downlink link.
+	}
+
+	links.emplace_back(std::make_pair(snode, dnode));
+      } else {
+	uint32_t val = rmux_get_val(r);
+	if(val != rmux_patterns[r.pattern()].def)
+	  fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r.id()).c_str(), r.pattern(), (rmux_patterns[r.pattern()].bits+3)/4, val);
+      }
     }
   }
   return links;
@@ -1043,17 +1065,17 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
       next_pos = mode == start_of_line ? 0 : (mode == before_split || mode == after_split) ? split_pos : rli.length;
       next_c = 0;
 
-    } else if(target_pos[tpos] & 0x8000) {
-      next_pos = target_pos[tpos] & 0x3fff;
-      next_c = targets[tpos].caps;
+    } else if(targets[tpos].rn & 0x80000000) {
+      next_pos = target_pos[tpos] & 0x7fff;
+      next_c = -targets[tpos].caps;
 
     } else {
-      next_pos = target_pos[tpos] & 0x3fff;
+      next_pos = target_pos[tpos] & 0x7fff;
       const rnode_base *rnt = rnode_lookup(targets[tpos].rn);
-      int back_incoming_index = target_pos[tpos] & 0x4000 ? 1 : 0;
+      int back_incoming_index = target_pos[tpos] & 0x8000 ? 1 : 0;
       const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
 
-      if(rmux_get_source(*rnt) == rn) {
+      if(rnt->pattern == 0xfe || rmux_get_source(*rnt) == rn) {
 	next_c = back_driver.con.rf[edge];
 	active_target = targets[tpos].rn;
 	sim.set_node_name(pnode, rn2s(targets[tpos].rn));
@@ -1175,8 +1197,6 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
 
   w.clear();
   pnode_t pn = rnode_to_pnode(rn);
-  if(!pn)
-    return;
 
   if(pn2bt(pn) == LAB || pn2bt(pn) == MLAB) {
     // TODO: mlab in memory mode is different
@@ -1204,6 +1224,14 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
   switch(pn2bt(pn)) {
   case GPIO: edge_type = EDGE_IO; break;
   default: break;
+  }
+
+  if(rn2t(rn) == SCLK) {
+    rnode_t src = rmux_get_source(rnode_lookup(rn));
+    if(rn2t(src) == GCLK)
+      edge_type = EDGE_GCLK;
+    else if(rn2t(src) == RCLK)
+      edge_type = EDGE_RCLK;
   }
 
   if(edge_type == -1)
@@ -1240,7 +1268,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
       const rnode_target *stargets = rnode_targets(rbs);
       for(int i=0; i != rbs->target_count; i++)
 	if(stargets[i].rn == rn) {
-	  incoming_index = (rnode_target_positions(rbs)[i] & 0x4000) ? 1 : 0;
+	  incoming_index = (rnode_target_positions(rbs)[i] & 0x8000) ? 1 : 0;
 	  break;
 	}
     }

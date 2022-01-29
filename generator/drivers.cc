@@ -28,9 +28,9 @@ enum info_type_t {
   IT_cg0_pass,
   IT_cgd_buff,
   IT_cgd_drive,
+  IT_cgd_nand,
   IT_cgd_pass,
   IT_cgs_pass,
-  IT_cnand,
   IT_cint,
   IT_coff,
   IT_con,
@@ -118,9 +118,9 @@ const char *const DriversParser::info_types[] = {
   "cg0_pass",
   "cgd_buff",
   "cgd_drive",
+  "cgd_nand",
   "cgd_pass",
   "cgs_pass",
-  "cnand",
   "cint",
   "coff",
   "con",
@@ -374,8 +374,12 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
       for(;;) {
 	skipsp(p);
 	int key = infomatch.lookup(p);
-	if(key == -1 || *p != '=')
+	if(key == -1 || *p != '=') {
+	  for(int i=0; i != 10; i++)
+	    fprintf(stderr, "%c", p[i]);
+	  fprintf(stderr, "\n");
 	  error(st, "unknown key");
+	}
 	p++;
 	if(key >= IT_first_c && key <= IT_last_c) {
 	  rf_t cc;
@@ -390,9 +394,9 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	  case IT_cg0_pass: dd.cg0_pass = cc; break;
 	  case IT_cgd_buff: dd.cgd_buff = cc; break;
 	  case IT_cgd_drive: dd.cgd_drive = cc; break;
+	  case IT_cgd_nand: dd.cgd_nand = cc; break;
 	  case IT_cgd_pass: dd.cgd_pass = cc; break;
 	  case IT_cgs_pass: dd.cgs_pass = cc; break;
-	  case IT_cnand: dd.cnand = cc; break;
 	  case IT_cint: dd.cint = cc; break;
 	  case IT_coff: dd.coff = cc; break;
 	  case IT_con: dd.con = cc; break;
@@ -435,10 +439,6 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
   for(int l = 0; l != DRV_COUNT; l++)
     if(did.drivers[l].shape == 0xff)
       memcpy(&did.drivers[l], &dis.drivers[l], sizeof(dnode_driver));
-
-  // seu die -55 min info is fully missing, use non-seu instead
-  lookup.index_sg[SG_7_H5S][T_N55][1] = lookup.index_sg[SG_7][T_N55][1];
-  lookup.index_si[SI_MS][T_N55] = lookup.index_si[SI_M][T_N55];
 
   bool bad = false;
   for(int i=0; i != SG_COUNT; i++)

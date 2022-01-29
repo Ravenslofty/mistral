@@ -1157,7 +1157,7 @@ static void timing(char **args)
       }
 
 
-      if(i == 0) {
+      if(input_wave[0].empty()) {
 	model->rnode_timing_build_input_wave(src, temp, delay, inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE, est, input_wave[0]);
 	model->rnode_timing_build_input_wave(src, temp, delay, inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL, est, input_wave[1]);
 	if(input_wave[mistral::CycloneV::RF_RISE].empty()) {

@@ -634,9 +634,9 @@ namespace mistral {
       rf_t cg0_pass;
       rf_t cgd_buff;
       rf_t cgd_drive;
+      rf_t cgd_nand;
       rf_t cgd_pass;
       rf_t cgs_pass;
-      rf_t cnand;
       rf_t cint;
       rf_t coff;
       rf_t con;
@@ -1300,6 +1300,8 @@ namespace mistral {
     void rnode_timing_build_circuit(int didx, rnode_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
     void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
     void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
+
+    bool rnode_active(const rnode_base *rn, rnode_t previous) const;
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;
