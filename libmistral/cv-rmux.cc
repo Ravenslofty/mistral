@@ -1313,6 +1313,20 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
   //  printf("shape %s\n", shape_type_names[driver.shape]);
 
   switch(driver.shape) {
+  case SHP_pd: {
+    int pass1 = sim.gn_g(edge ? 0.0 : di.vdd, "pass1");
+    int out = sim.gn_g(edge ? di.vdd : 0.0, "out");
+    sim.add_pass(input, pass1, dn_t2(driver_id, "pass1", driver.pass1));
+    sim.add_c(pass1, 0, driver.cstage1.rf[edge]);
+    sim.add_r(pass1, 1, 1e9);
+    sim.add_2port(pass1, out, dn_t2(driver_id, "pullup", driver.pullup), dn_t2(driver_id, "output", driver.output));
+    sim.add_c(pass1, out, driver.cgd_buff.rf[edge]);
+    sim.add_r(out, 0, 1e9);
+    sim.add_c(out, 0, driver.cout.rf[edge]);
+    sim.add_r(out, wire, driver.rwire);
+    break;
+  }
+
   case SHP_pdb: {
     int pass1 = sim.gn_g(edge ? 0.0 : di.vdd, "pass1");
     int out = sim.gn_g(edge ? di.vdd : 0.0, "out");
@@ -1372,12 +1386,34 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
   }
 
   case SHP_b: {
-    int buff = sim.gn_g(edge ? 0.0 : di.vdd, "buff");
-    sim.add_buff(input, buff, dn_t2(driver_id, "driver", driver.driver));
-    sim.add_c(input, buff, driver.cgd_drive.rf[edge]);
-    sim.add_r(buff, 0, 1e9);
-    sim.add_c(buff, 0, driver.cout.rf[edge]);
-    sim.add_r(buff, wire, driver.rwire);
+    if(driver.rwire) {
+      int buff = sim.gn_g(edge ? 0.0 : di.vdd, "buff");
+      sim.add_buff(input, buff, dn_t2(driver_id, "driver", driver.driver));
+      sim.add_c(input, buff, driver.cgd_drive.rf[edge]);
+      sim.add_r(buff, 0, 1e9);
+      sim.add_c(buff, 0, driver.cout.rf[edge]);
+      sim.add_r(buff, wire, driver.rwire);
+    } else {
+      sim.add_buff(input, wire, dn_t2(driver_id, "driver", driver.driver));
+      sim.add_c(input, wire, driver.cgd_drive.rf[edge]);
+      sim.add_r(wire, 0, 1e9);
+      wire_root_to_gnd += driver.cout.rf[edge];
+    }
+    break;
+  }
+
+  case SHP_bb: {
+    int buff1 = sim.gn_g(edge ? 0.0 : di.vdd, "buff1");
+    int buff2 = sim.gn_g(edge ? di.vdd : 0.0, "buff2");
+    sim.add_buff(input, buff1, dn_t2(driver_id, "output", driver.output));
+    sim.add_buff(buff1, buff2, dn_t2(driver_id, "driver", driver.driver));
+    sim.add_c(input, buff1, driver.cgd_buff.rf[edge]);
+    sim.add_c(buff1, buff2, driver.cgd_nand.rf[edge]);
+    sim.add_c(buff1, 0, driver.cint.rf[edge]);
+    sim.add_c(buff2, 0, driver.cout.rf[edge]);
+    sim.add_r(buff1, 1, 1e9);
+    sim.add_r(buff2, 0, 1e9);
+    sim.add_r(buff2, wire, driver.rwire);
     break;
   }
 
