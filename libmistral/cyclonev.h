@@ -733,7 +733,7 @@ namespace mistral {
 	const rnode_t *start = rnode_sources(rn);
 	if(rn->pattern == 0xff)
 	  return rnode_source_iterator(start);
-	int span = rmux_patterns[rn->pattern].span;
+	int span = rn->pattern == 0xfe ? 1 : rmux_patterns[rn->pattern].span;
 	const rnode_t *end = start + span;
 	while(start != end && !*start)
 	  start++;
@@ -746,7 +746,7 @@ namespace mistral {
 	const rnode_t *start = rnode_sources(rn);
 	if(rn->pattern == 0xff)
 	  return rnode_source_iterator(start);
-	int span = rmux_patterns[rn->pattern].span;
+	int span = rn->pattern == 0xfe ? 1 : rmux_patterns[rn->pattern].span;
 	const rnode_t *end = start + span;
 	while(end > start && !end[-1])
 	  end --;
