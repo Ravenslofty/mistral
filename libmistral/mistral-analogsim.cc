@@ -262,10 +262,16 @@ void mistral::AnalogSim::set_input_wave(int node, const wave &w)
 void mistral::AnalogSim::set_output_wave(int node, wave &w, time_interval &transition_delay)
 {
   assert(nodes[node].type == N_STD);
-  nodes[node].w = output_waves.size();
   transition_delay.mi = -1;
   transition_delay.mx = -1;
-  output_waves.push_back(std::make_pair(&w, &transition_delay));
+  if(nodes[node].w != -1)
+    output_waves[nodes[node].w].push_back(std::make_pair(&w, &transition_delay));
+
+  else {
+    nodes[node].w = output_waves.size();
+    output_waves.resize(output_waves.size()+1);
+    output_waves.back().push_back(std::make_pair(&w, &transition_delay));
+  }
 }
 
 bool mistral::AnalogSim::node_fixed_voltage(int node) const
@@ -393,16 +399,17 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
   for(int i = 0; i != first_fixed_node; i++) {
     const auto &n = nodes[nodes_order[i]];
     if(n.w != -1) {
-      //      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
-      output_waves[n.w].first->emplace_back(time_slot(time, voltages[0][i]));
+      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
+      for(auto &ow : output_waves[n.w])
+	ow.first->emplace_back(time_slot(time, voltages[0][i]));
     }
   }
 
-#if 0
-  printf("### %8.2f", time*1e12);
+#if 1
+  printf("%8.2f", time*1e12);
   for(int i = 0; i != node_count; i++)
     printf(" %5.3f", voltages[0][i]);
-  printf("\n");
+  printf(" ###\n");
 #endif
 
   if(test_end) {
@@ -416,12 +423,12 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
 	if(v == threshold)
 	  cross_time = time;
 	else {
-	  double pv = output_waves[n.w].first->end()[-2].v;
+	  double pv = output_waves[n.w][0].first->end()[-2].v;
 	  bool po = pv > threshold;
 	  bool no = v > threshold;
 	  if(po != no) {
 	    double cross_dt = (threshold - pv)/(v - pv);
-	    cross_time = output_waves[n.w].first->end()[-2].t * (1-cross_dt) + time * cross_dt;
+	    cross_time = output_waves[n.w][0].first->end()[-2].t * (1-cross_dt) + time * cross_dt;
 	  }
 	}
 	if(cross_time != -1) {
@@ -431,8 +438,10 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
 	      input_cross_time = w.second;
 	  double delay = cross_time - input_cross_time;
 	  //	  fprintf(stderr, "delay %g %g\n", delay*config_timing_scale_min, delay*config_timing_scale_max);
-	  output_waves[n.w].second->mi = delay * config_timing_scale_min;
-	  output_waves[n.w].second->mx = delay * config_timing_scale_max;
+	  for(auto &ow : output_waves[n.w]) {
+	    ow.second->mi = delay * config_timing_scale_min;
+	    ow.second->mx = delay * config_timing_scale_max;
+	  }
 	}
 
 	if(output_wave_is_rising[n.w]) {

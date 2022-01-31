@@ -94,6 +94,8 @@ void mistral::CycloneV::rmux_set_val(const rnode_base &r, uint32_t val)
 
 int mistral::CycloneV::rmux_get_slot(const rnode_base &r) const
 {
+  if(r.pattern == 0xfe)
+    return 0;
   const rmux_pattern &pat = rmux_patterns[r.pattern];
   uint32_t val = rmux_get_val(r);
   uint32_t vh = val % pat.hashdiv;
@@ -122,6 +124,8 @@ bool mistral::CycloneV::rnode_do_link(rnode_t n1, rnode_t n2)
 {
   const rnode_base *r = rnode_lookup(n2);
   assert(r);
+  if(r->pattern == 0xfe)
+    return n1 == rnode_sources(r)[0];
   const rmux_pattern &pat = rmux_patterns[r->pattern];
   const uint32_t *sources = rnode_sources(r);
   for(int slot = 0; slot != pat.span; slot++)
@@ -1061,6 +1065,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
     double next_c;
     uint16_t next_pos;
     rnode_t active_target = 0;
+    bool needed_output = false;
     if(mode != in_line) {
       next_pos = mode == start_of_line ? 0 : (mode == before_split || mode == after_split) ? split_pos : rli.length;
       next_c = 0;
@@ -1078,6 +1083,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
       if(rnt->pattern == 0xfe || rmux_get_source(*rnt) == rn) {
 	next_c = back_driver.con.rf[edge];
 	active_target = targets[tpos].rn;
+	needed_output = rnt->pattern != 0xfe || rnode_active(rnt, rn);
 	sim.set_node_name(pnode, rn2s(targets[tpos].rn));
       } else
 	next_c = back_driver.coff.rf[edge];
@@ -1086,7 +1092,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
     //    printf("Next node %g\n", next_c);
     if(next_pos - current_pos < line_coalescing) {
       current_c += next_c;
-      if(active_target) {
+      if(needed_output) {
 	sim.set_node_name(pnode, rn2s(active_target));
 	outputs.emplace_back(std::make_pair(active_target, pnode));
       }
@@ -1101,7 +1107,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 	//	printf("half-c %g\n", wire_c/2);
 	current_c += wire_c/2;
 	int nnode = sim.gn_g(defv);
-	if(active_target && seg+1 == segments) {
+	if(needed_output && seg+1 == segments) {
 	  sim.set_node_name(nnode, rn2s(active_target));
 	  outputs.emplace_back(std::make_pair(active_target, nnode));
 	}
@@ -1387,7 +1393,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
 
   case SHP_b: {
     if(driver.rwire) {
-      int buff = sim.gn_g(edge ? 0.0 : di.vdd, "buff");
+      int buff = sim.gn_g(edge ? di.vdd : 0.0, "buff");
       sim.add_buff(input, buff, dn_t2(driver_id, "driver", driver.driver));
       sim.add_c(input, buff, driver.cgd_drive.rf[edge]);
       sim.add_r(buff, 0, 1e9);
@@ -1403,8 +1409,8 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
   }
 
   case SHP_bb: {
-    int buff1 = sim.gn_g(edge ? 0.0 : di.vdd, "buff1");
-    int buff2 = sim.gn_g(edge ? di.vdd : 0.0, "buff2");
+    int buff1 = sim.gn_g(edge ? di.vdd : 0.0, "buff1");
+    int buff2 = sim.gn_g(edge ? 0.0 : di.vdd, "buff2");
     sim.add_buff(input, buff1, dn_t2(driver_id, "output", driver.output));
     sim.add_buff(buff1, buff2, dn_t2(driver_id, "driver", driver.driver));
     sim.add_c(input, buff1, driver.cgd_buff.rf[edge]);

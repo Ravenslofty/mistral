@@ -139,7 +139,7 @@ namespace mistral {
     std::vector<node> nodes;
     std::vector<component> components;
     std::vector<std::pair<wave, double>> input_waves;
-    std::vector<std::pair<wave *, time_interval *>> output_waves;
+    std::vector<std::vector<std::pair<wave *, time_interval *>>> output_waves;
 
     std::vector<bool> output_wave_is_rising;
     std::vector<int> nodes_order, inverse_nodes_order;
