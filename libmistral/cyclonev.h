@@ -634,7 +634,6 @@ namespace mistral {
       rf_t cg0_pass;
       rf_t cgd_buff;
       rf_t cgd_drive;
-      rf_t cgd_nand;
       rf_t cgd_pass;
       rf_t cgs_pass;
       rf_t cint;

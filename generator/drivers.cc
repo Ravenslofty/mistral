@@ -28,7 +28,6 @@ enum info_type_t {
   IT_cg0_pass,
   IT_cgd_buff,
   IT_cgd_drive,
-  IT_cgd_nand,
   IT_cgd_pass,
   IT_cgs_pass,
   IT_cint,
@@ -118,7 +117,6 @@ const char *const DriversParser::info_types[] = {
   "cg0_pass",
   "cgd_buff",
   "cgd_drive",
-  "cgd_nand",
   "cgd_pass",
   "cgs_pass",
   "cint",
@@ -394,7 +392,6 @@ DriversParser::DriversParser(const std::vector<uint8_t> &data) :
 	  case IT_cg0_pass: dd.cg0_pass = cc; break;
 	  case IT_cgd_buff: dd.cgd_buff = cc; break;
 	  case IT_cgd_drive: dd.cgd_drive = cc; break;
-	  case IT_cgd_nand: dd.cgd_nand = cc; break;
 	  case IT_cgd_pass: dd.cgd_pass = cc; break;
 	  case IT_cgs_pass: dd.cgs_pass = cc; break;
 	  case IT_cint: dd.cint = cc; break;

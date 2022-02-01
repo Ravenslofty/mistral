@@ -1090,6 +1090,7 @@ static void timing(char **args)
   auto delay = model->delay_type_lookup(args[3]);
 
   auto links = model->route_frontier_links_with_path();
+
   for(const auto &path : links) {
     std::string p;
     for(auto rn : path) {

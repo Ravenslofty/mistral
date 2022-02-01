@@ -399,13 +399,13 @@ bool mistral::AnalogSim::output_record(double time, bool test_end)
   for(int i = 0; i != first_fixed_node; i++) {
     const auto &n = nodes[nodes_order[i]];
     if(n.w != -1) {
-      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
+      //      printf("%8.2f ps: %s = %5.3f\n", time*1e12, n.name.c_str(), voltages[0][i]);
       for(auto &ow : output_waves[n.w])
 	ow.first->emplace_back(time_slot(time, voltages[0][i]));
     }
   }
 
-#if 1
+#if 0
   printf("%8.2f", time*1e12);
   for(int i = 0; i != node_count; i++)
     printf(" %5.3f", voltages[0][i]);
@@ -825,6 +825,8 @@ void mistral::AnalogSim::run()
   timestep[2] = timestep[0];
 
   for(;;) {
+    //    if(timestep[0] > 5e-12)
+    //      timestep[0] = 5e-12;
     update_input_voltages(current_time + timestep[0]);
     voltages_integration();
 
