@@ -2,6 +2,7 @@
 #define P2R_H
 
 #include "nodes.h"
+#include <functional>
 
 struct p2r_info {
   pnode_t p;
@@ -16,6 +17,8 @@ public:
   P2RLoader(const NodesReader &nr, const std::vector<uint8_t> &data);
 
   pnode_t find_r(rnode_t node) const;
+
+  void remap(std::function<int (rnode_t)> rn2ri);
 
 private:
   const NodesReader &nr;

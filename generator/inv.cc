@@ -127,3 +127,9 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_t node, ui
 
   data.emplace_back(inverter_info{node, pos});
 }
+
+void InvLoader::remap(std::function<int (rnode_t)> rn2ri)
+{
+  for(auto &inf : data)
+    inf.node = rn2ri(inf.node);
+}

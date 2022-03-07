@@ -48,13 +48,14 @@ void mistral::CycloneV::rmux_load()
 
   dhead = reinterpret_cast<const data_header *>(data);
   rnode_info = data + dhead->off_rnode;
-  rnode_info_end = data + dhead->off_rnode_end;
   rnode_hash = data + dhead->off_rnode_hash;
-  rnode_hash_lookup = reinterpret_cast<const uint32_t *>(rnode_hash + dhead->size_rnode_opaque_hash);
+  rnode_hash_to_index = reinterpret_cast<const uint32_t *>(data + dhead->off_rnode_hash_to_index);
+  rnode_index_to_base = reinterpret_cast<const uint32_t *>(data + dhead->off_rnode_index_to_base);
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line_info);
   p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r_info);
   p2p_infos = reinterpret_cast<const p2p_info *>(data + dhead->off_p2p_info);
   inverter_infos = reinterpret_cast<const inverter_info *>(data + dhead->off_inv_info);
+  rnode_total_count = dhead->count_rnode;
 
   std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
   gdhead = reinterpret_cast<const global_data_header *>(data);
@@ -64,13 +65,13 @@ void mistral::CycloneV::rmux_load()
   dn_info   = reinterpret_cast<const dnode_info *>(data + gdhead->off_dnode_drivers);
 }
 
-uint32_t mistral::CycloneV::rmux_get_val(const rnode_base &r) const
+uint32_t mistral::CycloneV::rmux_get_val(const rnode_base *r) const
 {
   uint32_t val = 0;
-  const rmux_pattern &pat = rmux_patterns[r.pattern];
+  const rmux_pattern &pat = rmux_patterns[r->pattern];
   const uint8_t *bits = rmux_xy + pat.o_xy*2;
   for(uint8_t bit = 0; bit != pat.bits; bit++) {
-    uint32_t pos = r.fw_pos + bits[0] + bits[1]*di.cram_sx;
+    uint32_t pos = r->fw_pos + bits[0] + bits[1]*di.cram_sx;
     if((cram[pos >> 3] >> (pos & 7)) & 1)
       val |= 1 << bit;
     bits += 2;
@@ -78,12 +79,12 @@ uint32_t mistral::CycloneV::rmux_get_val(const rnode_base &r) const
   return val;
 }
 
-void mistral::CycloneV::rmux_set_val(const rnode_base &r, uint32_t val)
+void mistral::CycloneV::rmux_set_val(const rnode_base *r, uint32_t val)
 {
-  const rmux_pattern &pat = rmux_patterns[r.pattern];
+  const rmux_pattern &pat = rmux_patterns[r->pattern];
   const uint8_t *bits = rmux_xy + pat.o_xy*2;
   for(uint8_t bit = 0; bit != pat.bits; bit++) {
-    uint32_t pos = r.fw_pos + bits[0] + bits[1]*di.cram_sx;
+    uint32_t pos = r->fw_pos + bits[0] + bits[1]*di.cram_sx;
     if((val >> bit) & 1)
       cram[pos >> 3] |= 1 << (pos & 7);
     else
@@ -92,11 +93,11 @@ void mistral::CycloneV::rmux_set_val(const rnode_base &r, uint32_t val)
   }
 }
 
-int mistral::CycloneV::rmux_get_slot(const rnode_base &r) const
+int mistral::CycloneV::rmux_get_slot(const rnode_base *r) const
 {
-  if(r.pattern == 0xfe)
+  if(r->pattern == 0xfe)
     return 0;
-  const rmux_pattern &pat = rmux_patterns[r.pattern];
+  const rmux_pattern &pat = rmux_patterns[r->pattern];
   uint32_t val = rmux_get_val(r);
   uint32_t vh = val % pat.hashdiv;
   int slot = rmux_vhash[pat.o_vhash + vh];
@@ -105,114 +106,124 @@ int mistral::CycloneV::rmux_get_slot(const rnode_base &r) const
   return slot;
 }
 
-const mistral::CycloneV::rnode_base *mistral::CycloneV::rnode_lookup(rnode_t rn) const
+int mistral::CycloneV::rn2ri(rnode_t rn) const
 {
-  uint32_t entry = bdz_ph_hash::lookup(rnode_hash, rn);
-  const rnode_base *rm = reinterpret_cast<const rnode_base *>(rnode_info + rnode_hash_lookup[entry]);
-  return rm->node == rn ? rm : nullptr;
+  uint32_t slot = bdz_ph_hash::lookup(rnode_hash, rn);
+  uint32_t data = rnode_hash_to_index[slot >> 3];
+  int index = data & 0xffffff;
+  for(uint32_t i = 0; i != (slot & 7); i++)
+    if(data & (0x01000000 << i))
+      index ++;
+  return index;
 }
 
-mistral::CycloneV::rnode_t mistral::CycloneV::rmux_get_source(const rnode_base &r) const
+mistral::CycloneV::rni_t mistral::CycloneV::rmux_get_source(const rnode_base *r) const
 {
   int slot = rmux_get_slot(r);
   if(slot == -1)
-    return 0;
-  return rnode_sources(r)[slot];
+    return -1;
+  int ri = r->bsources()[slot];
+  return ri < 0 ? -1 : ri & 0xffffff;
 }
 
-bool mistral::CycloneV::rnode_do_link(rnode_t n1, rnode_t n2)
+bool mistral::CycloneV::rnode_do_link(rni_t n1, rni_t n2)
 {
-  const rnode_base *r = rnode_lookup(n2);
+  const rnode_base *r = ri2rb(n2);
   assert(r);
   if(r->pattern == 0xfe)
-    return n1 == rnode_sources(r)[0];
+    return n1 == (r->bsources()[0] & 0xffffff);
   const rmux_pattern &pat = rmux_patterns[r->pattern];
-  const uint32_t *sources = rnode_sources(r);
+  const rni_t *sources = r->bsources();
   for(int slot = 0; slot != pat.span; slot++)
-    if(sources[slot] == n1) {
-      rmux_set_val(*r, rmux_vals[pat.o_vals + slot]);
+    if((sources[slot] & 0xffffff) == n1) {
+      rmux_set_val(r, rmux_vals[pat.o_vals + slot]);
       return true;
     }
   return false;
 }
 
-void mistral::CycloneV::rnode_link(rnode_t n1, rnode_t n2)
+void mistral::CycloneV::rnode_link(rni_t n1, rni_t n2)
 {
   if(!rnode_do_link(n1, n2)) {
-    fprintf(stderr, "Error: No possible direct link between rnodes %s and %s\n", rn2s(n1).c_str(), rn2s(n2).c_str());
+    fprintf(stderr, "Error: No possible direct link between rnodes %s and %s\n", rn2s(ri2rn(n1)).c_str(), rn2s(ri2rn(n2)).c_str());
     exit(1);
   }
 }
 
-bool mistral::CycloneV::rmux_is_default(rnode_t node) const
+bool mistral::CycloneV::rmux_is_default(rni_t node) const
 {
-  const rnode_base *r = rnode_lookup(node);
-  assert(r);
-  return rmux_get_val(*r) == rmux_patterns[r->pattern].def;
+  const rnode_base *r = ri2rb(node);
+  return rmux_get_val(r) == rmux_patterns[r->pattern].def;
+}
+
+bool mistral::CycloneV::rmux_is_default(const rnode_base *r) const
+{
+  return rmux_get_val(r) == rmux_patterns[r->pattern].def;
 }
 
 void mistral::CycloneV::route_set_defaults()
 {
-  for(const auto &r : rnodes())
-    if(r.pattern() < 0xfe) {
-      const rmux_pattern &pat = rmux_patterns[r.pattern()];
+  for(const rnode_base *r = brnodes(); r != ernodes(); r = r->next())
+    if(r->pattern < 0xfe) {
+      const rmux_pattern &pat = rmux_patterns[r->pattern];
       rmux_set_val(r, pat.def);
     }
 }
 
-bool mistral::CycloneV::rnode_active(const rnode_base *rn, rnode_t previous) const
+bool mistral::CycloneV::rnode_active(const rnode_base *rn, rni_t previous) const
 {
   if(rn->pattern == 0xff)
     return false;
   if(rn->pattern == 0xfe) {
-    const rnode_target *rnt = rnode_targets(rn);
-    for(int i=0; i != rn->target_count; i++)
-      if(!(rnt[i].rn & 0x80000000) && rnode_active(rnode_lookup(rnt[i].rn), rn->node))
+    for(const rnode_target *rnt = rn->btargets(); rnt != rn->etargets(); rnt++)
+      if(rnt->rni >= 0 && rnode_active(ri2rb(rnt->rni & 0xffffff), rn2ri(rn->node)))
 	return true;
     return false;
   }
-  if(previous == 0)
+  if(previous == -1)
     return false;
   return rmux_get_source(rn) == previous;
 }
 
-std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_all_active_links() const
+std::vector<std::pair<mistral::CycloneV::rni_t, mistral::CycloneV::rni_t>> mistral::CycloneV::route_all_active_links() const
 {
-  std::vector<std::pair<rnode_t, rnode_t>> links;
-  for(const auto &r : rnodes()) {
-    if(r.pattern() == 0xff)
+  std::vector<std::pair<rni_t, rni_t>> links;
+  for(int dnode = 0; dnode != rnode_count(); dnode++) {
+    const rnode_base *r = ri2rb(dnode);
+    if(r->pattern == 0xff)
       continue;
-    if(r.pattern() == 0xfe) {
-      if(rnode_active(r.rn, 0))
-	  links.emplace_back(std::make_pair(*r.sources().begin(), r.id()));
+    if(r->pattern == 0xfe) {
+      if(rnode_active(r, -1))
+	  links.emplace_back(std::make_pair(r->bsources()[0] & 0xffffff, dnode));
 
     } else {
-      rnode_t snode = rmux_get_source(r);
-      if(snode) {
-	rnode_t dnode = r.id();
-	if(rn2t(dnode) == DCMUX && rn2t(snode) == TCLK && rmux_is_default(snode))
+      rni_t snode = rmux_get_source(r);
+      if(snode != -1) {
+	rnode_t sn = ri2rn(snode);
+	rnode_t dn = r->node;
+	if(rn2t(dn) == DCMUX && rn2t(sn) == TCLK && rmux_is_default(snode))
 	  continue;
-	if(rn2t(dnode) == SCLK && rmux_is_default(dnode)) {
+	if(rn2t(dn) == SCLK && rmux_is_default(r)) {
 	  continue; // Should test if there's a downlink link.
 	}
 
 	links.emplace_back(std::make_pair(snode, dnode));
       } else {
 	uint32_t val = rmux_get_val(r);
-	if(val != rmux_patterns[r.pattern()].def)
-	  fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r.id()).c_str(), r.pattern(), (rmux_patterns[r.pattern()].bits+3)/4, val);
+	if(val != rmux_patterns[r->pattern].def)
+	  fprintf(stderr, "Source unknown on rnode %s (%2d, %0*x)\n", rn2s(r->node).c_str(), r->pattern, (rmux_patterns[r->pattern].bits+3)/4, val);
       }
     }
   }
   return links;
 }
 
-std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::route_frontier_links() const
+std::vector<std::pair<mistral::CycloneV::rni_t, mistral::CycloneV::rni_t>> mistral::CycloneV::route_frontier_links() const
 {
-  std::vector<std::pair<rnode_t, rnode_t>> links;
+  std::vector<std::pair<rni_t, rni_t>> links;
   auto blinks = route_all_active_links();
-  std::unordered_map<rnode_t, rnode_t> backtracks;
-  std::unordered_map<rnode_t, uint32_t> mode;
+  std::unordered_map<rni_t, rni_t> backtracks;
+  std::unordered_map<rni_t, uint32_t> mode;
 
   for(const auto &l : blinks) {
     mode[l.first] |= 1;
@@ -222,7 +233,7 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
 
   for(const auto &m : mode) {
     if(m.second == 2) {
-      rnode_t s = m.first;
+      rni_t s = m.first;
       while(s && mode[s] != 1)
 	s = backtracks[s];
       assert(s);
@@ -233,12 +244,12 @@ std::vector<std::pair<mistral::CycloneV::rnode_t, mistral::CycloneV::rnode_t>> m
   return links;
 }
 
-std::vector<std::vector<mistral::CycloneV::rnode_t>> mistral::CycloneV::route_frontier_links_with_path() const
+std::vector<std::vector<mistral::CycloneV::rni_t>> mistral::CycloneV::route_frontier_links_with_path() const
 {
-  std::vector<std::vector<rnode_t>> links;
+  std::vector<std::vector<rni_t>> links;
   auto blinks = route_all_active_links();
-  std::unordered_map<rnode_t, rnode_t> backtracks;
-  std::unordered_map<rnode_t, uint32_t> mode;
+  std::unordered_map<rni_t, rni_t> backtracks;
+  std::unordered_map<rni_t, uint32_t> mode;
 
   for(const auto &l : blinks) {
     mode[l.first] |= 1;
@@ -248,7 +259,7 @@ std::vector<std::vector<mistral::CycloneV::rnode_t>> mistral::CycloneV::route_fr
 
   for(const auto &m : mode) {
     if(m.second == 2) {
-      rnode_t s = m.first;
+      rni_t s = m.first;
       links.resize(links.size()+1);
       auto &l = links.back();
       l.insert(l.begin(), s);
@@ -271,9 +282,9 @@ void mistral::CycloneV::init_p2r_maps()
   }
 }
 
-std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::get_all_p2r() const
+std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rni_t>> mistral::CycloneV::get_all_p2r() const
 {
-  std::vector<std::pair<pnode_t, rnode_t>> result;
+  std::vector<std::pair<pnode_t, rni_t>> result;
   for(uint32_t i = 0; i != dhead->count_p2r; i++)
     result.emplace_back(std::make_pair(p2r_infos[i].p, p2r_infos[i].r));
   return result;
@@ -288,9 +299,9 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::pnode_t>> m
 }
 
 
-std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> mistral::CycloneV::get_all_p2ri() const
+std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rni_t>> mistral::CycloneV::get_all_p2ri() const
 {
-  std::vector<std::pair<pnode_t, rnode_t>> result;
+  std::vector<std::pair<pnode_t, rni_t>> result;
   pos_t lab = lab_pos[0];
   pos_t mlab = mlab_pos[0];
   pos_t m10k = m10k_pos[0];
@@ -300,16 +311,16 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> m
   auto tt = [lab, mlab, m10k, dsp, dsp2](rnode_t n) -> bool { auto p = rn2p(n); return n && (p == lab || p == mlab || p == m10k || p == dsp || p == dsp2); };
 
   std::set<rnode_t> nodes;
-  for(const auto &r : rnodes()) {
-    if(tt(r.id()))
-      nodes.insert(r.id());
-    for(rnode_t source : r.sources())
-      if(tt(source))
-	nodes.insert(source);
+  for(const rnode_base *r = brnodes(); r != ernodes(); r = r->next()) {
+    if(tt(r->node))
+      nodes.insert(r->node);
+    for(const rni_t *rs = r->bsources(); rs != r->esources(); rs++)
+      if(tt(ri2rn(*rs & 0xffffff)))
+	nodes.insert(*rs & 0xffffff);
   }
 
-  for(rnode_t n : nodes) {
-    auto p = rnode_to_pnode(n);
+  for(rni_t n : nodes) {
+    auto p = rni_to_pnode(n);
     if(p)
       result.emplace_back(std::make_pair(p, n));
   }
@@ -317,12 +328,13 @@ std::vector<std::pair<mistral::CycloneV::pnode_t, mistral::CycloneV::rnode_t>> m
   return result;
 }
 
-mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
+mistral::CycloneV::rni_t mistral::CycloneV::pnode_to_rni(pnode_t pn) const
 {
   auto i = p2r_map.find(pn);
   if(i != p2r_map.end())
     return i->second;
 
+  rnode_t rn = 0;
   pos_t p = pn2p(pn);
   int bi = pn2bi(pn);
   int pi = pn2pi(pn);
@@ -331,87 +343,87 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
     switch(pn2pt(pn)) {
     case E0:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+0);
+	rn = rnode(GOUT, p, 8*bi+0);
       break;
 
     case F0:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+1);
+	rn = rnode(GOUT, p, 8*bi+1);
       break;
 
     case A:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+2);
+	rn = rnode(GOUT, p, 8*bi+2);
       break;
 
     case B:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+3);
+	rn = rnode(GOUT, p, 8*bi+3);
       break;
 
     case C:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+4);
+	rn = rnode(GOUT, p, 8*bi+4);
       break;
 
     case D:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+5);
+	rn = rnode(GOUT, p, 8*bi+5);
       break;
 
     case E1:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+6);
+	rn = rnode(GOUT, p, 8*bi+6);
       break;
 
     case F1:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GOUT, p, 8*bi+7);
+	rn = rnode(GOUT, p, 8*bi+7);
       break;
 
     case DATAIN:
       if(bi == -1 && pi >= 0 && pi < 4)
-	return rnode(GOUT, p, 80 + pi);
+	rn = rnode(GOUT, p, 80 + pi);
       break;
 
     case FFT0:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GIN, p, 4*bi+0);
+	rn = rnode(GIN, p, 4*bi+0);
       break;
 
     case FFT1:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GIN, p, 4*bi+1);
+	rn = rnode(GIN, p, 4*bi+1);
       break;
 
     case FFB0:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GIN, p, 4*bi+2);
+	rn = rnode(GIN, p, 4*bi+2);
       break;
 
     case FFB1:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(GIN, p, 4*bi+3);
+	rn = rnode(GIN, p, 4*bi+3);
       break;
 
     case FFT1L:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(LD, p, 2*bi+0);
+	rn = rnode(LD, p, 2*bi+0);
       break;
 
     case FFB1L:
       if(bi >= 0 && bi < 10 && pi == -1)
-	return rnode(LD, p, 2*bi+1);
+	rn = rnode(LD, p, 2*bi+1);
       break;
 
     case CLKIN:
       if(bi == -1 && pi >= 0 && pi < 2)
-	return rnode(TCLK, p, pi);
+	rn = rnode(TCLK, p, pi);
       break;
 
     case ACLR:
       if(bi == -1 && pi >= 0 && pi < 2)
-	return rnode(TCLK, p, pi+2);
+	rn = rnode(TCLK, p, pi+2);
       break;
 
     default:
@@ -425,18 +437,18 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
       if(bi < 0 || bi >= 12 || pi < 0 || pi >= 9)
 	break;
       switch(bi) {
-      case  0: return rnode(GOUT, p+1, pi);
-      case  1: return rnode(GOUT, p+1, pi+9);
-      case  2: return rnode(GOUT, p+1, pi+18);
-      case  3: return rnode(GOUT, p+1, pi <= 2 ? pi+27 : 61+3-pi);
-      case  4: return rnode(GOUT, p+1, 55-pi);
-      case  5: return rnode(GOUT, p+1, 46-pi);
-      case  6: return rnode(GOUT, p,   pi);
-      case  7: return rnode(GOUT, p,   pi+9);
-      case  8: return rnode(GOUT, p,   pi+18);
-      case  9: return rnode(GOUT, p,   pi <= 2 ? pi+27 : 61+3-pi);
-      case 10: return rnode(GOUT, p,   55-pi);
-      case 11: return rnode(GOUT, p,   46-pi);
+      case  0: rn = rnode(GOUT, p+1, pi); break;
+      case  1: rn = rnode(GOUT, p+1, pi+9); break;
+      case  2: rn = rnode(GOUT, p+1, pi+18); break;
+      case  3: rn = rnode(GOUT, p+1, pi <= 2 ? pi+27 : 61+3-pi); break;
+      case  4: rn = rnode(GOUT, p+1, 55-pi); break;
+      case  5: rn = rnode(GOUT, p+1, 46-pi); break;
+      case  6: rn = rnode(GOUT, p,   pi); break;
+      case  7: rn = rnode(GOUT, p,   pi+9); break;
+      case  8: rn = rnode(GOUT, p,   pi+18); break;
+      case  9: rn = rnode(GOUT, p,   pi <= 2 ? pi+27 : 61+3-pi); break;
+      case 10: rn = rnode(GOUT, p,   55-pi); break;
+      case 11: rn = rnode(GOUT, p,   46-pi); break;
       }
       break;
 
@@ -444,55 +456,62 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
       if(pi < 0 || pi >= 74)
 	break;
       if(pi <= 17)
-	return rnode(GIN, p+1, pi);
-      if(pi <= 35)
-	return rnode(GIN, p,   pi-18);
-      if(pi <= 54)
-	return rnode(GIN, p+1, pi-36+18);
-      if(pi <= 73)
-	return rnode(GIN, p,   pi-55+18);
+	rn = rnode(GIN, p+1, pi);
+      else if(pi <= 35)
+	rn = rnode(GIN, p,   pi-18);
+      else if(pi <= 54)
+	rn = rnode(GIN, p+1, pi-36+18);
+      else if(pi <= 73)
+	rn = rnode(GIN, p,   pi-55+18);
       break;
 
     case ACLR:
       if(pi >= 0 && pi <= 1)
-	return rnode(TCLK, p, 3 + pi);
+	rn = rnode(TCLK, p, 3 + pi);
       else if(pi >= 2 && pi <= 3)
-	return rnode(GOUT, p, 37-(pi-2));
+	rn = rnode(GOUT, p, 37-(pi-2));
       break;
 
     case NEGATE:
       if(pi != -1)
 	break;
-      return rnode(GOUT, p, 32);
+      rn = rnode(GOUT, p, 32);
+      break;
 
     case LOADCONST:
       if(pi != -1)
 	break;
-      return rnode(GOUT, p, 33);
+      rn = rnode(GOUT, p, 33);
+      break;
 
     case ACCUMULATE:
       if(pi != -1)
 	break;
-      return rnode(GOUT, p, 34);
+      rn = rnode(GOUT, p, 34);
+      break;
 
     case SUB:
       if(pi != -1)
 	break;
-      return rnode(GOUT, p, 35);
+      rn = rnode(GOUT, p, 35);
+      break;
 
     case ENABLE:
       if(pi < 0 || pi >= 3)
 	break;
-      return rnode(GOUT, p+1, 37-2*pi);
+      rn = rnode(GOUT, p+1, 37-2*pi);
+      break;
 
     case UNK_IN:
-      return pi >= 64 ? rnode(GOUT, p+1, pi-64) : rnode(GOUT, p, pi);
+      rn = pi >= 64 ? rnode(GOUT, p+1, pi-64) : rnode(GOUT, p, pi);
+      break;
 
     case CLKIN:
       if(pi >= 0 && pi <= 2)
-	return rnode(TCLK, p, pi);
+	rn = rnode(TCLK, p, pi);
       else if(pi >= 3 && pi <= 5)
-	return rnode(GOUT, p+1, 36-2*(pi-3));
+	rn = rnode(GOUT, p+1, 36-2*(pi-3));
+      break;
     default:
       break;
     }
@@ -502,43 +521,58 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
   case M10K: {
     switch(pn2pt(pn)) {
     case BYTEENABLEA:
-      return rnode(GOUT, p, pi);
+      rn = rnode(GOUT, p, pi);
+      break;
     case BYTEENABLEB:
-      return rnode(GOUT, p, pi+23);
+      rn = rnode(GOUT, p, pi+23);
+      break;
     case ENABLE:
-      return rnode(GOUT, p, pi < 2 ? pi + 18 : pi - 2 + 39);
+      rn = rnode(GOUT, p, pi < 2 ? pi + 18 : pi - 2 + 39);
+      break;
     case ACLR:
-      return rnode(GOUT, p, pi == 0 ? 6 : 29);
+      rn = rnode(GOUT, p, pi == 0 ? 6 : 29);
+      break;
     case RDEN:
-      return rnode(GOUT, p, pi == 0 ? 20 : 41);
+      rn = rnode(GOUT, p, pi == 0 ? 20 : 41);
+      break;
     case WREN:
-      return rnode(GOUT, p, pi == 0 ? 17 : 38);
+      rn = rnode(GOUT, p, pi == 0 ? 17 : 38);
+      break;
     case ADDRSTALLA:
-      return rnode(GOUT, p, 7);
+      rn = rnode(GOUT, p, 7);
+      break;
     case ADDRSTALLB:
-      return rnode(GOUT, p, 8);
+      rn = rnode(GOUT, p, 8);
+      break;
     case ADDRA: {
       static const int z[12] = { 42,  2,  3,  4,  9, 10, 11, 12, 13, 14, 15, 16 };
-      return rnode(GOUT, p, z[pi]);
+      rn = rnode(GOUT, p, z[pi]);
+      break;
     }
     case ADDRB: {
       static const int z[12] = { 64, 27, 26, 25, 37, 36, 35, 34, 33, 32, 31, 30 };
-      return rnode(GOUT, p, z[pi]);
+      rn = rnode(GOUT, p, z[pi]);
+      break;
     }
     case DATAAIN: {
       static const int z[20] = { 43, 47, 51, 55, 59, 63, 80, 76, 72, 68, 45, 49, 53, 57, 61, 82, 78, 74, 70, 66 };
-      return rnode(GOUT, p, z[pi]);
+      rn = rnode(GOUT, p, z[pi]);
+      break;
     }
     case DATABIN: {
       static const int z[20] = { 44, 48, 52, 56, 60, 83, 79, 75, 71, 67, 46, 50, 54, 58, 62, 81, 77, 73, 69, 65 };
-      return rnode(GOUT, p, z[pi]);
+      rn = rnode(GOUT, p, z[pi]);
+      break;
     }
     case DATAAOUT:
-      return rnode(GIN, p, pi);
+      rn = rnode(GIN, p, pi);
+      break;
     case DATABOUT:
-      return rnode(GIN, p, pi + 20);
+      rn = rnode(GIN, p, pi + 20);
+      break;
     case CLKIN:
-      return pi < 6 ? rnode(TCLK, p, pi) : rnode(GOUT, p, pi == 6 ? 5 : 28);
+      rn = pi < 6 ? rnode(TCLK, p, pi) : rnode(GOUT, p, pi == 6 ? 5 : 28);
+      break;
     default:
       break;
     }
@@ -549,11 +583,12 @@ mistral::CycloneV::rnode_t mistral::CycloneV::pnode_to_rnode(pnode_t pn) const
     break;
   }
 
-  return 0;
+  return rn ? rn2ri(rn) : 0;
 }
 
-mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
+mistral::CycloneV::pnode_t mistral::CycloneV::rni_to_pnode(rni_t ri) const
 {
+  rnode_t rn = ri2rn(ri);
   auto tt = tile_types[rn2p(rn)];
 
   if(tt == T_LAB || tt == T_MLAB) {
@@ -799,7 +834,7 @@ mistral::CycloneV::pnode_t mistral::CycloneV::rnode_to_pnode(rnode_t rn) const
     }
   }
 
-  auto i = r2p_map.find(rn);
+  auto i = r2p_map.find(ri);
   if(i != r2p_map.end())
     return i->second;
 
@@ -894,21 +929,17 @@ mistral::CycloneV::pnode_t mistral::CycloneV::hmc_get_bypass(pnode_t pn) const
   return pnode(HMC, pn2p(pn), npt, pn2bi(pn), pn2pi(pn));
 }
 
-mistral::CycloneV::rnode_timing_mode_t mistral::CycloneV::rnode_timing_get_mode(rnode_t rn) const
+mistral::CycloneV::rnode_timing_mode_t mistral::CycloneV::rnode_timing_get_mode(rni_t rn) const
 {
-  switch(rn2t(rn)) {
+  const rnode_base *rb = ri2rb(rn);
+  
+  switch(rn2t(rb->node)) {
   case WM:
     return RTM_NO_DELAY;
   case GCLK:
   case RCLK:
     return RTM_P2P;
   default: {
-    const rnode_base *rb = rnode_lookup(rn);
-    if(!rb) {
-      fprintf(stderr, "Error: node doesn't exist.\n");
-      exit(1);
-    }
-
     if(rb->drivers[0] != 0xff)
       return RTM_CIRCUIT;
     return RTM_UNSUPPORTED;
@@ -1042,9 +1073,9 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 						   double line_r, edge_t edge,
 						   double defv,
 						   const rnode_line_information &rli,
-						   rnode_t rn,
+						   rni_t rn,
 						   const dnode_driver *driver_bank,
-						   AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs) const
+						   AnalogSim &sim, std::vector<std::pair<rni_t, int>> &outputs) const
 {
   enum {
     start_of_line,
@@ -1064,27 +1095,27 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
   for(;;) {
     double next_c;
     uint16_t next_pos;
-    rnode_t active_target = 0;
+    rni_t active_target = 0;
     bool needed_output = false;
     if(mode != in_line) {
       next_pos = mode == start_of_line ? 0 : (mode == before_split || mode == after_split) ? split_pos : rli.length;
       next_c = 0;
 
-    } else if(targets[tpos].rn & 0x80000000) {
+    } else if(targets[tpos].rni < 0) {
       next_pos = target_pos[tpos] & 0x7fff;
       next_c = -targets[tpos].caps;
 
     } else {
       next_pos = target_pos[tpos] & 0x7fff;
-      const rnode_base *rnt = rnode_lookup(targets[tpos].rn);
+      const rnode_base *rnt = ri2rb(targets[tpos].rni & 0xffffff);
       int back_incoming_index = target_pos[tpos] & 0x8000 ? 1 : 0;
       const dnode_driver &back_driver = driver_bank[rnt->drivers[back_incoming_index]];
 
-      if(rnt->pattern == 0xfe || rmux_get_source(*rnt) == rn) {
+      if(rnt->pattern == 0xfe || rmux_get_source(rnt) == rn) {
 	next_c = back_driver.con.rf[edge];
-	active_target = targets[tpos].rn;
+	active_target = targets[tpos].rni & 0xffffff;
 	needed_output = rnt->pattern != 0xfe || rnode_active(rnt, rn);
-	sim.set_node_name(pnode, rn2s(targets[tpos].rn));
+	sim.set_node_name(pnode, rn2s(rnt->node));
       } else
 	next_c = back_driver.coff.rf[edge];
     }
@@ -1093,7 +1124,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
     if(next_pos - current_pos < line_coalescing) {
       current_c += next_c;
       if(needed_output) {
-	sim.set_node_name(pnode, rn2s(active_target));
+	sim.set_node_name(pnode, rn2s(ri2rn(active_target)));
 	outputs.emplace_back(std::make_pair(active_target, pnode));
       }
 
@@ -1108,7 +1139,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 	current_c += wire_c/2;
 	int nnode = sim.gn_g(defv);
 	if(needed_output && seg+1 == segments) {
-	  sim.set_node_name(nnode, rn2s(active_target));
+	  sim.set_node_name(nnode, rn2s(ri2rn(active_target)));
 	  outputs.emplace_back(std::make_pair(active_target, nnode));
 	}
 
@@ -1187,22 +1218,22 @@ void mistral::CycloneV::rnode_timing_trim_wave(int didx, const AnalogSim::wave &
     dw.emplace_back(sw[splice++]);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
+void mistral::CycloneV::rnode_timing_build_input_wave(rni_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   rnode_timing_build_input_wave(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
+void mistral::CycloneV::rnode_timing_build_input_wave_si(rni_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   rnode_timing_build_input_wave(dn_lookup->index_si[si][temp], rn, edge, est, w);
 }
 
-void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
+void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rni_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const
 {
   const dnode_info &di = dn_info[didx];
 
   w.clear();
-  pnode_t pn = rnode_to_pnode(rn);
+  pnode_t pn = rni_to_pnode(rn);
 
   if(pn2bt(pn) == LAB || pn2bt(pn) == MLAB) {
     // TODO: mlab in memory mode is different
@@ -1232,8 +1263,9 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
   default: break;
   }
 
-  if(rn2t(rn) == SCLK) {
-    rnode_t src = rmux_get_source(rnode_lookup(rn));
+  const rnode_base *rb = ri2rb(rn);
+  if(rn2t(rb->node) == SCLK) {
+    rnode_t src = ri2rn(rmux_get_source(rb));
     if(rn2t(src) == GCLK)
       edge_type = EDGE_GCLK;
     else if(rn2t(src) == RCLK)
@@ -1248,19 +1280,19 @@ void mistral::CycloneV::rnode_timing_build_input_wave(int didx, rnode_t rn, edge
   w.emplace_back(AnalogSim::time_slot(di.edges[edge_type][est].rf[edge], edge == RF_RISE ? di.vdd : 0.0));
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
+void mistral::CycloneV::rnode_timing_build_circuit(rni_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const
 {
   rnode_timing_build_circuit(dn_lookup->index_sg[model->speed_grade][temp][delay], rn, temp, edge, sim, input, outputs);
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
+void mistral::CycloneV::rnode_timing_build_circuit_si(rni_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const
 {
   rnode_timing_build_circuit(dn_lookup->index_si[si][temp], rn, temp, edge, sim, input, outputs);
 }
 
-void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const
+void mistral::CycloneV::rnode_timing_build_circuit(int didx, rni_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const
 {
-  const rnode_base *rb = rnode_lookup(rn);
+  const rnode_base *rb = ri2rb(rn);
   if(rb->drivers[0] == 0xff) {
     fprintf(stderr, "rnode_timing_build_circuit unsupported node\n");
     abort();
@@ -1268,13 +1300,13 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
 
   int incoming_index = 0;
   if(rb->pattern == 16) {
-    rnode_t rns = rmux_get_source(rb);
-    if(rns) {
-      const rnode_base *rbs = rnode_lookup(rns);
-      const rnode_target *stargets = rnode_targets(rbs);
-      for(int i=0; i != rbs->target_count; i++)
-	if(stargets[i].rn == rn) {
-	  incoming_index = (rnode_target_positions(rbs)[i] & 0x8000) ? 1 : 0;
+    rni_t rns = rmux_get_source(rb);
+    if(rns != -1) {
+      const rnode_base *rbs = ri2rb(rns);
+      const rnode_target *rt = rbs->btargets();
+      for(int i=0; i != rbs->ctargets(); i++)
+	if(rt[i].rni >= 0 && (rt[i].rni & 0xffffff) == rn) {
+	  incoming_index = (rbs->btargets_positions()[i] & 0x8000) ? 1 : 0;
 	  break;
 	}
     }
@@ -1293,8 +1325,8 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
 
   double line_r = rli ? driver.rmult * rli->r85 * rli->tcomp(timing_slot_temperature[temp])/rli->tcomp(85) : 0;
 
-  const rnode_target *targets = rnode_targets(rb);
-  const uint16_t *target_pos = rnode_target_positions(rb);
+  const rnode_target *targets = rb->btargets();
+  const uint16_t *target_pos = rb->btargets_positions();
   int target_count = rb->target_count;
 
   double wire_root_to_gnd = 0;
@@ -1473,7 +1505,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_t rn, timing_
   else {
     if(wire_root_to_gnd)
       sim.add_c(wire, 0, wire_root_to_gnd);
-    outputs.emplace_back(std::make_pair(rnode_t(0), wire));
+    outputs.emplace_back(std::make_pair(-1, wire));
   }
 }
 

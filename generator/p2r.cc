@@ -97,3 +97,10 @@ pnode_t P2RLoader::find_r(rnode_t node) const
       return n.p;
   return 0;
 }
+
+void P2RLoader::remap(std::function<int (rnode_t)> rn2ri)
+{
+  for(auto &inf : data)
+    inf.r = rn2ri(inf.r);
+}
+

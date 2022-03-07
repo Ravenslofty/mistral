@@ -214,32 +214,32 @@ namespace mistral {
 
     enum pin_flags_t : uint32_t {
       PIN_IO_MASK    = 0x00000007,
-      PIN_DPP        = 0x00000001, // Dedicated Programming Pin
-      PIN_HSSI       = 0x00000002, // High Speed Serial Interface input
-      PIN_JTAG       = 0x00000003, // JTAG
-      PIN_GPIO       = 0x00000004, // General-Purpose I/O
+	PIN_DPP        = 0x00000001, // Dedicated Programming Pin
+	PIN_HSSI       = 0x00000002, // High Speed Serial Interface input
+	PIN_JTAG       = 0x00000003, // JTAG
+	PIN_GPIO       = 0x00000004, // General-Purpose I/O
 
-      PIN_HPS        = 0x00000008, // Hardware Processor System
+	PIN_HPS        = 0x00000008, // Hardware Processor System
 
-      PIN_DIFF_MASK  = 0x00000070,
-      PIN_DM         = 0x00000010,
-      PIN_DQS        = 0x00000020,
-      PIN_DQS_DIS    = 0x00000030,
-      PIN_DQSB       = 0x00000040,
-      PIN_DQSB_DIS   = 0x00000050,
+	PIN_DIFF_MASK  = 0x00000070,
+	PIN_DM         = 0x00000010,
+	PIN_DQS        = 0x00000020,
+	PIN_DQS_DIS    = 0x00000030,
+	PIN_DQSB       = 0x00000040,
+	PIN_DQSB_DIS   = 0x00000050,
 
-      PIN_TYPE_MASK  = 0x00000f00,
-      PIN_DO_NOT_USE = 0x00000100,
-      PIN_GXP_RREF   = 0x00000200,
-      PIN_NC         = 0x00000300,
-      PIN_VCC        = 0x00000400,
-      PIN_VCCL_SENSE = 0x00000500,
-      PIN_VCCN       = 0x00000600,
-      PIN_VCCPD      = 0x00000700,
-      PIN_VREF       = 0x00000800,
-      PIN_VSS        = 0x00000900,
-      PIN_VSS_SENSE  = 0x00000a00,
-    };
+	PIN_TYPE_MASK  = 0x00000f00,
+	PIN_DO_NOT_USE = 0x00000100,
+	PIN_GXP_RREF   = 0x00000200,
+	PIN_NC         = 0x00000300,
+	PIN_VCC        = 0x00000400,
+	PIN_VCCL_SENSE = 0x00000500,
+	PIN_VCCN       = 0x00000600,
+	PIN_VCCPD      = 0x00000700,
+	PIN_VREF       = 0x00000800,
+	PIN_VSS        = 0x00000900,
+	PIN_VSS_SENSE  = 0x00000a00,
+	};
 
     struct pin_info_t {
       uint8_t x;
@@ -296,8 +296,9 @@ namespace mistral {
 
     static const package_info_t package_infos[5+3+3];
 
-    using pos_t = uint16_t;          // Tile position
+    using pos_t   = uint16_t;        // Tile position
     using rnode_t = uint32_t;        // Route node id
+    using rni_t   = int;             // Route node index
     using pnode_t = uint64_t;        // Port node id
 
     static constexpr uint32_t pos2x(pos_t xy) { return (xy >> 7) & 0x7f; }
@@ -331,6 +332,110 @@ namespace mistral {
     static std::string rn2s(rnode_t rn);
     static std::string pn2s(pnode_t pn);
 
+    union rnode_target {
+      rni_t rni;
+      float caps;
+    };
+
+    static const rni_t *rnode_iterator_next(const rni_t *rni) {
+      while(*rni < 0)
+	rni++;
+      rni++;
+      return rni;
+    }
+
+    static const rni_t *rnode_iterator_prev(const rni_t *rni) {
+      rni--;
+      while(rni[-1] < 0)
+	rni--;
+      return rni;
+    }
+
+    static const rni_t *rnode_iterator_forward_adjust(const rni_t *rni, const rni_t *eni) {
+      while(rni != eni && *rni < 0)
+	rni++;
+      return rni;
+    }
+
+    static const rni_t *rnode_iterator_backward_adjust(const rni_t *rni, const rni_t *sni) {
+      while(rni != sni && rni[-1] < 0)
+	rni--;
+      return rni;
+    }
+
+    struct rnode_base {
+      rnode_t node;
+      uint8_t pattern;
+      uint8_t target_count;
+      uint8_t drivers[2];
+      uint16_t line_info_index;
+      uint16_t driver_position;
+      uint32_t fw_pos;
+      // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
+
+      const rni_t *bsources() const {
+	return reinterpret_cast<const rni_t *>(this+1);
+      }
+
+      const rni_t *esources() const {
+	return bsources() + csources();
+      }
+
+      int csources() const {
+	return pattern == 0xff ? 0 : pattern == 0xfe ? 1 : rmux_patterns[pattern].span;
+      }
+
+      int source_slot(const rni_t *src) const {
+	return src - bsources();
+      }
+
+      int source_slot(rni_t rni) const {
+	const rni_t *src = bsources();
+	const rni_t *end = bsources() + csources();
+	for(const rni_t *p = src; p != end; p++)
+	  if(*p == rni)
+	    return p - src;
+	return -1;
+      }
+
+      const rnode_target *btargets() const {
+	return reinterpret_cast<const rnode_target *>(esources());
+      }
+
+      const rnode_target *etargets() const {
+	return btargets() + ctargets();
+      }
+
+      const uint16_t *btargets_positions() const {
+	return reinterpret_cast<const uint16_t *>(etargets());
+      }
+
+      const uint16_t *etargets_positions() const {
+	return btargets_positions() + ctargets();
+      }
+
+      int ctargets() const {
+	return target_count;
+      }
+
+      const rnode_base *next() const {
+	const uint8_t *p = reinterpret_cast<const uint8_t *>(this);
+	p += sizeof(rnode_base);
+	p += pattern == 0xff ? 0 : pattern == 0xfe ? 4 : 4*rmux_patterns[pattern].span;
+	p += 4*target_count;
+	p += 2*((target_count+1) & ~1);
+	return reinterpret_cast<const rnode_base *>(p);
+      }
+    };
+
+    const rnode_base *brnodes() const { 
+      return reinterpret_cast<const rnode_base *>(rnode_info);
+    }
+
+    const rnode_base *ernodes() const { 
+      return reinterpret_cast<const rnode_base *>(rnode_hash);
+    }
+
     struct Model;
 
     CycloneV(const Model *m);
@@ -342,35 +447,65 @@ namespace mistral {
     // Sizes
     int get_tile_sx() const { return di.tile_sx; }
     int get_tile_sy() const { return di.tile_sy; }
-
+    int get_cram_sx() const { return di.cram_sx; }
+    int get_cram_sy() const { return di.cram_sy; }
+  
     // State clearing, loading and saving
     void clear();
     void rbf_load(const void *data, uint32_t size);
     void rbf_save(std::vector<uint8_t> &data);
-
+  
     // Routing
-    rnode_t pnode_to_rnode(pnode_t pn) const;
-    pnode_t rnode_to_pnode(rnode_t rn) const;
-    invert_t rnode_is_inverting(rnode_t rn) const;
+    const rnode_base *ri2rb(rni_t rn) const {
+      return reinterpret_cast<const rnode_base *>(rnode_info + rnode_index_to_base[rn]);
+    }
 
+    rnode_t ri2rn(rni_t rn) const {
+      return ri2rb(rn)->node;
+    }
+
+    int rn2ri(rnode_t rn) const;
+
+    const rnode_base *rnode_lookup(rnode_t rn) const {
+      const rnode_base *rb = ri2rb(rn2ri(rn));
+      return rb->node == rn ? rb : nullptr;
+    }
+
+    rni_t pnode_to_rni(pnode_t pn) const;
+    pnode_t rni_to_pnode(rni_t rni) const;
+    invert_t rni_is_inverting(rni_t rni) const;
+  
     std::vector<pnode_t> p2p_from(pnode_t pn) const;
     pnode_t p2p_to(pnode_t pn) const;
     pnode_t hmc_get_bypass(pnode_t pn) const;
-
-    std::vector<std::pair<pnode_t, rnode_t>> get_all_p2r() const;
+  
+    std::vector<std::pair<pnode_t, rni_t>>   get_all_p2r() const;
     std::vector<std::pair<pnode_t, pnode_t>> get_all_p2p() const;
-    std::vector<std::pair<pnode_t, rnode_t>> get_all_p2ri() const;
-
-    void rnode_link(rnode_t n1, rnode_t n2);
-    void rnode_link(pnode_t p1, rnode_t n2);
-    void rnode_link(rnode_t n1, pnode_t p2);
+    std::vector<std::pair<pnode_t, rni_t>>   get_all_p2ri() const;
+  
+    void rnode_link(rni_t n1,   rni_t n2);
+    void rnode_link(pnode_t p1, rni_t n2);
+    void rnode_link(rni_t n1,   pnode_t p2);
     void rnode_link(pnode_t p1, pnode_t p2);
-    void rnode_unlink(rnode_t n2);
+    void rnode_unlink(rni_t n2  );
     void rnode_unlink(pnode_t p2);
+    int rnode_count() const { return rnode_total_count; }
+  
+    std::vector<std::pair<rni_t, rni_t>> route_all_active_links() const;
+    std::vector<std::pair<rni_t, rni_t>> route_frontier_links() const;
+    std::vector<std::vector<rni_t>> route_frontier_links_with_path() const;
 
-    std::vector<std::pair<rnode_t, rnode_t>> route_all_active_links() const;
-    std::vector<std::pair<rnode_t, rnode_t>> route_frontier_links() const;
-    std::vector<std::vector<rnode_t>> route_frontier_links_with_path() const;
+    rnode_timing_mode_t rnode_timing_get_mode(rni_t rn) const;
+    void rnode_timing_build_circuit(rni_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge,
+				    AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const;
+    void rnode_timing_build_circuit_si(rni_t rn, timing_slot_t temp, speed_info_t si, edge_t edge,
+				       AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const;
+    
+    void rnode_timing_build_input_wave(rni_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+    void rnode_timing_build_input_wave_si(rni_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+
+    void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
+    void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
 
     // Blocks positions 
     const std::vector<block_type_t> &pos_get_bels(pos_t pos) const { return tile_bels[pos]; }
@@ -446,14 +581,14 @@ namespace mistral {
 
     // Programmable inverters
     struct inv_setting_t {
-      rnode_t node;
+      rni_t node;
       bool value;
       bool def; // Is the current value the default?
     };
 
     // Returns (active, default) pairs
     std::vector<inv_setting_t> inv_get() const;
-    bool inv_set(rnode_t node, bool value);
+    bool inv_set(rni_t node, bool value);
 
 
     // Package/pins/pads related functions
@@ -553,13 +688,13 @@ namespace mistral {
 
     struct data_header {
       uint32_t off_rnode;
-      uint32_t off_rnode_end;
       uint32_t off_rnode_hash;
+      uint32_t off_rnode_hash_to_index;
+      uint32_t off_rnode_index_to_base;
       uint32_t off_line_info;
       uint32_t off_p2r_info;
       uint32_t off_p2p_info;
       uint32_t off_inv_info;
-      uint32_t size_rnode_opaque_hash;
       uint32_t count_rnode;
       uint32_t count_p2r;
       uint32_t count_p2p;
@@ -571,21 +706,6 @@ namespace mistral {
       uint32_t off_dnode_table2;
       uint32_t off_dnode_table3;
       uint32_t off_dnode_drivers;
-    };
-    
-    struct rnode_base {
-      rnode_t node;
-      uint8_t pattern;
-      uint8_t target_count;
-      uint8_t drivers[2];
-      uint16_t line_info_index;
-      uint16_t driver_position;
-      uint32_t fw_pos;
-    }; // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
-
-    union rnode_target {
-      rnode_t rn;
-      float caps;
     };
     
     struct rnode_line_information {
@@ -672,161 +792,6 @@ namespace mistral {
       uint32_t index_si[SI_COUNT][T_COUNT];    // [speed info][temperature]
     };
 
-  public:
-    class rnode_source_iterator : public std::iterator<std::bidirectional_iterator_tag, rnode_t> {
-    public:
-      rnode_source_iterator(const rnode_t *_rn) : rn(_rn) {}
-      rnode_source_iterator(const rnode_source_iterator &i) : rn(i.rn) {}
-
-      rnode_source_iterator &operator++() {
-	while(!*rn)
-	  rn++;
-	rn++;
-	return *this;
-      }
-
-      rnode_source_iterator operator++(int) {
-	const rnode_t *rn1 = rn;
-	while(!*rn1)
-	  rn1++;
-	return rnode_source_iterator(rn+1);
-      }
-
-      rnode_source_iterator &operator--() {
-	rn--;
-	while(!rn[-1])
-	  rn--;
-	return *this;
-      }
-
-      rnode_source_iterator operator--(int) {
-	const rnode_t *rn1 = rn-1;
-	while(!rn1[-1])
-	  rn1--;
-	return rnode_source_iterator(rn1);
-      }
-
-      rnode_t operator*() {
-	const rnode_t *rn1 = rn;
-	while(!*rn1)
-	  rn1++;
-	return *rn1;
-      }
-
-      bool operator==(const rnode_source_iterator &rhs) const {
-	return rn == rhs.rn;
-      }
-
-      bool operator!=(const rnode_source_iterator &rhs) const {
-	return rn != rhs.rn;
-      }
-
-    private:
-      const rnode_t *rn;
-    };
-      
-    class rnode_source_container_proxy {
-    public:
-      rnode_source_container_proxy(const rnode_base *_rn) : rn(_rn) {}
-      rnode_source_iterator begin() const {
-	const rnode_t *start = rnode_sources(rn);
-	if(rn->pattern == 0xff)
-	  return rnode_source_iterator(start);
-	int span = rn->pattern == 0xfe ? 1 : rmux_patterns[rn->pattern].span;
-	const rnode_t *end = start + span;
-	while(start != end && !*start)
-	  start++;
-	if(start == end)
-	  start = rnode_sources(rn);
-	return rnode_source_iterator(start);
-      }
-
-      rnode_source_iterator end() const {
-	const rnode_t *start = rnode_sources(rn);
-	if(rn->pattern == 0xff)
-	  return rnode_source_iterator(start);
-	int span = rn->pattern == 0xfe ? 1 : rmux_patterns[rn->pattern].span;
-	const rnode_t *end = start + span;
-	while(end > start && !end[-1])
-	  end --;
-	return rnode_source_iterator(end);
-      }
-
-    private:
-      const rnode_base *rn;
-    };
-    
-
-    class rnode_proxy {
-      friend class CycloneV;
-
-    public:
-      rnode_proxy(const rnode_base *_rn) : rn(_rn) {}
-      rnode_t id() const { return rn->node; }
-      int pattern() const { return rn->pattern; }
-      rnode_source_container_proxy sources() const { return rnode_source_container_proxy(rn); }
-
-    private:
-      const rnode_base *rn;
-
-      operator const rnode_base&() const { return *rn; }
-    };
-
-    class rnode_iterator : public std::iterator<std::input_iterator_tag, rnode_proxy> {
-    public:
-      rnode_iterator(const rnode_base *_rn) : rn(_rn) {}
-      rnode_iterator(const rnode_iterator &i) : rn(i.rn) {}
-
-      rnode_iterator &operator++() {
-	rn = rnode_next(rn);
-	return *this;
-      }
-
-      rnode_iterator operator++(int) {
-	return rnode_iterator(rnode_next(rn));
-      }
-
-      rnode_proxy operator*() {
-	return rnode_proxy(rn);
-      }
-
-      bool operator==(const rnode_iterator &rhs) const {
-	return rn == rhs.rn;
-      }
-
-      bool operator!=(const rnode_iterator &rhs) const {
-	return rn != rhs.rn;
-      }
-
-    private:
-      const rnode_base *rn;
-    };
-      
-    class rnode_container_proxy {
-    public:
-      rnode_container_proxy(const CycloneV *_data) : data(_data) {}
-      rnode_iterator begin() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_info)); }
-      rnode_iterator end() const { return rnode_iterator(reinterpret_cast<const rnode_base *>(data->rnode_info_end)); }
-
-    private:
-      const CycloneV *data;
-    };
-
-    rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
-
-    rnode_timing_mode_t rnode_timing_get_mode(rnode_t rn) const;
-    void rnode_timing_build_circuit(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge,
-				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
-    void rnode_timing_build_circuit_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge,
-				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
-    
-    void rnode_timing_build_input_wave(rnode_t rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
-    void rnode_timing_build_input_wave_si(rnode_t rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
-
-    void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
-    void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
-
-  private:
     struct bmux_sel_entry {
       uint32_t mask;
       bmux_type_t sel;
@@ -890,7 +855,7 @@ namespace mistral {
 
     struct p2r_info {
       pnode_t p;
-      rnode_t r;
+      rni_t r;
       uint32_t padding;
     };
 
@@ -930,7 +895,7 @@ namespace mistral {
 	DEF_MASK = 0xf0000000,
       };
       
-      rnode_t node;
+      rni_t node;
       uint32_t pos_and_def;
     };
 
@@ -1094,15 +1059,16 @@ namespace mistral {
     std::vector<pos_t> hip_pos;
     std::vector<pos_t> hmc_pos;
 
-    std::unordered_map<pnode_t, rnode_t> p2r_map;
-    std::unordered_map<rnode_t, pnode_t> r2p_map;
+    std::unordered_map<pnode_t, rni_t> p2r_map;
+    std::unordered_map<rni_t, pnode_t> r2p_map;
 
     std::vector<std::unique_ptr<uint8_t[]>> decompressed_data_storage;
     const data_header *dhead;
+    uint32_t rnode_total_count;
     const uint8_t *rnode_info;
-    const uint8_t *rnode_info_end;
     const uint8_t *rnode_hash;
-    const uint32_t *rnode_hash_lookup;
+    const uint32_t *rnode_hash_to_index;
+    const uint32_t *rnode_index_to_base;
     const rnode_line_information *rli_data;
 
     const p2r_info *p2r_infos;
@@ -1135,57 +1101,13 @@ namespace mistral {
     static uint16_t crc16(const uint8_t *src, uint32_t len);
     uint32_t crc32(const uint8_t *src) const;
 
-    const rnode_base *rnode_lookup(rnode_t rn) const;
-
-    static inline const rnode_base *rnode_next(const rnode_base *r) {
-      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
-      p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
-      p += 4*r->target_count;
-      p += 2*((r->target_count+1) & ~1);
-      return reinterpret_cast<const rnode_base *>(p);
-    }
-
-    static inline const rnode_t *rnode_sources(const rnode_base *r) {
-      return reinterpret_cast<const uint32_t *>(reinterpret_cast<const uint8_t *>(r) + sizeof(rnode_base));
-    }
-
-    static inline const rnode_t *rnode_sources(const rnode_base &r) {
-      return rnode_sources(&r);
-    }
-
-    static inline const rnode_target *rnode_targets(const rnode_base *r) {
-      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
-      p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
-      return reinterpret_cast<const rnode_target *>(p);
-    }
-
-    static inline const rnode_target *rnode_targets(const rnode_base &r) {
-      return rnode_targets(&r);
-    }
-
-    static inline const uint16_t *rnode_target_positions(const rnode_base *r) {
-      const uint8_t *p = reinterpret_cast<const uint8_t *>(r);
-      p += sizeof(rnode_base);
-      p += r->pattern == 0xff ? 0 : r->pattern == 0xfe ? 4 : 4*rmux_patterns[r->pattern].span;
-      p += 4*r->target_count;
-      return reinterpret_cast<const uint16_t *>(p);
-    }
-
-    static inline const uint16_t *rnode_target_positions(const rnode_base &r) {
-      return rnode_target_positions(&r);
-    }
-
-    uint32_t rmux_get_val(const rnode_base &r) const;
-    void rmux_set_val(const rnode_base &r, uint32_t val);
-    int rmux_get_slot(const rnode_base &r) const;
-    rnode_t rmux_get_source(const rnode_base &r) const;
-    inline rnode_t rmux_get_source(const rnode_base *r) const {
-      return rmux_get_source(*r);
-    }
-    bool rmux_is_default(rnode_t node) const;
-    bool rnode_do_link(rnode_t n1, rnode_t n2);
+    uint32_t rmux_get_val(const rnode_base *r) const;
+    void rmux_set_val(const rnode_base *r, uint32_t val);
+    int rmux_get_slot(const rnode_base *r) const;
+    rni_t rmux_get_source(const rnode_base *r) const;
+    bool rmux_is_default(rni_t node) const;
+    bool rmux_is_default(const rnode_base *r) const;
+    bool rnode_do_link(rni_t n1, rni_t n2);
     void route_set_defaults();
 
     void init_p2r_maps();
@@ -1293,14 +1215,14 @@ namespace mistral {
 				    double line_r, edge_t edge,
 				    double dev,
 				    const rnode_line_information &rli,
-				    rnode_t rn,
+				    rni_t rn,
 				    const dnode_driver *driver_bank,
-				    AnalogSim &sim, std::vector<std::pair<rnode_t, int>> &outputs) const;
-    void rnode_timing_build_circuit(int didx, rnode_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_t, int>> &outputs) const;
-    void rnode_timing_build_input_wave(int didx, rnode_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+				    AnalogSim &sim, std::vector<std::pair<rni_t, int>> &outputs) const;
+    void rnode_timing_build_circuit(int didx, rni_t rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rni_t, int>> &outputs) const;
+    void rnode_timing_build_input_wave(int didx, rni_t rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
     void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
 
-    bool rnode_active(const rnode_base *rn, rnode_t previous) const;
+    bool rnode_active(const rnode_base *rn, rni_t previous) const;
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;

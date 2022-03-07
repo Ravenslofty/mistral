@@ -36,13 +36,13 @@ static struct {
 
 struct data_header {
   uint32_t off_rnode;
-  uint32_t off_rnode_end;
   uint32_t off_rnode_hash;
+  uint32_t off_rnode_hash_to_index;
+  uint32_t off_rnode_index_to_base;
   uint32_t off_line_info;
   uint32_t off_p2r_info;
   uint32_t off_p2p_info;
   uint32_t off_inv_info;
-  uint32_t size_rnode_opaque_hash;
   uint32_t count_rnode;
   uint32_t count_p2r;
   uint32_t count_p2p;
@@ -167,9 +167,8 @@ int main(int argc, char **argv)
     std::vector<uint32_t> rnode_pos;
 
     uint8_t *opos = output.data() + dh->off_rnode;
-    while(rparse.rn || lparse.rn) {
+    while(rparse.rn || lparse.rn || dparse.rn) {
 
-      rnode_base rb;
       rnode_t rn = rparse.rn;
       if(!rn || rn > lparse.rn)
 	rn = lparse.rn;
@@ -179,35 +178,36 @@ int main(int argc, char **argv)
       rnode_vec.push_back(rn);
       rnode_pos.push_back(opos - output.data() - dh->off_rnode);
 
-      rb.node = rn;
+      rnode_base *rb = reinterpret_cast<rnode_base *>(opos);
+      
+      rb->node = rn;
       bool rv = rparse.rn == rn;
       bool lv = lparse.rn == rn;
       bool dv = dparse.rn == rn;
 
-      rb.pattern = rv ? rparse.pattern : 0xff;
-      rb.target_count = lv ? lparse.target_count : 0;
-      rb.drivers[0] = dv ? dparse.drivers[0] : 0xff;
-      rb.drivers[1] = dv ? dparse.drivers[1] : 0xff;
-      rb.line_info_index = lv ? get_line_info(lparse.li) : 0xffff;
-      rb.driver_position = lv ? lparse.driver_position : 0;
-      rb.fw_pos = rv ? rparse.fw_pos : 0;
+      rb->pattern = rv ? rparse.pattern : 0xff;
+      rb->target_count = lv ? lparse.target_count : 0;
+      rb->drivers[0] = dv ? dparse.drivers[0] : 0xff;
+      rb->drivers[1] = dv ? dparse.drivers[1] : 0xff;
+      rb->line_info_index = lv ? get_line_info(lparse.li) : 0xffff;
+      rb->driver_position = lv ? lparse.driver_position : 0;
+      rb->fw_pos = rv ? rparse.fw_pos : 0;
 
       uint32_t span = rv ? rparse.pattern == 0xfe ? 1 : rmux_patterns[rparse.pattern].span : 0;
     
-      memcpy(opos, &rb, sizeof(rb));
-      opos += sizeof(rb);
+      opos += sizeof(rnode_base);
 
       if(span) {
 	memcpy(opos, rparse.sources, span*4);
 	opos += 4*span;
       }
 
-      if(rb.target_count) {
-	memcpy(opos, lparse.targets, rb.target_count*4);
-	opos += rb.target_count*4;
-	memcpy(opos, lparse.target_pos, rb.target_count*2);
-	opos += rb.target_count*2;
-	if(rb.target_count & 1) {
+      if(rb->target_count) {
+	memcpy(opos, lparse.targets, rb->target_count*4);
+	opos += rb->target_count*4;
+	memcpy(opos, lparse.target_pos, rb->target_count*2);
+	opos += rb->target_count*2;
+	if(rb->target_count & 1) {
 	  *opos ++ = 0;
 	  *opos ++ = 0;
 	}
@@ -220,45 +220,105 @@ int main(int argc, char **argv)
       if(dparse.rn == rn)
 	dparse.next();
     }
-    dh->off_rnode_end = opos - output.data();
     assert(size_t(opos-output.data()) <= output.size());
 
     r_data.clear();
     l_data.clear();
 
     auto hdata = bdz_ph_hash::make(rnode_vec);
-    size_t len1 = (hdata.size() + 3) & ~3;
-    size_t len2 = 4*bdz_ph_hash::output_range(hdata);
+    size_t lhash = (hdata.size() + 3) & ~3;
+    uint32_t nhslot = (bdz_ph_hash::output_range(hdata)+7) >> 3;
+    size_t lind = 4*nhslot;
+    size_t lbase = 4*rnode_vec.size();
     size_t llines = sizeof(rnode_line_information)*rli_data.size();
     size_t p2rs = p2r.data.size()*sizeof(p2r_info);
     size_t p2ps = p2p.data.size()*sizeof(p2p_info);
     size_t invs = inv.data.size()*sizeof(inverter_info);
 
     dh->off_rnode_hash = opos - output.data();
-    dh->off_line_info = dh->off_rnode_hash + len1 + len2;
+    dh->off_rnode_hash_to_index = dh->off_rnode_hash + lhash;
+    dh->off_rnode_index_to_base = dh->off_rnode_hash_to_index + lind;
+    dh->off_line_info = dh->off_rnode_index_to_base + lbase;
     dh->off_p2r_info = dh->off_line_info + llines;
     dh->off_p2p_info = dh->off_p2r_info + p2rs;
     dh->off_inv_info = dh->off_p2p_info + p2ps;
-    dh->size_rnode_opaque_hash = len1;
+    size_t end = dh->off_inv_info + invs;
+
     dh->count_rnode = rnode_vec.size();
     dh->count_p2r = p2r.data.size();
     dh->count_p2p = p2p.data.size();
     dh->count_inv = inv.data.size();
 
-    output.resize(dh->off_inv_info + invs, 0);
+    output.resize(end, 0);
     dh = reinterpret_cast<data_header *>(output.data());
-    memcpy(output.data() + dh->off_rnode_hash, hdata.data(), hdata.size());
-    uint32_t *offsets = reinterpret_cast<uint32_t *>(output.data() + dh->off_rnode_hash + len1);
 
+    memcpy(output.data() + dh->off_rnode_hash, hdata.data(), hdata.size());
+
+    uint32_t *indexes = reinterpret_cast<uint32_t *>(output.data() + dh->off_rnode_hash_to_index);
+    for(uint32_t i=0; i != rnode_vec.size(); i++) {
+      uint32_t slot = bdz_ph_hash::lookup(hdata, rnode_vec[i]);
+      indexes[slot >> 3] |= 0x01000000 << (slot & 7);
+    }
+
+    uint32_t cur_index = 0;
+    for(uint32_t i=0; i != nhslot; i++) {
+      indexes[i] |= cur_index;
+      for(int j=24; j != 32; j++)
+	if((indexes[i] >> j) & 1)
+	  cur_index ++;
+    }
+
+    std::function<int (rnode_t)> rn2ri = [hdata, indexes](rnode_t rn) -> int {
+      uint32_t slot = bdz_ph_hash::lookup(hdata, rn);
+      uint32_t data = indexes[slot >> 3];
+      int index = data & 0xffffff;
+      for(uint32_t i = 0; i != (slot & 7); i++)
+	if(data & (0x01000000 << i))
+	  index ++;
+      return index;
+    };
+
+    uint32_t *offsets = reinterpret_cast<uint32_t *>(output.data() + dh->off_rnode_index_to_base);
     for(uint32_t i=0; i != rnode_vec.size(); i++)
-      offsets[bdz_ph_hash::lookup(hdata, rnode_vec[i])] = rnode_pos[i];
+      offsets[rn2ri(rnode_vec[i])] = rnode_pos[i];
+
+
+    rnode_base *cur = reinterpret_cast<rnode_base *>(output.data() + dh->off_rnode);
+    rnode_base *nend = reinterpret_cast<rnode_base *>(output.data() + dh->off_rnode_hash);
+    while(cur != nend) {
+      rnode_t *node = reinterpret_cast<rnode_t *>(cur+1);
+      int sspan = cur->pattern == 0xff ? 0 : cur->pattern == 0xfe ? 1 : rmux_patterns[cur->pattern].span;
+      int sid = 0;
+      for(int i=0; i != sspan; i++) {
+	int v = *node ? rn2ri(*node) : -1;
+	if(v >= 0)
+	  v |= (sid++) << 24;
+	*node++ = v;
+      }
+
+      int tid = 0;
+      for(int i=0; i != cur->target_count; i++) {
+	if(*node & 0x80000000)
+	  node++;
+	else {
+	  int v = rn2ri(*node) | (tid++) << 24;
+	  *node++ = v;  
+	}
+      }
+
+      node += (cur->target_count + 1) >> 1;
+      cur = reinterpret_cast<rnode_base *>(node);
+    }
+
+    p2r.remap(rn2ri);
+    inv.remap(rn2ri);
 
     memcpy(output.data() + dh->off_line_info, rli_data.data(), llines);
     memcpy(output.data() + dh->off_p2r_info, p2r.data.data(), p2rs);
     memcpy(output.data() + dh->off_p2p_info, p2p.data.data(), p2ps);
     memcpy(output.data() + dh->off_inv_info, inv.data.data(), invs);
 
-    fprintf(stderr, "%-6s size %9d nodeinfo %9d hash %7d hashmap %8d nodes %7d lines %5d p2r %5d p2p %4d inv %5d\n", chip.c_str(), int(output.size()), dh->off_rnode_end - dh->off_rnode, int(len1), int(len2), dh->count_rnode, int(rli_data.size()), int(p2r.data.size()), int(p2p.data.size()), int(inv.data.size()));
+    fprintf(stderr, "%-6s size %9d nodeinfo %9d hash %7d hash2i %7d i2r %8d nodes %7d lines %5d p2r %5d p2p %4d inv %5d\n", chip.c_str(), int(output.size()), dh->off_rnode_hash - dh->off_rnode, int(lhash), int(lind), int(lbase), dh->count_rnode, int(rli_data.size()), int(p2r.data.size()), int(p2p.data.size()), int(inv.data.size()));
 
     file_save(dest_dir + '/' + chip + "-r.bin", output, strtol(argv[4], nullptr, 10));
   }

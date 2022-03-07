@@ -362,7 +362,8 @@ std::tuple<const uint8_t *, size_t> mistral::CycloneV::get_bin(const uint8_t *st
 
 void mistral::CycloneV::validate_fw_bw() const
 {
-  for(const rnode_base *rnb = reinterpret_cast<const rnode_base *>(rnode_info); rnb != reinterpret_cast<const rnode_base *>(rnode_info_end); rnb = rnode_next(rnb)) {
+  for(int rni = 0; rni != rnode_count(); rni++) {
+    const rnode_base *rnb = ri2rb(rni);
     rnode_t rn = rnb->node;
 
     if(rnb->pattern == 0xff && rnb->target_count == 0) {
@@ -376,46 +377,31 @@ void mistral::CycloneV::validate_fw_bw() const
 
     {    
       // fw -> bw
-      const rnode_target *rt = rnode_targets(rnb);
-      const uint16_t *rtp = rnode_target_positions(rnb);
-      for(int i=0; i != rnb->target_count; i++)
-	if(!(rtp[i] & 0x8000)) {
-	  rnode_t rnt = rt[i].rn;
-	  const rnode_base *rntb = rnode_lookup(rnt);
-	  if(!rntb) {
-	    printf("%s: %s - forward node missing.\n", rn2s(rn).c_str(), rn2s(rnt).c_str());
-	    continue;
-	  }
-	  const rnode_t *rs = rnode_sources(rntb);
-	  int span = rntb->pattern == 0xff ? 0 : rntb->pattern == 0xfe ? 1 : rmux_patterns[rntb->pattern].span;
-	  bool ok = false;
-	  for(int j=0; !ok && j != span; j++)
-	    ok = rs[j] == rn;
-	  if(!ok)
-	    printf("%s: %s - forward not found in backward.\n", rn2s(rn).c_str(), rn2s(rnt).c_str());
-	}
+      for(const rnode_target *rt = rnb->btargets(); rt != rnb->etargets(); rt++) {
+	rni_t rnit = rt->rni;
+	if(rnit < 0)
+	  continue;
+	const rnode_base *rntb = ri2rb(rnit & 0xffffff);
+	bool ok = false;
+	for(const rni_t *rs = rntb->bsources(); !ok && rs != rntb->esources(); rs++)
+	  ok = (*rs & 0xffffff) == rni;
+	if(!ok)
+	  printf("%s: %s - forward not found in backward.\n", rn2s(rn).c_str(), rn2s(rntb->node).c_str());
+      }
     }
 
     {
       // bw -> fw
-      const rnode_t *rs = rnode_sources(rnb);
-      int span = rnb->pattern == 0xff ? 0 : rnb->pattern == 0xfe ? 1 : rmux_patterns[rnb->pattern].span;
-      for(int i=0; i != span; i++) {
-	rnode_t rns = rs[i];
-	if(!rns)
+      for(const rni_t *rs = rnb->bsources(); rs != rnb->esources(); rs++) {
+	rni_t rnis = *rs;
+	if(rnis < 0)
 	  continue;
-	const rnode_base *rnsb = rnode_lookup(rns);
-	if(!rnsb) {
-	  printf("%s: %s - backward node missing.\n", rn2s(rn).c_str(), rn2s(rns).c_str());
-	  continue;
-	}
-	const rnode_target *rst = rnode_targets(rnsb);
-	const uint16_t *rstp = rnode_target_positions(rnsb);
+	const rnode_base *rnsb = ri2rb(rnis & 0xffffff);
 	bool ok = false;
-	for(int j=0; !ok && j != rnsb->target_count; j++)
-	  ok = !(rstp[j] & 0x8000) && rst[j].rn == rn;
+	for(const rnode_target *rt = rnsb->btargets(); !ok && rt != rnsb->etargets(); rt++)
+	  ok = rt->rni >= 0 && (rt->rni & 0xffffff) == rni;
 	if(!ok)
-	    printf("%s: %s - backward not found in forward.\n", rn2s(rn).c_str(), rn2s(rns).c_str());
+	    printf("%s: %s - backward not found in forward.\n", rn2s(rn).c_str(), rn2s(rnsb->node).c_str());
       }
     }
   }

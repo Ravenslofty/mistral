@@ -28,6 +28,8 @@ public:
 
   InvLoader(const NodesReader &nr, const std::vector<uint8_t> &data, uint32_t width, const P2RLoader &p2r, const P2PLoader &p2p);
 
+  void remap(std::function<int (rnode_t)> rn2ri);
+
 private:
   const NodesReader &nr;
 
