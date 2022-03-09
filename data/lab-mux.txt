@@ -82,11 +82,11 @@ g dft_mode               m:3  21.42 20.40 20.43
   1 on !
   7 dft_pprog
 g clka_sel               m:1  0.43
-  0 clki0 !
-  1 gin2
+  0 cin0 !
+  1 din0
 g clkb_sel               m:1  1.42
-  0 clki1 !
-  1 gin3
+  0 cin1 !
+  1 din1
 g clk0_sel               m:1  10.44
   0 clka !
   1 clkb
@@ -103,28 +103,23 @@ g en0_ninv               b+   1.44
 g en1_ninv               b+   0.44
 g en2_ninv               b+   1.40
 g regscan_latch_en       b-   6.42
-g en0_sel                m:1  0.40
-  0 gin1 !
-  1 gin3
-g en1_sel                m:1  1.43
-  0 gin0
-  1 gin3 !
-g en_sclk_load_what      b-   25.44
-g sclr_mux               m:1  25.43
-  0 gin3 !
-  1 gin2
+g sclr_sel               m:1  0.40
+  0 din3 !
+  1 din1
+g sload_sel              m:1  1.43
+  0 din2
+  1 din1 !
+g sclr_dis               b-   25.43
 g sclr_inv               b-   26.43
-g sload_sel              m:1  24.44
-  0 gin0 !
-  1 gin3
-g sload_inv              b+   25.45
+g sload_inv              b-   24.44
+g sload_en               b+   25.45
 g aclr0_sel              m:1  25.42
-  0 gin1 !
-  1 clki2
+  0 din3 !
+  1 aclr0
 g aclr0_inv              b-   26.42
 g aclr1_sel              m:1  25.40
-  0 gin0 !
-  1 clki3
+  0 din2 !
+  1 aclr1
 g aclr1_inv              b-   25.41
 g bypass_dis             b+   29.43
 g tto_dis                b-   28.43

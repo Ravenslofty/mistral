@@ -105,28 +105,23 @@ g en0_ninv               b+   1.44
 g en1_ninv               b+   0.44
 g en2_ninv               b+   1.40
 g regscan_latch_en       b-   2.42
-g en0_sel                m:1  0.40
-  0 gin1 !
-  1 gin3
-g en1_sel                m:1  1.43
-  0 gin0
-  1 gin3 !
-g en_sclk_load_what      b-   43.45
-g sclr_mux               m:1  43.43
-  0 gin3 !
-  1 gin2
+g sclr_sel               m:1  0.40
+  0 din3 !
+  1 din1
+g sload_sel              m:1  1.43
+  0 din2
+  1 din1 !
+g sclr_dis               b-   43.43
 g sclr_inv               b-   44.43
-g sload_sel              m:1  42.45
-  0 gin0 !
-  1 gin3
-g sload_inv              b+   43.44
+g sload_inv              b-   42.45
+g sload_en               b+   43.44
 g aclr0_sel              m:1  43.42
-  0 gin1 !
-  1 clki2
+  0 din3 !
+  1 aclr0
 g aclr0_inv              b-   44.42
 g aclr1_sel              m:1  43.40
-  0 gin0 !
-  1 clki3
+  0 din2 !
+  1 aclr1
 g aclr1_inv              b-   43.41
 g bypass_dis             b+   46.43
 g tto_dis                b-   45.43

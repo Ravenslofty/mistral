@@ -33,16 +33,17 @@ en1_ninv -
 en1_sel -
 en2_en -
 en2_ninv -
-en_sclk_load_what -
 lut_mask -
 maddg_voltage
 mcrg_voltage
 mode -
 ram_dis
 regscan_latch_en
+sclr_dis -
 sclr_inv -
-sclr_mux -
+sclr_sel -
 share -
+sload_en -
 sload_inv -
 sload_sel -
 t_feedback_sel -

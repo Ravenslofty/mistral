@@ -40,12 +40,11 @@ en0_ninv Optional inverter for enable 0
 en1_ninv Optional inverter for enable 1
 en2_ninv Optional inverter for enable 2
 regscan_latch_en
-en0_sel Source selection for enable 0
-en1_sel Source selection for enable 1
-en_sclk_load_what Unclear, possibly source selection for enable 2
-sclr_mux Source selection for sync clear, possibly more subtle (interaction with en2 and sload)
+sclr_dis Disable synchronous clear globally
+sclr_sel Source selection for synchronous clear
 sclr_inv Optional inverter for synchronous clear
-sload_sel Source selection for sync load, possibly more subtle (interaction with en2 and sclr)
+sload_en Enable synchronous load globally
+sload_sel Source selection for synchronous load
 sload_inv Optional inverter for synchronous load
 aclr0_sel Selects between clock and data for async clear 0
 aclr0_inv Optional inverter for asynchronous clear 0

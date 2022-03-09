@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mistral documentation 1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -63,24 +62,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mistral-a-cyclone-v-fpga-bitstream-library">
+  <div class="section" id="mistral-a-cyclone-v-fpga-bitstream-library">
 <h1>Mistral - a Cyclone V FPGA bitstream library<a class="headerlink" href="#mistral-a-cyclone-v-fpga-bitstream-library" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
-<span id="document-cyclonev_fpga"></span><section id="the-cyclone-v-fpga">
+<span id="document-cyclonev_fpga"></span><div class="section" id="the-cyclone-v-fpga">
 <h2>The Cyclone V FPGA<a class="headerlink" href="#the-cyclone-v-fpga" title="Permalink to this headline"></a></h2>
-<section id="the-fpgas">
+<div class="section" id="the-fpgas">
 <h3>The FPGAs<a class="headerlink" href="#the-fpgas" title="Permalink to this headline"></a></h3>
 <p>The Cyclone V is a series of FPGAs produced initially by Altera, now
 Intel.  It is based on a series of seven dies with varying levels of
 capability, which is then derived into more than 400 SKUs with
 variations in speed, temperature range, and enabled internal hardware.</p>
 <p>As pretty much every FPGA out there, the dies are organized in grids.</p>
-<figure class="align-default" id="id1">
+<div class="figure align-default" id="id1">
 <a class="reference internal image-reference" href="_images/floorplans.svg"><img alt="_images/floorplans.svg" src="_images/floorplans.svg" width="100%" /></a>
-<figcaption>
-<p><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text">Floor plan of the seven die types</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</div>
 <p>The FPGA, structurally, is a set of logic blocks of different types
 communicating with each other either through direct links or through a
 large routing network that spans the whole grid.</p>
@@ -88,8 +85,8 @@ large routing network that spans the whole grid.</p>
 notches on the left are the space taken by the high speed serial
 interfaces (hssi and pma3).  Also, the top-right corner in the sx50f
 and sx120f variants is used to fit the hps, a dual-core arm.</p>
-</section>
-<section id="bitstream-stucture">
+</div>
+<div class="section" id="bitstream-stucture">
 <h3>Bitstream stucture<a class="headerlink" href="#bitstream-stucture" title="Permalink to this headline"></a></h3>
 <p>The bitstream is built from three rams:</p>
 <ul class="simple">
@@ -162,8 +159,8 @@ bits.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="logic-blocks">
+</div>
+<div class="section" id="logic-blocks">
 <h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline"></a></h3>
 <p>The logic blocks are of two categories, the inner blocks and the
 peripheral blocks.  To a first approximation all the inner blocks are
@@ -204,8 +201,8 @@ block muxes.  They can be of 4 types:
 * Ram, where a series of bits can be set to any value</p>
 <p>Configuring that part of the FPGA consists of configuring the muxes
 associated to each block.</p>
-</section>
-<section id="routing-network">
+</div>
+<div class="section" id="routing-network">
 <h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline"></a></h3>
 <p>A massive routing network is present all over the FPGA.  It has two
 almost-disjoint parts.  The data network has a series of inputs,
@@ -220,17 +217,17 @@ dedicated connections to the cmuxes).</p>
 <p>These two networks join on data/clock muxes, which allow peripheral
 blocks to select for their clock-like inputs which network the signal
 should come from.</p>
-</section>
-<section id="programmable-inverters">
+</div>
+<div class="section" id="programmable-inverters">
 <h3>Programmable inverters<a class="headerlink" href="#programmable-inverters" title="Permalink to this headline"></a></h3>
 <p>Essentially every output of the routing network that enters a
 peripheral block can optionally be inverted by activating the
 associated configuration bit.</p>
-</section>
-</section>
-<span id="document-cyclonev_details"></span><section id="cyclonev-internals-description">
+</div>
+</div>
+<span id="document-cyclonev_details"></span><div class="section" id="cyclonev-internals-description">
 <h2>CycloneV internals description<a class="headerlink" href="#cyclonev-internals-description" title="Permalink to this headline"></a></h2>
-<section id="routing-network">
+<div class="section" id="routing-network">
 <h3>Routing network<a class="headerlink" href="#routing-network" title="Permalink to this headline"></a></h3>
 <p>The routing network follows a single-driver structure: a number of
 inputs are grouped together in one place, one is selected through the
@@ -288,10 +285,10 @@ GOUT and DCMUX connected to inputs to peripheral blocks are also
 provided with an optional inverter.  Each block connection description
 indicates whether the node is inverting (n=no, i=yes, p=programmable,
 ?=unknown yet).</p>
-</section>
-<section id="inner-logic-blocks">
+</div>
+<div class="section" id="inner-logic-blocks">
 <h3>Inner logic blocks<a class="headerlink" href="#inner-logic-blocks" title="Permalink to this headline"></a></h3>
-<section id="lab">
+<div class="section" id="lab">
 <h4>LAB<a class="headerlink" href="#lab" title="Permalink to this headline"></a></h4>
 <p>The LABs are the main combinatorial and register blocks of the FPGA.
 A LAB tile includes 10 sub-blocks called cells with 64 bits of LUT
@@ -301,33 +298,27 @@ dispatches clock, enable, clear, etc signals.</p>
 <p>Carry and share chain in the order lab (x, y+1) cell 9 -&gt; cells 0-9 -&gt;
 lab (x, u-1) cell 0.  The BTO, TTO and BYPASS muxes control the
 connections in between 5-cell blocks.</p>
-<figure class="align-default" id="id1">
+<div class="figure align-default" id="id1">
 <a class="reference internal image-reference" href="_images/lab-common.svg"><img alt="_images/lab-common.svg" src="_images/lab-common.svg" width="50%" /></a>
-<figcaption>
-<p><span class="caption-text">The part of the LAB shared by all ten cells that generates the
+<p class="caption"><span class="caption-text">The part of the LAB shared by all ten cells that generates the
 common signals.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-<figure class="align-default" id="id2">
+</div>
+<div class="figure align-default" id="id2">
 <a class="reference internal image-reference" href="_images/lab-cell.svg"><img alt="_images/lab-cell.svg" src="_images/lab-cell.svg" width="100%" /></a>
-<figcaption>
-<p><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-<figure class="align-default" id="id3">
+<p class="caption"><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</div>
+<div class="figure align-default" id="id3">
 <a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="100%" /></a>
-<figcaption>
-<p><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
+<col style="width: 9%" />
 <col style="width: 5%" />
 <col style="width: 3%" />
 <col style="width: 7%" />
 <col style="width: 5%" />
-<col style="width: 70%" />
+<col style="width: 71%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -610,11 +601,11 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>gin1</p></li>
-<li><p>clki2</p></li>
+<li><p>din3</p></li>
+<li><p>aclr0</p></li>
 </ul>
 </td>
-<td><p>gin1</p></td>
+<td><p>din3</p></td>
 <td><p>Selects between clock and data for async clear 0</p></td>
 </tr>
 <tr class="row-even"><td><p>ACLR1_INV</p></td>
@@ -628,11 +619,11 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>clki3</p></li>
+<li><p>din2</p></li>
+<li><p>aclr1</p></li>
 </ul>
 </td>
-<td><p>gin0</p></td>
+<td><p>din2</p></td>
 <td><p>Selects between clock and data for async clear 1</p></td>
 </tr>
 <tr class="row-even"><td><p>BTO_DIS</p></td>
@@ -707,22 +698,22 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>clki0</p></li>
-<li><p>gin2</p></li>
+<li><p>cin0</p></li>
+<li><p>din0</p></li>
 </ul>
 </td>
-<td><p>clki0</p></td>
+<td><p>cin0</p></td>
 <td><p>Selects between clock and data for the clka intermediate line</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLKB_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>clki1</p></li>
-<li><p>gin3</p></li>
+<li><p>cin1</p></li>
+<li><p>din1</p></li>
 </ul>
 </td>
-<td><p>clki1</p></td>
+<td><p>cin1</p></td>
 <td><p>Selects between clock and data for the clkb intermediate line</p></td>
 </tr>
 <tr class="row-even"><td><p>DFT_MODE</p></td>
@@ -751,41 +742,19 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 0</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN0_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin1</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>gin1</p></td>
-<td><p>Source selection for enable 0</p></td>
-</tr>
-<tr class="row-even"><td><p>EN1_EN</p></td>
+<tr class="row-odd"><td><p>EN1_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Enables the enable 1 line (else always on)</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN1_NINV</p></td>
+<tr class="row-even"><td><p>EN1_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 1</p></td>
-</tr>
-<tr class="row-even"><td><p>EN1_SEL</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>gin3</p></li>
-</ul>
-</td>
-<td><p>gin3</p></td>
-<td><p>Source selection for enable 1</p></td>
 </tr>
 <tr class="row-odd"><td><p>EN2_EN</p></td>
 <td></td>
@@ -801,19 +770,19 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 2</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN_SCLK_LOAD_WHAT</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>Unclear, possibly source selection for enable 2</p></td>
-</tr>
-<tr class="row-even"><td><p>REGSCAN_LATCH_EN</p></td>
+<tr class="row-odd"><td><p>REGSCAN_LATCH_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SCLR_DIS</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Disable synchronous clear globally</p></td>
 </tr>
 <tr class="row-odd"><td><p>SCLR_INV</p></td>
 <td></td>
@@ -822,36 +791,43 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>f</p></td>
 <td><p>Optional inverter for synchronous clear</p></td>
 </tr>
-<tr class="row-even"><td><p>SCLR_MUX</p></td>
+<tr class="row-even"><td><p>SCLR_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>gin3</p></li>
-<li><p>gin2</p></li>
+<li><p>din3</p></li>
+<li><p>din1</p></li>
 </ul>
 </td>
-<td><p>gin3</p></td>
-<td><p>Source selection for sync clear, possibly more subtle (interaction with en2 and sload)</p></td>
+<td><p>din3</p></td>
+<td><p>Source selection for synchronous clear</p></td>
 </tr>
-<tr class="row-odd"><td><p>SLOAD_INV</p></td>
+<tr class="row-odd"><td><p>SLOAD_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
+<td><p>Enable synchronous load globally</p></td>
+</tr>
+<tr class="row-even"><td><p>SLOAD_INV</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
 <td><p>Optional inverter for synchronous load</p></td>
 </tr>
-<tr class="row-even"><td><p>SLOAD_SEL</p></td>
+<tr class="row-odd"><td><p>SLOAD_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
-<li><p>gin0</p></li>
-<li><p>gin3</p></li>
+<li><p>din2</p></li>
+<li><p>din1</p></li>
 </ul>
 </td>
-<td><p>gin0</p></td>
-<td><p>Source selection for sync load, possibly more subtle (interaction with en2 and sclr)</p></td>
+<td><p>din1</p></td>
+<td><p>Source selection for synchronous load</p></td>
 </tr>
-<tr class="row-odd"><td><p>TTO_DIS</p></td>
+<tr class="row-even"><td><p>TTO_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
@@ -1000,8 +976,8 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </tr>
 </tbody>
 </table>
-</section>
-<section id="mlab">
+</div>
+<div class="section" id="mlab">
 <h4>MLAB<a class="headerlink" href="#mlab" title="Permalink to this headline"></a></h4>
 <p>A MLAB is a lab that can optionally be turned into a 640-bits RAM or
 ROM.  The wiring is identical to the LAB, only some additional muxes
@@ -1083,8 +1059,8 @@ are provided to select the RAM/ROM mode.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="dsp">
+</div>
+<div class="section" id="dsp">
 <h4>DSP<a class="headerlink" href="#dsp" title="Permalink to this headline"></a></h4>
 <p>The DSP blocks provide a multiply-adder with differents modes. Its large
 number of inputs and output makes it span two tiles vertically.</p>
@@ -1800,8 +1776,8 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="m10k">
+</div>
+<div class="section" id="m10k">
 <h4>M10K<a class="headerlink" href="#m10k" title="Permalink to this headline"></a></h4>
 <p>The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.</p>
 <table class="docutils align-default">
@@ -2607,11 +2583,11 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="peripheral-logic-blocks">
+</div>
+</div>
+<div class="section" id="peripheral-logic-blocks">
 <h3>Peripheral logic blocks<a class="headerlink" href="#peripheral-logic-blocks" title="Permalink to this headline"></a></h3>
-<section id="gpio">
+<div class="section" id="gpio">
 <h4>GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline"></a></h4>
 <p>The GPIO blocks connect the FPGA with the exterior through the package
 pins.  Each block controls 4 pads, which are connected to up to 4
@@ -2645,7 +2621,7 @@ pins.</p>
 <li><p>dis</p></li>
 </ul>
 </td>
-<td><p>nvr_high</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OUTPUT_DUTY_CYCLE_DELAY_FALL</p></td>
@@ -3393,8 +3369,8 @@ pins.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="dqs16">
+</div>
+<div class="section" id="dqs16">
 <h4>DQS16<a class="headerlink" href="#dqs16" title="Permalink to this headline"></a></h4>
 <p>The DQS16 blocks handle differential signaling protocols.  Each
 supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
@@ -3626,7 +3602,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>RB_2X_CLK_OCT_EN</p></td>
@@ -3647,7 +3623,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RB_ACLR_PST_EN</p></td>
@@ -3809,7 +3785,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>t</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RB_LFIFO_OCT_EN</p></td>
@@ -4774,8 +4750,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="fpll">
+</div>
+<div class="section" id="fpll">
 <h4>FPLL<a class="headerlink" href="#fpll" title="Permalink to this headline"></a></h4>
 <p>The Fractional PLL blocks synthesize 9 frequencies from an input with integer or fractional ratios.</p>
 <table class="docutils align-default">
@@ -5291,28 +5267,28 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PL_AUX_ATB_EN0_PRECOMP</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PL_AUX_ATB_EN1</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PL_AUX_ATB_EN1_PRECOMP</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PL_AUX_ATB_MODE</p></td>
@@ -5326,7 +5302,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PL_AUX_BG_POWERDOWN</p></td>
@@ -5361,7 +5337,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PM_AUX_CAL_CLK_TEST_SEL</p></td>
@@ -6206,8 +6182,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cbuf">
+</div>
+<div class="section" id="cbuf">
 <h4>CBUF<a class="headerlink" href="#cbuf" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
 <colgroup>
@@ -6398,8 +6374,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxcr">
+</div>
+<div class="section" id="cmuxcr">
 <h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline"></a></h4>
 <p>The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.</p>
 <table class="docutils align-default">
@@ -6659,8 +6635,8 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxhg">
+</div>
+<div class="section" id="cmuxhg">
 <h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline"></a></h4>
 <p>The two Global Horizontal CMUX drive four GCLK grids each.  The mux
 provides selection between positive and negative clock pins, pll
@@ -6718,12 +6694,10 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-<figure class="align-default" id="id4">
+<div class="figure align-default" id="id4">
 <a class="reference internal image-reference" href="_images/cmuxhg.svg"><img alt="_images/cmuxhg.svg" src="_images/cmuxhg.svg" width="100%" /></a>
-<figcaption>
-<p><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p class="caption"><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</div>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -7212,8 +7186,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxvg">
+</div>
+<div class="section" id="cmuxvg">
 <h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline"></a></h4>
 <p>The two Global Vertical CMUX drive four GCLK grids each.</p>
 <table class="docutils align-default">
@@ -7526,8 +7500,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxhr">
+</div>
+<div class="section" id="cmuxhr">
 <h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline"></a></h4>
 <p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
 <table class="docutils align-default">
@@ -7861,8 +7835,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxvr">
+</div>
+<div class="section" id="cmuxvr">
 <h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline"></a></h4>
 <p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
 <table class="docutils align-default">
@@ -8018,8 +7992,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="cmuxp">
+</div>
+<div class="section" id="cmuxp">
 <h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline"></a></h4>
 <p>The CMUXP drive two PCLK each.</p>
 <table class="docutils align-default">
@@ -8099,8 +8073,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="ctrl">
+</div>
+<div class="section" id="ctrl">
 <h4>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline"></a></h4>
 <p>The Control block gives access to a number of anciliary functions of the FPGA.</p>
 <table class="docutils align-default">
@@ -8558,8 +8532,8 @@ selection mux depends on the instance:</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hssi">
+</div>
+<div class="section" id="hssi">
 <h4>HSSI<a class="headerlink" href="#hssi" title="Permalink to this headline"></a></h4>
 <p>The High speed serial interface blocks control the
 serializing/deserializing capabilities of the FPGA.</p>
@@ -11367,8 +11341,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hip">
+</div>
+<div class="section" id="hip">
 <h4>HIP<a class="headerlink" href="#hip" title="Permalink to this headline"></a></h4>
 <p>The PCIe Hard-IP blocks control the PCIe interfaces of the FPGA.</p>
 <table class="docutils align-default">
@@ -14844,8 +14818,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="dll">
+</div>
+<div class="section" id="dll">
 <h4>DLL<a class="headerlink" href="#dll" title="Permalink to this headline"></a></h4>
 <p>The Delay-Locked loop does phase control for the DQS16.</p>
 <p>TODO: everything</p>
@@ -15127,8 +15101,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="serpar">
+</div>
+<div class="section" id="serpar">
 <h4>SERPAR<a class="headerlink" href="#serpar" title="Permalink to this headline"></a></h4>
 <p>Unclear yet.</p>
 <table class="docutils align-default">
@@ -15205,8 +15179,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="lvl">
+</div>
+<div class="section" id="lvl">
 <h4>LVL<a class="headerlink" href="#lvl" title="Permalink to this headline"></a></h4>
 <p>The Leveling Delay Chain does something linked to the DQS16.</p>
 <table class="docutils align-default">
@@ -15496,8 +15470,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="term">
+</div>
+<div class="section" id="term">
 <h4>TERM<a class="headerlink" href="#term" title="Permalink to this headline"></a></h4>
 <p>The TERM blocks control the On-Chip Termination circuitry</p>
 <table class="docutils align-default">
@@ -15549,7 +15523,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 <tr class="row-even"><td><p>INTOSC_2_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>t</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>NCLRUSR_INV</p></td>
@@ -15841,8 +15815,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="pma3">
+</div>
+<div class="section" id="pma3">
 <h4>PMA3<a class="headerlink" href="#pma3" title="Permalink to this headline"></a></h4>
 <p>The PMA3 blocks control triplets of channels used with the HSSI.</p>
 <table class="docutils align-default">
@@ -15868,7 +15842,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>t</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>FPLL_REFCLK_SEL_IQ_TX_RX_CLK</p></td>
@@ -15939,7 +15913,7 @@ serializing/deserializing capabilities of the FPGA.</p>
 <li><p>down_en</p></li>
 </ul>
 </td>
-<td><p>down_en</p></td>
+<td></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>SEGMENTED_0_UP_MUX_SEL</p></td>
@@ -17395,8 +17369,8 @@ serializing/deserializing capabilities of the FPGA.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hmc">
+</div>
+<div class="section" id="hmc">
 <h4>HMC<a class="headerlink" href="#hmc" title="Permalink to this headline"></a></h4>
 <p>The Hardware memory controller controls sets of GPIOs to implement
 modern SDR and DDR memory interfaces.  In the sx dies one of them is
@@ -19738,13 +19712,13 @@ connected to the corresponding PHYDDIO* ports.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps">
+</div>
+<div class="section" id="hps">
 <h4>HPS<a class="headerlink" href="#hps" title="Permalink to this headline"></a></h4>
 <p>The interface between the FPGA and the Hard processor system is done
 through 37 specialized blocks of 28 different types.</p>
 <p>TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.</p>
-<section id="hps-boot">
+<div class="section" id="hps-boot">
 <h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -19809,8 +19783,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-clocks">
+</div>
+<div class="section" id="hps-clocks">
 <h5>HPS_CLOCKS<a class="headerlink" href="#hps-clocks" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -19952,8 +19926,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-clocks-resets">
+</div>
+<div class="section" id="hps-clocks-resets">
 <h5>HPS_CLOCKS_RESETS<a class="headerlink" href="#hps-clocks-resets" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20074,8 +20048,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-cross-trigger">
+</div>
+<div class="section" id="hps-cross-trigger">
 <h5>HPS_CROSS_TRIGGER<a class="headerlink" href="#hps-cross-trigger" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20147,8 +20121,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-dbg-apb">
+</div>
+<div class="section" id="hps-dbg-apb">
 <h5>HPS_DBG_APB<a class="headerlink" href="#hps-dbg-apb" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20262,8 +20236,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-dma">
+</div>
+<div class="section" id="hps-dma">
 <h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20307,8 +20281,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-fpga2hps">
+</div>
+<div class="section" id="hps-fpga2hps">
 <h5>HPS_FPGA2HPS<a class="headerlink" href="#hps-fpga2hps" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20611,8 +20585,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-fpga2sdram">
+</div>
+<div class="section" id="hps-fpga2sdram">
 <h5>HPS_FPGA2SDRAM<a class="headerlink" href="#hps-fpga2sdram" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -20796,8 +20770,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-hps2fpga">
+</div>
+<div class="section" id="hps-hps2fpga">
 <h5>HPS_HPS2FPGA<a class="headerlink" href="#hps-hps2fpga" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21086,8 +21060,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-hps2fpga-light-weight">
+</div>
+<div class="section" id="hps-hps2fpga-light-weight">
 <h5>HPS_HPS2FPGA_LIGHT_WEIGHT<a class="headerlink" href="#hps-hps2fpga-light-weight" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21369,8 +21343,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-interrupts">
+</div>
+<div class="section" id="hps-interrupts">
 <h5>HPS_INTERRUPTS<a class="headerlink" href="#hps-interrupts" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21540,8 +21514,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-jtag">
+</div>
+<div class="section" id="hps-jtag">
 <h5>HPS_JTAG<a class="headerlink" href="#hps-jtag" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21627,8 +21601,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-loan-io">
+</div>
+<div class="section" id="hps-loan-io">
 <h5>HPS_LOAN_IO<a class="headerlink" href="#hps-loan-io" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21679,8 +21653,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-mpu-event-standby">
+</div>
+<div class="section" id="hps-mpu-event-standby">
 <h5>HPS_MPU_EVENT_STANDBY<a class="headerlink" href="#hps-mpu-event-standby" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -21731,8 +21705,8 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-mpu-general-purpose">
+</div>
+<div class="section" id="hps-mpu-general-purpose">
 <h5>HPS_MPU_GENERAL_PURPOSE<a class="headerlink" href="#hps-mpu-general-purpose" title="Permalink to this headline"></a></h5>
 <p>This block provides one input and one output 32 bits port directly
 accessible from the arm cores at 0xff706010 (arm to fpga) and
@@ -21772,8 +21746,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-can">
+</div>
+<div class="section" id="hps-peripheral-can">
 <h5>HPS_PERIPHERAL_CAN<a class="headerlink" href="#hps-peripheral-can" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -21811,8 +21785,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-emac">
+</div>
+<div class="section" id="hps-peripheral-emac">
 <h5>HPS_PERIPHERAL_EMAC<a class="headerlink" href="#hps-peripheral-emac" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -21990,8 +21964,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-i2c">
+</div>
+<div class="section" id="hps-peripheral-i2c">
 <h5>HPS_PERIPHERAL_I2C<a class="headerlink" href="#hps-peripheral-i2c" title="Permalink to this headline"></a></h5>
 <p>(4 blocks)</p>
 <table class="docutils align-default">
@@ -22043,8 +22017,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-nand">
+</div>
+<div class="section" id="hps-peripheral-nand">
 <h5>HPS_PERIPHERAL_NAND<a class="headerlink" href="#hps-peripheral-nand" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -22137,8 +22111,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-qspi">
+</div>
+<div class="section" id="hps-peripheral-qspi">
 <h5>HPS_PERIPHERAL_QSPI<a class="headerlink" href="#hps-peripheral-qspi" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -22231,8 +22205,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-sdmmc">
+</div>
+<div class="section" id="hps-peripheral-sdmmc">
 <h5>HPS_PERIPHERAL_SDMMC<a class="headerlink" href="#hps-peripheral-sdmmc" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -22353,8 +22327,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-spi-master">
+</div>
+<div class="section" id="hps-peripheral-spi-master">
 <h5>HPS_PERIPHERAL_SPI_MASTER<a class="headerlink" href="#hps-peripheral-spi-master" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -22441,8 +22415,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-spi-slave">
+</div>
+<div class="section" id="hps-peripheral-spi-slave">
 <h5>HPS_PERIPHERAL_SPI_SLAVE<a class="headerlink" href="#hps-peripheral-spi-slave" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -22501,8 +22475,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-uart">
+</div>
+<div class="section" id="hps-peripheral-uart">
 <h5>HPS_PERIPHERAL_UART<a class="headerlink" href="#hps-peripheral-uart" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -22589,8 +22563,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-peripheral-usb">
+</div>
+<div class="section" id="hps-peripheral-usb">
 <h5>HPS_PERIPHERAL_USB<a class="headerlink" href="#hps-peripheral-usb" title="Permalink to this headline"></a></h5>
 <p>(2 blocks)</p>
 <table class="docutils align-default">
@@ -22663,8 +22637,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-stm-event">
+</div>
+<div class="section" id="hps-stm-event">
 <h5>HPS_STM_EVENT<a class="headerlink" href="#hps-stm-event" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -22694,8 +22668,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-test">
+</div>
+<div class="section" id="hps-test">
 <h5>HPS_TEST<a class="headerlink" href="#hps-test" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -23838,8 +23812,8 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-<section id="hps-tpiu-trace">
+</div>
+<div class="section" id="hps-tpiu-trace">
 <h5>HPS_TPIU_TRACE<a class="headerlink" href="#hps-tpiu-trace" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
@@ -23911,17 +23885,17 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-</section>
-<section id="options">
+</div>
+</div>
+</div>
+<div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 28%" />
 <col style="width: 5%" />
 <col style="width: 10%" />
-<col style="width: 7%" />
+<col style="width: 8%" />
 <col style="width: 50%" />
 </colgroup>
 <thead>
@@ -23936,7 +23910,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <tr class="row-even"><td><p>ALLOW_DEVICE_WIDE_OUTPUT_ENABLE_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>COMPRESSION_DIS</p></td>
@@ -23951,7 +23925,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <li><p>0-8</p></li>
 </ul>
 </td>
-<td><p>0</p></td>
+<td><p>8</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>CRC_ERROR_DETECTION_EN</p></td>
@@ -23969,19 +23943,19 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <tr class="row-odd"><td><p>CVP_CONF_DONE_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DEVICE_WIDE_RESET_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DRIVE_STRENGTH</p></td>
 <td><p>Ram</p></td>
 <td><p>0-3</p></td>
-<td><p>0</p></td>
+<td><p>1</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>EXTERNAL_CLK_SPI</p></td>
@@ -24005,25 +23979,25 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <tr class="row-even"><td><p>IOCSR_READY_FROM_CSR_DONE_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>JTAG_ID</p></td>
 <td><p>Ram</p></td>
 <td><p>32 bits</p></td>
-<td></td>
+<td><p>ffffffff</p></td>
 <td><p>32-bits JTAG id</p></td>
 </tr>
 <tr class="row-even"><td><p>NCEO_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OCT_DONE_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OPT_A</p></td>
@@ -24041,28 +24015,28 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <tr class="row-even"><td><p>RELEASE_CLEARS_BEFORE_TRISTATES_DIS</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>RETRY_CONFIG_ON_ERROR_EN</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
-<td><p>f</p></td>
+<td><p>t</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>START_UP_CLOCK</p></td>
 <td><p>Ram</p></td>
 <td><p>00-ff</p></td>
-<td><p>40</p></td>
+<td><p>3f</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<span id="document-cyclonev_library_use"></span><section id="cyclonev-library-usage">
+</div>
+</div>
+<span id="document-cyclonev_library_use"></span><div class="section" id="cyclonev-library-usage">
 <h2>CycloneV library usage<a class="headerlink" href="#cyclonev-library-usage" title="Permalink to this headline"></a></h2>
-<section id="library-structure">
+<div class="section" id="library-structure">
 <h3>Library structure<a class="headerlink" href="#library-structure" title="Permalink to this headline"></a></h3>
 <p>The library provides a CycloneV class in the mistral namespace.
 Information is provided to allow to choose a CycloneV::Model object
@@ -24071,12 +24045,12 @@ created from it.  That object stores the state of the FPGA
 configuration and allows to read and modify it.</p>
 <p>All the types, enums, functions, methods, arrays etc described in the
 following paragraph are in the CycloneV class.</p>
-</section>
-<section id="packages">
+</div>
+<div class="section" id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline"></a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">package_type_t</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="nc">package_type_t</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">CycloneV</span><span class="o">::</span><span class="n">package_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">CycloneV</span><span class="o">::</span><span class="n">package_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">pin_count</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">width_in_pins</span><span class="p">;</span><span class="w"></span>
@@ -24176,12 +24150,12 @@ their width in mm.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="model-information">
+</div>
+<div class="section" id="model-information">
 <h3>Model information<a class="headerlink" href="#model-information" title="Permalink to this headline"></a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">die_type_t</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">E50F</span><span class="p">,</span><span class="w"> </span><span class="n">GX25F</span><span class="p">,</span><span class="w"> </span><span class="n">GT75F</span><span class="p">,</span><span class="w"> </span><span class="n">GT150F</span><span class="p">,</span><span class="w"> </span><span class="n">GT300F</span><span class="p">,</span><span class="w"> </span><span class="n">SX50F</span><span class="p">,</span><span class="w"> </span><span class="n">SX120F</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="nc">die_type_t</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">E50F</span><span class="p">,</span><span class="w"> </span><span class="n">GX25F</span><span class="p">,</span><span class="w"> </span><span class="n">GT75F</span><span class="p">,</span><span class="w"> </span><span class="n">GT150F</span><span class="p">,</span><span class="w"> </span><span class="n">GT300F</span><span class="p">,</span><span class="w"> </span><span class="n">SX50F</span><span class="p">,</span><span class="w"> </span><span class="n">SX120F</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">Model</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Model</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">variant_info</span><span class="w"> </span><span class="o">&amp;</span><span class="n">variant</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">package_type_t</span><span class="w"> </span><span class="n">package</span><span class="p">;</span><span class="w"></span>
@@ -24191,14 +24165,14 @@ their width in mm.</p>
 <span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">io</span><span class="p">,</span><span class="w"> </span><span class="n">gpio</span><span class="p">;</span><span class="w"></span>
 <span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">variant_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">variant_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">die_info</span><span class="w"> </span><span class="o">&amp;</span><span class="n">die</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">idcode</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">alut</span><span class="p">,</span><span class="w"> </span><span class="n">alm</span><span class="p">,</span><span class="w"> </span><span class="n">memory</span><span class="p">,</span><span class="w"> </span><span class="n">dsp</span><span class="p">,</span><span class="w"> </span><span class="n">dpll</span><span class="p">,</span><span class="w"> </span><span class="n">dll</span><span class="p">,</span><span class="w"> </span><span class="n">hps</span><span class="p">;</span><span class="w"></span>
 <span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">die_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">die_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">die_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">tile_sx</span><span class="p">,</span><span class="w"> </span><span class="n">tile_sy</span><span class="p">;</span><span class="w"></span>
@@ -24252,8 +24226,8 @@ selection by sku, the CycloneV::get_model function looks it up and
 allocates one.  The models array ends with a nullptr name pointer.</p>
 <p>The get_model function implements the alias “ms” for the 5CSEBA6U23I7
 used in the de10-nano, a.k.a MiSTer.</p>
-</section>
-<section id="pos-rnode-and-pnode">
+</div>
+<div class="section" id="pos-rnode-and-pnode">
 <h3>pos, rnode and pnode<a class="headerlink" href="#pos-rnode-and-pnode" title="Permalink to this headline"></a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">pos_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">;</span><span class="w">          </span><span class="c1">// Tile position</span>
 
@@ -24265,7 +24239,7 @@ used in the de10-nano, a.k.a MiSTer.</p>
 <p>The type pos_t represents a position in the grid.  xy2pos allows to create one, pos2x and pos2y extracts the coordinates.</p>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint32_t</span><span class="p">;</span><span class="w">        </span><span class="c1">// Route node id</span>
 
-<span class="k">enum</span> <span class="nc">rnode_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">rnode_type_t</span><span class="p">;</span><span class="w"></span>
 <span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">rnode_type_names</span><span class="p">[];</span><span class="w"></span>
 <span class="n">rnode_type_t</span><span class="w"> </span><span class="nf">rnode_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
@@ -24292,11 +24266,11 @@ given name.  rn2s provides a string representation of the rnode
 invalid.</p>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">pnode_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">uint64_t</span><span class="p">;</span><span class="w">        </span><span class="c1">// Port node id</span>
 
-<span class="k">enum</span> <span class="nc">block_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">block_type_t</span><span class="p">;</span><span class="w"></span>
 <span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">block_type_names</span><span class="p">[];</span><span class="w"></span>
 <span class="n">block_type_t</span><span class="w"> </span><span class="nf">block_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">enum</span> <span class="nc">port_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">port_type_t</span><span class="p">;</span><span class="w"></span>
 <span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">port_type_names</span><span class="p">[];</span><span class="w"></span>
 <span class="n">port_type_t</span><span class="w">  </span><span class="nf">port_type_lookup</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
@@ -24336,8 +24310,8 @@ one.</p>
 port nodes of different logic blocks.  The connections being 1:N the
 p2p_from method can give multiple results while p2p_to only answers
 one node or the value 0.</p>
-</section>
-<section id="routing-network-management">
+</div>
+<div class="section" id="routing-network-management">
 <h3>Routing network management<a class="headerlink" href="#routing-network-management" title="Permalink to this headline"></a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w"></span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">rnode_link</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w"></span>
@@ -24365,8 +24339,8 @@ to vcc, but in some cases all five are used and unlinking selects the
 <p>route_all_active_links gives all current active connections.
 route_frontier_links solves these connections to keep only the
 extremities, giving the inter-logic-block connections directly.</p>
-</section>
-<section id="logic-block-management">
+</div>
+<div class="section" id="logic-block-management">
 <h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline"></a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pos_t</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lab_get_pos</span><span class="p">()</span><span class="w">    </span><span class="k">const</span><span class="w"></span>
 <span class="p">[</span><span class="n">etc</span><span class="p">]</span><span class="w"></span>
@@ -24382,13 +24356,13 @@ type doesn’t exist in the given die.</p>
 <p>In the hps case the 37 blocks can be indexed by hps_index_t enum.</p>
 <p>Alternatively the pos_get_bels() method gives the (possibly empty)
 list of logic blocks present in a given tile.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span><span class="w"> </span><span class="n">MT_MUX</span><span class="p">,</span><span class="w"> </span><span class="n">MT_NUM</span><span class="p">,</span><span class="w"> </span><span class="n">MT_BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">MT_RAM</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">MT_MUX</span><span class="p">,</span><span class="w"> </span><span class="n">MT_NUM</span><span class="p">,</span><span class="w"> </span><span class="n">MT_BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">MT_RAM</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="k">enum</span> <span class="nc">bmux_type_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">bmux_type_t</span><span class="p">;</span><span class="w"></span>
 <span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">bmux_type_names</span><span class="p">[];</span><span class="w"></span>
 <span class="n">bmux_type_t</span><span class="w"> </span><span class="nf">bmux_type_lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">bmux_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">bmux_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">block_type_t</span><span class="w"> </span><span class="n">btype</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">pos_t</span><span class="w"> </span><span class="n">pos</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">;</span><span class="w"></span>
@@ -24422,10 +24396,10 @@ and true when found, false otherwise.  The def field indicates whether
 the value is the default.  The bmux_set sets a mux generically, and
 the bmux_*_set sets it per-type.</p>
 <p>The no-parameter bmux_get version returns the state of all muxes of the FPGA.</p>
-</section>
-<section id="inverters-management">
+</div>
+<div class="section" id="inverters-management">
 <h3>Inverters management<a class="headerlink" href="#inverters-management" title="Permalink to this headline"></a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">invert_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="nc">invert_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">INV_NO</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="n">INV_YES</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="n">INV_PROGRAMMABLE</span><span class="p">,</span><span class="w"></span>
@@ -24437,7 +24411,7 @@ the bmux_*_set sets it per-type.</p>
 </div>
 <p>The rnode_is_inverting method allows to know whether a given rnode is
 inverting.  The information is not yet available for all nodes though.</p>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">inv_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">inv_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">rnode_t</span><span class="w"> </span><span class="n">node</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">def</span><span class="p">;</span><span class="w"></span>
@@ -24449,10 +24423,10 @@ inverting.  The information is not yet available for all nodes though.</p>
 </div>
 <p>inv_get() returns the state of the programmable inverters, and inv_set
 sets the state of one.  The field def is currently very incorrect.</p>
-</section>
-<section id="pin-package-management">
+</div>
+<div class="section" id="pin-package-management">
 <h3>Pin/package management<a class="headerlink" href="#pin-package-management" title="Permalink to this headline"></a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">pin_flags_t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="nc">pin_flags_t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">PIN_IO_MASK</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000007</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="n">PIN_DPP</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000001</span><span class="p">,</span><span class="w"> </span><span class="c1">// Dedicated Programming Pin</span>
 <span class="w">  </span><span class="n">PIN_HSSI</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000002</span><span class="p">,</span><span class="w"> </span><span class="c1">// High Speed Serial Interface input</span>
@@ -24481,7 +24455,7 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <span class="w">  </span><span class="n">PIN_VSS_SENSE</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00000a00</span><span class="p">,</span><span class="w"></span>
 <span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="nc">pin_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">pin_info_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pad</span><span class="p">;</span><span class="w"></span>
@@ -24512,10 +24486,10 @@ sets the state of one.  The field def is currently very incorrect.</p>
 <li><p>index - pin sub-index for hssi_input, hssi_output, dedicated programming pins and jtag</p></li>
 </ul>
 <p>The pin_find_pos method looks up a pin from a gpio tile/index combination.  The pin_find_pos method looks up a pin from a gpio or hmc pnode.</p>
-</section>
-<section id="options">
+</div>
+<div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
-<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">opt_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">opt_setting_t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">bmux_type_t</span><span class="w"> </span><span class="n">mux</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">def</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
@@ -24537,8 +24511,8 @@ sets the state of one.  The field def is currently very incorrect.</p>
 </div>
 <p>The options work like the block muxes without a block, tile or
 instance number.  They’re otherwise the same.</p>
-</section>
-<section id="bitstream-management">
+</div>
+<div class="section" id="bitstream-management">
 <h3>Bitstream management<a class="headerlink" href="#bitstream-management" title="Permalink to this headline"></a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">();</span><span class="w"></span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">rbf_load</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
@@ -24548,8 +24522,8 @@ instance number.  They’re otherwise the same.</p>
 <p>The clear method returns the FPGA state to all defaults.  rbf_load
 parses a raw bitstream file from memory and loads the state from it.
 rbf_save generats a rbf from the current state.</p>
-</section>
-<section id="hmc-bypass">
+</div>
+<div class="section" id="hmc-bypass">
 <h3>HMC bypass<a class="headerlink" href="#hmc-bypass" title="Permalink to this headline"></a></h3>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">pnode_t</span><span class="w"> </span><span class="nf">hmc_get_bypass</span><span class="p">(</span><span class="n">pnode_t</span><span class="w"> </span><span class="n">pn</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 </pre></div>
@@ -24562,69 +24536,69 @@ a given GPIO port connected to the HMC in bypass mode do:</p>
 <li><p>Get the associated node when in bypass mode with hmc_get_bypass (the method is direction-independant)</p></li>
 <li><p>Get the associated routing node with pnode_to_rnode.</p></li>
 </ul>
-</section>
-</section>
-<span id="document-cyclonev_driver"></span><section id="the-mistral-cv-command-line-program">
+</div>
+</div>
+<span id="document-cyclonev_driver"></span><div class="section" id="the-mistral-cv-command-line-program">
 <h2>The mistral-cv command-line program<a class="headerlink" href="#the-mistral-cv-command-line-program" title="Permalink to this headline"></a></h2>
 <p>The mistral-cv command line program allows for a minimal interfacing
 with the library.  Calling it without parameters shows the possible
 usages.</p>
-<section id="models">
+<div class="section" id="models">
 <h3>models<a class="headerlink" href="#models" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">models</span>
 </pre></div>
 </div>
 <p>Lists the known models with their SKU, IDCODE, die, variant, package,
 number of pins, temperature grade and speed grade.</p>
-</section>
-<section id="routes">
+</div>
+<div class="section" id="routes">
 <h3>routes<a class="headerlink" href="#routes" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps the active routes in a rbf.</p>
-</section>
-<section id="routes2">
+</div>
+<div class="section" id="routes2">
 <h3>routes2<a class="headerlink" href="#routes2" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">routes</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps the active routes in a rbf where a GIN/GOUT/etc does not have a
 port mapping associated.</p>
-</section>
-<section id="cycle">
+</div>
+<div class="section" id="cycle">
 <h3>cycle<a class="headerlink" href="#cycle" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">cycle</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Loads the rbf in file1.rbf and saves is back in file2.rbf.  Useful to
 test if the framing/unframing of oram/pram/cram works correctly.</p>
-</section>
-<section id="bels">
+</div>
+<div class="section" id="bels">
 <h3>bels<a class="headerlink" href="#bels" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">bels</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Dumps a list of all the logic elements of a model (only depends on the
 die in practice).</p>
-</section>
-<section id="decomp">
+</div>
+<div class="section" id="decomp">
 <h3>decomp<a class="headerlink" href="#decomp" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">decomp</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Decompiles a bitstream into a compilable source.  Only writes down
 what is identified as not being in default state.</p>
-</section>
-<section id="comp">
+</div>
+<div class="section" id="comp">
 <h3>comp<a class="headerlink" href="#comp" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">comp</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">bt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Compiles a source into a bitstream.  The source includes the model
 information.</p>
-</section>
-<section id="diff">
+</div>
+<div class="section" id="diff">
 <h3>diff<a class="headerlink" href="#diff" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mistral</span><span class="o">-</span><span class="n">cv</span> <span class="n">diff</span> <span class="o">&lt;</span><span class="n">model</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file1</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">file2</span><span class="o">.</span><span class="n">rbf</span><span class="o">&gt;</span>
 </pre></div>
@@ -24632,19 +24606,19 @@ information.</p>
 <p>Compares two rbf files and identifies the differences in terms of
 oram, pram and cram.  Useful to list mismatches after a decomp/comp
 cycle.</p>
-</section>
-</section>
-<span id="document-cyclonev_library_internals"></span><section id="mistral-cyclonev-library-internals">
+</div>
+</div>
+<span id="document-cyclonev_library_internals"></span><div class="section" id="mistral-cyclonev-library-internals">
 <h2>Mistral CycloneV library internals<a class="headerlink" href="#mistral-cyclonev-library-internals" title="Permalink to this headline"></a></h2>
-<section id="structure">
+<div class="section" id="structure">
 <h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline"></a></h3>
 <p>A large part of the library is generated code from information in the
 data directory and generated compressed per-die binary data that is
 embedded in the library.  The source code generation is currently done
 with python programs (tools directory) and the binary data through the
 routes-to-bin executable.</p>
-</section>
-<section id="routing-data">
+</div>
+<div class="section" id="routing-data">
 <h3>Routing data<a class="headerlink" href="#routing-data" title="Permalink to this headline"></a></h3>
 <p>The routing data is stored in bzip2-compressed text files named
 &lt;die&gt;-r.txt.bz2.  Each line describes a routing mux.</p>
@@ -24666,8 +24640,8 @@ default is different.</p>
 </pre></div>
 </div>
 <p>The “.3” indicates that the default is on slot 3, e.g. value 0x08 or pattern 70+3.</p>
-</section>
-<section id="block-muxes">
+</div>
+<div class="section" id="block-muxes">
 <h3>Block muxes<a class="headerlink" href="#block-muxes" title="Permalink to this headline"></a></h3>
 <p>The lists of block muxes and options muxes are independant of the
 dies.  They’re in the block-mux.txt files.  Each mux is described in
@@ -24692,7 +24666,7 @@ have to be numeric.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="n">clk0_inv</span>               <span class="n">b</span><span class="o">-</span>   <span class="mf">6.45</span>
 </pre></div>
 </div>
-<p>The ‘b’ indicates boolean, and ‘-’ indicates the default is false,
+<p>The ‘b’ indicates boolean, and ‘-‘ indicates the default is false,
 otherwise it is ‘+’ for true.  The boolean can be multi-bits, such as
 in the following example.  Then all bits are set or unset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="n">pr_en</span>              <span class="n">b</span><span class="o">-</span><span class="p">:</span><span class="mi">2</span> <span class="mf">0.61</span> <span class="mf">0.67</span>
@@ -24732,8 +24706,8 @@ tables in pma3-cram.txt</p>
 <p>mux_to_source.py enum &lt;datadir&gt; generates the file cv-bmuxtypes.ipp
 while mux_to_source.py mux &lt;datadir&gt; generates the file
 cv-bmux-data.cc.  mkmux.sh does both calls.</p>
-</section>
-<section id="logic-blocks">
+</div>
+<div class="section" id="logic-blocks">
 <h3>Logic blocks<a class="headerlink" href="#logic-blocks" title="Permalink to this headline"></a></h3>
 <p>Blocks come from two sources, the files &lt;die&gt;-pram.txt indicates all
 the peripheral blocks with their pram address.  The files
@@ -24742,35 +24716,35 @@ the information of the connections between the blocks and neighbouring
 blocks and the routing grid.</p>
 <p>blocks_to_source.py generates the cvd-&lt;die&gt;-blk.cc file for a given
 die, abd mkblocks.sh calls it for every die.</p>
-</section>
-<section id="inverters">
+</div>
+<div class="section" id="inverters">
 <h3>Inverters<a class="headerlink" href="#inverters" title="Permalink to this headline"></a></h3>
 <p>The list of inverters, their cram position and their default value
 (always 0 at this point) is in &lt;die&gt;-inv.txt.
 inv_to_source.py/mkinv.sh takes care of generating the
 cvd-&lt;die&gt;-inv.cc files.</p>
-</section>
-<section id="forced-1-bits">
+</div>
+<div class="section" id="forced-1-bits">
 <h3>Forced-1 bits<a class="headerlink" href="#forced-1-bits" title="Permalink to this headline"></a></h3>
 <p>Five of the seven dies seem to have bits always set to 1.  They are
 listed in the files &lt;die&gt;-1.txt.  blocks_to_source.py takes care of
 it.</p>
-</section>
-<section id="packages">
+</div>
+<div class="section" id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline"></a></h3>
 <p>The file &lt;die&gt;-pkg.txt lists the packages and the pins of each package
 for each die.  pkg_to_source.py/mkpkg.sh take cares of generating the
 cvd-&lt;die&gt;-pkg.cc files.</p>
-</section>
-<section id="models">
+</div>
+<div class="section" id="models">
 <h3>Models<a class="headerlink" href="#models" title="Permalink to this headline"></a></h3>
 <p>models.txt includes all the information on variants and models.  The
 cv-models.cc file is generated by models_to_source.py called by
 mkmodels.sh.</p>
-</section>
-<section id="binary-data">
+</div>
+<div class="section" id="binary-data">
 <h3>Binary data<a class="headerlink" href="#binary-data" title="Permalink to this headline"></a></h3>
-<section id="generation-and-embedding">
+<div class="section" id="generation-and-embedding">
 <h4>Generation and embedding<a class="headerlink" href="#generation-and-embedding" title="Permalink to this headline"></a></h4>
 <p>The binary blocks are accessible as individual files as &lt;chip&gt;-r.bin
 in the libmistral build subdirectory.  They’re embedded into object
@@ -24782,8 +24756,8 @@ _binary_&lt;chip&gt;_r_bin_start and _binary_&lt;chip&gt;_r_bin_end.</p>
 </div>
 <p>The decompressed data starts by a header and is followed by a number
 of data blocks.</p>
-</section>
-<section id="header">
+</div>
+<div class="section" id="header">
 <h4>Header<a class="headerlink" href="#header" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uint32_t</span> <span class="n">off_rnode</span>
 <span class="n">uint32_t</span> <span class="n">off_rnode_end</span>
@@ -24801,8 +24775,8 @@ of data blocks.</p>
 <li><p>size_rnode_hash: number of entries in the routing node hash block</p></li>
 <li><p>count_rnode: number of routing nodes</p></li>
 </ul>
-</section>
-<section id="routing-node-information-block">
+</div>
+<div class="section" id="routing-node-information-block">
 <h4>Routing node information block<a class="headerlink" href="#routing-node-information-block" title="Permalink to this headline"></a></h4>
 <p>This block consists of a sequence of variable-length records, one per
 node.  The non-variable part is in the structure rnode_base.</p>
@@ -24838,16 +24812,16 @@ from the rnode_base object.  The class method rnode_targets_rnode
 gives the target array as a const rnode_t *, rnode_targets_caps gives
 the target array as const float *, rnode_targets_pos the positions as
 const uint16_t *.</p>
-</section>
-<section id="routing-node-hash">
+</div>
+<div class="section" id="routing-node-hash">
 <h4>Routing node hash<a class="headerlink" href="#routing-node-hash" title="Permalink to this headline"></a></h4>
 <p>The block is composed of two parts, an opaque block with the bdz-ph
 lookup data, and a table of offsets in the routing node information
 block.  The table is a offset size_rnode_opaque_hash inside the block.</p>
 <p>The method rnode_lookup does the hash lookup and provides a pointer to
 the rnode_base if the node exists.</p>
-</section>
-<section id="line-information-block">
+</div>
+<div class="section" id="line-information-block">
 <h4>Line information block<a class="headerlink" href="#line-information-block" title="Permalink to this headline"></a></h4>
 <p>The block is an array of rnode_line_information structures.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">tc1</span>
@@ -24870,11 +24844,11 @@ the rnode_base if the node exists.</p>
 tc(t) / tc(85).</p>
 <p>Some lines have length 1, it just means the drivers and taps are at
 the extremities only and the length has been folded in.</p>
-</section>
-</section>
-</section>
 </div>
-</section>
+</div>
+</div>
+</div>
+</div>
 
 
            </div>
