@@ -101,9 +101,10 @@ connections in between 5-cell blocks.
 
 
 .. figure:: lab-modes.*
-   :width: 100%
+   :width: 50%
 
-   The 16 possible interconnection modes.
+   The possible interconnection modes for the top and the bottom
+   halves, used in tmode and bmode.
 
 
 .. include:: gendoc/lab-dmux.rst

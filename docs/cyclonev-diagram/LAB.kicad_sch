@@ -1,0 +1,22 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 13abf99d-5265-4779-8973-e94370fd18ff)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 165.1 38.1) (size 25.4 25.4) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-0000601ec0fa)
+    (property "Sheet name" "ALM0" (id 0) (at 165.1 37.3884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ALM.kicad_sch" (id 1) (at 165.1 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+)

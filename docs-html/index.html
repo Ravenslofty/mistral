@@ -308,8 +308,9 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <p class="caption"><span class="caption-text">One of the 10 cells of the LAB.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </div>
 <div class="figure align-default" id="id3">
-<a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">The 16 possible interconnection modes.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+<a class="reference internal image-reference" href="_images/lab-modes.svg"><img alt="_images/lab-modes.svg" src="_images/lab-modes.svg" width="50%" /></a>
+<p class="caption"><span class="caption-text">The possible interconnection modes for the top and the bottom
+halves, used in tmode and bmode.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
 </div>
 <table class="docutils align-default">
 <colgroup>
@@ -352,7 +353,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </ul>
 </td>
 <td><p>off</p></td>
-<td><p>Select the clock input to the two bottom FFs</p></td>
+<td><p>Select the clock input to the two middle FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>BCLR_SEL</p></td>
 <td><p>0-9</p></td>
@@ -408,35 +409,48 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>e</p></td>
 <td><p>Select which input goes to the sdata input of the two bottom FFs</p></td>
 </tr>
-<tr class="row-odd"><td><p>BPKREG0</p></td>
+<tr class="row-odd"><td><p>BMODE</p></td>
+<td><p>0-9</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>e_1</p></li>
+<li><p>f_1</p></li>
+<li><p>c_e</p></li>
+<li><p>c_f</p></li>
+</ul>
+</td>
+<td><p>c_e</p></td>
+<td><p>Connectivity mode of the bottom part of the cell</p></td>
+</tr>
+<tr class="row-even"><td><p>BPKREG0</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Force the top FF of the bottom half to get its input from tef_sel</p></td>
 </tr>
-<tr class="row-even"><td><p>BPKREG1</p></td>
+<tr class="row-odd"><td><p>BPKREG1</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Force the bottom FF of the bottom half to get its input from tef_sel</p></td>
 </tr>
-<tr class="row-odd"><td><p>BSCLR_DIS</p></td>
+<tr class="row-even"><td><p>BSCLR_DIS</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Disable sync clear for the bottom half</p></td>
 </tr>
-<tr class="row-even"><td><p>BSLOAD_EN</p></td>
+<tr class="row-odd"><td><p>BSLOAD_EN</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Select whether to enable the sync load line of the two bottom FFs</p></td>
 </tr>
-<tr class="row-odd"><td><p>B_FEEDBACK_SEL</p></td>
+<tr class="row-even"><td><p>B_FEEDBACK_SEL</p></td>
 <td><p>0-9</p></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
@@ -446,37 +460,12 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>0</p></td>
 <td><p>Select which of the FFs goes to the bottom feedback line</p></td>
 </tr>
-<tr class="row-even"><td><p>LUT_MASK</p></td>
+<tr class="row-odd"><td><p>LUT_MASK</p></td>
 <td><p>0-9</p></td>
 <td><p>Ram</p></td>
 <td><p>64 bits</p></td>
 <td><p>0</p></td>
 <td><p>LUT values, A has bits 0-15, B 16-23, C 24-31, D 32-47, E 48-55. F 56-63</p></td>
-</tr>
-<tr class="row-odd"><td><p>MODE</p></td>
-<td><p>0-9</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>l5</p></li>
-<li><p>l5_ft</p></li>
-<li><p>l5_fb</p></li>
-<li><p>l5_ftb</p></li>
-<li><p>l6</p></li>
-<li><p>l6_ft</p></li>
-<li><p>l6_fb</p></li>
-<li><p>l6_ftb</p></li>
-<li><p>l7_e0</p></li>
-<li><p>l7_e0_ft</p></li>
-<li><p>l7_e0_fb</p></li>
-<li><p>l7_e0_ftb</p></li>
-<li><p>l7_e1</p></li>
-<li><p>l7_e1_ft</p></li>
-<li><p>l7_e1_fb</p></li>
-<li><p>l7_e1_ftb</p></li>
-</ul>
-</td>
-<td><p>l6</p></td>
-<td><p>Connectivity mode of the cell</p></td>
 </tr>
 <tr class="row-even"><td><p>SHARE</p></td>
 <td><p>0-9</p></td>
@@ -496,7 +485,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </ul>
 </td>
 <td><p>off</p></td>
-<td><p>Select the clock input to the two top FFs</p></td>
+<td><p>Select the clock input for the top and bottom FFs</p></td>
 </tr>
 <tr class="row-even"><td><p>TCLR_SEL</p></td>
 <td><p>0-9</p></td>
@@ -552,35 +541,48 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>e</p></td>
 <td><p>Select which input goes to the sdata input of the two top FFs</p></td>
 </tr>
-<tr class="row-odd"><td><p>TPKREG0</p></td>
+<tr class="row-odd"><td><p>TMODE</p></td>
+<td><p>0-9</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>e_0</p></li>
+<li><p>f_0</p></li>
+<li><p>d_e</p></li>
+<li><p>d_f</p></li>
+</ul>
+</td>
+<td><p>d_e</p></td>
+<td><p>Connectivity mode of the top part of the cell</p></td>
+</tr>
+<tr class="row-even"><td><p>TPKREG0</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Force the top FF of the top half to get its input from tef_sel</p></td>
 </tr>
-<tr class="row-even"><td><p>TPKREG1</p></td>
+<tr class="row-odd"><td><p>TPKREG1</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Force the bottom FF of the top half to get its input from tef_sel</p></td>
 </tr>
-<tr class="row-odd"><td><p>TSCLR_DIS</p></td>
+<tr class="row-even"><td><p>TSCLR_DIS</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Disable sync clear for the top half</p></td>
 </tr>
-<tr class="row-even"><td><p>TSLOAD_EN</p></td>
+<tr class="row-odd"><td><p>TSLOAD_EN</p></td>
 <td><p>0-9</p></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Select whether to enable the sync load line of the two top FFs</p></td>
 </tr>
-<tr class="row-odd"><td><p>T_FEEDBACK_SEL</p></td>
+<tr class="row-even"><td><p>T_FEEDBACK_SEL</p></td>
 <td><p>0-9</p></td>
 <td><p>Num</p></td>
 <td><ul class="simple">
@@ -590,14 +592,14 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>0</p></td>
 <td><p>Select which of the FFs goes to the top feedback line</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR0_INV</p></td>
+<tr class="row-odd"><td><p>ACLR0_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for asynchronous clear 0</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR0_SEL</p></td>
+<tr class="row-even"><td><p>ACLR0_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -608,14 +610,14 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>din3</p></td>
 <td><p>Selects between clock and data for async clear 0</p></td>
 </tr>
-<tr class="row-even"><td><p>ACLR1_INV</p></td>
+<tr class="row-odd"><td><p>ACLR1_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for asynchronous clear 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>ACLR1_SEL</p></td>
+<tr class="row-even"><td><p>ACLR1_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -626,28 +628,28 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>din2</p></td>
 <td><p>Selects between clock and data for async clear 1</p></td>
 </tr>
-<tr class="row-even"><td><p>BTO_DIS</p></td>
+<tr class="row-odd"><td><p>BTO_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>When disabled, allows carry in/share in from local cell 4 into local cell 5</p></td>
 </tr>
-<tr class="row-odd"><td><p>BYPASS_DIS</p></td>
+<tr class="row-even"><td><p>BYPASS_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Bypass skips the top half (lab) or bottom half (mlab) of the cells for the carry and share chains (needs BTO, resp. TTO disabled too)</p></td>
 </tr>
-<tr class="row-even"><td><p>CLK0_INV</p></td>
+<tr class="row-odd"><td><p>CLK0_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for clock 0</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLK0_SEL</p></td>
+<tr class="row-even"><td><p>CLK0_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -656,16 +658,16 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>Selects between the two intermedaite clock lines for clock 0</p></td>
+<td><p>Selects between the two intermediate clock lines for clock 0</p></td>
 </tr>
-<tr class="row-even"><td><p>CLK1_INV</p></td>
+<tr class="row-odd"><td><p>CLK1_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for clock 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLK1_SEL</p></td>
+<tr class="row-even"><td><p>CLK1_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -674,16 +676,16 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>Selects between the two intermedaite clock lines for clock 1</p></td>
+<td><p>Selects between the two intermediate clock lines for clock 1</p></td>
 </tr>
-<tr class="row-even"><td><p>CLK2_INV</p></td>
+<tr class="row-odd"><td><p>CLK2_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for clock 2</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLK2_SEL</p></td>
+<tr class="row-even"><td><p>CLK2_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -692,9 +694,9 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 </ul>
 </td>
 <td><p>clka</p></td>
-<td><p>Selects between the two intermedaite clock lines for clock 2</p></td>
+<td><p>Selects between the two intermediate clock lines for clock 2</p></td>
 </tr>
-<tr class="row-even"><td><p>CLKA_SEL</p></td>
+<tr class="row-odd"><td><p>CLKA_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -705,7 +707,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>cin0</p></td>
 <td><p>Selects between clock and data for the clka intermediate line</p></td>
 </tr>
-<tr class="row-odd"><td><p>CLKB_SEL</p></td>
+<tr class="row-even"><td><p>CLKB_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -716,7 +718,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>cin1</p></td>
 <td><p>Selects between clock and data for the clkb intermediate line</p></td>
 </tr>
-<tr class="row-even"><td><p>DFT_MODE</p></td>
+<tr class="row-odd"><td><p>DFT_MODE</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -728,70 +730,70 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>on</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN0_EN</p></td>
+<tr class="row-even"><td><p>EN0_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Enables the enable 0 line (else always on)</p></td>
 </tr>
-<tr class="row-even"><td><p>EN0_NINV</p></td>
+<tr class="row-odd"><td><p>EN0_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 0</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN1_EN</p></td>
+<tr class="row-even"><td><p>EN1_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Enables the enable 1 line (else always on)</p></td>
 </tr>
-<tr class="row-even"><td><p>EN1_NINV</p></td>
+<tr class="row-odd"><td><p>EN1_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>EN2_EN</p></td>
+<tr class="row-even"><td><p>EN2_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Enables the enable 2 line (else always on)</p></td>
 </tr>
-<tr class="row-even"><td><p>EN2_NINV</p></td>
+<tr class="row-odd"><td><p>EN2_NINV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Optional inverter for enable 2</p></td>
 </tr>
-<tr class="row-odd"><td><p>REGSCAN_LATCH_EN</p></td>
+<tr class="row-even"><td><p>REGSCAN_LATCH_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>SCLR_DIS</p></td>
+<tr class="row-odd"><td><p>SCLR_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Disable synchronous clear globally</p></td>
 </tr>
-<tr class="row-odd"><td><p>SCLR_INV</p></td>
+<tr class="row-even"><td><p>SCLR_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for synchronous clear</p></td>
 </tr>
-<tr class="row-even"><td><p>SCLR_SEL</p></td>
+<tr class="row-odd"><td><p>SCLR_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -802,21 +804,21 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>din3</p></td>
 <td><p>Source selection for synchronous clear</p></td>
 </tr>
-<tr class="row-odd"><td><p>SLOAD_EN</p></td>
+<tr class="row-even"><td><p>SLOAD_EN</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>t</p></td>
 <td><p>Enable synchronous load globally</p></td>
 </tr>
-<tr class="row-even"><td><p>SLOAD_INV</p></td>
+<tr class="row-odd"><td><p>SLOAD_INV</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>
 <td><p>f</p></td>
 <td><p>Optional inverter for synchronous load</p></td>
 </tr>
-<tr class="row-odd"><td><p>SLOAD_SEL</p></td>
+<tr class="row-even"><td><p>SLOAD_SEL</p></td>
 <td></td>
 <td><p>Mux</p></td>
 <td><ul class="simple">
@@ -827,7 +829,7 @@ common signals.</span><a class="headerlink" href="#id1" title="Permalink to this
 <td><p>din1</p></td>
 <td><p>Source selection for synchronous load</p></td>
 </tr>
-<tr class="row-even"><td><p>TTO_DIS</p></td>
+<tr class="row-odd"><td><p>TTO_DIS</p></td>
 <td></td>
 <td><p>Bool</p></td>
 <td><p>t/f</p></td>

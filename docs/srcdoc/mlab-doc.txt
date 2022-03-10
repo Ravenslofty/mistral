@@ -36,7 +36,8 @@ en2_ninv -
 lut_mask -
 maddg_voltage
 mcrg_voltage
-mode -
+tmode -
+bmode -
 ram_dis
 regscan_latch_en
 sclr_dis -

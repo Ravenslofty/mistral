@@ -8,21 +8,22 @@ tsload_en Select whether to enable the sync load line of the two top FFs
 tsclr_dis Disable sync clear for the top half
 tpkreg0 Force the top FF of the top half to get its input from tef_sel
 tpkreg1 Force the bottom FF of the top half to get its input from tef_sel
-tclk_sel Select the clock input to the two top FFs
+tclk_sel Select the clock input for the top and bottom FFs
 tclr_sel Select the aclr input to the two top FFs
 tef_sel Select which input goes to the sdata input of the two top FFs
 bsload_en Select whether to enable the sync load line of the two bottom FFs
 bsclr_dis Disable sync clear for the bottom half
 bpkreg0 Force the top FF of the bottom half to get its input from tef_sel
 bpkreg1 Force the bottom FF of the bottom half to get its input from tef_sel
-bclk_sel Select the clock input to the two bottom FFs
+bclk_sel Select the clock input to the two middle FFs
 bclr_sel Select the aclr input to the two bottom FFs
 bef_sel Select which input goes to the sdata input of the two bottom FFs
 share Route the share line to the addition
 t_feedback_sel Select which of the FFs goes to the top feedback line
 b_feedback_sel Select which of the FFs goes to the bottom feedback line
 arith_sel Select whether the data input of the FF is the LUTs or the adder
-mode Connectivity mode of the cell
+tmode Connectivity mode of the top part of the cell
+bmode Connectivity mode of the bottom part of the cell
 lut_mask LUT values, A has bits 0-15, B 16-23, C 24-31, D 32-47, E 48-55. F 56-63
 en0_en Enables the enable 0 line (else always on)
 en1_en Enables the enable 1 line (else always on)
@@ -30,11 +31,11 @@ en2_en Enables the enable 2 line (else always on)
 dft_mode
 clka_sel Selects between clock and data for the clka intermediate line
 clkb_sel Selects between clock and data for the clkb intermediate line
-clk0_sel Selects between the two intermedaite clock lines for clock 0
+clk0_sel Selects between the two intermediate clock lines for clock 0
 clk0_inv Optional inverter for clock 0
-clk1_sel Selects between the two intermedaite clock lines for clock 1
+clk1_sel Selects between the two intermediate clock lines for clock 1
 clk1_inv Optional inverter for clock 1
-clk2_sel Selects between the two intermedaite clock lines for clock 2
+clk2_sel Selects between the two intermediate clock lines for clock 2
 clk2_inv Optional inverter for clock 2
 en0_ninv Optional inverter for enable 0
 en1_ninv Optional inverter for enable 1
