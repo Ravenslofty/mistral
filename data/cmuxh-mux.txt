@@ -1,37 +1,37 @@
-g clkpin_input_select_0            m:1  108 | 140 | 198 | 243
-  0 pina !
-  1 pinb
-g clkpin_input_select_1            m:1  109 | 141 | 199 | 244
-  0 pina !
-  1 pinb
-g clkpin_input_select_2            m:1  110 | 142 | 200 | 266
-  0 pina !
-  1 pinb
-g clkpin_input_select_3            m:1  111 | 157 | 201 | 267
-  0 pina !
-  1 pinb
-g nclkpin_input_select_0           m:1  126 | 164 | 208 | 274
-  0 npina !
-  1 npinb
-g nclkpin_input_select_1           m:1  119 | 144 | 222 | 254
-  0 npina !
-  1 npinb
-g nclkpin_input_select_2           m:1  113 | 151 | 216 | 261
-  0 npina !
-  1 npinb
-g nclkpin_input_select_3           m:1  134 | 159 | 224 | 269
-  0 npina !
-  1 npinb
-g orphan_pll_input_select_0        m:1  94 | 139 | 218 | 229
-  0 orphan_pll0 !
-  1 orphan_pll3
-g orphan_pll_input_select_1        m:1  89 | 155 | 213 | 237
-  0 orphan_pll1 !
-  1 orphan_pll4
-g orphan_pll_input_select_2        m:1  90 | 156 | 214 | 259
-  0 orphan_pll2 !
-  1 orphan_pll5
-g input_select                     r23:6
+g clkpin_sel_0                     n:1  108 | 140 | 198 | 243
+  0 0 !
+  1 1
+g clkpin_sel_1                     n:1  109 | 141 | 199 | 244
+  0 2 !
+  1 3
+g clkpin_sel_2                     n:1  110 | 142 | 200 | 266
+  0 4 !
+  1 5
+g clkpin_sel_3                     n:1  111 | 157 | 201 | 267
+  0 6 !
+  1 7
+g nclkpin_sel_0                    n:1  126 | 164 | 208 | 274
+  0 0 !
+  1 1
+g nclkpin_sel_1                    n:1  119 | 144 | 222 | 254
+  0 2 !
+  1 3
+g nclkpin_sel_2                    n:1  113 | 151 | 216 | 261
+  0 4 !
+  1 5
+g nclkpin_sel_3                    n:1  134 | 159 | 224 | 269
+  0 6 !
+  1 7
+g pll_sel_0                        n:1  94 | 139 | 218 | 229
+  0 16 !
+  1 19
+g pll_sel_1                        n:1  89 | 155 | 213 | 237
+  0 17 !
+  1 20
+g pll_sel_2                        n:1  90 | 156 | 214 | 259
+  0 18 !
+  1 21
+g input_sel                        r23:6
   * 95 96 120 127 114 88
   * 161 162 145 165 152 154
   * 219 220 223 209 238 212
@@ -52,13 +52,13 @@ g enable_register_power_up         n:1  107 | 118 | 197 | 242
   0 1 !
   1 0
 G dynamic_clk_select               b-   143
-r clkpin_input_select              m:1  24 | 20 | 50 | 59 | 68 | 85 | 345 | 336 | 319 | 298 | 295 | 271
+r clkpin_sel                       m:1  24 | 20 | 50 | 59 | 68 | 85 | 345 | 336 | 319 | 298 | 295 | 271
   0 pina !
   1 pinb
-r nclkpin_input_select             m:1  4 | 13 | 30 | 73 | 82 | 99 | 359 | 350 | 333 | 291 | 288 | 264
+r nclkpin_sel                      m:1  4 | 13 | 30 | 73 | 82 | 99 | 359 | 350 | 333 | 291 | 288 | 264
   0 npina !
   1 npinb
-r input_select                     r13:5
+r input_sel                        r13:5
   * 23 3 17 10 25
   * 19 12 26 6 42
   * 49 29 43 36 51
@@ -124,18 +124,20 @@ g burst_count_ctrl                 m:1 116 | 130 | 240 | 233
   0 static !
   1 core_ctrl
 g burst_count                      r-:3 129 122 136 | 117 137 123 | 232 246 226 | 241 227 247 
-R pre_input_select_0               r+:5 179 193 173 187 180
-R pre_input_select_1               r+:5 194 174 188 181 195
-R pre_input_select_2               r+:5 176 183 169 189 175
-R pre_input_select_3               r+:5 160 153 167 168 182
-R top_pre_input_select_0           r+:5 33 53 40 47 39
-R top_pre_input_select_1           r+:5 45 38 52 32 46
-R top_pre_input_select_2           r+:5 48 41 55 56 34
-R top_pre_input_select_3           r+:5 78 64 71 57 77
-R bot_pre_input_select_0           r+:5 316 323 309 329 330
-R bot_pre_input_select_1           r+:5 310 324 317 331 311
-R bot_pre_input_select_2           r+:5 308 307 293 300 286
-R bot_pre_input_select_3           r+:5 279 280 303 283 306
+X iclk_sel                         r+:5
+  * 179 193 173 187 180
+  * 194 174 188 181 195
+  * 176 183 169 189 175
+  * 160 153 167 168 182
+Y iclk_sel                         r+:5
+  * 33 53 40 47 39
+  * 45 38 52 32 46
+  * 48 41 55 56 34
+  * 78 64 71 57 77
+  * 316 323 309 329 330
+  * 310 324 317 331 311
+  * 308 307 293 300 286
+  * 279 280 303 283 306
 G pll_feedback_out_select_0        r-:1 196
 G pll_feedback_out_select_1        r-:1 184
 G orphan_pll_feedback_out_select_0 r-:1 210

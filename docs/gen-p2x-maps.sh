@@ -11,3 +11,5 @@ for f in `seq 1 7`; do
   ../build/mistral-cv/mistral-cv p2ri $mm1 > srcdoc/$mm2-p2ri.txt
   ../build/mistral-cv/mistral-cv p2p  $mm1 > srcdoc/$mm2-p2p.txt
 done
+
+../build/mistral-cv/mistral-cv cmux > srcdoc/cmux-links.txt

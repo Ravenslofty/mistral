@@ -2587,6 +2587,2822 @@ half in two-18x19-parallel mode with the B result in bits [73:37].</p>
 </table>
 </div>
 </div>
+<div class="section" id="clock-muxes">
+<h3>Clock muxes<a class="headerlink" href="#clock-muxes" title="Permalink to this headline"></a></h3>
+<div class="section" id="generalities">
+<h4>Generalities<a class="headerlink" href="#generalities" title="Permalink to this headline"></a></h4>
+<p>The clock muxes blocks are peripheral blocks which drive a series of
+clock networks which span either half or the whole surface of the die.
+Half-sized networks are called regional, full-sized global.</p>
+<p>They are all comprised of a big mux called INPUT_SEL selecting between
+multiple possible sources, and an enable circuit allowing to bake an
+enable signal into the clock.  Global network-driving instances also
+include a burst controller and a dynamic clock switcher.</p>
+<p>Clock sources can be clock pins (clkpin inputs for positive or
+differential, nclkpin inputs for negative), signals from the routing
+network (clkin inputs), pll outputs either from pll blocks or the hps
+(pllin inputs) or clocks from the serial transmitters (hssi, iclk
+inputs).  For each following cmux block subtype description we provide
+a muxing matrix, either pointing directly to the inputs or to premuxes
+choosing between multiple ones (_sel variants).  The DEFAULT.0 entries
+are the default values when a clock is not used and ties the line to
+ground.  The OFF.1 entries tie the line to 1 somehow.  All the
+undocumented entries should give a constant 0, but avoid using them
+just in case.  The SWITCH entries are connected to the dynamic clock
+selection mux.</p>
+<div class="figure align-default" id="id4">
+<a class="reference internal image-reference" href="_images/cmux-enable.svg"><img alt="_images/cmux-enable.svg" src="_images/cmux-enable.svg" width="50%" /></a>
+<p class="caption"><span class="caption-text">Enable sub-circuit</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</div>
+<p>The enable sub-circuit allows to key on one or two registers to allow
+to handle enables being on a different clock domain than the
+controlled block.</p>
+<div class="figure align-default" id="id5">
+<a class="reference internal image-reference" href="_images/cmux-burst.svg"><img alt="_images/cmux-burst.svg" src="_images/cmux-burst.svg" width="50%" /></a>
+<p class="caption"><span class="caption-text">Burst sub-circuit</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+</div>
+<p>The burst sub-circuit allows to keep the enable active for a fixed
+number of clocks of an enable rising edge then drop it again.  The
+number of clocks can be static or dynamic.</p>
+<p>The switch sub-circuit and the pll feedbacks still need to be documented.</p>
+</div>
+<div class="section" id="cmuxhg">
+<h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline"></a></h4>
+<p>The two Global Horizontal CMUX drive four GCLK grids each.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>cmuxhg</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>CLKPIN_SEL_0.0</p></td>
+<td><p>CLKPIN_SEL_0.1</p></td>
+<td><p>CLKPIN_SEL_0.2</p></td>
+<td><p>CLKPIN_SEL_0.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>CLKPIN_SEL_1.0</p></td>
+<td><p>CLKPIN_SEL_1.1</p></td>
+<td><p>CLKPIN_SEL_1.2</p></td>
+<td><p>CLKPIN_SEL_1.3</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>CLKPIN_SEL_2.0</p></td>
+<td><p>CLKPIN_SEL_2.1</p></td>
+<td><p>CLKPIN_SEL_2.2</p></td>
+<td><p>CLKPIN_SEL_2.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>03</p></td>
+<td><p>CLKPIN_SEL_3.0</p></td>
+<td><p>CLKPIN_SEL_3.1</p></td>
+<td><p>CLKPIN_SEL_3.2</p></td>
+<td><p>CLKPIN_SEL_3.3</p></td>
+</tr>
+<tr class="row-even"><td><p>04</p></td>
+<td><p>NCLKPIN_SEL_0.0</p></td>
+<td><p>NCLKPIN_SEL_0.1</p></td>
+<td><p>NCLKPIN_SEL_0.2</p></td>
+<td><p>NCLKPIN_SEL_0.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>05</p></td>
+<td><p>NCLKPIN_SEL_1.0</p></td>
+<td><p>NCLKPIN_SEL_1.1</p></td>
+<td><p>NCLKPIN_SEL_1.2</p></td>
+<td><p>NCLKPIN_SEL_1.3</p></td>
+</tr>
+<tr class="row-even"><td><p>06</p></td>
+<td><p>NCLKPIN_SEL_2.0</p></td>
+<td><p>NCLKPIN_SEL_2.1</p></td>
+<td><p>NCLKPIN_SEL_2.2</p></td>
+<td><p>NCLKPIN_SEL_2.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>07</p></td>
+<td><p>NCLKPIN_SEL_3.0</p></td>
+<td><p>NCLKPIN_SEL_3.1</p></td>
+<td><p>NCLKPIN_SEL_3.2</p></td>
+<td><p>NCLKPIN_SEL_3.3</p></td>
+</tr>
+<tr class="row-even"><td><p>08</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>09</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+</tr>
+<tr class="row-even"><td><p>0a</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>0c</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>0d</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+</tr>
+<tr class="row-even"><td><p>0e</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>0f</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>13</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+</tr>
+<tr class="row-even"><td><p>14</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+</tr>
+<tr class="row-odd"><td><p>17</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.15</p></td>
+</tr>
+<tr class="row-even"><td><p>18</p></td>
+<td><p>PLL_SEL_0.0</p></td>
+<td><p>PLL_SEL_0.1</p></td>
+<td><p>PLL_SEL_0.2</p></td>
+<td><p>PLL_SEL_0.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>19</p></td>
+<td><p>PLL_SEL_1.0</p></td>
+<td><p>PLL_SEL_1.1</p></td>
+<td><p>PLL_SEL_1.2</p></td>
+<td><p>PLL_SEL_1.3</p></td>
+</tr>
+<tr class="row-even"><td><p>1b</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>1c</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+</tr>
+<tr class="row-even"><td><p>1d</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1e</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+</tr>
+<tr class="row-even"><td><p>1f</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p>SWITCH.0</p></td>
+<td><p>SWITCH.1</p></td>
+<td><p>SWITCH.2</p></td>
+<td><p>SWITCH.3</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>OFF.1</p></td>
+<td><p>OFF.1</p></td>
+<td><p>OFF.1</p></td>
+<td><p>OFF.1</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BURST_COUNT</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-7</p></td>
+<td><p>0</p></td>
+<td><p>Optional fixed burst count</p></td>
+</tr>
+<tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>static</p></li>
+<li><p>core_ctrl</p></li>
+</ul>
+</td>
+<td><p>static</p></td>
+<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
+</tr>
+<tr class="row-even"><td><p>BURST_EN</p></td>
+<td><p>0-3</p></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Burst system enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKPIN_SEL_0</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKPIN_SEL_1</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>2-3</p></li>
+</ul>
+</td>
+<td><p>2</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKPIN_SEL_2</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>4-5</p></li>
+</ul>
+</td>
+<td><p>4</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKPIN_SEL_3</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>6-7</p></li>
+</ul>
+</td>
+<td><p>6</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK_SELECT_A</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK_SELECT_B</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK_SELECT_C</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK_SELECT_D</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>enout</p></li>
+<li><p>reg1_enout</p></li>
+<li><p>reg2_enout</p></li>
+<li><p>vcc</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>Enable line buffering mode</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
+</tr>
+<tr class="row-odd"><td><p>INPUT_SEL</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>00-3f</p></td>
+<td><p>23</p></td>
+<td><p>Clock mux main input selector</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN_SEL_0</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN_SEL_1</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>2-3</p></li>
+</ul>
+</td>
+<td><p>2</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN_SEL_2</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>4-5</p></li>
+</ul>
+</td>
+<td><p>4</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN_SEL_3</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>6-7</p></li>
+</ul>
+</td>
+<td><p>6</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_SEL_0</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>16</p></li>
+<li><p>19</p></li>
+</ul>
+</td>
+<td><p>16</p></td>
+<td><p>Selects between PLLIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_SEL_1</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>17</p></li>
+<li><p>20</p></li>
+</ul>
+</td>
+<td><p>17</p></td>
+<td><p>Selects between PLLIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_SEL_2</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>18</p></li>
+<li><p>21</p></li>
+</ul>
+</td>
+<td><p>18</p></td>
+<td><p>Selects between PLLIN inputs (unused in practice, inputs not connected)</p></td>
+</tr>
+<tr class="row-odd"><td><p>TESTSYN_ENOUT_SELECT</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>core_en</p></li>
+<li><p>pre_synenb</p></li>
+</ul>
+</td>
+<td><p>core_en</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>DYNAMIC_CLK_SELECT</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>FEEDBACK_DRIVER_SELECT_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>in0_vcc</p></li>
+<li><p>in1</p></li>
+<li><p>in2_vcc</p></li>
+<li><p>in3_vcc</p></li>
+<li><p>in4_vcc</p></li>
+<li><p>in5</p></li>
+<li><p>in6</p></li>
+<li><p>in7</p></li>
+</ul>
+</td>
+<td><p>in0_vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FEEDBACK_DRIVER_SELECT_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>in0_vcc</p></li>
+<li><p>in1</p></li>
+<li><p>in2_vcc</p></li>
+<li><p>in3_vcc</p></li>
+<li><p>in4_vcc</p></li>
+<li><p>in5</p></li>
+<li><p>in6</p></li>
+<li><p>in7</p></li>
+</ul>
+</td>
+<td><p>in0_vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ORPHAN_PLL_FEEDBACK_OUT_SELECT_0</p></td>
+<td></td>
+<td><p>Ram</p></td>
+<td><p>0-1</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>ORPHAN_PLL_FEEDBACK_OUT_SELECT_1</p></td>
+<td></td>
+<td><p>Ram</p></td>
+<td><p>0-1</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_OUT_SELECT_0</p></td>
+<td></td>
+<td><p>Ram</p></td>
+<td><p>0-1</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_OUT_SELECT_1</p></td>
+<td></td>
+<td><p>Ram</p></td>
+<td><p>0-1</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK_SEL</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>00-1f</p></td>
+<td><p>1f</p></td>
+<td><p>Selects between ICLK inputs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BURSTCNT</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Burst block counter value</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKFBOUT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>GCLKFB</p></td>
+<td><p>?</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>Routing grid clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GCLK</p></td>
+<td><p>?</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Clock enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWITCHCLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>Dynamically selected clock output</p></td>
+</tr>
+<tr class="row-even"><td><p>SWITCHIN</p></td>
+<td><p>0-3</p></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Dynamic clock selection input</p></td>
+</tr>
+<tr class="row-odd"><td><p>SYN_EN</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 5%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKFBOUT</p></td>
+<td></td>
+<td><p>2-3</p></td>
+<td><p>&gt;</p></td>
+<td><p>FPLL:FBCLK_IN_L0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKPIN</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>ICLK</p></td>
+<td></td>
+<td><p>22-25</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>ICLK</p></td>
+<td></td>
+<td><p>11-14</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Falling-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-17, 19-20</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmuxvg">
+<h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline"></a></h4>
+<p>The two Global Vertical CMUX drive four GCLK grids each.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>cmuxvg</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>03</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.2</p></td>
+</tr>
+<tr class="row-even"><td><p>04</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>05</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>06</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>07</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.2</p></td>
+</tr>
+<tr class="row-even"><td><p>08</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>09</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.1</p></td>
+</tr>
+<tr class="row-even"><td><p>0a</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>0c</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>0d</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.5</p></td>
+</tr>
+<tr class="row-even"><td><p>0e</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>0f</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.7</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>13</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.11</p></td>
+</tr>
+<tr class="row-even"><td><p>14</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.12</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.13</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.14</p></td>
+</tr>
+<tr class="row-odd"><td><p>17</p></td>
+<td><p>OFF.0</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.15</p></td>
+</tr>
+<tr class="row-even"><td><p>18</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>19</p></td>
+<td><p>SWITCH.0</p></td>
+<td><p>SWITCH.1</p></td>
+<td><p>SWITCH.2</p></td>
+<td><p>SWITCH.3</p></td>
+</tr>
+<tr class="row-even"><td><p>1b</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BURST_COUNT</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-7</p></td>
+<td><p>0</p></td>
+<td><p>Optional fixed burst count</p></td>
+</tr>
+<tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>static</p></li>
+<li><p>core_ctrl</p></li>
+</ul>
+</td>
+<td><p>static</p></td>
+<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
+</tr>
+<tr class="row-even"><td><p>BURST_EN</p></td>
+<td><p>0-3</p></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>Burst system enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK_SELECT_A</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK_SELECT_B</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLK_SELECT_C</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLK_SELECT_D</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>0-3</p></td>
+<td><p>0</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>enout</p></li>
+<li><p>reg1_enout</p></li>
+<li><p>reg2_enout</p></li>
+<li><p>vcc</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>Enable line buffering mode</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
+<td><p>0-3</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
+</tr>
+<tr class="row-odd"><td><p>INPUT_SEL</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>00-1f</p></td>
+<td><p>1b</p></td>
+<td><p>Clock mux main input selector</p></td>
+</tr>
+<tr class="row-even"><td><p>TESTSYN_ENOUT_SELECT</p></td>
+<td><p>0-3</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>core_en</p></li>
+<li><p>pre_synenb</p></li>
+</ul>
+</td>
+<td><p>pre_synenb</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>DYNAMIC_CLK_SELECT</p></td>
+<td></td>
+<td><p>Bool</p></td>
+<td><p>t/f</p></td>
+<td><p>f</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_2</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_3</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BURSTCNT</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKFBOUT</p></td>
+<td></td>
+<td><p>0-2</p></td>
+<td><p>GCLKFB</p></td>
+<td><p>?</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>Routing grid clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GCLK</p></td>
+<td><p>?</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Clock enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWITCHCLK</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SWITCHIN</p></td>
+<td><p>0-3</p></td>
+<td><p>0-1</p></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Dynamic clock selection input</p></td>
+</tr>
+<tr class="row-odd"><td><p>SYN_EN</p></td>
+<td><p>0-3</p></td>
+<td></td>
+<td><p>GIN</p></td>
+<td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 23%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Falling-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-11</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>4-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0, 2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmuxcr">
+<h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline"></a></h4>
+<p>The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>cmuxcr</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.1</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>03</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.5</p></td>
+</tr>
+<tr class="row-even"><td><p>04</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>05</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+</tr>
+<tr class="row-even"><td><p>06</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>07</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+</tr>
+<tr class="row-even"><td><p>08</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>09</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+</tr>
+<tr class="row-even"><td><p>0a</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+</tr>
+<tr class="row-even"><td><p>0c</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>0d</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>0f</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN_SEL_0</p></td>
+<td><p>0-5</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0</p></li>
+<li><p>2</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKPIN_SEL_1</p></td>
+<td><p>0-5</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>1</p></li>
+<li><p>3</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE_REGISTER_MODE</p></td>
+<td><p>0-5</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>enout</p></li>
+<li><p>reg1_enout</p></li>
+<li><p>reg2_enout</p></li>
+<li><p>vcc</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>Enable line buffering mode</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
+<td><p>0-5</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
+</tr>
+<tr class="row-even"><td><p>INPUT_SEL</p></td>
+<td><p>0-5</p></td>
+<td><p>Ram</p></td>
+<td><p>0-f</p></td>
+<td><p>f</p></td>
+<td><p>Clock mux main input selector</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN_SEL_0</p></td>
+<td><p>0-5</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0</p></li>
+<li><p>2</p></li>
+</ul>
+</td>
+<td><p>0</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN_SEL_1</p></td>
+<td><p>0-5</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>1</p></li>
+<li><p>3</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK_SEL</p></td>
+<td><p>0-3</p></td>
+<td><p>Ram</p></td>
+<td><p>00-1f</p></td>
+<td><p>1f</p></td>
+<td><p>Selects between ICLK inputs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>Routing grid clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-5</p></td>
+<td></td>
+<td><p>RCLK</p></td>
+<td><p>?</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td><p>0-5</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Clock enable</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 24%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK</p></td>
+<td></td>
+<td><p>22-25</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>ICLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK</p></td>
+<td></td>
+<td><p>11-14</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Falling-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-17</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLMIN</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLMOUT0</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmuxhr">
+<h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline"></a></h4>
+<p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>cmuxhr</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.13</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.11</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>03</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.7</p></td>
+</tr>
+<tr class="row-even"><td><p>04</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>05</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>06</p></td>
+<td><p>CLKPIN_SEL.0</p></td>
+<td><p>CLKPIN_SEL.1</p></td>
+<td><p>CLKPIN_SEL.2</p></td>
+<td><p>CLKPIN_SEL.3</p></td>
+<td><p>CLKPIN_SEL.4</p></td>
+<td><p>CLKPIN_SEL.5</p></td>
+<td><p>CLKPIN_SEL.6</p></td>
+<td><p>CLKPIN_SEL.7</p></td>
+<td><p>CLKPIN_SEL.8</p></td>
+<td><p>CLKPIN_SEL.9</p></td>
+<td><p>CLKPIN_SEL.10</p></td>
+<td><p>CLKPIN_SEL.11</p></td>
+</tr>
+<tr class="row-odd"><td><p>07</p></td>
+<td><p>NCLKPIN_SEL.0</p></td>
+<td><p>NCLKPIN_SEL.1</p></td>
+<td><p>NCLKPIN_SEL.2</p></td>
+<td><p>NCLKPIN_SEL.3</p></td>
+<td><p>NCLKPIN_SEL.4</p></td>
+<td><p>NCLKPIN_SEL.5</p></td>
+<td><p>NCLKPIN_SEL.6</p></td>
+<td><p>NCLKPIN_SEL.7</p></td>
+<td><p>NCLKPIN_SEL.8</p></td>
+<td><p>NCLKPIN_SEL.9</p></td>
+<td><p>NCLKPIN_SEL.10</p></td>
+<td><p>NCLKPIN_SEL.11</p></td>
+</tr>
+<tr class="row-even"><td><p>08</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.0</p></td>
+<td><p>ICLK_SEL.4</p></td>
+<td><p>ICLK_SEL.4</p></td>
+<td><p>ICLK_SEL.4</p></td>
+<td><p>ICLK_SEL.4</p></td>
+<td><p>ICLK_SEL.4</p></td>
+<td><p>ICLK_SEL.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>09</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.1</p></td>
+<td><p>ICLK_SEL.5</p></td>
+<td><p>ICLK_SEL.5</p></td>
+<td><p>ICLK_SEL.5</p></td>
+<td><p>ICLK_SEL.5</p></td>
+<td><p>ICLK_SEL.5</p></td>
+<td><p>ICLK_SEL.5</p></td>
+</tr>
+<tr class="row-even"><td><p>0a</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.2</p></td>
+<td><p>ICLK_SEL.6</p></td>
+<td><p>ICLK_SEL.6</p></td>
+<td><p>ICLK_SEL.6</p></td>
+<td><p>ICLK_SEL.6</p></td>
+<td><p>ICLK_SEL.6</p></td>
+<td><p>ICLK_SEL.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.3</p></td>
+<td><p>ICLK_SEL.7</p></td>
+<td><p>ICLK_SEL.7</p></td>
+<td><p>ICLK_SEL.7</p></td>
+<td><p>ICLK_SEL.7</p></td>
+<td><p>ICLK_SEL.7</p></td>
+<td><p>ICLK_SEL.7</p></td>
+</tr>
+<tr class="row-even"><td><p>0c</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>0d</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>0e</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>0f</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.25</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.19</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 18%" />
+<col style="width: 8%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN_SEL</p></td>
+<td><p>0-11</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>pina</p></li>
+<li><p>pinb</p></li>
+</ul>
+</td>
+<td><p>pina</p></td>
+<td><p>Selects between CLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
+<td><p>0-11</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>enout</p></li>
+<li><p>reg1_enout</p></li>
+<li><p>reg2_enout</p></li>
+<li><p>vcc</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>Enable line buffering mode</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
+<td><p>0-11</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
+</tr>
+<tr class="row-odd"><td><p>INPUT_SEL</p></td>
+<td><p>0-11</p></td>
+<td><p>Ram</p></td>
+<td><p>00-1f</p></td>
+<td><p>13</p></td>
+<td><p>Clock mux main input selector</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN_SEL</p></td>
+<td><p>0-11</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>npina</p></li>
+<li><p>npinb</p></li>
+</ul>
+</td>
+<td><p>npina</p></td>
+<td><p>Selects between NCLKPIN inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>FEEDBACK_DRIVER_SELECT_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>orphan_pll_mcnto0</p></li>
+<li><p>orphan_pll_mcnto1</p></li>
+<li><p>orphan_pll_mcnto2</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>FEEDBACK_DRIVER_SELECT_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>orphan_pll_mcnto0</p></li>
+<li><p>orphan_pll_mcnto1</p></li>
+<li><p>orphan_pll_mcnto2</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK_SEL</p></td>
+<td><p>0-7</p></td>
+<td><p>Ram</p></td>
+<td><p>00-1f</p></td>
+<td><p>1f</p></td>
+<td><p>Selects between ICLK inputs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKFBIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKFBOUT</p></td>
+<td></td>
+<td><p>0-1</p></td>
+<td><p>RCLKFB</p></td>
+<td><p>?</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>Routing grid clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>RCLK</p></td>
+<td><p>?</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td><p>0-11</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Clock enable</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 5%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK</p></td>
+<td></td>
+<td><p>22-25</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>ICLK</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICLK</p></td>
+<td></td>
+<td><p>11-14</p></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>NCLKPIN</p></td>
+<td></td>
+<td><p>0-7</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Falling-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-25</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-6, 20-21</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmuxvr">
+<h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline"></a></h4>
+<p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>cmuxvr</p></th>
+<th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+<th class="head"><p>16</p></th>
+<th class="head"><p>17</p></th>
+<th class="head"><p>18</p></th>
+<th class="head"><p>19</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.0</p></td>
+<td><p>PLLIN.1</p></td>
+<td><p>PLLIN.2</p></td>
+<td><p>PLLIN.3</p></td>
+<td><p>PLLIN.4</p></td>
+<td><p>PLLIN.5</p></td>
+<td><p>PLLIN.6</p></td>
+<td><p>PLLIN.7</p></td>
+<td><p>PLLIN.8</p></td>
+<td><p>PLLIN.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>04</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+<td><p>CLKIN.0</p></td>
+<td><p>CLKIN.2</p></td>
+</tr>
+<tr class="row-even"><td><p>05</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+<td><p>CLKIN.1</p></td>
+<td><p>CLKIN.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>06</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+<td><p>CLKPIN.0</p></td>
+<td><p>CLKPIN.2</p></td>
+<td><p>CLKPIN.1</p></td>
+<td><p>CLKPIN.3</p></td>
+</tr>
+<tr class="row-even"><td><p>07</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+<td><p>NCLKPIN.0</p></td>
+<td><p>NCLKPIN.2</p></td>
+<td><p>NCLKPIN.1</p></td>
+<td><p>NCLKPIN.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>08</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+</tr>
+<tr class="row-even"><td><p>09</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+</tr>
+<tr class="row-odd"><td><p>0a</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.9</p></td>
+<td><p>PLLIN.10</p></td>
+<td><p>PLLIN.11</p></td>
+<td><p>PLLIN.12</p></td>
+<td><p>PLLIN.13</p></td>
+<td><p>PLLIN.14</p></td>
+<td><p>PLLIN.15</p></td>
+<td><p>PLLIN.16</p></td>
+<td><p>PLLIN.17</p></td>
+<td><p>PLLIN.9</p></td>
+</tr>
+<tr class="row-even"><td><p>0b</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+<td><p>DEFAULT.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0c</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.18</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+</tr>
+<tr class="row-even"><td><p>0d</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.20</p></td>
+<td><p>PLLIN.22</p></td>
+<td><p>PLLIN.24</p></td>
+<td><p>PLLIN.19</p></td>
+<td><p>PLLIN.21</p></td>
+<td><p>PLLIN.23</p></td>
+</tr>
+<tr class="row-odd"><td><p>0e</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+<td><p>PLLIN.25</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+</tr>
+<tr class="row-even"><td><p>0f</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+<td><p>PLLIN.31</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+<td><p>PLLIN.31</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+<td><p>PLLIN.31</p></td>
+<td><p>PLLIN.27</p></td>
+<td><p>PLLIN.29</p></td>
+<td><p>PLLIN.31</p></td>
+<td><p>PLLIN.26</p></td>
+<td><p>PLLIN.28</p></td>
+<td><p>PLLIN.30</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ENABLE_REGISTER_MODE</p></td>
+<td><p>0-19</p></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>enout</p></li>
+<li><p>reg1_enout</p></li>
+<li><p>reg2_enout</p></li>
+<li><p>vcc</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>Enable line buffering mode</p></td>
+</tr>
+<tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
+<td><p>0-19</p></td>
+<td><p>Num</p></td>
+<td><ul class="simple">
+<li><p>0-1</p></li>
+</ul>
+</td>
+<td><p>1</p></td>
+<td><p>Value of the enable ff outputs at reset time</p></td>
+</tr>
+<tr class="row-even"><td><p>INPUT_SEL</p></td>
+<td><p>0-19</p></td>
+<td><p>Ram</p></td>
+<td><p>0-f</p></td>
+<td><p>b</p></td>
+<td><p>Clock mux main input selector</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
+<td></td>
+<td><p>Mux</p></td>
+<td><ul class="simple">
+<li><p>vcc</p></li>
+<li><p>pll_mcnt0</p></li>
+</ul>
+</td>
+<td><p>vcc</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>DCMUX</p></td>
+<td><p>p</p></td>
+<td><p>Routing grid clock inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-19</p></td>
+<td></td>
+<td><p>RCLK</p></td>
+<td><p>?</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+<tr class="row-even"><td><p>ENABLE</p></td>
+<td><p>0-19</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>Clock enable</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 23%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Raising-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCLKPIN</p></td>
+<td></td>
+<td><p>0-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>GPIO:COMBOUT</p></td>
+<td><p>Falling-edge clock pin to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>0-24</p></td>
+<td><p>&lt;</p></td>
+<td><p>FPLL:PLLCOUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLLIN</p></td>
+<td></td>
+<td><p>9-17</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cmuxp">
+<h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline"></a></h4>
+<p>The CMUXP drive two PCLK each.  They seem to be very different than the others and are not understood yet.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Route node type</p></th>
+<th class="head"><p>Inverter</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0-1</p></td>
+<td></td>
+<td><p>DCMUX</p></td>
+<td><p>i</p></td>
+<td><p>Routing grid clock input</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-1</p></td>
+<td><p>0-1</p></td>
+<td><p>PCLK</p></td>
+<td><p>i</p></td>
+<td><p>Clock mux clock grid driver</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Instance</p></th>
+<th class="head"><p>Port bits</p></th>
+<th class="head"><p>Dir</p></th>
+<th class="head"><p>Remote port</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:PMA_C_PCLK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_PLD_8G_RX_CLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0</p></td>
+<td></td>
+<td><p>&lt;</p></td>
+<td><p>HSSI:SMRT_PACK_PLD_8G_TX_CLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="section" id="peripheral-logic-blocks">
 <h3>Peripheral logic blocks<a class="headerlink" href="#peripheral-logic-blocks" title="Permalink to this headline"></a></h3>
 <div class="section" id="gpio">
@@ -3237,50 +6053,50 @@ pins.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>0-2</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOBADOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCASNDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>0</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCKDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2-3</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCKEDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>1</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCKNDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>0-1</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOCSNDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODMDOUT</p></td>
 <td><p>TODO</p></td>
@@ -3293,71 +6109,71 @@ pins.</p>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>1</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSBDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>0</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2-3</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOODTDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>3</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIORASNDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIORESETNDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DATAOUT</p></td>
-<td><p>0-3</p></td>
 <td><p>2</p></td>
+<td><p>0-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIOWENDOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>DATAOUT</p></td>
-<td><p>0</p></td>
 <td><p>1</p></td>
+<td><p>0</p></td>
 <td><p>&lt;</p></td>
 <td><p>HSSI:DATAOUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OEIN</p></td>
-<td><p>0-1</p></td>
 <td><p>0-3</p></td>
+<td><p>0-1</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQOE</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>OEIN</p></td>
-<td><p>0-1</p></td>
 <td><p>1</p></td>
+<td><p>0-1</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSBOE</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>OEIN</p></td>
-<td><p>0-1</p></td>
 <td><p>0</p></td>
+<td><p>0-1</p></td>
 <td><p>&lt;</p></td>
 <td><p>HMC:PHYDDIODQSOE</p></td>
 <td><p>TODO</p></td>
@@ -5822,7 +8638,7 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td></td>
 <td></td>
 <td><p>PMUX</p></td>
-<td><p>?</p></td>
+<td><p>i</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>DPRIO0_BYTE_EN</p></td>
@@ -6372,1705 +9188,6 @@ supervises 4 GPIO blocks for a total of 16 signals, hence their name.</p>
 <td><p>0-1</p></td>
 <td><p>&lt;</p></td>
 <td><p>FPLL:LOADEN0</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxcr">
-<h4>CMUXCR<a class="headerlink" href="#cmuxcr" title="Permalink to this headline"></a></h4>
-<p>The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 22%" />
-<col style="width: 9%" />
-<col style="width: 5%" />
-<col style="width: 12%" />
-<col style="width: 8%" />
-<col style="width: 44%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Values</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN_INPUT_SELECT_0</p></td>
-<td><p>0-5</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pin0</p></li>
-<li><p>pin2</p></li>
-</ul>
-</td>
-<td><p>pin0</p></td>
-<td><p>Raising-edge clock input selector for mux input 0</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKPIN_INPUT_SELECT_1</p></td>
-<td><p>0-5</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pin1</p></li>
-<li><p>pin3</p></li>
-</ul>
-</td>
-<td><p>pin1</p></td>
-<td><p>Raising-edge clock input selector for mux input 1</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE_REGISTER_MODE</p></td>
-<td><p>0-5</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>enout</p></li>
-<li><p>reg1_enout</p></li>
-<li><p>reg2_enout</p></li>
-<li><p>vcc</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>Enable line buffering mode</p></td>
-</tr>
-<tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
-<td><p>0-5</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>1</p></td>
-<td><p>Value of the enable ff outputs at reset time</p></td>
-</tr>
-<tr class="row-even"><td><p>INPUT_SELECT</p></td>
-<td><p>0-5</p></td>
-<td><p>Ram</p></td>
-<td><p>0-f</p></td>
-<td><p>f</p></td>
-<td><p>Clock mux main input selector</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN_INPUT_SELECT_0</p></td>
-<td><p>0-5</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npin0</p></li>
-<li><p>npin2</p></li>
-</ul>
-</td>
-<td><p>npin0</p></td>
-<td><p>Falling-edge clock input selector for mux input 4</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN_INPUT_SELECT_1</p></td>
-<td><p>0-5</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npin1</p></li>
-<li><p>npin3</p></li>
-</ul>
-</td>
-<td><p>npin1</p></td>
-<td><p>Falling-edge clock input selector for mux input 5</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TOP_PRE_INPUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TOP_PRE_INPUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TOP_PRE_INPUT_SELECT_2</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TOP_PRE_INPUT_SELECT_3</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>Routing grid clock inputs</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-5</p></td>
-<td></td>
-<td><p>RCLK</p></td>
-<td><p>?</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE</p></td>
-<td><p>0-5</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Clock enable</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 5%" />
-<col style="width: 24%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Raising-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>6-9</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>IQTXRXCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Falling-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-17</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLCOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLMIN</p></td>
-<td></td>
-<td><p>0-1</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLMOUT0</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxhg">
-<h4>CMUXHG<a class="headerlink" href="#cmuxhg" title="Permalink to this headline"></a></h4>
-<p>The two Global Horizontal CMUX drive four GCLK grids each.  The mux
-provides selection between positive and negative clock pins, pll
-counter outputs, HPS clocks and HSSI clocks (TODO).  There’s also four
-DCMUX inputs bringing clocks from the clock or the data network.  The
-enable management circuit allows to sync on the inverted output clock
-through one or two FFs.  The burst block is undocumented, but probably
-keeps enable up for a specific number of clocks upon recieving an
-input enable edge.  There’s a system to switch dynamically between 4
-clock sources (TODO).  There’s also a possible selection between
-feedback signals to send to PLLs.</p>
-<p>The circuit is present in 4 instances, each driving a different GCLK
-betwork.  The connections between the CLKIN (DCMUX) inputs and the
-selection mux depends on the instance:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 48%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Inst. - CLKIN</p></th>
-<th class="head"><p>0</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>0</p></td>
-<td><p>27</p></td>
-<td><p>33</p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>1</p></td>
-<td><p>27</p></td>
-<td><p>33</p></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>2</p></td>
-<td></td>
-<td></td>
-<td><p>27</p></td>
-<td><p>33</p></td>
-</tr>
-<tr class="row-odd"><td><p>3</p></td>
-<td></td>
-<td></td>
-<td><p>27</p></td>
-<td><p>33</p></td>
-</tr>
-</tbody>
-</table>
-<div class="figure align-default" id="id4">
-<a class="reference internal image-reference" href="_images/cmuxhg.svg"><img alt="_images/cmuxhg.svg" src="_images/cmuxhg.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Global horizontal cmux..</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
-</div>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 5%" />
-<col style="width: 3%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 57%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Values</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>BURST_COUNT</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-7</p></td>
-<td><p>0</p></td>
-<td><p>Optional fixed burst count</p></td>
-</tr>
-<tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>static</p></li>
-<li><p>core_ctrl</p></li>
-</ul>
-</td>
-<td><p>static</p></td>
-<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
-</tr>
-<tr class="row-even"><td><p>BURST_EN</p></td>
-<td><p>0-3</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>Whether to use the burst system</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKPIN_INPUT_SELECT_0</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pina</p></li>
-<li><p>pinb</p></li>
-</ul>
-</td>
-<td><p>pina</p></td>
-<td><p>Raising-edge clock input selector for mux input 0</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKPIN_INPUT_SELECT_1</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pina</p></li>
-<li><p>pinb</p></li>
-</ul>
-</td>
-<td><p>pina</p></td>
-<td><p>Raising-edge clock input selector for mux input 1</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKPIN_INPUT_SELECT_2</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pina</p></li>
-<li><p>pinb</p></li>
-</ul>
-</td>
-<td><p>pina</p></td>
-<td><p>Raising-edge clock input selector for mux input 2</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKPIN_INPUT_SELECT_3</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pina</p></li>
-<li><p>pinb</p></li>
-</ul>
-</td>
-<td><p>pina</p></td>
-<td><p>Raising-edge clock input selector for mux input 3</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SELECT_A</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SELECT_B</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SELECT_C</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SELECT_D</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>enout</p></li>
-<li><p>reg1_enout</p></li>
-<li><p>reg2_enout</p></li>
-<li><p>vcc</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>Enable line buffering mode</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
-<td><p>0-3</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>1</p></td>
-<td><p>Value of the enable ff outputs at reset time</p></td>
-</tr>
-<tr class="row-odd"><td><p>INPUT_SELECT</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>00-3f</p></td>
-<td><p>23</p></td>
-<td><p>Clock mux main input selector</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN_INPUT_SELECT_0</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npina</p></li>
-<li><p>npinb</p></li>
-</ul>
-</td>
-<td><p>npina</p></td>
-<td><p>Falling-edge clock input selector for mux input 4</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN_INPUT_SELECT_1</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npina</p></li>
-<li><p>npinb</p></li>
-</ul>
-</td>
-<td><p>npina</p></td>
-<td><p>Falling-edge clock input selector for mux input 5</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN_INPUT_SELECT_2</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npina</p></li>
-<li><p>npinb</p></li>
-</ul>
-</td>
-<td><p>npina</p></td>
-<td><p>Falling-edge clock input selector for mux input 6</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN_INPUT_SELECT_3</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npina</p></li>
-<li><p>npinb</p></li>
-</ul>
-</td>
-<td><p>npina</p></td>
-<td><p>Falling-edge clock input selector for mux input 7</p></td>
-</tr>
-<tr class="row-even"><td><p>ORPHAN_PLL_INPUT_SELECT_0</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>orphan_pll0</p></li>
-<li><p>orphan_pll3</p></li>
-</ul>
-</td>
-<td><p>orphan_pll0</p></td>
-<td><p>Select between two pll outputs before the main mux input 24</p></td>
-</tr>
-<tr class="row-odd"><td><p>ORPHAN_PLL_INPUT_SELECT_1</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>orphan_pll1</p></li>
-<li><p>orphan_pll4</p></li>
-</ul>
-</td>
-<td><p>orphan_pll1</p></td>
-<td><p>Select between two pll outputs before the main mux input 25</p></td>
-</tr>
-<tr class="row-even"><td><p>ORPHAN_PLL_INPUT_SELECT_2</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>orphan_pll2</p></li>
-<li><p>orphan_pll5</p></li>
-</ul>
-</td>
-<td><p>orphan_pll2</p></td>
-<td><p>Select between two pll outputs before the main mux input 26 (unused in practice, inputs not connected)</p></td>
-</tr>
-<tr class="row-odd"><td><p>TESTSYN_ENOUT_SELECT</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>core_en</p></li>
-<li><p>pre_synenb</p></li>
-</ul>
-</td>
-<td><p>core_en</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>DYNAMIC_CLK_SELECT</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>FEEDBACK_DRIVER_SELECT_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>in0_vcc</p></li>
-<li><p>in1</p></li>
-<li><p>in2_vcc</p></li>
-<li><p>in3_vcc</p></li>
-<li><p>in4_vcc</p></li>
-<li><p>in5</p></li>
-<li><p>in6</p></li>
-<li><p>in7</p></li>
-</ul>
-</td>
-<td><p>in0_vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>FEEDBACK_DRIVER_SELECT_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>in0_vcc</p></li>
-<li><p>in1</p></li>
-<li><p>in2_vcc</p></li>
-<li><p>in3_vcc</p></li>
-<li><p>in4_vcc</p></li>
-<li><p>in5</p></li>
-<li><p>in6</p></li>
-<li><p>in7</p></li>
-</ul>
-</td>
-<td><p>in0_vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ORPHAN_PLL_FEEDBACK_OUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>0-1</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>ORPHAN_PLL_FEEDBACK_OUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>0-1</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_OUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>0-1</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_OUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>0-1</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 18%" />
-<col style="width: 11%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>BURSTCNT</p></td>
-<td></td>
-<td><p>0-2</p></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Burst block counter value</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKFBOUT</p></td>
-<td></td>
-<td><p>0-1</p></td>
-<td><p>GCLKFB</p></td>
-<td><p>?</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>Routing grid clock inputs</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GCLK</p></td>
-<td><p>?</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Clock enable</p></td>
-</tr>
-<tr class="row-odd"><td><p>SWITCHCLK</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>Dynamically selected clock output</p></td>
-</tr>
-<tr class="row-even"><td><p>SWITCHIN</p></td>
-<td><p>0-3</p></td>
-<td><p>0-1</p></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Dynamic clock selection input</p></td>
-</tr>
-<tr class="row-odd"><td><p>SYN_EN</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 13%" />
-<col style="width: 5%" />
-<col style="width: 24%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKFBOUT</p></td>
-<td></td>
-<td><p>2-3</p></td>
-<td><p>&gt;</p></td>
-<td><p>FPLL:FBCLK_IN_L0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKPIN</p></td>
-<td></td>
-<td><p>0-7</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Raising-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>6-9</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>IQTXRXCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN</p></td>
-<td></td>
-<td><p>0-7</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Falling-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-17, 19-20</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLCOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLMIN</p></td>
-<td></td>
-<td><p>0-1</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLMOUT0</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxvg">
-<h4>CMUXVG<a class="headerlink" href="#cmuxvg" title="Permalink to this headline"></a></h4>
-<p>The two Global Vertical CMUX drive four GCLK grids each.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 7%" />
-<col style="width: 4%" />
-<col style="width: 9%" />
-<col style="width: 8%" />
-<col style="width: 54%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Values</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>BURST_COUNT</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-7</p></td>
-<td><p>0</p></td>
-<td><p>Optional fixed burst count</p></td>
-</tr>
-<tr class="row-odd"><td><p>BURST_COUNT_CTRL</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>static</p></li>
-<li><p>core_ctrl</p></li>
-</ul>
-</td>
-<td><p>static</p></td>
-<td><p>Selection of the burst count between fixed and coming from the routing network</p></td>
-</tr>
-<tr class="row-even"><td><p>BURST_EN</p></td>
-<td><p>0-3</p></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>Whether to use the burst system</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SELECT_A</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SELECT_B</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLK_SELECT_C</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLK_SELECT_D</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>0</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>enout</p></li>
-<li><p>reg1_enout</p></li>
-<li><p>reg2_enout</p></li>
-<li><p>vcc</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>Enable line buffering mode</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
-<td><p>0-3</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>1</p></td>
-<td><p>Value of the enable ff outputs at reset time</p></td>
-</tr>
-<tr class="row-odd"><td><p>INPUT_SELECT</p></td>
-<td><p>0-3</p></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1b</p></td>
-<td><p>Clock mux main input selector</p></td>
-</tr>
-<tr class="row-even"><td><p>TESTSYN_ENOUT_SELECT</p></td>
-<td><p>0-3</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>core_en</p></li>
-<li><p>pre_synenb</p></li>
-</ul>
-</td>
-<td><p>pre_synenb</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>DYNAMIC_CLK_SELECT</p></td>
-<td></td>
-<td><p>Bool</p></td>
-<td><p>t/f</p></td>
-<td><p>f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_2</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_3</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 34%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>BURSTCNT</p></td>
-<td></td>
-<td><p>0-2</p></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKFBOUT</p></td>
-<td></td>
-<td><p>0-2</p></td>
-<td><p>GCLKFB</p></td>
-<td><p>?</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>Routing grid clock inputs</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GCLK</p></td>
-<td><p>?</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Clock enable</p></td>
-</tr>
-<tr class="row-odd"><td><p>SWITCHCLK</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>SWITCHIN</p></td>
-<td><p>0-3</p></td>
-<td><p>0-1</p></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Dynamic clock selection input</p></td>
-</tr>
-<tr class="row-odd"><td><p>SYN_EN</p></td>
-<td><p>0-3</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 5%" />
-<col style="width: 23%" />
-<col style="width: 39%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Raising-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Falling-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-11</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLCOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>4-7</p></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLMIN</p></td>
-<td></td>
-<td><p>0, 2-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLMOUT0</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxhr">
-<h4>CMUXHR<a class="headerlink" href="#cmuxhr" title="Permalink to this headline"></a></h4>
-<p>The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 22%" />
-<col style="width: 8%" />
-<col style="width: 5%" />
-<col style="width: 18%" />
-<col style="width: 8%" />
-<col style="width: 39%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Values</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN_INPUT_SELECT</p></td>
-<td><p>0-11</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>pina</p></li>
-<li><p>pinb</p></li>
-</ul>
-</td>
-<td><p>pina</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>ENABLE_REGISTER_MODE</p></td>
-<td><p>0-11</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>enout</p></li>
-<li><p>reg1_enout</p></li>
-<li><p>reg2_enout</p></li>
-<li><p>vcc</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>Enable line buffering mode</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
-<td><p>0-11</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>1</p></td>
-<td><p>Value of the enable ff outputs at reset time</p></td>
-</tr>
-<tr class="row-odd"><td><p>INPUT_SELECT</p></td>
-<td><p>0-11</p></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>13</p></td>
-<td><p>Clock mux main input selector</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN_INPUT_SELECT</p></td>
-<td><p>0-11</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>npina</p></li>
-<li><p>npinb</p></li>
-</ul>
-</td>
-<td><p>npina</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BOT_PRE_INPUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BOT_PRE_INPUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>BOT_PRE_INPUT_SELECT_2</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>BOT_PRE_INPUT_SELECT_3</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>FEEDBACK_DRIVER_SELECT_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>orphan_pll_mcnto0</p></li>
-<li><p>orphan_pll_mcnto1</p></li>
-<li><p>orphan_pll_mcnto2</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>FEEDBACK_DRIVER_SELECT_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>orphan_pll_mcnto0</p></li>
-<li><p>orphan_pll_mcnto1</p></li>
-<li><p>orphan_pll_mcnto2</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLL_FEEDBACK_ENABLE_1</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PRE_INPUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PRE_INPUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PRE_INPUT_SELECT_2</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PRE_INPUT_SELECT_3</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TOP_PRE_INPUT_SELECT_0</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TOP_PRE_INPUT_SELECT_1</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TOP_PRE_INPUT_SELECT_2</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>TOP_PRE_INPUT_SELECT_3</p></td>
-<td></td>
-<td><p>Ram</p></td>
-<td><p>00-1f</p></td>
-<td><p>1f</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKFBIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKFBOUT</p></td>
-<td></td>
-<td><p>0-1</p></td>
-<td><p>RCLKFB</p></td>
-<td><p>?</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>Routing grid clock inputs</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-11</p></td>
-<td></td>
-<td><p>RCLK</p></td>
-<td><p>?</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE</p></td>
-<td><p>0-11</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Clock enable</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 12%" />
-<col style="width: 5%" />
-<col style="width: 24%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN</p></td>
-<td></td>
-<td><p>0-7</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Raising-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_REF_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>IQCLK</p></td>
-<td></td>
-<td><p>6-9</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_RX_IQCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>IQTXRXCLK</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_IQTXRXCLK_PLD</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>NCLKPIN</p></td>
-<td></td>
-<td><p>0-7</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Falling-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-25</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLCOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-6, 20-21</p></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxvr">
-<h4>CMUXVR<a class="headerlink" href="#cmuxvr" title="Permalink to this headline"></a></h4>
-<p>The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 9%" />
-<col style="width: 5%" />
-<col style="width: 13%" />
-<col style="width: 8%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Values</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>ENABLE_REGISTER_MODE</p></td>
-<td><p>0-19</p></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>enout</p></li>
-<li><p>reg1_enout</p></li>
-<li><p>reg2_enout</p></li>
-<li><p>vcc</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>Enable line buffering mode</p></td>
-</tr>
-<tr class="row-odd"><td><p>ENABLE_REGISTER_POWER_UP</p></td>
-<td><p>0-19</p></td>
-<td><p>Num</p></td>
-<td><ul class="simple">
-<li><p>0-1</p></li>
-</ul>
-</td>
-<td><p>1</p></td>
-<td><p>Value of the enable ff outputs at reset time</p></td>
-</tr>
-<tr class="row-even"><td><p>INPUT_SELECT</p></td>
-<td><p>0-19</p></td>
-<td><p>Ram</p></td>
-<td><p>0-f</p></td>
-<td><p>b</p></td>
-<td><p>Clock mux main input selector</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLL_FEEDBACK_ENABLE_0</p></td>
-<td></td>
-<td><p>Mux</p></td>
-<td><ul class="simple">
-<li><p>vcc</p></li>
-<li><p>pll_mcnt0</p></li>
-</ul>
-</td>
-<td><p>vcc</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>DCMUX</p></td>
-<td><p>p</p></td>
-<td><p>Routing grid clock inputs</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-19</p></td>
-<td></td>
-<td><p>RCLK</p></td>
-<td><p>?</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-<tr class="row-even"><td><p>ENABLE</p></td>
-<td><p>0-19</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>Clock enable</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 5%" />
-<col style="width: 23%" />
-<col style="width: 39%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Raising-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCLKPIN</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&lt;</p></td>
-<td><p>GPIO:COMBOUT</p></td>
-<td><p>Falling-edge clock pin to clock mux</p></td>
-</tr>
-<tr class="row-even"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>0-24</p></td>
-<td><p>&lt;</p></td>
-<td><p>FPLL:PLLCOUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>PLLIN</p></td>
-<td></td>
-<td><p>9-17</p></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
-<td><p>TODO</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="cmuxp">
-<h4>CMUXP<a class="headerlink" href="#cmuxp" title="Permalink to this headline"></a></h4>
-<p>The CMUXP drive two PCLK each.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 11%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
-<col style="width: 11%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Route node type</p></th>
-<th class="head"><p>Inverter</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>DCMUX</p></td>
-<td><p>i</p></td>
-<td><p>Routing grid clock input</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKOUT</p></td>
-<td><p>0-1</p></td>
-<td><p>0-1</p></td>
-<td><p>PCLK</p></td>
-<td><p>i</p></td>
-<td><p>Clock mux clock grid driver</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 12%" />
-<col style="width: 13%" />
-<col style="width: 6%" />
-<col style="width: 40%" />
-<col style="width: 17%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Port Name</p></th>
-<th class="head"><p>Instance</p></th>
-<th class="head"><p>Port bits</p></th>
-<th class="head"><p>Dir</p></th>
-<th class="head"><p>Remote port</p></th>
-<th class="head"><p>Documentation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td><p>0</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:PMA_C_PCLK</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CLKIN</p></td>
-<td><p>0</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:SMRT_PACK_PLD_8G_RX_CLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CLKIN</p></td>
-<td><p>0</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HSSI:SMRT_PACK_PLD_8G_TX_CLK_OUT</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -11002,42 +12119,42 @@ serializing/deserializing capabilities of the FPGA.</p>
 <td><p>0-3</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXCR:IQTXRXCLK</p></td>
+<td><p>CMUXCR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PMA_IQTXRXCLK_PLD</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHG:IQTXRXCLK</p></td>
+<td><p>CMUXHG:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PMA_IQTXRXCLK_PLD</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHR:IQTXRXCLK</p></td>
+<td><p>CMUXHR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PMA_REF_IQCLK_OUT</p></td>
 <td><p>0-3</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXCR:IQCLK</p></td>
+<td><p>CMUXCR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PMA_REF_IQCLK_OUT</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHG:IQCLK</p></td>
+<td><p>CMUXHG:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PMA_REF_IQCLK_OUT</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHR:IQCLK</p></td>
+<td><p>CMUXHR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PMA_REF_IQCLK_OUT</p></td>
@@ -11058,21 +12175,21 @@ serializing/deserializing capabilities of the FPGA.</p>
 <td><p>0-3</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXCR:IQCLK</p></td>
+<td><p>CMUXCR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PMA_RX_IQCLK_OUT</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHG:IQCLK</p></td>
+<td><p>CMUXHG:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>PMA_RX_IQCLK_OUT</p></td>
 <td><p>0-2</p></td>
 <td><p>0-3</p></td>
 <td><p>&gt;</p></td>
-<td><p>CMUXHR:IQCLK</p></td>
+<td><p>CMUXHR:ICLK</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>PMA_RX_IQCLK_OUT_MUXED</p></td>
@@ -20243,12 +21360,12 @@ through 37 specialized blocks of 28 different types.</p>
 <h5>HPS_DMA<a class="headerlink" href="#hps-dma" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 13%" />
+<col style="width: 15%" />
 <col style="width: 14%" />
-<col style="width: 22%" />
-<col style="width: 13%" />
-<col style="width: 19%" />
+<col style="width: 15%" />
+<col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -20260,25 +21377,25 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CHANNEL_REQ</p></td>
-<td><p>0-7</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>CHANNEL_SINGLE</p></td>
-<td><p>0-7</p></td>
-<td></td>
-<td><p>GOUT</p></td>
-<td><p>p</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>CHANNEL_XX_ACK</p></td>
+<tr class="row-even"><td><p>ACK</p></td>
 <td><p>0-7</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>REQ</p></td>
+<td><p>0-7</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>SINGLE</p></td>
+<td><p>0-7</p></td>
+<td></td>
+<td><p>GOUT</p></td>
+<td><p>p</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -22143,21 +23260,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>MO</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>MO2_WPN</p></td>
-<td></td>
-<td></td>
-<td><p>GIN</p></td>
-<td><p>i</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>MO3_HOLD</p></td>
-<td></td>
+<td><p>0-3</p></td>
 <td></td>
 <td><p>GIN</p></td>
 <td><p>i</p></td>
@@ -24341,6 +25444,15 @@ to vcc, but in some cases all five are used and unlinking selects the
 <p>route_all_active_links gives all current active connections.
 route_frontier_links solves these connections to keep only the
 extremities, giving the inter-logic-block connections directly.</p>
+</div>
+<div class="section" id="clock-mux-blocks-management">
+<h3>Clock mux blocks management<a class="headerlink" href="#clock-mux-blocks-management" title="Permalink to this headline"></a></h3>
+<p>The link information provided earlier in the documentation for the
+clock muxes is available in those tables.  The first index or the
+table is the clock number, the second the value of the input_sel
+register.  The first element of the pair is a CMUX_* constant with the
+name derived from the table (f.i. CMUX_CLKPIN_SEL) and the second the
+instance number.</p>
 </div>
 <div class="section" id="logic-block-management">
 <h3>Logic block management<a class="headerlink" href="#logic-block-management" title="Permalink to this headline"></a></h3>

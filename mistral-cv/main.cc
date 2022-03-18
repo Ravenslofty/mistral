@@ -1211,6 +1211,22 @@ static void timing(char **args)
   }
 }
 
+template<int C, int E> static void dump_cmux_1(const char *name, const std::pair<uint8_t, uint8_t> (&table)[C][E])
+{
+  for(int c = 0; c != C; c++)
+    for(int e = 0; e != E; e++)
+      printf("%s %2d %2d %s %d\n", name, c, e, mistral::CycloneV::cmux_link_names[table[c][e].first], table[c][e].second);
+}
+
+static void dump_cmux(char **args)
+{
+  dump_cmux_1("CMUXHG", mistral::CycloneV::cmuxhg_link_table);
+  dump_cmux_1("CMUXVG", mistral::CycloneV::cmuxvg_link_table);
+  dump_cmux_1("CMUXCR", mistral::CycloneV::cmuxcr_link_table);
+  dump_cmux_1("CMUXHR", mistral::CycloneV::cmuxhr_link_table);
+  dump_cmux_1("CMUXVR", mistral::CycloneV::cmuxvr_link_table);
+}
+
 struct fct {
   const char *name;
   int pmin, pmax;
@@ -1237,6 +1253,7 @@ static const fct fcts[] = {
   { "tnet",     6, 6, show_tnet,     "tnet     model file.rbf temp [min/max] [fall/rise] rnode            -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
   { "trun",     7, 7, trun,          "trun     model file.rbf temp [min/max] [fall/rise] input.txt rnode  -- Run the spice networks for a given temperature, min/max choice, rise/fall choice, impulse and routing node" },
   { "timing",   4, 4, timing,        "timing   model file.rbf temp [min/max/ss/tt/ff]                     -- Precise timing of everything (not everything, subject to availability) in a design" },
+  { "cmux",     0, 0, dump_cmux,     "cmux                                                                -- Dump the cmux connection tables" },
   { }
 };
 

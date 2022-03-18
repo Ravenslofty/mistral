@@ -292,6 +292,31 @@ namespace mistral {
       I_HPS_COUNT
     };
 
+    enum cmux_link_t {
+      CMUX_CLKIN,
+      CMUX_CLKPIN,
+      CMUX_CLKPIN_SEL,
+      CMUX_CLKPIN_SEL_0,
+      CMUX_CLKPIN_SEL_1,
+      CMUX_CLKPIN_SEL_2,
+      CMUX_CLKPIN_SEL_3,
+      CMUX_DEFAULT,
+      CMUX_ICLK_SEL,
+      CMUX_NCLKPIN,
+      CMUX_NCLKPIN_SEL,
+      CMUX_NCLKPIN_SEL_0,
+      CMUX_NCLKPIN_SEL_1,
+      CMUX_NCLKPIN_SEL_2,
+      CMUX_NCLKPIN_SEL_3,
+      CMUX_OFF,
+      CMUX_PLLIN,
+      CMUX_PLL_SEL_0,
+      CMUX_PLL_SEL_1,
+      CMUX_SWITCH
+    };
+
+    static const char *const cmux_link_names[];
+
     static const block_type_t hps_index_to_type[I_HPS_COUNT];
 
     static const package_info_t package_infos[5+3+3];
@@ -371,6 +396,13 @@ namespace mistral {
     std::vector<std::pair<rnode_t, rnode_t>> route_all_active_links() const;
     std::vector<std::pair<rnode_t, rnode_t>> route_frontier_links() const;
     std::vector<std::vector<rnode_t>> route_frontier_links_with_path() const;
+
+    // Clock muxes
+    static const std::pair<uint8_t, uint8_t> cmuxhg_link_table[4][64];
+    static const std::pair<uint8_t, uint8_t> cmuxvg_link_table[4][64];
+    static const std::pair<uint8_t, uint8_t> cmuxcr_link_table[6][16];
+    static const std::pair<uint8_t, uint8_t> cmuxhr_link_table[12][32];
+    static const std::pair<uint8_t, uint8_t> cmuxvr_link_table[20][16];
 
     // Blocks positions 
     const std::vector<block_type_t> &pos_get_bels(pos_t pos) const { return tile_bels[pos]; }

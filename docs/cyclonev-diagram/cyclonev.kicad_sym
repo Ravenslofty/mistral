@@ -131,7 +131,7 @@
         (number "" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at -7.62 6.35 0) (length 2.54)
-        (name "D" (effects (font (size 1.27 1.27))))
+        (name "C" (effects (font (size 1.27 1.27))))
         (number "" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at -7.62 1.27 0) (length 2.54)
@@ -625,7 +625,7 @@
     )
     (symbol "TMODE_1_1"
       (pin input line (at -7.62 6.35 0) (length 2.54)
-        (name "C" (effects (font (size 1.27 1.27))))
+        (name "D" (effects (font (size 1.27 1.27))))
         (number "" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at -7.62 1.27 0) (length 2.54)

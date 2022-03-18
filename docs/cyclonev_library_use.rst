@@ -280,6 +280,25 @@ route_frontier_links solves these connections to keep only the
 extremities, giving the inter-logic-block connections directly.
 
 
+Clock mux blocks management
+---------------------------
+
+.. code-block::C++
+
+    static const std::pair<uint8_t, uint8_t> cmuxhg_link_table[4][64];
+    static const std::pair<uint8_t, uint8_t> cmuxvg_link_table[4][64];
+    static const std::pair<uint8_t, uint8_t> cmuxcr_link_table[6][16];
+    static const std::pair<uint8_t, uint8_t> cmuxhr_link_table[12][32];
+    static const std::pair<uint8_t, uint8_t> cmuxvr_link_table[20][16];
+
+The link information provided earlier in the documentation for the
+clock muxes is available in those tables.  The first index or the
+table is the clock number, the second the value of the input_sel
+register.  The first element of the pair is a CMUX_* constant with the
+name derived from the table (f.i. CMUX_CLKPIN_SEL) and the second the
+instance number.
+
+
 Logic block management
 ----------------------
 

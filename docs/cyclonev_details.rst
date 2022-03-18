@@ -183,6 +183,135 @@ The M10K blocks provide 10240 (256*40) bits of dual-ported rom or ram.
 .. include:: gendoc/m10k-dp2r.rst
 
 
+Clock muxes
+-----------
+
+Generalities
+^^^^^^^^^^^^
+
+The clock muxes blocks are peripheral blocks which drive a series of
+clock networks which span either half or the whole surface of the die.
+Half-sized networks are called regional, full-sized global.
+
+They are all comprised of a big mux called INPUT_SEL selecting between
+multiple possible sources, and an enable circuit allowing to bake an
+enable signal into the clock.  Global network-driving instances also
+include a burst controller and a dynamic clock switcher.
+
+Clock sources can be clock pins (clkpin inputs for positive or
+differential, nclkpin inputs for negative), signals from the routing
+network (clkin inputs), pll outputs either from pll blocks or the hps
+(pllin inputs) or clocks from the serial transmitters (hssi, iclk
+inputs).  For each following cmux block subtype description we provide
+a muxing matrix, either pointing directly to the inputs or to premuxes
+choosing between multiple ones (_sel variants).  The DEFAULT.0 entries
+are the default values when a clock is not used and ties the line to
+ground.  The OFF.1 entries tie the line to 1 somehow.  All the
+undocumented entries should give a constant 0, but avoid using them
+just in case.  The SWITCH entries are connected to the dynamic clock
+selection mux.
+
+.. figure:: cmux-enable.*
+   :width: 50%
+
+   Enable sub-circuit
+
+The enable sub-circuit allows to key on one or two registers to allow
+to handle enables being on a different clock domain than the
+controlled block.
+
+.. figure:: cmux-burst.*
+   :width: 50%
+
+   Burst sub-circuit
+
+The burst sub-circuit allows to keep the enable active for a fixed
+number of clocks of an enable rising edge then drop it again.  The
+number of clocks can be static or dynamic.
+
+The switch sub-circuit and the pll feedbacks still need to be documented.
+
+
+CMUXHG
+^^^^^^
+
+The two Global Horizontal CMUX drive four GCLK grids each.
+
+.. include:: gendoc/cmuxhg-links.rst
+
+.. include:: gendoc/cmuxhg-dmux.rst
+
+.. include:: gendoc/cmuxhg-dp2r.rst
+
+.. include:: gendoc/cmuxhg-dp2p.rst
+
+
+CMUXVG
+^^^^^^
+
+The two Global Vertical CMUX drive four GCLK grids each.
+
+.. include:: gendoc/cmuxvg-links.rst
+
+.. include:: gendoc/cmuxvg-dmux.rst
+
+.. include:: gendoc/cmuxvg-dp2r.rst
+
+.. include:: gendoc/cmuxvg-dp2p.rst
+
+
+CMUXCR
+^^^^^^
+
+The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.
+
+.. include:: gendoc/cmuxcr-links.rst
+
+.. include:: gendoc/cmuxcr-dmux.rst
+
+.. include:: gendoc/cmuxcr-dp2r.rst
+
+.. include:: gendoc/cmuxcr-dp2p.rst
+
+
+CMUXHR
+^^^^^^
+
+The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.
+
+.. include:: gendoc/cmuxhr-links.rst
+
+.. include:: gendoc/cmuxhr-dmux.rst
+
+.. include:: gendoc/cmuxhr-dp2r.rst
+
+.. include:: gendoc/cmuxhr-dp2p.rst
+
+
+CMUXVR
+^^^^^^
+
+The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.
+
+.. include:: gendoc/cmuxvr-links.rst
+
+.. include:: gendoc/cmuxvr-dmux.rst
+
+.. include:: gendoc/cmuxvr-dp2r.rst
+
+.. include:: gendoc/cmuxvr-dp2p.rst
+
+
+CMUXP
+^^^^^
+
+The CMUXP drive two PCLK each.  They seem to be very different than the others and are not understood yet.
+
+.. include:: gendoc/cmuxp-dp2r.rst
+
+.. include:: gendoc/cmuxp-dp2p.rst
+
+
 
 Peripheral logic blocks
 -----------------------
@@ -233,107 +362,6 @@ CBUF
 
 .. include:: gendoc/cbuf-dp2p.rst
 
-
-CMUXCR
-^^^^^^
-
-The three or four Corner CMUX drives 3 horizontal RCLK grids and 3 vertical each.
-
-.. include:: gendoc/cmuxcr-dmux.rst
-
-.. include:: gendoc/cmuxcr-dp2r.rst
-
-.. include:: gendoc/cmuxcr-dp2p.rst
-
-
-CMUXHG
-^^^^^^
-
-The two Global Horizontal CMUX drive four GCLK grids each.  The mux
-provides selection between positive and negative clock pins, pll
-counter outputs, HPS clocks and HSSI clocks (TODO).  There's also four
-DCMUX inputs bringing clocks from the clock or the data network.  The
-enable management circuit allows to sync on the inverted output clock
-through one or two FFs.  The burst block is undocumented, but probably
-keeps enable up for a specific number of clocks upon recieving an
-input enable edge.  There's a system to switch dynamically between 4
-clock sources (TODO).  There's also a possible selection between
-feedback signals to send to PLLs.
-
-The circuit is present in 4 instances, each driving a different GCLK
-betwork.  The connections between the CLKIN (DCMUX) inputs and the
-selection mux depends on the instance:
-
-
-+---------------+----+----+----+----+
-| Inst. - CLKIN | 0  | 1  | 2  | 3  |
-+===============+====+====+====+====+
-|  0            | 27 | 33 |    |    |
-+---------------+----+----+----+----+
-|  1            | 27 | 33 |    |    |
-+---------------+----+----+----+----+
-|  2            |    |    | 27 | 33 |
-+---------------+----+----+----+----+
-|  3            |    |    | 27 | 33 |
-+---------------+----+----+----+----+
-
-
-.. figure:: cmuxhg.*
-   :width: 100%
-
-   Global horizontal cmux..
-
-.. include:: gendoc/cmuxhg-dmux.rst
-
-.. include:: gendoc/cmuxhg-dp2r.rst
-
-.. include:: gendoc/cmuxhg-dp2p.rst
-
-
-CMUXVG
-^^^^^^
-
-The two Global Vertical CMUX drive four GCLK grids each.
-
-.. include:: gendoc/cmuxvg-dmux.rst
-
-.. include:: gendoc/cmuxvg-dp2r.rst
-
-.. include:: gendoc/cmuxvg-dp2p.rst
-
-
-CMUXHR
-^^^^^^
-
-The two Regional Horizontal CMUX drive 12 vertical RCLK grids each, half on each side.  Six are lost when touching the HPS.
-
-.. include:: gendoc/cmuxhr-dmux.rst
-
-.. include:: gendoc/cmuxhr-dp2r.rst
-
-.. include:: gendoc/cmuxhr-dp2p.rst
-
-
-CMUXVR
-^^^^^^
-
-The two Global Vertical CMUX drive 20 horizontal RCLK grids each half on each side.  Ten are lost when touching the HPS.
-
-.. include:: gendoc/cmuxvr-dmux.rst
-
-.. include:: gendoc/cmuxvr-dp2r.rst
-
-.. include:: gendoc/cmuxvr-dp2p.rst
-
-
-CMUXP
-^^^^^
-
-The CMUXP drive two PCLK each.
-
-.. include:: gendoc/cmuxp-dp2r.rst
-
-.. include:: gendoc/cmuxp-dp2p.rst
 
 
 CTRL

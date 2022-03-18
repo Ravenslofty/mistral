@@ -1,4 +1,4 @@
-g input_select                   r1b:5
+g input_sel                      r1b:5
   * 167 166 165 164 163
   * 144 143 142 141 140
   * 121 120 119 118 117
@@ -19,7 +19,7 @@ g enable_register_power_up       n:1  160 | 137 | 114 | 85
   0 1 !
   1 0
 G dynamic_clk_select             b-   182
-r input_select                   rb:4
+r input_sel                      rb:4
   * 203 204 205 206
   * 210 211 212 213
   * 217 218 219 220
@@ -63,7 +63,7 @@ G pll_feedback_enable_3          m:1 108
 R pll_feedback_enable_0          m:1 111
   0 vcc !
   1 pll_mcnt0
-G pll_feedback_enable_1          m:1 112
+R pll_feedback_enable_1          m:1 112
   0 vcc !
   1 pll_mcnt0
 g burst_en                       b-   177 | 154 | 131 | 102
