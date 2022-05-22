@@ -19,9 +19,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   4958, 3928,              // cram size
   55, 46,                  // tiles size
   55, 46,                  // hps (arm) processor core position
-  293,                     // IO blocks count
-  17,                      // dqs16 count
-  12,                      // count of forced-1 bits
   xy2pos(0, 4),            // control block position
 
   // default options
@@ -67,10 +64,4 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
 
   _binary_e50f_r_bin_start, _binary_e50f_r_bin_end,
   e50f_bel_spans_info,
-  e50f_ioblocks_info,
-  e50f_dqs16_info,
-  e50f_fixed_blocks_info,
-  nullptr,
-  e50f_forced_1_info,
-  nullptr,
 };

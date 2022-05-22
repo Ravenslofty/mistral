@@ -3,8 +3,8 @@
 void mistral::CycloneV::add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count)
 {
   for(int i=0; i != count; i++)
-    if(di.fixed_blocks[start+i].pos != 0xffff) {
-      pos_t p = di.fixed_blocks[start+i].pos;
+    if(fixed_infos[start+i].pos != 0xffff) {
+      pos_t p = fixed_infos[start+i].pos;
       pos.push_back(p);
       tile_bels[p].push_back(block);
       if(block == CMUXVG)
@@ -18,19 +18,19 @@ void mistral::CycloneV::add_pram_fixed(std::vector<pos_t> &pos, block_type_t blo
 uint32_t mistral::CycloneV::find_pram_fixed(pos_t p, int start, int count) const
 {
   for(int i=0; i != count; i++)
-    if(di.fixed_blocks[start+i].pos == p)
-      return di.fixed_blocks[start+i].pram;
+    if(fixed_infos[start+i].pos == p)
+      return fixed_infos[start+i].pram;
   return 0xffffffff;
 }
 
 void mistral::CycloneV::add_pram_blocks()
 {
-  for(uint32_t i = 0; i != di.ioblocks_count; i++)
-    if(di.ioblocks[i].idx == 0 && di.ioblocks[i].btype == GPIO)
-      gpio_pos.push_back(di.ioblocks[i].pos);
+  for(uint32_t i = 0; i != dhead->count_iob; i++)
+    if(iob_infos[i].idx == 0 && iob_infos[i].btype == GPIO)
+      gpio_pos.push_back(iob_infos[i].pos);
 
-  for(uint32_t i = 0; i != di.dqs16_count; i++)
-    dqs16_pos.push_back(di.dqs16s[i].pos);
+  for(uint32_t i = 0; i != dhead->count_dqs16; i++)
+    dqs16_pos.push_back(dqs16_infos[i].pos);
 
   add_pram_fixed(fpll_pos,   FPLL,   FB_FPLL,    8);
   add_pram_fixed(cmuxc_pos,  CMUXCR, FB_CMUXC,   4);
@@ -167,9 +167,9 @@ void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int 
 	def = PROG_GND;
     }
     if(mux->mux == IOCSR_STD) {
-      for(uint32_t i = 0; i != di.ioblocks_count; i++)
-	if(di.ioblocks[i].pos == pos && di.ioblocks[i].idx == idx && di.ioblocks[i].btype == GPIO) {
-	  def = (di.ioblocks[i].pram & (1 << 25)) ? NVR_LOW : NVR_HIGH;
+      for(uint32_t i = 0; i != dhead->count_iob; i++)
+	if(iob_infos[i].pos == pos && iob_infos[i].idx == idx && iob_infos[i].btype == GPIO) {
+	  def = (iob_infos[i].pram & (1 << 25)) ? NVR_LOW : NVR_HIGH;
 	  break;
 	}
     }
@@ -259,7 +259,7 @@ uint64_t mistral::CycloneV::bmux_val_read(uint32_t base, const bmux *mux, int id
   case BM_DCRAM: {
     const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
     for(uint8_t b = 0; b != mux->bits; b++) {
-      uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+      uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
       if((cram[pos >> 3] >> (pos & 7)) & 1)
 	val |= uint64_t(1) << b;
       bt ++;
@@ -311,7 +311,7 @@ void mistral::CycloneV::bmux_val_set(uint32_t base, const bmux *mux, int idx, bm
   case BM_DCRAM: {
     const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
     for(uint8_t b = 0; b != mux->bits; b++) {
-      uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+      uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
       if((b < 64) && (val >> b) & 1)
 	cram[pos >> 3] |= 1 << (pos & 7);
       else
@@ -364,7 +364,7 @@ void mistral::CycloneV::bmux_val_set(uint32_t base, const bmux *mux, int idx, bm
   case BM_DCRAM: {
     const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
     for(uint8_t b = 0; b != mux->bits; b++) {
-      uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+      uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
       if((val[b >> 3] >> (b & 7)) & 1)
 	cram[pos >> 3] |= 1 << (pos & 7);
       else
@@ -465,7 +465,7 @@ bool mistral::CycloneV::bmux_r_read(block_type_t btype, pos_t pos, uint32_t base
   case BM_DCRAM: {
     const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
     for(uint8_t b = 0; b != mux->bits; b++) {
-      uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+      uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
       if((cram[pos >> 3] >> (pos & 7)) & 1) {
 	all_0 = false;
 	r[b >> 3] |= 1 << (b & 7);
@@ -646,13 +646,13 @@ void mistral::CycloneV::bmux_set_default(block_type_t btype, pos_t pos, uint32_t
 	      const uint16_t *bt = bmux_pram_bpos + mux->bit_offset + idx * mux->bits;
 	      if(def) {
 		for(uint8_t b = 0; b != mux->bits; b++) {
-		  uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+		  uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
 		  cram[pos >> 3] |= 1 << (pos & 7);
 		  bt ++;
 		}
 	      } else {
 		for(uint8_t b = 0; b != mux->bits; b++) {
-		  uint32_t pos = di.dcram_pos[(base & 0xffff) + bt[0]].y * di.cram_sx + di.dcram_pos[(base & 0xffff) + bt[0]].x;
+		  uint32_t pos = dcram_infos[(base & 0xffff) + bt[0]];
 		  cram[pos >> 3] &= ~(1 << (pos & 7));
 		  bt ++;
 		}
@@ -683,15 +683,15 @@ std::vector<mistral::CycloneV::bmux_setting_t> mistral::CycloneV::bmux_get() con
     bmux_get_any(M10K, p, pos2bit(p), bm_m10k, BM_CRAM, res);
   for(pos_t p : dsp_pos)
     bmux_get_any(DSP, p, pos2bit(p), bm_dsp, BM_CRAM, res);
-  if(di.hps_blocks)
-    bmux_get_any(HPS_CLOCKS, di.hps_blocks[I_HPS_CLOCKS], pos2bit(di.hps_blocks[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM, res);
+  if(hps_infos)
+    bmux_get_any(HPS_CLOCKS, hps_infos[I_HPS_CLOCKS],   pos2bit(hps_infos[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM, res);
 
-  for(uint32_t i = 0; i != di.ioblocks_count; i++)
-    if(di.ioblocks[i].idx == 0 && di.ioblocks[i].btype == GPIO)
-      bmux_get_any(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, res, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
+  for(uint32_t i = 0; i != dhead->count_iob; i++)
+    if(iob_infos[i].idx == 0 && iob_infos[i].btype == GPIO)
+      bmux_get_any(GPIO, iob_infos[i].pos, iob_infos[i].pram, bm_gpio, BM_PRAM, res, (iob_infos[i].pram & (1 << 24)) ? 1 : 0);
 
-  for(uint32_t i = 0; i != di.dqs16_count; i++)
-    bmux_get_any(DQS16, di.dqs16s[i].pos, di.dqs16s[i].pram, bm_dqs16, BM_PRAM, res);
+  for(uint32_t i = 0; i != dhead->count_dqs16; i++)
+    bmux_get_any(DQS16, dqs16_infos[i].pos, dqs16_infos[i].pram, bm_dqs16, BM_PRAM, res);
 
   for(pos_t p : fpll_pos)
     bmux_get_any(FPLL,   p, fpll2pram(p),   bm_fpll, BM_PRAM, res);
@@ -739,15 +739,15 @@ void mistral::CycloneV::bmux_set_defaults()
     bmux_set_default(M10K, p, pos2bit(p), bm_m10k, BM_CRAM);
   for(pos_t p : dsp_pos)
     bmux_set_default(DSP,  p, pos2bit(p), bm_dsp,  BM_CRAM);
-  if(di.hps_blocks)
-    bmux_set_default(HPS_CLOCKS, di.hps_blocks[I_HPS_CLOCKS], pos2bit(di.hps_blocks[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM);
+  if(hps_infos)
+    bmux_set_default(HPS_CLOCKS, hps_infos[I_HPS_CLOCKS],   pos2bit(hps_infos[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM);
 
-  for(uint32_t i = 0; i != di.ioblocks_count; i++)
-    if(di.ioblocks[i].idx == 0 && di.ioblocks[i].btype == GPIO)
-      bmux_set_default(GPIO, di.ioblocks[i].pos, di.ioblocks[i].pram, bm_gpio, BM_PRAM, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
+  for(uint32_t i = 0; i != dhead->count_iob; i++)
+    if(iob_infos[i].idx == 0 && iob_infos[i].btype == GPIO)
+      bmux_set_default(GPIO, iob_infos[i].pos, iob_infos[i].pram, bm_gpio, BM_PRAM, (iob_infos[i].pram & (1 << 24)) ? 1 : 0);
 
-  for(uint32_t i = 0; i != di.dqs16_count; i++)
-    bmux_set_default(DQS16, di.dqs16s[i].pos, di.dqs16s[i].pram, bm_dqs16, BM_PRAM);
+  for(uint32_t i = 0; i != dhead->count_dqs16; i++)
+    bmux_set_default(DQS16, dqs16_infos[i].pos, dqs16_infos[i].pram, bm_dqs16, BM_PRAM);
 
   for(pos_t p : fpll_pos)
     bmux_set_default(FPLL,   p, fpll2pram(p),   bm_fpll,   BM_PRAM);
@@ -833,7 +833,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     break;
 
   case HPS_CLOCKS:
-    if(!di.hps_blocks || pos != di.hps_blocks[I_HPS_CLOCKS])
+    if(!hps_infos || pos != hps_infos[I_HPS_CLOCKS])
       break;
     base = pos2bit(pos);
     pmux = bmux_find(bm_hps_clocks, mux);
@@ -841,19 +841,19 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     break;
 
   case GPIO:
-    for(uint32_t i = 0; i != di.ioblocks_count; i++)
-      if(di.ioblocks[i].pos == pos) {
-	base = di.ioblocks[i].pram;
-	pmux = bmux_find(bm_gpio, mux, (di.ioblocks[i].pram & (1 << 24)) ? 1 : 0);
+    for(uint32_t i = 0; i != dhead->count_iob; i++)
+      if(iob_infos[i].pos == pos) {
+	base = iob_infos[i].pram;
+	pmux = bmux_find(bm_gpio, mux, (iob_infos[i].pram & (1 << 24)) ? 1 : 0);
 	mode = BM_PRAM;
 	break;
       }
     break;
 
   case DQS16:
-    for(uint32_t i = 0; i != di.dqs16_count; i++)
-      if(di.dqs16s[i].pos == pos) {
-	base = di.dqs16s[i].pram;
+    for(uint32_t i = 0; i != dhead->count_dqs16; i++)
+      if(dqs16_infos[i].pos == pos) {
+	base = dqs16_infos[i].pram;
 	pmux = bmux_find(bm_dqs16, mux);
 	mode = BM_PRAM;
 	break;

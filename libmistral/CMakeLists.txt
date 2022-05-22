@@ -47,16 +47,6 @@ foreach(die e50f gx25f gt75f gt150f gt300f sx50f sx120f)
     list(APPEND mistral_SOURCES cvd-${die}.cc)
 
 
-    # peripheral blocks information
-
-    add_custom_command(
-       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-blk.cc
-       COMMAND ${PYTHON_EXECUTABLE} ${TOOLS}/blocks_to_source.py ${DATA} ${die} > ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-blk.cc
-       DEPENDS ${TOOLS}/blocks_to_source.py ${DATA}/${die}-pram.txt ${DATA}/pma3-cram.txt ${DATA}/${die}-1.txt ${DATA}/${die}-iob.txt ${DATA}/${die}-hmc.txt ${DATA}/${die}-fpll.txt ${DATA}/${die}-ctrl.txt ${DATA}/${die}-dll.txt ${DATA}/${die}-cmux.txt ${DATA}/${die}-hps.txt
-    )
-    list(APPEND mistral_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/cvd-${die}-blk.cc)
-
-
     # packages information
 
     add_custom_command(

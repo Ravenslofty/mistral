@@ -21,9 +21,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   3856, 3412,              // cram size
   49, 40,                  // tiles size
   49, 40,                  // hps (arm) processor core position
-  259,                     // IO blocks count
-  14,                      // dqs16 count
-  20,                      // count of forced-1 bits
   xy2pos(0, 2),            // control block position
 
   // default options
@@ -67,10 +64,4 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
 
   _binary_gx25f_r_bin_start, _binary_gx25f_r_bin_end,
   gx25f_bel_spans_info,
-  gx25f_ioblocks_info,
-  gx25f_dqs16_info,
-  gx25f_fixed_blocks_info,
-  gx25f_dcram_pos,
-  gx25f_forced_1_info,
-  nullptr,
 };

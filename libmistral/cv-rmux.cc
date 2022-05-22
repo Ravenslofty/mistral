@@ -55,6 +55,12 @@ void mistral::CycloneV::rmux_load()
   p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r_info);
   p2p_infos = reinterpret_cast<const p2p_info *>(data + dhead->off_p2p_info);
   inverter_infos = reinterpret_cast<const inverter_info *>(data + dhead->off_inv_info);
+  one_infos = reinterpret_cast<const uint32_t *>(data + dhead->off_1_info);
+  dcram_infos = reinterpret_cast<const uint32_t *>(data + dhead->off_dcram_info);
+  hps_infos = dhead->off_hps_info ? reinterpret_cast<const pos_t *>(data + dhead->off_hps_info) : nullptr;
+  fixed_infos = reinterpret_cast<const fixed_block_info *>(data + dhead->off_fixed_info);
+  dqs16_infos = reinterpret_cast<const dqs16_info *>(data + dhead->off_dqs16_info);
+  iob_infos = reinterpret_cast<const ioblock_info *>(data + dhead->off_iob_info);
 
   std::tie(data, size) = get_bin(_binary_global_bin_start, _binary_global_bin_end);
   gdhead = reinterpret_cast<const global_data_header *>(data);

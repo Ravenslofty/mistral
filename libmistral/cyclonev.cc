@@ -300,8 +300,8 @@ void mistral::CycloneV::clear()
 
 void mistral::CycloneV::forced_1_set()
 {
-  for(uint32_t i=0; i != di.forced_1_count; i++) {
-    uint32_t pos = di.forced_1_pos[i].y * di.cram_sx + di.forced_1_pos[i].x;
+  for(uint32_t i=0; i != dhead->count_1; i++) {
+    uint32_t pos = one_infos[i];
     cram[pos >> 3] |= 1 << (pos & 7);
   }
 }
@@ -357,10 +357,10 @@ void mistral::CycloneV::add_cram_blocks()
     }
   }
 
-  if(di.hps_blocks) {
+  if(hps_infos) {
     for(int i=0; i != I_HPS_COUNT; i++) {
-      tile_bels[di.hps_blocks[i]].push_back(hps_index_to_type[i]);
-      hps_pos.push_back(di.hps_blocks[i]);
+      tile_bels[hps_infos[i]].push_back(hps_index_to_type[i]);
+      hps_pos.push_back(hps_infos[i]);
     }
   }
 }
@@ -433,13 +433,15 @@ std::tuple<const uint8_t *, size_t> mistral::CycloneV::get_bin(const uint8_t *st
     strm.next_out = decompressed_data_storage.back().get();
     strm.avail_out = size;
   
-    if((ret = lzma_code(&strm, LZMA_RUN)) != LZMA_STREAM_END) {
+    if((ret = lzma_code(&strm, LZMA_FINISH)) != LZMA_STREAM_END) {
       fprintf(stderr, "rmux data decompression failure: %d\n", ret);
       exit(1);
     }
 
     data = decompressed_data_storage.back().get();
     dsize = size;
+
+    lzma_end(&strm);
   }
 
   return std::make_tuple(data, dsize);

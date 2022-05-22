@@ -5,6 +5,7 @@
 #include <functional>
 #include <string>
 #include <memory>
+#include <array>
 
 namespace mistral {
   class AnalogSim {

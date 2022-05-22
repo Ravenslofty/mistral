@@ -11,6 +11,11 @@ set(generator_SOURCES
     p2r.cc
     p2p.cc
     inv.cc
+    one.cc
+    dcram.cc
+    hps.cc
+    pram.cc
+    iob.cc
     generator.cc
     ../libmistral/bdz-ph.cc
 )

@@ -21,9 +21,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
   6006, 5304,              // cram size
   69, 62,                  // tiles size
   69, 62,                  // hps (arm) processor core position
-  401,                     // IO blocks count
-  22,                      // dqs16 count
-  20,                      // count of forced-1 bits
   xy2pos(0, 3),            // control block position
 
   // default options
@@ -72,10 +69,4 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt75f = {
 
   _binary_gt75f_r_bin_start, _binary_gt75f_r_bin_end,
   gt75f_bel_spans_info,
-  gt75f_ioblocks_info,
-  gt75f_dqs16_info,
-  gt75f_fixed_blocks_info,
-  gt75f_dcram_pos,
-  gt75f_forced_1_info,
-  nullptr,
 };

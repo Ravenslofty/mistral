@@ -37,9 +37,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
   7605, 7024,              // cram size
   90, 82,                  // tiles size
   51, 38,                  // hps (arm) processor core position
-  548,                     // IO blocks count
-  25,                      // dqs16 count
-  72,                      // count of forced-1 bits
   xy2pos(0, 2),            // control block position
 
   // default options
@@ -91,10 +88,4 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx120f = {
 
   _binary_sx120f_r_bin_start, _binary_sx120f_r_bin_end,
   sx120f_bel_spans_info,
-  sx120f_ioblocks_info,
-  sx120f_dqs16_info,
-  sx120f_fixed_blocks_info,
-  sx120f_dcram_pos,
-  sx120f_forced_1_info,
-  sx120f_hps_info,
 };

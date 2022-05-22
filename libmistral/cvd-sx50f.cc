@@ -25,9 +25,6 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   6006, 5304,              // cram size
   69, 62,                  // tiles size
   31, 17,                  // hps (arm) processor core position
-  438,                     // IO blocks count
-  19,                      // dqs16 count
-  0,                       // count of forced-1 bits
   xy2pos(0, 3),            // control block position
 
   // default options
@@ -76,10 +73,4 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
 
   _binary_sx50f_r_bin_start, _binary_sx50f_r_bin_end,
   sx50f_bel_spans_info,
-  sx50f_ioblocks_info,
-  sx50f_dqs16_info,
-  sx50f_fixed_blocks_info,
-  sx50f_dcram_pos,
-  nullptr,
-  sx50f_hps_info,
 };

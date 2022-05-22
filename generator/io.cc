@@ -57,7 +57,7 @@ std::vector<uint8_t> file_load(std::string fname)
   fread(data.data(), size, 1, fd);
   fclose(fd);
 
-  if(!memcmp(data.data(), "\xfd" "7zXZ", 6)) {
+  if(data.size() > 6 && !memcmp(data.data(), "\xfd" "7zXZ", 6)) {
     const uint8_t *fptr = data.data() + data.size() - 12;
     lzma_stream_flags stream_flags;
     lzma_ret ret;

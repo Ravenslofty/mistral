@@ -26,6 +26,7 @@ extern const char *const rnode_type_names[];
 extern const char *const block_type_names[];
 extern const char *const port_type_names[];
 
+using pos_t = uint16_t;
 using rnode_t = uint32_t;
 using pnode_t = uint64_t;
 
@@ -45,11 +46,15 @@ static constexpr uint32_t rn2z(rnode_t rn) { return rn & 0x3ff; }
 
 static constexpr block_type_t pn2bt(pnode_t pn) { return block_type_t((pn >> 52) & 0xff); }
 static constexpr port_type_t  pn2pt(pnode_t pn) { return port_type_t((pn >> 40) & 0xfff); }
+static constexpr pos_t        pn2p (pnode_t pn) { return (pn >> 16) & 0x3fff; }
 static constexpr uint32_t     pn2x (pnode_t pn) { return (pn >> 23) & 0x7f; }
 static constexpr uint32_t     pn2y (pnode_t pn) { return (pn >> 16) & 0x7f; }
 static constexpr int8_t       pn2bi(pnode_t pn) { return (pn >> 32) & 0xff; }
 static constexpr int16_t      pn2pi(pnode_t pn) { return  pn        & 0xffff; }
 
+static constexpr uint32_t pos2x(pos_t xy) { return (xy >> 7) & 0x7f; }
+static constexpr uint32_t pos2y(pos_t xy) { return xy & 0x7f; }
+static constexpr pos_t xy2pos(uint32_t x, uint32_t y) { return (x << 7) | y; }
 
 class NodesReader {
 public:
