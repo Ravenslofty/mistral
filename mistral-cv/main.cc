@@ -514,7 +514,7 @@ static std::vector<std::string> dotsplit(std::string::const_iterator s, std::str
   return res;
 }
 
-static mistral::CycloneV::rnode_t get_rnode(mistral::CycloneV *model, std::string s, const char *file, int line)
+static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::string s, const char *file, int line)
 {
   auto pp = s.find(':');
   if(pp == std::string::npos) {
@@ -974,7 +974,7 @@ static void show_tnet(char **args)
   if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
-    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
     model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.show();
     printf("input %s (%d)\n", sim.get_node_name(input).c_str(), input);
@@ -1046,7 +1046,7 @@ static void trun(char **args)
   if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
-    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
     model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.set_input_wave(input, input_signal);
     output_waves.resize(outputs.size());
@@ -1121,7 +1121,7 @@ static void timing(char **args)
     bool inverted = false;
     mistral::AnalogSim::wave input_wave[2], output_wave[2];
     mistral::AnalogSim::time_interval output_delays[2];
-    std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
     auto est = delay == mistral::CycloneV::DELAY_MAX ? mistral::CycloneV::EST_SLOW : mistral::CycloneV::EST_FAST;
 
     for(size_t i=0; i != path.size(); i++) {
@@ -1171,7 +1171,7 @@ static void timing(char **args)
 	auto actual_edge = edge ? inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL : inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE;
 	mistral::AnalogSim sim;
 	int input = -1;
-	std::vector<std::pair<mistral::CycloneV::rnode_t, int>> outputs;
+	std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
 	model->rnode_timing_build_circuit(src, temp, delay, actual_edge, sim, input, outputs);
 
 #if 0

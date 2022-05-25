@@ -7,7 +7,7 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
   case inverter_info::DEF_1: return 1; break;
 
   case inverter_info::DEF_GP: {
-    pnode_t pnode = rnode_to_pnode(inf.node);
+    pnode_coords pnode = rnode_to_pnode(inf.node);
     if(pn2pt(pnode) != DATAOUT && pn2pt(pnode) != OEIN)
       return 0;
 
@@ -18,7 +18,7 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
   }
 
   case inverter_info::DEF_HMC: {
-    pnode_t pnode = rnode_to_pnode(inf.node);
+    pnode_coords pnode = rnode_to_pnode(inf.node);
     pnode = hmc_get_bypass(pnode);
     if(!pnode)
       return 0;
@@ -26,7 +26,7 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
     auto gpio = p2p_to(pnode);
     if(!gpio) {
       auto gpiol = p2p_from(pnode);
-      for(pnode_t gp : gpiol)
+      for(pnode_coords gp : gpiol)
 	if(pn2bt(gp) == GPIO) {
 	  gpio = gp;
 	  break;
@@ -75,7 +75,7 @@ void mistral::CycloneV::inv_default_set()
   }
 }
 
-bool mistral::CycloneV::inv_set(rnode_t node, bool value)
+bool mistral::CycloneV::inv_set(rnode_coords node, bool value)
 {
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
     const auto &inf = inverter_infos[i];
@@ -91,7 +91,7 @@ bool mistral::CycloneV::inv_set(rnode_t node, bool value)
   return false;
 }
 
-mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_t rn) const
+mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_coords rn) const
 {
   if(rn2t(rn) == WM)
     return INV_NO;
@@ -101,7 +101,7 @@ mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_t rn) co
     if(inf.node == rn)
       return INV_PROGRAMMABLE;
   }
-  const rnode_base *rb = rnode_lookup(rn);
+  const rnode_object *rb = rnode_lookup(rn);
   if(!rb)
     return INV_UNKNOWN;
 

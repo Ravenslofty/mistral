@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-const char *const rnode_type_names[] = {
+const char *const rnode_coordsype_names[] = {
 #define P(x) #x
 #include "cv-rnodetypes.ipp"
 #undef P
@@ -25,11 +25,11 @@ const char *const port_type_names[] = {
 };
 
 
-NodesReader::NodesReader() : rnames(rnode_type_names), bnames(block_type_names), pnames(port_type_names)
+NodesReader::NodesReader() : rnames(rnode_coordsype_names), bnames(block_type_names), pnames(port_type_names)
 {
 }
 
-rnode_t NodesReader::lookup_r(const uint8_t *&p) const
+rnode_coords NodesReader::lookup_r(const uint8_t *&p) const
 {
   int t = rnames.lookup(p);
   if(t == -1) {
@@ -66,7 +66,7 @@ rnode_t NodesReader::lookup_r(const uint8_t *&p) const
   return rnode(t, x, y, z);
 }
 
-pnode_t NodesReader::lookup_p(const uint8_t *&p) const
+pnode_coords NodesReader::lookup_p(const uint8_t *&p) const
 {
   int b = bnames.lookup(p);
   if(b == -1) {

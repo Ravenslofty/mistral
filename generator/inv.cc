@@ -13,7 +13,7 @@ InvLoader::InvLoader(const NodesReader &_nr, const std::vector<uint8_t> &_data, 
 
   while(p != e) {
     const uint8_t *st = p;
-    rnode_t node = nr.lookup_r(p);
+    rnode_coords node = nr.lookup_r(p);
     if(!node)
       error(st, "Incorrect inverter rnode");
     skipsp(p);
@@ -57,10 +57,10 @@ void InvLoader::error(const uint8_t *st, const char *err) const
   exit(1);
 }
 
-void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_t node, uint32_t pos)
+void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_coords node, uint32_t pos)
 {
   if(!(pos & inverter_info::DEF_MASK)) {
-    pnode_t pn = p2r.find_r(node);
+    pnode_coords pn = p2r.find_r(node);
     auto pt = pn2pt(pn);
     if(pn) {
       switch(pn2bt(pn)) {

@@ -72,8 +72,8 @@ struct global_data_header {
   uint32_t off_dnode_drivers;
 };
 
-struct rnode_base {
-  rnode_t node;
+struct rnode_object {
+  rnode_coords node;
   uint8_t pattern;
   uint8_t target_count;
   uint8_t drivers[2];
@@ -197,8 +197,8 @@ int main(int argc, char **argv)
     uint8_t *opos = output.data() + dh->off_rnode;
     while(rparse.rn || lparse.rn) {
 
-      rnode_base rb;
-      rnode_t rn = rparse.rn;
+      rnode_object rb;
+      rnode_coords rn = rparse.rn;
       if(!rn || rn > lparse.rn)
 	rn = lparse.rn;
       if(!rn || rn > dparse.rn)

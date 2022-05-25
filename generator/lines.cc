@@ -78,7 +78,7 @@ void LinesParser::next()
       char toto[64];
       memcpy(toto, p, 63);
       toto[63] = 0;
-      rnode_t trn = nr.lookup_r(p);
+      rnode_coords trn = nr.lookup_r(p);
       if(!trn) {
 	fprintf(stderr, "[%s]\n", toto);
 	error(st);

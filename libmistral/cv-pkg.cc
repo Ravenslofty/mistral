@@ -11,7 +11,7 @@ const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pos(pos_t pos, 
     return nullptr;
 }
 
-const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pnode(mistral::CycloneV::pnode_t pn) const
+const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pnode(mistral::CycloneV::pnode_coords pn) const
 {
   if(!pn)
     return nullptr;
@@ -26,7 +26,7 @@ const mistral::CycloneV::pin_info_t *mistral::CycloneV::pin_find_pnode(mistral::
     auto gpio = p2p_to(pn);
     if(!gpio) {
       auto gpiol = p2p_from(pn);
-      for(pnode_t gp : gpiol)
+      for(pnode_coords gp : gpiol)
 	if(pn2bt(gp) == GPIO) {
 	  gpio = gp;
 	  break;

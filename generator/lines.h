@@ -20,13 +20,13 @@ struct rnode_line_information {
 
 class LinesParser {
 public:
-  rnode_t rn;
+  rnode_coords rn;
   rnode_line_information li;
   uint16_t driver_position;
   uint16_t target_count;
   uint16_t target_pos[64];
   union {
-    rnode_t rn;
+    rnode_coords rn;
     float caps;
   } targets[64];
 

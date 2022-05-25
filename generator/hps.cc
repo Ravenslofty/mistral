@@ -61,7 +61,7 @@ HPSLoader::HPSLoader(const P2PLoader &p2p, const P2RLoader &p2r)
     data.clear();
 }
 
-void HPSLoader::lookup(pnode_t p)
+void HPSLoader::lookup(pnode_coords p)
 {
   int t = pn2bt(p);
   auto i = hpsmap.find(t);

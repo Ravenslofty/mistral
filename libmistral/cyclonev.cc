@@ -449,8 +449,8 @@ std::tuple<const uint8_t *, size_t> mistral::CycloneV::get_bin(const uint8_t *st
 
 void mistral::CycloneV::validate_fw_bw() const
 {
-  for(const rnode_base *rnb = reinterpret_cast<const rnode_base *>(rnode_info); rnb != reinterpret_cast<const rnode_base *>(rnode_info_end); rnb = rnode_next(rnb)) {
-    rnode_t rn = rnb->node;
+  for(const rnode_object *rnb = reinterpret_cast<const rnode_object *>(rnode_info); rnb != reinterpret_cast<const rnode_object *>(rnode_info_end); rnb = rnode_next(rnb)) {
+    rnode_coords rn = rnb->node;
 
     if(rnb->pattern == 0xff && rnb->target_count == 0) {
       printf("%s: unconnected node.\n", rn2s(rn).c_str());
@@ -467,13 +467,13 @@ void mistral::CycloneV::validate_fw_bw() const
       const uint16_t *rtp = rnode_target_positions(rnb);
       for(int i=0; i != rnb->target_count; i++)
 	if(!(rtp[i] & 0x8000)) {
-	  rnode_t rnt = rt[i].rn;
-	  const rnode_base *rntb = rnode_lookup(rnt);
+	  rnode_coords rnt = rt[i].rn;
+	  const rnode_object *rntb = rnode_lookup(rnt);
 	  if(!rntb) {
 	    printf("%s: %s - forward node missing.\n", rn2s(rn).c_str(), rn2s(rnt).c_str());
 	    continue;
 	  }
-	  const rnode_t *rs = rnode_sources(rntb);
+	  const rnode_coords *rs = rnode_sources(rntb);
 	  int span = rntb->pattern == 0xff ? 0 : rntb->pattern == 0xfe ? 1 : rmux_patterns[rntb->pattern].span;
 	  bool ok = false;
 	  for(int j=0; !ok && j != span; j++)
@@ -485,13 +485,13 @@ void mistral::CycloneV::validate_fw_bw() const
 
     {
       // bw -> fw
-      const rnode_t *rs = rnode_sources(rnb);
+      const rnode_coords *rs = rnode_sources(rnb);
       int span = rnb->pattern == 0xff ? 0 : rnb->pattern == 0xfe ? 1 : rmux_patterns[rnb->pattern].span;
       for(int i=0; i != span; i++) {
-	rnode_t rns = rs[i];
+	rnode_coords rns = rs[i];
 	if(!rns)
 	  continue;
-	const rnode_base *rnsb = rnode_lookup(rns);
+	const rnode_object *rnsb = rnode_lookup(rns);
 	if(!rnsb) {
 	  printf("%s: %s - backward node missing.\n", rn2s(rn).c_str(), rn2s(rns).c_str());
 	  continue;

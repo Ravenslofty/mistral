@@ -47,7 +47,7 @@ public:
 private:
   std::unordered_map<int, int> hpsmap;
 
-  void lookup(pnode_t p);
+  void lookup(pnode_coords p);
 };
 
 #endif

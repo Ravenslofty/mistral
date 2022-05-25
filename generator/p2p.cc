@@ -13,11 +13,11 @@ P2PLoader::P2PLoader(const NodesReader &_nr, const std::vector<uint8_t> &_data) 
 
   while(p != e) {
     const uint8_t *st = p;
-    pnode_t s = nr.lookup_p(p);
+    pnode_coords s = nr.lookup_p(p);
     if(!s)
       error(st, "Incorrect source pnode");
     skipsp(p);
-    pnode_t d = nr.lookup_p(p);
+    pnode_coords d = nr.lookup_p(p);
     if(!d)
       error(st, "Incorrect destination pnode");
     skipsp(p);

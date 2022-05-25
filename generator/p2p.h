@@ -4,8 +4,8 @@
 #include "nodes.h"
 
 struct p2p_info {
-  pnode_t s;
-  pnode_t d;
+  pnode_coords s;
+  pnode_coords d;
 };
 
 class P2PLoader {

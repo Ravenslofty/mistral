@@ -20,10 +20,10 @@ extern const rmux_pattern rmux_patterns[70+4];
 
 class RoutesParser {
 public:
-  rnode_t rn;
+  rnode_coords rn;
   uint32_t pattern;
   uint32_t fw_pos;
-  rnode_t sources[44];
+  rnode_coords sources[44];
 
   RoutesParser(const NodesReader &nr, const std::vector<uint8_t> &data, uint32_t width);
 

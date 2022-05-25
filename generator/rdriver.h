@@ -9,7 +9,7 @@
 
 class RDriverParser {
 public:
-  rnode_t rn;
+  rnode_coords rn;
   uint8_t drivers[2];
 
   RDriverParser(const NodesReader &nr, const std::vector<uint8_t> &data);
