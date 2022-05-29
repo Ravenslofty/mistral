@@ -197,18 +197,19 @@ int main(int argc, char **argv)
       rnode_vec.push_back(rn.v);
       rnode_pos.push_back(opos - output.data() - dh->off_ro);
 
-      rb.node = rn;
+      rb.ro_rc = rn;
       bool rv = rparse.rn == rn;
       bool lv = lparse.rn == rn;
       bool dv = dparse.rn == rn;
 
-      rb.pattern = rv ? rparse.pattern : 0xff;
-      rb.target_count = lv ? lparse.target_count : 0;
-      rb.drivers[0] = dv ? dparse.drivers[0] : 0xff;
-      rb.drivers[1] = dv ? dparse.drivers[1] : 0xff;
-      rb.line_info_index = lv ? get_line_info(lparse.li) : 0xffff;
-      rb.driver_position = lv ? lparse.driver_position : 0;
-      rb.fw_pos = rv ? rparse.fw_pos : 0;
+      rb.ro_pattern = rv ? rparse.pattern : 0xff;
+      rb.ro_targets_count = lv ? lparse.targets_count : 0;
+      rb.ro_targets_caps_count = lv ? lparse.targets_caps_count : 0;
+      rb.ro_drivers[0] = dv ? dparse.drivers[0] : 0xff;
+      rb.ro_drivers[1] = dv ? dparse.drivers[1] : 0xff;
+      rb.ro_line_info_index = lv ? get_line_info(lparse.li) : 0xffff;
+      rb.ro_driver_position = lv ? lparse.driver_position : 0;
+      rb.ro_fw_pos = rv ? rparse.fw_pos : 0;
 
       uint32_t span = rv ? rparse.pattern == 0xfe ? 1 : rmux_patterns[rparse.pattern].span : 0;
     
@@ -220,12 +221,15 @@ int main(int argc, char **argv)
 	opos += 4*span;
       }
 
-      if(rb.target_count) {
-	memcpy(opos, lparse.targets, rb.target_count*4);
-	opos += rb.target_count*4;
-	memcpy(opos, lparse.target_pos, rb.target_count*2);
-	opos += rb.target_count*2;
-	if(rb.target_count & 1) {
+      if(rb.ro_targets_count || rb.ro_targets_caps_count) {
+	memcpy(opos, lparse.targets.data(), rb.ro_targets_count*4);
+	opos += rb.ro_targets_count*4;
+	memcpy(opos, lparse.targets_caps.data(), rb.ro_targets_caps_count*4);
+	opos += rb.ro_targets_caps_count*4;
+	uint32_t tt = rb.ro_targets_count+rb.ro_targets_caps_count;
+	memcpy(opos, lparse.targets_pos.data(), tt*2);
+	opos += tt*2;
+	if(tt & 1) {
 	  *opos ++ = 0;
 	  *opos ++ = 0;
 	}
@@ -291,7 +295,7 @@ int main(int argc, char **argv)
       rnode_index idx = bdz_ph_hash::lookup(hdata, rnode_vec[i]);
       offsets[idx] = rnode_pos[i];
       rnode_object *ro = reinterpret_cast<rnode_object *>(output.data() + dh->off_ro + rnode_pos[i]);
-      ro->index = idx;
+      ro->ro_ri = idx;
     }
 
     memcpy(output.data() + dh->off_line, rli_data.data(), llines);

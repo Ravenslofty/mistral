@@ -162,10 +162,9 @@ bool mistral::CycloneV::rnode_active(const rnode_object *rn, rnode_coords previo
   if(rn->pattern() == 0xff)
     return false;
   if(rn->pattern() == 0xfe) {
-    const rnode_target *rnt = rn->targets_begin();
-    const uint16_t *rntp = rn->target_positions_begin();
+    const rnode_coords *rnt = rn->targets_begin();
     for(uint32_t i=0; i != rn->targets_count(); i++)
-      if(!(rntp[i] & 0x8000) && rnode_active(rc2ro(rnode_coords(rnt[i].rn)), rn->rc()))
+      if(rnode_active(rc2ro(rnt[i]), rn->rc()))
 	return true;
     return false;
   }
@@ -1025,9 +1024,10 @@ std::unique_ptr<mistral::CycloneV::t3_lookup> mistral::CycloneV::dn_t3(int drive
   return std::make_unique<t3_lookup>(std::string(driver_type_names[driver_id]) + '.' + slot, table);
 }
 
-void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
+void mistral::CycloneV::rnode_timing_generate_line(const rnode_coords *targets,
+						   const float *targets_caps,
 						   const uint16_t *target_pos,
-						   int split_edge, int target_count,
+						   int split_edge, int target_positions_count,
 						   uint16_t split_pos,
 						   bool second_span,
 						   uint16_t line_coalescing,
@@ -1053,6 +1053,13 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
   int pnode = node == -1 ? sim.gn_g(defv) : node;
   uint16_t current_pos = second_span ? split_pos : 0;
 
+  int tpost = 0, tposc = 0;
+  for(int i=0; i != tpos; i++)
+    if(target_pos[tpos] & 0x8000)
+      tposc++;
+    else
+      tpost++;
+
   //  printf("start %g\n", caps);
   for(;;) {
     double next_c;
@@ -1065,19 +1072,19 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 
     } else if(target_pos[tpos] & 0x8000) {
       next_pos = target_pos[tpos] & 0x4fff;
-      next_c = targets[tpos].caps;
+      next_c = targets_caps[tposc];
 
     } else {
       next_pos = target_pos[tpos] & 0x4fff;
-      const rnode_object *rnt = rc2ro(rnode_coords(targets[tpos].rn));
+      const rnode_object *rnt = rc2ro(targets[tpost]);
       int back_incoming_index = target_pos[tpos] & 0x4000 ? 1 : 0;
       const dnode_driver &back_driver = driver_bank[rnt->driver(back_incoming_index)];
 
       if(rnt->pattern() == 0xfe || rmux_get_source(*rnt) == rn) {
 	next_c = back_driver.con.rf[edge];
-	active_target = rnode_coords(targets[tpos].rn);
+	active_target = targets[tpost];
 	needed_output = rnt->pattern() != 0xfe || rnode_active(rnt, rn);
-	sim.set_node_name(pnode, rnode_coords(targets[tpos].rn).to_string());
+	sim.set_node_name(pnode, active_target.to_string());
       } else
 	next_c = back_driver.coff.rf[edge];
     }
@@ -1125,7 +1132,7 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
       goto done;
 
     case after_split:
-      mode = tpos == target_count ? end_of_line : in_line;
+      mode = tpos == target_positions_count ? end_of_line : in_line;
       break;
 
     case end_of_line:
@@ -1133,9 +1140,13 @@ void mistral::CycloneV::rnode_timing_generate_line(const rnode_target *targets,
 
     case in_line:
       tpos++;
+      if(target_pos[tpos] & 0x8000)
+	tposc++;
+      else
+	tpost++;      
       if(!second_span && tpos == split_edge)
 	mode = before_split;
-      if(second_span && tpos == target_count)
+      if(second_span && tpos == target_positions_count)
 	mode = end_of_line;
       break;
     }
@@ -1264,11 +1275,16 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_coords rn, ti
     rnode_coords rns = rmux_get_source(rb);
     if(rns) {
       const rnode_object *rbs = rc2ro(rns);
-      const rnode_target *stargets = rbs->targets_begin();
-      for(uint32_t i=0; i != rbs->targets_count(); i++)
-	if(stargets[i].rn == rn.v) {
-	  incoming_index = (rbs->target_positions_begin()[i] & 0x4000) ? 1 : 0;
-	  break;
+      const rnode_coords *stargets = rbs->targets_begin();
+      const uint16_t *stpos = rbs->target_positions_begin();
+      uint32_t tpos = 0;
+      for(uint32_t i=0; i != rbs->target_positions_count(); i++)
+	if(!(stpos[i] & 0x8000)) {
+	  if(stargets[tpos] == rn) {
+	    incoming_index = (stpos[i] & 0x4000) ? 1 : 0;
+	    break;
+	  }
+	  tpos++;
 	}
     }
   }
@@ -1286,14 +1302,15 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_coords rn, ti
 
   double line_r = rli ? driver.rmult * rli->r85 * rli->tcomp(timing_slot_temperature[temp])/rli->tcomp(85) : 0;
 
-  const rnode_target *targets = rb->targets_begin();
+  const rnode_coords *targets = rb->targets_begin();
+  const float *targets_caps = rb->targets_caps_begin();
   const uint16_t *target_pos = rb->target_positions_begin();
-  int target_count = rb->targets_count();
+  int target_positions_count = rb->target_positions_count();
 
   double wire_root_to_gnd = 0;
   int split_edge;
 
-  for(split_edge = 0; split_edge < target_count; split_edge++)
+  for(split_edge = 0; split_edge < target_positions_count; split_edge++)
     if((target_pos[split_edge] & 0x3fff) >= rb->driver_position())
       break;
 
@@ -1301,7 +1318,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_coords rn, ti
   edge_t wire_edge = driver.invert ? edge_t(1-edge) :  edge;
 
   if(rli)
-    rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position(), false, driver.line_coalescing,
+    rnode_timing_generate_line(targets, targets_caps, target_pos, split_edge, target_positions_count, rb->driver_position(), false, driver.line_coalescing,
 			       wire_root_to_gnd, wire,
 			       line_r, wire_edge, wire_edge == RF_RISE ? 0.0 : di.vdd, *rli, rn, driver_bank, sim, outputs);
 
@@ -1460,7 +1477,7 @@ void mistral::CycloneV::rnode_timing_build_circuit(int didx, rnode_coords rn, ti
   }
 
   if(rli)
-    rnode_timing_generate_line(targets, target_pos, split_edge, target_count, rb->driver_position(), true, driver.line_coalescing,
+    rnode_timing_generate_line(targets, targets_caps, target_pos, split_edge, target_positions_count, rb->driver_position(), true, driver.line_coalescing,
 			       wire_root_to_gnd, wire,
 			       line_r, wire_edge, wire_edge == RF_RISE ? 0.0 : di.vdd, *rli, rn, driver_bank, sim, outputs);
   else {

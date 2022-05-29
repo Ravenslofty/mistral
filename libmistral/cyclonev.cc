@@ -461,7 +461,7 @@ void mistral::CycloneV::validate_fw_bw() const
       printf("%s: index -> offset table error\n", rn.to_string().c_str());
       
 
-    if(ro->pattern() == 0xff && ro->targets_count() == 0) {
+    if(ro->sources_count() == 0 && ro->targets_count() == 0 && ro->targets_caps_count() == 0) {
       printf("%s: unconnected node.\n", rn.to_string().c_str());
       continue;
     }
@@ -472,31 +472,28 @@ void mistral::CycloneV::validate_fw_bw() const
 
     {    
       // fw -> bw
-      const rnode_target *rt = ro->targets_begin();
-      const uint16_t *rtp = ro->target_positions_begin();
-      for(uint32_t i=0; i != ro->targets_count(); i++)
-	if(!(rtp[i] & 0x8000)) {
-	  rnode_coords rnt(rt[i].rn);
-	  const rnode_object *rnto = rc2ro(rnt);
-	  if(!rnto) {
-	    printf("%s: %s - forward node missing.\n", rn.to_string().c_str(), rnt.to_string().c_str());
-	    continue;
-	  }
-	  const rnode_coords *rs = rnto->sources_begin();
-	  int span = rnto->sources_count();
-	  bool ok = false;
-	  for(int j=0; !ok && j != span; j++)
-	    ok = rs[j] == rn;
-	  if(!ok)
-	    printf("%s: %s - forward not found in backward.\n", rn.to_string().c_str(), rnt.to_string().c_str());
+      const rnode_coords *rt = ro->targets_begin();
+      for(uint32_t i=0; i != ro->targets_count(); i++) {
+	rnode_coords rnt = rt[i];
+	const rnode_object *rnto = rc2ro(rnt);
+	if(!rnto) {
+	  printf("%s: %s - forward node missing.\n", rn.to_string().c_str(), rnt.to_string().c_str());
+	  continue;
 	}
+	const rnode_coords *rs = rnto->sources_begin();
+	int span = rnto->sources_count();
+	bool ok = false;
+	for(int j=0; !ok && j != span; j++)
+	  ok = rs[j] == rn;
+	if(!ok)
+	  printf("%s: %s - forward not found in backward.\n", rn.to_string().c_str(), rnt.to_string().c_str());
+      }
     }
 
     {
       // bw -> fw
       const rnode_coords *rs = ro->sources_begin();
-      int span = ro->sources_count();
-      for(int i=0; i != span; i++) {
+      for(uint32_t i=0; i != ro->sources_count(); i++) {
 	rnode_coords rns = rs[i];
 	if(!rns)
 	  continue;
@@ -505,11 +502,10 @@ void mistral::CycloneV::validate_fw_bw() const
 	  printf("%s: %s - backward node missing.\n", rn.to_string().c_str(), rns.to_string().c_str());
 	  continue;
 	}
-	const rnode_target *rst = rnso->targets_begin();
-	const uint16_t *rstp = rnso->target_positions_begin();
+	const rnode_coords *rst = rnso->targets_begin();
 	bool ok = false;
 	for(uint32_t j=0; !ok && j != rnso->targets_count(); j++)
-	  ok = !(rstp[j] & 0x8000) && rst[j].rn == rn.v;
+	  ok = rst[j] == rn;
 	if(!ok)
 	  printf("%s: %s - backward not found in forward.\n", rn.to_string().c_str(), rns.to_string().c_str());
       }

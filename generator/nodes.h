@@ -102,19 +102,15 @@ using rnode_index = uint32_t;
 
 // - Routing node object
 struct rnode_object {
-  rnode_coords node;
-  rnode_index index;
-  uint8_t pattern;
-  uint8_t target_count;
-  uint8_t drivers[2];
-  uint16_t line_info_index;
-  uint16_t driver_position;
-  uint32_t fw_pos;
-}; // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
-
-union rnode_target {
-  uint32_t rn;
-  float caps;
+  rnode_coords ro_rc;
+  rnode_index ro_ri;
+  uint8_t ro_pattern;
+  uint8_t ro_targets_count;
+  uint8_t ro_targets_caps_count;
+  uint8_t ro_drivers[2];
+  uint16_t ro_line_info_index;
+  uint16_t ro_driver_position;
+  uint32_t ro_fw_pos;
 };
 
 // Additional std::hash specializations for wrapped integerst

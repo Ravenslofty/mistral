@@ -435,16 +435,12 @@ namespace mistral {
     using rnode_index = uint32_t;
 
     // - Routing node object
-    union rnode_target {
-      uint32_t rn;
-      float caps;
-    };
-
     class rnode_object {
       rnode_coords ro_rc;
       rnode_index ro_ri;
       uint8_t ro_pattern;
       uint8_t ro_targets_count;
+      uint8_t ro_targets_caps_count;
       uint8_t ro_drivers[2];
       uint16_t ro_line_info_index;
       uint16_t ro_driver_position;
@@ -470,20 +466,36 @@ namespace mistral {
 	return ro_targets_count;
       }
 
-      inline const rnode_target *targets_begin() const noexcept {
-	return reinterpret_cast<const rnode_target *>(sources_end());
+      inline const rnode_coords *targets_begin() const noexcept {
+	return reinterpret_cast<const rnode_coords *>(sources_end());
       }
 
-      inline const rnode_target *targets_end() const noexcept {
+      inline const rnode_coords *targets_end() const noexcept {
 	return targets_begin() + targets_count();
       }
 
+      inline uint32_t targets_caps_count() const noexcept {
+	return ro_targets_caps_count;
+      }
+
+      inline const float *targets_caps_begin() const noexcept {
+	return reinterpret_cast<const float *>(targets_end());
+      }
+
+      inline const float *targets_caps_end() const noexcept {
+	return targets_caps_begin() + targets_caps_count();
+      }
+
+      inline uint32_t target_positions_count() const noexcept {
+	return targets_count() + targets_caps_count();
+      }
+
       inline const uint16_t *target_positions_begin() const noexcept {
-	return reinterpret_cast<const uint16_t *>(targets_end());
+	return reinterpret_cast<const uint16_t *>(targets_caps_end());
       }
 
       inline const uint16_t *target_positions_end() const noexcept {
-	return target_positions_begin() + targets_count();
+	return target_positions_begin() + target_positions_count();
       }
 
       uint8_t driver(int index) const noexcept {
@@ -507,7 +519,7 @@ namespace mistral {
       }
 
       const rnode_object *next() const noexcept {
-	return reinterpret_cast<const rnode_object *>(target_positions_begin() + ((targets_count() + 1) & ~1));
+	return reinterpret_cast<const rnode_object *>(target_positions_begin() + ((target_positions_count() + 1) & ~1));
       }
     };
 
@@ -1369,7 +1381,8 @@ namespace mistral {
     static void table_pos_to_index(double v, size_t &p, double &pf, double &pf1);
     std::unique_ptr<t2_lookup> dn_t2(int driver_id, const char *slot, uint16_t index) const;
     std::unique_ptr<t3_lookup> dn_t3(int driver_id, const char *slot, uint16_t index) const;
-    void rnode_timing_generate_line(const rnode_target *targets,
+    void rnode_timing_generate_line(const rnode_coords *targets,
+				    const float *targets_caps,
 				    const uint16_t *target_pos,
 				    int split_edge, int target_count,
 				    uint16_t split_pos,

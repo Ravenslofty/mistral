@@ -28,9 +28,12 @@ void LinesParser::next()
 {
   memset(&li, 0, sizeof(li));
   driver_position = 0;
-  target_count = 0;
-  memset(target_pos, 0, sizeof(target_pos));
-  memset(targets, 0, sizeof(targets));
+  targets_count = 0;
+  targets_caps_count = 0;
+
+  std::fill(targets_pos.begin(), targets_pos.end(), 0);
+  std::fill(targets.begin(), targets.end(), rnode_coords());
+  std::fill(targets_caps.begin(), targets_caps.end(), 0.0);
 
   if(p == e) {
     rn = rnode_coords();
@@ -72,26 +75,20 @@ void LinesParser::next()
       error(st, "Incorrect target position");
     if(p[0] >= '0' && p[0] <= '9') {
       float tcap = lookup_float(p);
-      targets[target_count].caps = tcap;
-      target_pos[target_count] = pos | 0x8000;
+      targets_caps[targets_caps_count] = tcap;
+      targets_pos[targets_count+targets_caps_count] = pos | 0x8000;
+      targets_caps_count ++;
     } else {
-      char toto[64];
-      memcpy(toto, p, 63);
-      toto[63] = 0;
       rnode_coords trn = nr.lookup_r(p);
-      if(!trn) {
-	fprintf(stderr, "[%s]\n", toto);
-	error(st);
-      }
       if(*p++ != ':')
 	error(st, "Incorrect subslot information");
       uint16_t subslot_mask = *p++ == '1' ? 0x4000 : 0;
-      targets[target_count].rn = trn;
-      target_pos[target_count] = pos | subslot_mask;
+      targets[targets_count] = trn;
+      targets_pos[targets_count+targets_caps_count] = pos | subslot_mask;
+      targets_count ++;
     }
     if(*p == ' ')
       p++;
-    target_count ++;
   }
 
   if(*p == '\r')
