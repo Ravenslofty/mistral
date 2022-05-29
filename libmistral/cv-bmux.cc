@@ -1,21 +1,21 @@
 #include "cyclonev.h"
 
-void mistral::CycloneV::add_pram_fixed(std::vector<pos_t> &pos, block_type_t block, int start, int count)
+void mistral::CycloneV::add_pram_fixed(std::vector<xycoords> &pos, block_type_t block, int start, int count)
 {
   for(int i=0; i != count; i++)
-    if(fixed_infos[start+i].pos != 0xffff) {
-      pos_t p = fixed_infos[start+i].pos;
+    if(fixed_infos[start+i].pos.v != 0xffff) {
+      xycoords p = fixed_infos[start+i].pos;
       pos.push_back(p);
-      tile_bels[p].push_back(block);
+      tile_bels[p.v].push_back(block);
       if(block == CMUXVG)
-	tile_bels[p].push_back(CMUXVR);
+	tile_bels[p.v].push_back(CMUXVR);
       if(block == CMUXHG)
-	tile_bels[p].push_back(CMUXHR);
+	tile_bels[p.v].push_back(CMUXHR);
     }
 }
 
 
-uint32_t mistral::CycloneV::find_pram_fixed(pos_t p, int start, int count) const
+uint32_t mistral::CycloneV::find_pram_fixed(xycoords p, int start, int count) const
 {
   for(int i=0; i != count; i++)
     if(fixed_infos[start+i].pos == p)
@@ -47,67 +47,67 @@ void mistral::CycloneV::add_pram_blocks()
   add_pram_fixed(hmc_pos,    HMC,    FB_HMC,     2);
 }
 
-uint32_t mistral::CycloneV::fpll2pram(pos_t p) const
+uint32_t mistral::CycloneV::fpll2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_FPLL,    8);
 }
 
-uint32_t mistral::CycloneV::cmuxc2pram(pos_t p) const
+uint32_t mistral::CycloneV::cmuxc2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_CMUXC,   4);
 }
 
-uint32_t mistral::CycloneV::cmuxv2pram(pos_t p) const
+uint32_t mistral::CycloneV::cmuxv2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_CMUXV,   2);
 }
 
-uint32_t mistral::CycloneV::cmuxh2pram(pos_t p) const
+uint32_t mistral::CycloneV::cmuxh2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_CMUXH,   2);
 }
 
-uint32_t mistral::CycloneV::dll2pram(pos_t p) const
+uint32_t mistral::CycloneV::dll2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_DLL,     4);
 }
 
-uint32_t mistral::CycloneV::hssi2pram(pos_t p) const
+uint32_t mistral::CycloneV::hssi2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_HSSI,    4);
 }
 
-uint32_t mistral::CycloneV::cbuf2pram(pos_t p) const
+uint32_t mistral::CycloneV::cbuf2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_CBUF,    8);
 }
 
-uint32_t mistral::CycloneV::lvl2pram(pos_t p) const
+uint32_t mistral::CycloneV::lvl2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_LVL,    17);
 }
 
-uint32_t mistral::CycloneV::pma32pram(pos_t p) const
+uint32_t mistral::CycloneV::pma32pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_PMA3,    4);
 }
 
-uint32_t mistral::CycloneV::serpar2pram(pos_t p) const
+uint32_t mistral::CycloneV::serpar2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_SERPAR, 10);
 }
 
-uint32_t mistral::CycloneV::term2pram(pos_t p) const
+uint32_t mistral::CycloneV::term2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_TERM,    4);
 }
 
-uint32_t mistral::CycloneV::hip2pram(pos_t p) const
+uint32_t mistral::CycloneV::hip2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_HIP,     2);
 }
 
-uint32_t mistral::CycloneV::hmc2pram(pos_t p) const
+uint32_t mistral::CycloneV::hmc2pram(xycoords p) const
 {
   return find_pram_fixed(p, FB_HMC,     2);
 }
@@ -120,7 +120,7 @@ void mistral::CycloneV::bmux_dqs16_adjust(uint32_t &pos, uint32_t offset, bool u
     pos -= offset >= 768 ? 3*191 + 256*5 + 836 : offset >= 512 ? 2*191 + 256*4 : offset >= 256 ? 191 + 256*2 : 0;
 }
 
-void mistral::CycloneV::bmux_b_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+void mistral::CycloneV::bmux_b_solve_default(block_type_t btype, xycoords pos, int idx, const bmux *mux, uint32_t base, int &def) const
 {
   switch(btype) {
   case GPIO:
@@ -156,7 +156,7 @@ void mistral::CycloneV::bmux_b_solve_default(block_type_t btype, pos_t pos, int 
   }
 }
 
-void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, xycoords pos, int idx, const bmux *mux, uint32_t base, int &def) const
 {
   switch(btype) {
   case GPIO:
@@ -188,7 +188,7 @@ void mistral::CycloneV::bmux_m_solve_default(block_type_t btype, pos_t pos, int 
   }
 }
 
-void mistral::CycloneV::bmux_r_solve_default(block_type_t btype, pos_t pos, int idx, const bmux *mux, uint32_t base, int &def) const
+void mistral::CycloneV::bmux_r_solve_default(block_type_t btype, xycoords pos, int idx, const bmux *mux, uint32_t base, int &def) const
 {
   switch(btype) {
   case HSSI: {
@@ -376,7 +376,7 @@ void mistral::CycloneV::bmux_val_set(uint32_t base, const bmux *mux, int idx, bm
   }
 }
 
-std::pair<mistral::CycloneV::bmux_type_t, bool> mistral::CycloneV::bmux_m_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
+std::pair<mistral::CycloneV::bmux_type_t, bool> mistral::CycloneV::bmux_m_read(block_type_t btype, xycoords pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
 {
   uint32_t val = bmux_val_read(base, mux, idx, mode);
   const bmux_sel_entry *sel = bmux_sel_entries + mux->entries_offset;
@@ -396,7 +396,7 @@ std::pair<mistral::CycloneV::bmux_type_t, bool> mistral::CycloneV::bmux_m_read(b
   return std::make_pair(BMNONE, false);
 }
 
-std::pair<int, bool> mistral::CycloneV::bmux_n_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
+std::pair<int, bool> mistral::CycloneV::bmux_n_read(block_type_t btype, xycoords pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
 {
   uint32_t val = bmux_val_read(base, mux, idx, mode);
   const bmux_num_entry *sel = bmux_num_entries + mux->entries_offset;
@@ -406,7 +406,7 @@ std::pair<int, bool> mistral::CycloneV::bmux_n_read(block_type_t btype, pos_t po
   return std::make_pair(-1, false);
 }
 
-std::pair<bool, bool> mistral::CycloneV::bmux_b_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
+std::pair<bool, bool> mistral::CycloneV::bmux_b_read(block_type_t btype, xycoords pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode) const
 {
   bool r = bmux_val_read(base, mux, idx, mode);
   int def = mux->def;
@@ -415,7 +415,7 @@ std::pair<bool, bool> mistral::CycloneV::bmux_b_read(block_type_t btype, pos_t p
   return std::make_pair(r, r == def);
 }
 
-bool mistral::CycloneV::bmux_r_read(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode, std::vector<uint8_t> &r) const
+bool mistral::CycloneV::bmux_r_read(block_type_t btype, xycoords pos, uint32_t base, const bmux *mux, int idx, bmux_ram_t mode, std::vector<uint8_t> &r) const
 {
   r.clear();
   r.resize((mux->bits+7) >> 3, 0);
@@ -500,7 +500,7 @@ bool mistral::CycloneV::bmux_r_read(block_type_t btype, pos_t pos, uint32_t base
   return true;
 }
 
-void mistral::CycloneV::bmux_get_any(block_type_t btype, pos_t pos, uint32_t base, const bmux *muxes, bmux_ram_t mode, std::vector<bmux_setting_t> &res, int variant) const
+void mistral::CycloneV::bmux_get_any(block_type_t btype, xycoords pos, uint32_t base, const bmux *muxes, bmux_ram_t mode, std::vector<bmux_setting_t> &res, int variant) const
 {
   while(muxes->mux) {
     if(muxes->variant == -1 || muxes->variant == variant) {
@@ -547,7 +547,7 @@ void mistral::CycloneV::bmux_get_any(block_type_t btype, pos_t pos, uint32_t bas
   }
 }
 
-void mistral::CycloneV::bmux_set_default(block_type_t btype, pos_t pos, uint32_t base, const bmux *mux, bmux_ram_t mode, int variant)
+void mistral::CycloneV::bmux_set_default(block_type_t btype, xycoords pos, uint32_t base, const bmux *mux, bmux_ram_t mode, int variant)
 {
   while(mux->mux) {
     if(mux->variant == -1 || mux->variant == variant) {
@@ -675,13 +675,13 @@ void mistral::CycloneV::bmux_set_default(block_type_t btype, pos_t pos, uint32_t
 std::vector<mistral::CycloneV::bmux_setting_t> mistral::CycloneV::bmux_get() const
 {
   std::vector<bmux_setting_t> res;
-  for(pos_t p : lab_pos)
+  for(xycoords p : lab_pos)
     bmux_get_any(LAB, p, pos2bit(p), bm_lab, BM_CRAM, res);
-  for(pos_t p : mlab_pos)
+  for(xycoords p : mlab_pos)
     bmux_get_any(MLAB, p, pos2bit(p), bm_mlab, BM_CRAM, res);
-  for(pos_t p : m10k_pos)
+  for(xycoords p : m10k_pos)
     bmux_get_any(M10K, p, pos2bit(p), bm_m10k, BM_CRAM, res);
-  for(pos_t p : dsp_pos)
+  for(xycoords p : dsp_pos)
     bmux_get_any(DSP, p, pos2bit(p), bm_dsp, BM_CRAM, res);
   if(hps_infos)
     bmux_get_any(HPS_CLOCKS, hps_infos[I_HPS_CLOCKS],   pos2bit(hps_infos[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM, res);
@@ -693,51 +693,51 @@ std::vector<mistral::CycloneV::bmux_setting_t> mistral::CycloneV::bmux_get() con
   for(uint32_t i = 0; i != dhead->count_dqs16; i++)
     bmux_get_any(DQS16, dqs16_infos[i].pos, dqs16_infos[i].pram, bm_dqs16, BM_PRAM, res);
 
-  for(pos_t p : fpll_pos)
+  for(xycoords p : fpll_pos)
     bmux_get_any(FPLL,   p, fpll2pram(p),   bm_fpll, BM_PRAM, res);
-  for(pos_t p : cmuxc_pos)
+  for(xycoords p : cmuxc_pos)
     bmux_get_any(CMUXCR, p, cmuxc2pram(p),  bm_cmuxcr, BM_PRAM, res);
-  for(pos_t p : cmuxv_pos)
+  for(xycoords p : cmuxv_pos)
     bmux_get_any(CMUXVR, p, cmuxv2pram(p),  bm_cmuxvr, BM_PRAM, res);
-  for(pos_t p : cmuxv_pos)
+  for(xycoords p : cmuxv_pos)
     bmux_get_any(CMUXVG, p, cmuxv2pram(p),  bm_cmuxvg, BM_PRAM, res);
-  for(pos_t p : cmuxh_pos)
+  for(xycoords p : cmuxh_pos)
     bmux_get_any(CMUXHR, p, cmuxh2pram(p),  bm_cmuxhr, BM_PRAM, res);
-  for(pos_t p : cmuxh_pos)
+  for(xycoords p : cmuxh_pos)
     bmux_get_any(CMUXHG, p, cmuxh2pram(p),  bm_cmuxhg, BM_PRAM, res);
-  for(pos_t p : dll_pos)
+  for(xycoords p : dll_pos)
     bmux_get_any(DLL,    p, dll2pram(p),    bm_dll,    BM_PRAM, res);
-  for(pos_t p : hssi_pos)
+  for(xycoords p : hssi_pos)
     bmux_get_any(HSSI,   p, hssi2pram(p),   bm_hssi,   BM_PRAM, res);
-  for(pos_t p : cbuf_pos)
+  for(xycoords p : cbuf_pos)
     bmux_get_any(CBUF,   p, cbuf2pram(p),   bm_cbuf,   BM_PRAM, res);
-  for(pos_t p : lvl_pos)
+  for(xycoords p : lvl_pos)
     bmux_get_any(LVL,    p, lvl2pram(p),    bm_lvl,    BM_PRAM, res);
-  for(pos_t p : pma3_pos) {
+  for(xycoords p : pma3_pos) {
     uint32_t pr = pma32pram(p);
     bmux_get_any(PMA3,   p, pr,             bm_pma3,   BM_PRAM, res, (pr >> 24) & 1);
     bmux_get_any(PMA3,   p, 18*((pr >> 24) & 3), bm_pma3c,  BM_DCRAM, res);
   }
-  for(pos_t p : serpar_pos)
+  for(xycoords p : serpar_pos)
     bmux_get_any(SERPAR, p, serpar2pram(p), bm_serpar, BM_PRAM, res);
-  for(pos_t p : term_pos)
+  for(xycoords p : term_pos)
     bmux_get_any(TERM,   p, term2pram(p),   bm_term,   BM_PRAM, res);
-  for(pos_t p : hip_pos)
+  for(xycoords p : hip_pos)
     bmux_get_any(HIP,    p, hip2pram(p),    bm_hip,    BM_PRAM, res);
-  for(pos_t p : hmc_pos)
+  for(xycoords p : hmc_pos)
     bmux_get_any(HMC,    p, hmc2pram(p),    bm_hmc,    BM_PRAM, res);
   return res;
 }
 
 void mistral::CycloneV::bmux_set_defaults()
 {
-  for(pos_t p : lab_pos)
+  for(xycoords p : lab_pos)
     bmux_set_default(LAB,  p, pos2bit(p), bm_lab,  BM_CRAM);
-  for(pos_t p : mlab_pos)
+  for(xycoords p : mlab_pos)
     bmux_set_default(MLAB, p, pos2bit(p), bm_mlab, BM_CRAM);
-  for(pos_t p : m10k_pos)
+  for(xycoords p : m10k_pos)
     bmux_set_default(M10K, p, pos2bit(p), bm_m10k, BM_CRAM);
-  for(pos_t p : dsp_pos)
+  for(xycoords p : dsp_pos)
     bmux_set_default(DSP,  p, pos2bit(p), bm_dsp,  BM_CRAM);
   if(hps_infos)
     bmux_set_default(HPS_CLOCKS, hps_infos[I_HPS_CLOCKS],   pos2bit(hps_infos[I_HPS_CLOCKS]), bm_hps_clocks, BM_CRAM);
@@ -749,38 +749,38 @@ void mistral::CycloneV::bmux_set_defaults()
   for(uint32_t i = 0; i != dhead->count_dqs16; i++)
     bmux_set_default(DQS16, dqs16_infos[i].pos, dqs16_infos[i].pram, bm_dqs16, BM_PRAM);
 
-  for(pos_t p : fpll_pos)
+  for(xycoords p : fpll_pos)
     bmux_set_default(FPLL,   p, fpll2pram(p),   bm_fpll,   BM_PRAM);
-  for(pos_t p : cmuxc_pos)
+  for(xycoords p : cmuxc_pos)
     bmux_set_default(CMUXCR, p, cmuxc2pram(p),  bm_cmuxcr, BM_PRAM);
-  for(pos_t p : cmuxv_pos)
+  for(xycoords p : cmuxv_pos)
     bmux_set_default(CMUXVR, p, cmuxv2pram(p),  bm_cmuxvr, BM_PRAM);
-  for(pos_t p : cmuxv_pos)
+  for(xycoords p : cmuxv_pos)
     bmux_set_default(CMUXVG, p, cmuxv2pram(p),  bm_cmuxvg, BM_PRAM);
-  for(pos_t p : cmuxh_pos)
+  for(xycoords p : cmuxh_pos)
     bmux_set_default(CMUXHR, p, cmuxh2pram(p),  bm_cmuxhr, BM_PRAM);
-  for(pos_t p : cmuxh_pos)
+  for(xycoords p : cmuxh_pos)
     bmux_set_default(CMUXHG, p, cmuxh2pram(p),  bm_cmuxhg, BM_PRAM);
-  for(pos_t p : dll_pos)
+  for(xycoords p : dll_pos)
     bmux_set_default(DLL,    p, dll2pram(p),    bm_dll,    BM_PRAM);
-  for(pos_t p : hssi_pos)
+  for(xycoords p : hssi_pos)
     bmux_set_default(HSSI,   p, hssi2pram(p),   bm_hssi,   BM_PRAM);
-  for(pos_t p : cbuf_pos)
+  for(xycoords p : cbuf_pos)
     bmux_set_default(CBUF,   p, cbuf2pram(p),   bm_cbuf,   BM_PRAM);
-  for(pos_t p : lvl_pos)
+  for(xycoords p : lvl_pos)
     bmux_set_default(LVL,    p, lvl2pram(p),    bm_lvl,    BM_PRAM);
-  for(pos_t p : pma3_pos) {
+  for(xycoords p : pma3_pos) {
     uint32_t pr = pma32pram(p);
     bmux_set_default(PMA3,   p, pr,             bm_pma3,   BM_PRAM, (pr >> 24) & 1);
     bmux_set_default(PMA3,   p, 18*((pr >> 24) & 3), bm_pma3c,  BM_DCRAM);
   }
-  for(pos_t p : serpar_pos)
+  for(xycoords p : serpar_pos)
     bmux_set_default(SERPAR, p, serpar2pram(p), bm_serpar, BM_PRAM);
-  for(pos_t p : term_pos)
+  for(xycoords p : term_pos)
     bmux_set_default(TERM,   p, term2pram(p),   bm_term,   BM_PRAM);
-  for(pos_t p : hip_pos)
+  for(xycoords p : hip_pos)
     bmux_set_default(HIP,    p, hip2pram(p),    bm_hip,    BM_PRAM);
-  for(pos_t p : hmc_pos)
+  for(xycoords p : hmc_pos)
     bmux_set_default(HMC,    p, hmc2pram(p),    bm_hmc,    BM_PRAM);
 }
 
@@ -794,14 +794,14 @@ const mistral::CycloneV::bmux *mistral::CycloneV::bmux_find(const bmux *pmux, bm
   return nullptr;
 }
 
-void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux, uint32_t &base, const bmux *&pmux, bmux_ram_t &mode) const
+void mistral::CycloneV::bmux_find(block_type_t btype, xycoords pos, bmux_type_t mux, uint32_t &base, const bmux *&pmux, bmux_ram_t &mode) const
 {
   base = 0;
   pmux = nullptr;
   mode = BM_CRAM;
   switch(btype) {
   case LAB:
-    if(tile_types[pos] != T_LAB)
+    if(tile_types[pos.v] != T_LAB)
       break;
     base = pos2bit(pos);
     pmux = bmux_find(bm_lab, mux);
@@ -809,7 +809,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     break;
 
   case MLAB:
-    if(tile_types[pos] != T_MLAB)
+    if(tile_types[pos.v] != T_MLAB)
       break;
     base = pos2bit(pos);
     pmux = bmux_find(bm_mlab, mux);
@@ -817,7 +817,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     break;
 
   case M10K:
-    if(tile_types[pos] != T_M10K)
+    if(tile_types[pos.v] != T_M10K)
       break;
     base = pos2bit(pos);
     pmux = bmux_find(bm_m10k, mux);
@@ -825,7 +825,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
     break;
 
   case DSP:
-    if(tile_types[pos] != T_DSP)
+    if(tile_types[pos.v] != T_DSP)
       break;
     base = pos2bit(pos);
     pmux = bmux_find(bm_dsp, mux);
@@ -990,7 +990,7 @@ void mistral::CycloneV::bmux_find(block_type_t btype, pos_t pos, bmux_type_t mux
   }
 }
 
-int mistral::CycloneV::bmux_type(block_type_t btype, pos_t pos, bmux_type_t mux, int midx) const
+int mistral::CycloneV::bmux_type(block_type_t btype, xycoords pos, bmux_type_t mux, int midx) const
 {
   uint32_t base;
   const bmux *pmux;
@@ -1002,7 +1002,7 @@ int mistral::CycloneV::bmux_type(block_type_t btype, pos_t pos, bmux_type_t mux,
   return pmux->stype;
 }
 
-bool mistral::CycloneV::bmux_m_set(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, bmux_type_t s)
+bool mistral::CycloneV::bmux_m_set(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, bmux_type_t s)
 {
   uint32_t base;
   const bmux *pmux;
@@ -1022,7 +1022,7 @@ bool mistral::CycloneV::bmux_m_set(block_type_t btype, pos_t pos, bmux_type_t mu
   return false;
 }
 
-bool mistral::CycloneV::bmux_n_set(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, uint32_t s)
+bool mistral::CycloneV::bmux_n_set(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, uint32_t s)
 {
   uint32_t base;
   const bmux *pmux;
@@ -1042,7 +1042,7 @@ bool mistral::CycloneV::bmux_n_set(block_type_t btype, pos_t pos, bmux_type_t mu
   return false;
 }
 
-bool mistral::CycloneV::bmux_b_set(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, bool s)
+bool mistral::CycloneV::bmux_b_set(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, bool s)
 {
   uint32_t base;
   const bmux *pmux;
@@ -1056,7 +1056,7 @@ bool mistral::CycloneV::bmux_b_set(block_type_t btype, pos_t pos, bmux_type_t mu
   return true;
 }
 
-bool mistral::CycloneV::bmux_r_set(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, uint64_t s)
+bool mistral::CycloneV::bmux_r_set(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, uint64_t s)
 {
   uint32_t base;
   const bmux *pmux;
@@ -1070,7 +1070,7 @@ bool mistral::CycloneV::bmux_r_set(block_type_t btype, pos_t pos, bmux_type_t mu
   return true;
 }
 
-bool mistral::CycloneV::bmux_r_set(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, const std::vector<uint8_t> &s)
+bool mistral::CycloneV::bmux_r_set(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, const std::vector<uint8_t> &s)
 {
   uint32_t base;
   const bmux *pmux;
@@ -1084,7 +1084,7 @@ bool mistral::CycloneV::bmux_r_set(block_type_t btype, pos_t pos, bmux_type_t mu
   return true;
 }
 
-bool mistral::CycloneV::bmux_get(block_type_t btype, pos_t pos, bmux_type_t mux, int midx, bmux_setting_t &s) const
+bool mistral::CycloneV::bmux_get(block_type_t btype, xycoords pos, bmux_type_t mux, int midx, bmux_setting_t &s) const
 {
   uint32_t base;
   const bmux *pmux;

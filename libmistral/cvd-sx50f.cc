@@ -25,7 +25,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::sx50f = {
   6006, 5304,              // cram size
   69, 62,                  // tiles size
   31, 17,                  // hps (arm) processor core position
-  xy2pos(0, 3),            // control block position
+  xycoords(0, 3),          // control block position
 
   // default options
   { 0x18a08100d0, 0x1ace153c32, 0xa001858f7f, 0x9bffffffff, 0xfffffffe81, 0x03108d803f, 0xf000080e02, 0xffffffff6a, 0x00000030c2, 0x3b030ecc07, 0x0c40910514, 0xcb03e00c8a },

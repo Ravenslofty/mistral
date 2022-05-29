@@ -9,7 +9,7 @@
 
 IOBLoader::IOBLoader(const std::vector<uint8_t> &_data, const PRamLoader &pram)
 {
-  std::unordered_map<pos_t, uint32_t> prami;
+  std::unordered_map<xycoords, uint32_t> prami;
   for(const auto &ent : pram.data.find("gpio")->second)
     prami[ent.pos] = ent.start | (ent.strip << 16) | (ent.var << 25);
 
@@ -87,7 +87,7 @@ IOBLoader::IOBLoader(const std::vector<uint8_t> &_data, const PRamLoader &pram)
       error(st, "WTF? non-ended line?");
     p++;
 
-    pos_t pos = xy2pos(x, y);
+    xycoords pos(x, y);
     uint32_t pr = serdes ? 1<<24 : 0;
     auto pi = prami.find(pos);
     if(pi != prami.end())

@@ -26,7 +26,7 @@ public:
   uint16_t target_count;
   uint16_t target_pos[64];
   union {
-    rnode_coords rn;
+    uint32_t rn;
     float caps;
   } targets[64];
 

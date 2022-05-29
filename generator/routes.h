@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <stdint.h>
+#include <array>
 
 struct rmux_pattern {
   uint8_t bits;
@@ -23,7 +24,7 @@ public:
   rnode_coords rn;
   uint32_t pattern;
   uint32_t fw_pos;
-  rnode_coords sources[44];
+  std::array<rnode_coords, 44> sources;
 
   RoutesParser(const NodesReader &nr, const std::vector<uint8_t> &data, uint32_t width);
 

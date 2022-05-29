@@ -7,7 +7,7 @@
 #include <string>
 
 struct ioblock_info {
-  pos_t pos;
+  xycoords pos;
   uint8_t idx;
   uint8_t tidx;
   block_type_t btype;

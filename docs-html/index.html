@@ -3333,8 +3333,8 @@ number of clocks can be static or dynamic.</p>
 <td></td>
 <td><p>0-3</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
-<td><p>TODO</p></td>
+<td><p>HPS_CLOCKS:CLKOUT</p></td>
+<td><p>HPS clock output to clock mux</p></td>
 </tr>
 <tr class="row-even"><td><p>PLLMIN</p></td>
 <td></td>
@@ -3775,12 +3775,12 @@ number of clocks can be static or dynamic.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
+<col style="width: 12%" />
 <col style="width: 5%" />
-<col style="width: 23%" />
-<col style="width: 39%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -3817,8 +3817,8 @@ number of clocks can be static or dynamic.</p>
 <td></td>
 <td><p>4-7</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
-<td><p>TODO</p></td>
+<td><p>HPS_CLOCKS:CLKOUT</p></td>
+<td><p>HPS clock output to clock mux</p></td>
 </tr>
 <tr class="row-even"><td><p>PLLMIN</p></td>
 <td></td>
@@ -4766,8 +4766,8 @@ number of clocks can be static or dynamic.</p>
 <td></td>
 <td><p>0-6, 20-21</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_R</p></td>
-<td><p>TODO</p></td>
+<td><p>HPS_CLOCKS:CLKOUT</p></td>
+<td><p>HPS clock output to clock mux</p></td>
 </tr>
 </tbody>
 </table>
@@ -5273,12 +5273,12 @@ number of clocks can be static or dynamic.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 12%" />
 <col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 11%" />
+<col style="width: 12%" />
 <col style="width: 5%" />
-<col style="width: 23%" />
-<col style="width: 39%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -5315,8 +5315,8 @@ number of clocks can be static or dynamic.</p>
 <td></td>
 <td><p>9-17</p></td>
 <td><p>&lt;</p></td>
-<td><p>HPS_CLOCKS:S2F_CLK_T</p></td>
-<td><p>TODO</p></td>
+<td><p>HPS_CLOCKS:CLKOUT</p></td>
+<td><p>HPS clock output to clock mux</p></td>
 </tr>
 </tbody>
 </table>
@@ -20836,7 +20836,7 @@ connected to the corresponding PHYDDIO* ports.</p>
 <h4>HPS<a class="headerlink" href="#hps" title="Permalink to this headline"></a></h4>
 <p>The interface between the FPGA and the Hard processor system is done
 through 37 specialized blocks of 28 different types.</p>
-<p>TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.</p>
+<p>TODO: almost everything.</p>
 <div class="section" id="hps-boot">
 <h5>HPS_BOOT<a class="headerlink" href="#hps-boot" title="Permalink to this headline"></a></h5>
 <table class="docutils align-default">
@@ -20905,14 +20905,16 @@ through 37 specialized blocks of 28 different types.</p>
 </div>
 <div class="section" id="hps-clocks">
 <h5>HPS_CLOCKS<a class="headerlink" href="#hps-clocks" title="Permalink to this headline"></a></h5>
+<p>This block contains 18 4-way muxes that select between HPS clocks and
+reset signals.  The selected signals are routed to clock muxes.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 25%" />
+<col style="width: 17%" />
 <col style="width: 15%" />
 <col style="width: 9%" />
 <col style="width: 15%" />
-<col style="width: 13%" />
-<col style="width: 22%" />
+<col style="width: 14%" />
+<col style="width: 30%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -20924,30 +20926,23 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>RIGHT_CLOCK_SEL</p></td>
-<td><p>0-8</p></td>
+<tr class="row-even"><td><p>INPUT_SEL</p></td>
+<td><p>0-17</p></td>
 <td><p>Ram</p></td>
 <td><p>0-3</p></td>
 <td><p>3</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>TOP_CLOCK_SEL</p></td>
-<td><p>0-8</p></td>
-<td><p>Ram</p></td>
-<td><p>0-3</p></td>
-<td><p>3</p></td>
-<td><p>TODO</p></td>
+<td><p>Mux input selector</p></td>
 </tr>
 </tbody>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 5%" />
-<col style="width: 39%" />
-<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 9%" />
+<col style="width: 4%" />
+<col style="width: 30%" />
+<col style="width: 26%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -20959,89 +20954,89 @@ through 37 specialized blocks of 28 different types.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>EMAC_TX_CLK_O</p></td>
-<td><p>0-1</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_PERIPHERAL_EMAC:PHY_TXCLK_O</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>HPS_TCK</p></td>
-<td></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_JTAG:TCK</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>QSPI_SCK_OUT</p></td>
-<td></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>HPS_PERIPHERAL_QSPI:SCLK_OUT</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>S2F_CLK_R</p></td>
-<td></td>
-<td><p>0-3</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXHG:PLLIN</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>S2F_CLK_R</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXHR:PLLIN</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>S2F_CLK_T</p></td>
-<td></td>
-<td><p>5-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXVG:PLLIN</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-even"><td><p>S2F_CLK_T</p></td>
-<td></td>
-<td><p>0-8</p></td>
-<td><p>&gt;</p></td>
-<td><p>CMUXVR:PLLIN</p></td>
-<td><p>TODO</p></td>
-</tr>
-<tr class="row-odd"><td><p>S2F_COLD_RST_N</p></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>2, 5, 8-9, 12, 15</p></td>
+<td><p>0, 2</p></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_CLOCKS_RESETS:H2F_COLD_RST_N</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>S2F_RST_N</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>3, 5-6, 9-10, 16</p></td>
+<td><p>0-2</p></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_CLOCKS_RESETS:H2F_RST_N</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>S2F_USER_CLK</p></td>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0-1, 4-14, 17</p></td>
 <td><p>0-2</p></td>
-<td></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_CLOCKS_RESETS:H2F_USER_CLK</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td><p>SPIM_SCLK_OUT</p></td>
-<td><p>0-1</p></td>
-<td></td>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>1, 3, 14, 16</p></td>
+<td><p>2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_JTAG:TCK</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0, 2-4, 7-8, 11-13, 15-17</p></td>
+<td><p>1-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_PERIPHERAL_EMAC:PHY_TXCLK_O</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>1, 3, 6, 10, 14, 16</p></td>
+<td><p>2-3</p></td>
+<td><p>&lt;</p></td>
+<td><p>HPS_PERIPHERAL_QSPI:SCLK_OUT</p></td>
+<td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKIN</p></td>
+<td><p>0-2, 4, 13-15, 17</p></td>
+<td><p>1, 3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_PERIPHERAL_SPI_MASTER:SCLK_OUT</p></td>
 <td><p>TODO</p></td>
 </tr>
-<tr class="row-odd"><td><p>TPIU_TRACE_CLK</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td><p>CLKIN</p></td>
+<td><p>2, 5, 9, 15</p></td>
+<td><p>2-3</p></td>
 <td><p>&lt;</p></td>
 <td><p>HPS_TPIU_TRACE:TRACECLK</p></td>
 <td><p>TODO</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKOUT</p></td>
+<td><p>9-12</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHG:PLLIN</p></td>
+<td><p>HPS clock output to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>9-17</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXHR:PLLIN</p></td>
+<td><p>HPS clock output to clock mux</p></td>
+</tr>
+<tr class="row-even"><td><p>CLKOUT</p></td>
+<td><p>5-8</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXVG:PLLIN</p></td>
+<td><p>HPS clock output to clock mux</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLKOUT</p></td>
+<td><p>0-8</p></td>
+<td></td>
+<td><p>&gt;</p></td>
+<td><p>CMUXVR:PLLIN</p></td>
+<td><p>HPS clock output to clock mux</p></td>
 </tr>
 </tbody>
 </table>
@@ -21127,12 +21122,12 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 12%" />
+<col style="width: 21%" />
 <col style="width: 13%" />
-<col style="width: 6%" />
-<col style="width: 32%" />
-<col style="width: 18%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 24%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -21148,21 +21143,21 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:S2F_COLD_RST_N</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-odd"><td><p>H2F_RST_N</p></td>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:S2F_RST_N</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 <tr class="row-even"><td><p>H2F_USER_CLK</p></td>
 <td><p>0-2</p></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:S2F_USER_CLK</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -22694,11 +22689,11 @@ through 37 specialized blocks of 28 different types.</p>
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 15%" />
+<col style="width: 16%" />
 <col style="width: 14%" />
-<col style="width: 15%" />
+<col style="width: 16%" />
 <col style="width: 7%" />
-<col style="width: 28%" />
+<col style="width: 26%" />
 <col style="width: 21%" />
 </colgroup>
 <thead>
@@ -22715,7 +22710,7 @@ through 37 specialized blocks of 28 different types.</p>
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:HPS_TCK</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -23057,12 +23052,12 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 13%" />
+<col style="width: 18%" />
 <col style="width: 14%" />
-<col style="width: 6%" />
-<col style="width: 33%" />
-<col style="width: 19%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 25%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -23078,7 +23073,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:EMAC_TX_CLK_O</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -23284,12 +23279,12 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 16%" />
 <col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 6%" />
-<col style="width: 32%" />
-<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -23305,7 +23300,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:QSPI_SCK_OUT</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -23494,12 +23489,12 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 16%" />
 <col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 6%" />
-<col style="width: 33%" />
-<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -23515,7 +23510,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:SPIM_SCLK_OUT</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>
@@ -24964,12 +24959,12 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 </table>
 <table class="docutils align-default">
 <colgroup>
+<col style="width: 16%" />
 <col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 6%" />
-<col style="width: 34%" />
-<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Port Name</p></th>
@@ -24985,7 +24980,7 @@ accessible from the arm cores at 0xff706010 (arm to fpga) and
 <td></td>
 <td></td>
 <td><p>&gt;</p></td>
-<td><p>HPS_CLOCKS:TPIU_TRACE_CLK</p></td>
+<td><p>HPS_CLOCKS:CLKIN</p></td>
 <td><p>TODO</p></td>
 </tr>
 </tbody>

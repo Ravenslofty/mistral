@@ -65,7 +65,7 @@ P2RLoader::P2RLoader(const NodesReader &_nr, const std::vector<uint8_t> &_data) 
 	    rnode_coords rn = nr.lookup_r(p);
 	    if(!rn)
 	      error(st, "Incorrect rnode");
-	    data.emplace_back(p2r_info{pnode(cblock, x, y, port, minst ? inst : -1, mbit ? bit : -1), rn, 0});
+	    data.emplace_back(p2r_info{pnode_coords(cblock, x, y, port, minst ? inst : -1, mbit ? bit : -1), rn, 0});
 	  }
 	  skipsp(p);
 	}
@@ -95,5 +95,5 @@ pnode_coords P2RLoader::find_r(rnode_coords node) const
   for(const auto &n : data)
     if(n.r == node)
       return n.p;
-  return 0;
+  return pnode_coords();
 }

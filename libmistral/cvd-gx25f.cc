@@ -21,7 +21,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gx25f = {
   3856, 3412,              // cram size
   49, 40,                  // tiles size
   49, 40,                  // hps (arm) processor core position
-  xy2pos(0, 2),            // control block position
+  xycoords(0, 2),          // control block position
 
   // default options
   { 0x10504080d0, 0x0f080c2620, 0xa041858f7f, 0x9bffffffff, 0xfffffffe80, 0x6eb0dd803f, 0xf000080e02, 0xffffffff6a, 0x00000030c2, 0x3b030ecc04, 0x0630488310, 0xcf82a00848 },

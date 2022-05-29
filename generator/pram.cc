@@ -70,7 +70,7 @@ PRamLoader::PRamLoader(const std::vector<uint8_t> &_data)
       error(st, "WTF? non-ended line?");
     p++;
 
-    data[block].emplace_back(pram_info{ strip, start, end-start+1, xy2pos(x, y), instance, var });
+    data[block].emplace_back(pram_info{ strip, start, end-start+1, xycoords(x, y), instance, var });
   }
 }
 
@@ -113,7 +113,7 @@ void PRamLoader::add(std::vector<fixed_block_info> &blocks, std::string key, int
   auto i = data.find(key);
   if(i == data.end()) {
     for(int ii=0; ii != count; ii++)
-      blocks.emplace_back(fixed_block_info{ 0xffff, 0xffffffff });
+      blocks.emplace_back(fixed_block_info{ xycoords(0xffff), 0xffffffff });
   } else {
     int ii = 0;
     for(const auto &e : i->second) {
@@ -122,7 +122,7 @@ void PRamLoader::add(std::vector<fixed_block_info> &blocks, std::string key, int
     }    
     std::sort(blocks.end() - ii, blocks.end(), [](const fixed_block_info &a, const fixed_block_info &b) -> bool { return a.pos < b.pos; });
     while(ii != count) {
-      blocks.emplace_back(fixed_block_info{ 0xffff, 0xffffffff });
+      blocks.emplace_back(fixed_block_info{ xycoords(0xffff), 0xffffffff });
       ii++;
     }
   }

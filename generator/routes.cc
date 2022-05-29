@@ -105,10 +105,10 @@ void RoutesParser::next()
 {
   pattern = 0;
   fw_pos = 0;
-  memset(sources, 0, sizeof(sources));
+  std::fill(sources.begin(), sources.end(), rnode_coords());
 
   if(p == e) {
-    rn = 0;
+    rn = rnode_coords();
     return;
   }
 
@@ -158,7 +158,7 @@ void RoutesParser::next()
     int slot = lookup_int(p);
     if(slot == -1 || slot >= 44 || *p++ != ':')
       error(st, "Incorrect slot number");
-    uint32_t srn = nr.lookup_r(p);
+    rnode_coords srn = nr.lookup_r(p);
     if(!srn)
       error(st);
     sources[slot] = srn;

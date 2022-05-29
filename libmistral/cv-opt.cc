@@ -79,26 +79,26 @@ void mistral::CycloneV::opt_get_one(const bmux *muxes, opt_setting_t &bms) const
     bms.type = muxes->stype;
     switch(muxes->stype) {
     case MT_MUX: {
-      auto r = bmux_m_read(BNONE, 0, 0, muxes, 0, BM_ORAM);
+      auto r = bmux_m_read(BNONE, xycoords(), 0, muxes, 0, BM_ORAM);
       bms.s = r.first;
       bms.def = r.second;
       break;
     }
     case MT_NUM: {
-      auto r = bmux_n_read(BNONE, 0, 0, muxes, 0, BM_ORAM);
+      auto r = bmux_n_read(BNONE, xycoords(), 0, muxes, 0, BM_ORAM);
       bms.s = r.first;
       bms.def = r.second;
       break;
     }
     case MT_BOOL: {
-      auto r = bmux_b_read(BNONE, 0, 0, muxes, 0, BM_ORAM);
+      auto r = bmux_b_read(BNONE, xycoords(), 0, muxes, 0, BM_ORAM);
       bms.s = r.first;
       bms.def = r.second;
       break;
     }
     case MT_RAM: {
       bms.s = muxes->bits;
-      bms.def = bmux_r_read(BNONE, 0, 0, muxes, 0, BM_ORAM, bms.r);
+      bms.def = bmux_r_read(BNONE, xycoords(), 0, muxes, 0, BM_ORAM, bms.r);
       break;
     }
     }
@@ -159,7 +159,7 @@ void mistral::CycloneV::oram_clear()
   for(int i = 0x10; i != 0x20; i++)
     oram[i] = 0xffffffffff;
 
-  bmux_set_default(BNONE, 0, 0, bm_opt, BM_ORAM, 0);
+  bmux_set_default(BNONE, xycoords(), 0, bm_opt, BM_ORAM, 0);
 }
 
 void mistral::CycloneV::oram_load(const uint8_t *data)

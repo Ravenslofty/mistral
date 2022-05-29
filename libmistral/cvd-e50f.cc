@@ -19,7 +19,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::e50f = {
   4958, 3928,              // cram size
   55, 46,                  // tiles size
   55, 46,                  // hps (arm) processor core position
-  xy2pos(0, 4),            // control block position
+  xycoords(0, 4),          // control block position
 
   // default options
   { 0x10706080d0, 0x128a0f3024, 0xa001858f7f, 0x9bffffffff, 0xfffffffe80, 0xa0aa8d803f, 0xf000280e02, 0xffffffff6a, 0x00000030c2, 0x3b030ecc05, 0x0730508412, 0xcf82a00848 },

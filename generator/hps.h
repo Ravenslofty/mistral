@@ -40,7 +40,7 @@ enum hps_index_t {
 
 class HPSLoader {
 public:
-  std::vector<pos_t> data;
+  std::vector<xycoords> data;
 
   HPSLoader(const P2PLoader &p2p, const P2RLoader &p2r);
 

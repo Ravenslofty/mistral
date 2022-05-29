@@ -8,11 +8,11 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
 
   case inverter_info::DEF_GP: {
     pnode_coords pnode = rnode_to_pnode(inf.node);
-    if(pn2pt(pnode) != DATAOUT && pn2pt(pnode) != OEIN)
+    if(pnode.pt() != DATAOUT && pnode.pt() != OEIN)
       return 0;
 
-    bool is_wired = pin_find_pos(pn2p(pnode), pn2bi(pnode));
-    if(pn2pt(pnode) == DATAOUT || pn2pi(pnode) == 0)
+    bool is_wired = pin_find_pos(pnode.p(), pnode.bi());
+    if(pnode.pt() == DATAOUT || pnode.pi() == 0)
       return is_wired ? 0 : 1;
     return is_wired ? 1 : 0;
   }
@@ -27,7 +27,7 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
     if(!gpio) {
       auto gpiol = p2p_from(pnode);
       for(pnode_coords gp : gpiol)
-	if(pn2bt(gp) == GPIO) {
+	if(gp.bt() == GPIO) {
 	  gpio = gp;
 	  break;
 	}
@@ -35,11 +35,11 @@ int mistral::CycloneV::inv_get_default(const inverter_info &inf) const
     if(!gpio)
       return 0;
 
-    if(pn2pt(gpio) != OEIN && pn2pt(gpio) != DATAOUT)
+    if(gpio.pt() != OEIN && gpio.pt() != DATAOUT)
       return 0;
 
-    bool is_wired = pin_find_pos(pn2p(gpio), pn2bi(gpio));
-    if(pn2pt(gpio) == DATAOUT || pn2pi(gpio) == 0)
+    bool is_wired = pin_find_pos(gpio.p(), gpio.bi());
+    if(gpio.pt() == DATAOUT || !gpio)
       return is_wired ? 0 : 1;
     return is_wired ? 1 : 0;
   }
@@ -93,7 +93,7 @@ bool mistral::CycloneV::inv_set(rnode_coords node, bool value)
 
 mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_coords rn) const
 {
-  if(rn2t(rn) == WM)
+  if(rn.t() == WM)
     return INV_NO;
 
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
@@ -101,13 +101,13 @@ mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_coords r
     if(inf.node == rn)
       return INV_PROGRAMMABLE;
   }
-  const rnode_object *rb = rnode_lookup(rn);
-  if(!rb)
+  const rnode_object *ro = rc2ro(rn);
+  if(!ro)
     return INV_UNKNOWN;
 
-  if(rb->drivers[0] == 0xff)
+  if(ro->driver(0) == 0xff)
     return INV_UNKNOWN;
-  int driver = rb->drivers[0];
-  return dn_info[dn_lookup->index_si[SI_TT][T_85]].drivers[driver].invert ? INV_YES : INV_NO;
+
+  return dn_info[dn_lookup->index_si[SI_TT][T_85]].drivers[ro->driver(0)].invert ? INV_YES : INV_NO;
 }
 

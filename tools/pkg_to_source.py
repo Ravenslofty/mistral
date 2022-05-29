@@ -43,7 +43,7 @@ def end_package():
     print("")
     print("const mistral::CycloneV::pkg_info_t mistral::CycloneV::%s_package_%s = { " % (sys.argv[2], pkgid))
     print("  %s_pins_%s," % (sys.argv[2], pkgid))
-    print("  xy2pos(%d, %d), %d," % (int(dqs[0]), int(dqs[1]), int(dqs[2])))
+    print("  (%d << 7) | %d, %d," % (int(dqs[0]), int(dqs[1]), int(dqs[2])))
     print("};")
 
 for l in open(sys.argv[1] + '/' + sys.argv[2] + '-pkg.txt'):
@@ -65,7 +65,7 @@ for l in open(sys.argv[1] + '/' + sys.argv[2] + '-pkg.txt'):
         if f(ls, 'gpio'):
             pos = f(ls, 'gpio')
             posx = pos.split('.')
-            s += ' xy2pos(%d, %d) | (%d << 14),' % (int(posx[0]), int(posx[1]), int(posx[2]))
+            s += ' (%d << 7) | %d | (%d << 14),' % (int(posx[0]), int(posx[1]), int(posx[2]))
         else:
             s += ' 0xffff,'
 

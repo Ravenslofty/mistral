@@ -33,7 +33,7 @@ void LinesParser::next()
   memset(targets, 0, sizeof(targets));
 
   if(p == e) {
-    rn = 0;
+    rn = rnode_coords();
     return;
   }
 
@@ -72,8 +72,8 @@ void LinesParser::next()
       error(st, "Incorrect target position");
     if(p[0] >= '0' && p[0] <= '9') {
       float tcap = lookup_float(p);
-      targets[target_count].caps = -tcap;
-      target_pos[target_count] = pos;
+      targets[target_count].caps = tcap;
+      target_pos[target_count] = pos | 0x8000;
     } else {
       char toto[64];
       memcpy(toto, p, 63);
@@ -85,7 +85,7 @@ void LinesParser::next()
       }
       if(*p++ != ':')
 	error(st, "Incorrect subslot information");
-      uint16_t subslot_mask = *p++ == '1' ? 0x8000 : 0;
+      uint16_t subslot_mask = *p++ == '1' ? 0x4000 : 0;
       targets[target_count].rn = trn;
       target_pos[target_count] = pos | subslot_mask;
     }

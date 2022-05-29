@@ -1,2 +1,1 @@
-top_clock_sel
-right_clock_sel
+input_sel Mux input selector

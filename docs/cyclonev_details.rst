@@ -485,7 +485,7 @@ HPS
 The interface between the FPGA and the Hard processor system is done
 through 37 specialized blocks of 28 different types.
 
-TODO: everything.  GOUT/GIN/DCMUX mapping is done except for HPS_CLOCKS.
+TODO: almost everything.
 
 HPS_BOOT
 """"""""
@@ -495,6 +495,9 @@ HPS_BOOT
 
 HPS_CLOCKS
 """"""""""
+
+This block contains 18 4-way muxes that select between HPS clocks and
+reset signals.  The selected signals are routed to clock muxes.
 
 .. include:: gendoc/hps_clocks-dmux.rst
 

@@ -1,10 +1,10 @@
 #ifndef NODES_H
 #define NODES_H
 
-
 #include "prefixtree.h"
+#include <string>
 
-enum rnode_coordsype_t {
+enum rnode_type_t {
 #define P(x) x
 #include "cv-rnodetypes.ipp"
 #undef P
@@ -22,39 +22,111 @@ enum port_type_t {
 #undef P
 };
 
-extern const char *const rnode_coordsype_names[];
+extern const char *const rnode_type_names[];
 extern const char *const block_type_names[];
 extern const char *const port_type_names[];
 
-using pos_t = uint16_t;
-using rnode_coords = uint32_t;
-using pnode_coords = uint64_t;
+// - tile coordinates
+struct xycoords {
+  uint16_t v;
 
-static constexpr rnode_coords rnode(uint32_t type, uint32_t x, uint32_t y, uint32_t z)
-{
-  return (type << 24) | (x << 17) | (y << 10) | z;
-}
+  xycoords() : v(0) {}
+  xycoords(uint32_t x, uint32_t y) : v((x << 7) | y) {}
+  explicit xycoords(uint32_t _v) : v(_v) {}
 
-static constexpr pnode_coords pnode(uint32_t bt, uint32_t x, uint32_t y, uint32_t pt, int8_t bindex, int16_t pindex) {
-  return (uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff);
-}
+  uint32_t x() const noexcept { return (v >> 7) & 0x7f; }
+  uint32_t y() const noexcept { return v & 0x7f; }
 
-static constexpr rnode_coordsype_t rn2t(rnode_coords rn) { return rnode_coordsype_t(rn >> 24); }
-static constexpr uint32_t rn2x(rnode_coords rn) { return (rn >> 17) & 0x7f; }
-static constexpr uint32_t rn2y(rnode_coords rn) { return (rn >> 10) & 0x7f; }
-static constexpr uint32_t rn2z(rnode_coords rn) { return rn & 0x3ff; }
+  bool operator == (const xycoords &p) const noexcept { return v == p.v; }
+  bool operator != (const xycoords &p) const noexcept { return v != p.v; }
+  bool operator <  (const xycoords &p) const noexcept { return v < p.v; }
+};
 
-static constexpr block_type_t pn2bt(pnode_coords pn) { return block_type_t((pn >> 52) & 0xff); }
-static constexpr port_type_t  pn2pt(pnode_coords pn) { return port_type_t((pn >> 40) & 0xfff); }
-static constexpr pos_t        pn2p (pnode_coords pn) { return (pn >> 16) & 0x3fff; }
-static constexpr uint32_t     pn2x (pnode_coords pn) { return (pn >> 23) & 0x7f; }
-static constexpr uint32_t     pn2y (pnode_coords pn) { return (pn >> 16) & 0x7f; }
-static constexpr int8_t       pn2bi(pnode_coords pn) { return (pn >> 32) & 0xff; }
-static constexpr int16_t      pn2pi(pnode_coords pn) { return  pn        & 0xffff; }
 
-static constexpr uint32_t pos2x(pos_t xy) { return (xy >> 7) & 0x7f; }
-static constexpr uint32_t pos2y(pos_t xy) { return xy & 0x7f; }
-static constexpr pos_t xy2pos(uint32_t x, uint32_t y) { return (x << 7) | y; }
+// - routing node label as type and x/y/z coordinates
+struct rnode_coords {
+  uint32_t v;
+
+  rnode_coords() : v(0) {}
+  explicit rnode_coords(uint32_t _v) : v(_v) {}
+  rnode_coords(rnode_type_t type, xycoords pos, uint32_t z) : v((type << 24) | (pos.v << 10) | z) {}
+  rnode_coords(rnode_type_t type, uint32_t x, uint32_t y, uint32_t z) : v((type << 24) | (x << 17) | (y << 10) | z) {}
+
+  rnode_type_t t() const noexcept { return rnode_type_t(v >> 24); }
+  xycoords     p() const noexcept { return xycoords((v >> 10) & 0x3fff); }
+  uint32_t     x() const noexcept { return (v >> 17) & 0x7f; }
+  uint32_t     y() const noexcept { return (v >> 10) & 0x7f; }
+  uint32_t     z() const noexcept { return v & 0x3ff; }
+
+  operator bool() const { return v != 0; }
+
+  bool operator == (const rnode_coords &p) const noexcept { return v == p.v; }
+  bool operator != (const rnode_coords &p) const noexcept { return v != p.v; }
+  bool operator <  (const rnode_coords &p) const noexcept { return v < p.v; }
+  bool operator >  (const rnode_coords &p) const noexcept { return v > p.v; }
+
+  std::string to_string() const;
+};
+
+// - port node label as block type, block x/y/index, port type, port index
+struct pnode_coords {
+  uint64_t v;
+
+  pnode_coords() : v(0) {}
+  explicit pnode_coords(uint64_t _v) : v(_v) {}
+
+  pnode_coords(block_type_t bt, xycoords pos, port_type_t pt, int8_t bindex, int16_t pindex) :
+    v((uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (pos.v << 16) | (pindex & 0xffff)) {}
+  pnode_coords(block_type_t bt, uint32_t x, uint32_t y, port_type_t pt, int8_t bindex, int16_t pindex) :
+    v((uint64_t(bt) << 52) | (uint64_t(pt) << 40) | (uint64_t(bindex & 0xff) << 32) | (x << 23) | (y << 16)| (pindex & 0xffff)) {}
+
+  block_type_t bt() const noexcept { return block_type_t((v >> 52) & 0xff); }
+  port_type_t  pt() const noexcept { return port_type_t((v >> 40) & 0xfff); }
+  xycoords     p () const noexcept { return xycoords((v >> 16) & 0x3fff); }
+  uint32_t     x () const noexcept { return (v >> 23) & 0x7f; }
+  uint32_t     y () const noexcept { return (v >> 16) & 0x7f; }
+  int8_t       bi() const noexcept { return (v >> 32) & 0xff; }
+  int16_t      pi() const noexcept { return  v        & 0xffff; }
+
+  operator bool() const noexcept { return v != 0; }
+
+  bool operator == (const pnode_coords &p) const noexcept { return v == p.v; }
+  bool operator != (const pnode_coords &p) const noexcept { return v != p.v; }
+  bool operator <  (const pnode_coords &p) const noexcept { return v < p.v; }
+
+  std::string to_string() const;
+};
+
+// - Routing node as index
+using rnode_index = uint32_t;
+
+// - Routing node object
+struct rnode_object {
+  rnode_coords node;
+  rnode_index index;
+  uint8_t pattern;
+  uint8_t target_count;
+  uint8_t drivers[2];
+  uint16_t line_info_index;
+  uint16_t driver_position;
+  uint32_t fw_pos;
+}; // Followed by up to 44 sources and up to 64 targets and up to 64 target_positions.  Aligned to 4 bytes.
+
+union rnode_target {
+  uint32_t rn;
+  float caps;
+};
+
+// Additional std::hash specializations for wrapped integerst
+template<> struct std::hash<xycoords> {
+  std::size_t operator()(const xycoords &v) const noexcept { return std::hash<uint16_t>()(v.v); }
+};
+template<> struct std::hash<rnode_coords> {
+  std::size_t operator()(const rnode_coords &v) const noexcept { return std::hash<uint32_t>()(v.v); }
+};
+template<> struct std::hash<pnode_coords> {
+  std::size_t operator()(const pnode_coords &v) const noexcept { return std::hash<uint64_t>()(v.v); }
+};
 
 class NodesReader {
 public:

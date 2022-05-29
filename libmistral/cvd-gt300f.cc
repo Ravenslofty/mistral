@@ -21,7 +21,7 @@ const mistral::CycloneV::die_info mistral::CycloneV::gt300f = {
   10038, 9948,             // cram size
   122, 116,                // tiles size
   122, 116,                // hps (arm) processor core position
-  xy2pos(0, 3),            // control block position
+  xycoords(0, 3),          // control block position
 
   // default options
   { 0x2900e180d0, 0x25161e3c32, 0xa001858f7f, 0x9bffffffff, 0xfffffffe83, 0x10d4ad803f, 0xf000200e02, 0xffffffff6a, 0x00000030c2, 0x3b030ecc0a, 0x0c50b98814, 0xcf82a014ce },

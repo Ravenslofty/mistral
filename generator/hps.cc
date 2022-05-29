@@ -47,7 +47,7 @@ HPSLoader::HPSLoader(const P2PLoader &p2p, const P2RLoader &p2r)
   for(int i=0; block_table[i].block; i++)
     hpsmap[block_table[i].block] = block_table[i].hps;
 
-  data.resize(I_HPS_COUNT, 0);
+  data.resize(I_HPS_COUNT);
 
   for(const auto &d : p2r.data)
     lookup(d.p);
@@ -57,24 +57,24 @@ HPSLoader::HPSLoader(const P2PLoader &p2p, const P2RLoader &p2r)
     lookup(d.d);
   }
 
-  if(!data[0])
+  if(!data[0].v)
     data.clear();
 }
 
 void HPSLoader::lookup(pnode_coords p)
 {
-  int t = pn2bt(p);
+  int t = p.bt();
   auto i = hpsmap.find(t);
   if(i == hpsmap.end())
     return;
 
-  pos_t pos = pn2p(p);
+  xycoords pos = p.p();
   int ix = i->second;
-  while(ix < I_HPS_COUNT && data[ix] && data[ix] != pos)
+  while(ix < I_HPS_COUNT && data[ix].v && data[ix] != pos)
     ix++;
   assert(ix != I_HPS_COUNT); // Overflow?
-  if(!data[ix]) {
+  if(!data[ix].v) {
     data[ix] = pos;
-    //    printf("%s %3d.%03d\n", block_type_names[t], pos2x(pos), pos2y(pos));
+    //    printf("%s %3d.%03d\n", block_type_names[t], pos.x(), pos.y());
   }
 }

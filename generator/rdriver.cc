@@ -30,7 +30,7 @@ void RDriverParser::next()
   drivers[0] = drivers[1] = 0xff;
 
   if(p == e) {
-    rn = 0;
+    rn = rnode_coords();
     return;
   }
 

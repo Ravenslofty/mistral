@@ -10,17 +10,17 @@ struct pram_info {
   int strip;
   int start;
   int size;
-  pos_t pos;
+  xycoords pos;
   int instance, var;
 };
 
 struct fixed_block_info {
-  pos_t pos;
+  xycoords pos;
   uint32_t pram;
 };
 
 struct dqs16_info {
-  pos_t pos;
+  xycoords pos;
   uint32_t pram;
 };
 

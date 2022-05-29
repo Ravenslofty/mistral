@@ -117,8 +117,8 @@ static void show_routes(char **args)
     auto s = model->rnode_to_pnode(l.first);
     auto d = model->rnode_to_pnode(l.second);
     printf("%s %s",
-	   s ? mistral::CycloneV::pn2s(s).c_str() : mistral::CycloneV::rn2s(l.first).c_str(),
-	   d ? mistral::CycloneV::pn2s(d).c_str() : mistral::CycloneV::rn2s(l.second).c_str());
+	   s ? s.to_string().c_str() : l.first.to_string().c_str(),
+	   d ? d.to_string().c_str() : l.second.to_string().c_str());
     bool has_comment = false;
     const mistral::CycloneV::pin_info_t *pin;
     pin = model->pin_find_pnode(s);
@@ -162,7 +162,7 @@ static void show_routesp(char **args)
       if(!p.empty())
 	p += ' ';
       auto pn = model->rnode_to_pnode(rn);
-      p += pn ? mistral::CycloneV::pn2s(pn) : mistral::CycloneV::rn2s(rn);
+      p += pn ? pn.to_string() : rn.to_string();
     }
     printf("%s", p.c_str());
     auto s = model->rnode_to_pnode(path.front());
@@ -209,17 +209,17 @@ static void show_routes2(char **args)
     auto d = model->rnode_to_pnode(l.second);
     if(!(s&&d))
     printf("%s %s\n",
-	   s ? mistral::CycloneV::pn2s(s).c_str() : mistral::CycloneV::rn2s(l.first).c_str(),
-	   d ? mistral::CycloneV::pn2s(d).c_str() : mistral::CycloneV::rn2s(l.second).c_str());
+	   s ? s.to_string().c_str() : l.first.to_string().c_str(),
+	   d ? d.to_string().c_str() : l.second.to_string().c_str());
   }
 
   delete model;
 }
 
-static void show_bels_1(const std::vector<uint16_t> &pos, const char *name)
+static void show_bels_1(const std::vector<mistral::CycloneV::xycoords> &pos, const char *name)
 {
-  for(uint16_t p : pos)
-    printf("%2d %2d %s\n", mistral::CycloneV::pos2x(p), mistral::CycloneV::pos2y(p), name);
+  for(auto p : pos)
+    printf("%2d %2d %s\n", p.x(), p.y(), name);
 }
 
 static const char *const hps_blocks[mistral::CycloneV::I_HPS_COUNT] = {
@@ -295,7 +295,7 @@ static void show_bels(char **args)
 
   if(!hps.empty())
     for(int i=0; i != mistral::CycloneV::I_HPS_COUNT; i++)
-      printf("%2d %2d %s\n", mistral::CycloneV::pos2x(hps[i]), mistral::CycloneV::pos2y(hps[i]), hps_blocks[i]);
+      printf("%2d %2d %s\n", hps[i].x(), hps[i].y(), hps_blocks[i]);
 
   delete model;
 }
@@ -311,7 +311,7 @@ static void show_p2r(char **args)
   static const char invert[] = "nip?";
   auto r = model->get_all_p2r();
   for(const auto &e : r)
-    printf("%s %s %c\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str(), invert[model->rnode_is_inverting(e.second)]);
+    printf("%s %s %c\n", e.first.to_string().c_str(), e.second.to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
 
   delete model;
 }
@@ -326,7 +326,7 @@ static void show_p2p(char **args)
 
   auto r = model->get_all_p2p();
   for(const auto &e : r)
-    printf("%s %s\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::pn2s(e.second).c_str());
+    printf("%s %s\n", e.first.to_string().c_str(), e.second.to_string().c_str());
 
   delete model;
 }
@@ -343,14 +343,14 @@ static void show_p2ri(char **args)
   for(const auto &e : r) {
     if(model->pnode_to_rnode(e.first) != e.second || model->rnode_to_pnode(e.second) != e.first) {
       printf("ERROR ");
-      int br = model->pnode_to_rnode(e.first);
+      auto br = model->pnode_to_rnode(e.first);
       if(br)
-	printf("%s ", mistral::CycloneV::rn2s(br).c_str());
+	printf("%s ", br.to_string().c_str());
       else
 	printf("- ");
     }
     static const char invert[] = "nip?";
-    printf("%s %s %c\n", mistral::CycloneV::pn2s(e.first).c_str(), mistral::CycloneV::rn2s(e.second).c_str(), invert[model->rnode_is_inverting(e.second)]);
+    printf("%s %s %c\n", e.first.to_string().c_str(), e.second.to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
   }
 
   delete model;
@@ -409,8 +409,8 @@ static void decompile(char **args)
     auto s = model->rnode_to_pnode(l.first);
     auto d = model->rnode_to_pnode(l.second);
     fprintf(fd, "r %s %s",
-	    s ? mistral::CycloneV::pn2s(s).c_str() : mistral::CycloneV::rn2s(l.first).c_str(),
-	    d ? mistral::CycloneV::pn2s(d).c_str() : mistral::CycloneV::rn2s(l.second).c_str());
+	    s ? s.to_string().c_str() : l.first.to_string().c_str(),
+	    d ? d.to_string().c_str() : l.second.to_string().c_str());
     bool has_comment = false;
     const mistral::CycloneV::pin_info_t *pin;
     pin = model->pin_find_pnode(s);
@@ -431,7 +431,7 @@ static void decompile(char **args)
   
   for(const auto &s : model->bmux_get())
     if(!s.def) {
-      fprintf(fd, "s %s.%03d.%03d:", mistral::CycloneV::block_type_names[s.btype], mistral::CycloneV::pos2x(s.pos), mistral::CycloneV::pos2y(s.pos));
+      fprintf(fd, "s %s.%03d.%03d:", mistral::CycloneV::block_type_names[s.btype], s.pos.x(), s.pos.y());
       if(s.midx == -1)
 	fprintf(fd, "%s ", mistral::CycloneV::bmux_type_names[s.mux]);
       else
@@ -460,9 +460,9 @@ static void decompile(char **args)
       }
 
       if(s.btype == mistral::CycloneV::DQS16 && s.midx != -1) {
-	auto gpiov = model->p2p_from(mistral::CycloneV::pnode(mistral::CycloneV::DQS16, s.pos, mistral::CycloneV::PNONE, s.midx, -1));
+	auto gpiov = model->p2p_from(mistral::CycloneV::pnode_coords(mistral::CycloneV::DQS16, s.pos, mistral::CycloneV::PNONE, s.midx, -1));
 	if(!gpiov.empty()) {
-	  auto pin = model->pin_find_pos(mistral::CycloneV::pn2p(gpiov[0]), mistral::CycloneV::pn2bi(gpiov[0]));
+	  auto pin = model->pin_find_pos(gpiov[0].p(), gpiov[0].bi());
 	if(pin)
 	  fprintf(fd, " ; %s", pin->name);
 	}
@@ -475,23 +475,23 @@ static void decompile(char **args)
     if(!s.def) {
       auto p = model->rnode_to_pnode(s.node);
       fprintf(fd, "i %s %d",
-	      p ? mistral::CycloneV::pn2s(p).c_str() : mistral::CycloneV::rn2s(s.node).c_str(), s.value);
+	      p ? p.to_string().c_str() : s.node.to_string().c_str(), s.value);
       auto pin = model->pin_find_pnode(p);
       if(pin)
 	fprintf(fd, " ; %s", pin->name);
-      if(mistral::CycloneV::pn2bt(p) == mistral::CycloneV::HMC) {
+      if(p.bt() == mistral::CycloneV::HMC) {
 	auto p1 = model->hmc_get_bypass(p);
 	if(p1) {
-	  fprintf(fd, " ; %s", mistral::CycloneV::pn2s(p1).c_str());
+	  fprintf(fd, " ; %s", p1.to_string().c_str());
 	  auto gpio = model->p2p_to(p1);
 	  if(!gpio)
 	    for(auto gp : model->p2p_from(p1))
-	      if(mistral::CycloneV::pn2bt(gp) == mistral::CycloneV::GPIO) {
+	      if(gp.bt() == mistral::CycloneV::GPIO) {
 		gpio = gp;
 		break;
 	      }
-	  if(mistral::CycloneV::pn2bt(gpio) == mistral::CycloneV::GPIO)
-	    fprintf(fd, " %s", mistral::CycloneV::pn2s(gpio).c_str());
+	  if(gpio.bt() == mistral::CycloneV::GPIO)
+	    fprintf(fd, " %s", gpio.to_string().c_str());
 	}
       }
       fprintf(fd, "\n");
@@ -533,7 +533,7 @@ static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::
     uint32_t y = strtol(sp[2].c_str(), 0, 10);
     uint32_t z = strtol(sp[3].c_str(), 0, 10);
 
-    return mistral::CycloneV::rnode(rt, x, y, z);
+    return mistral::CycloneV::rnode_coords(rt, x, y, z);
 
   } else {
     // pnode
@@ -563,7 +563,7 @@ static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::
     }
     int16_t pi = sp.size() == 2 ? strtol(sp[1].c_str(), 0, 10) : -1;
 
-    auto p = mistral::CycloneV::pnode(bt, x, y, pt, bi, pi);
+    mistral::CycloneV::pnode_coords p(bt, x, y, pt, bi, pi);
     auto r = model->pnode_to_rnode(p);
     if(!r) {
       fprintf(stderr, "%s:%d: pnode %s has no associated rnode\n", file, line, s.c_str());
@@ -765,7 +765,7 @@ static void compile(char **args)
       }
       int midx = sp.size() == 2 ? strtol(sp[1].c_str(), 0, 10) : 0;
 
-      auto pos = mistral::CycloneV::xy2pos(x, y);
+      mistral::CycloneV::xycoords pos(x, y);
       int mtype = model->bmux_type(bt, pos, mux, midx);
       if(mtype < 0) {
 	fprintf(stderr, "%s:%d: block mux %s does not exist\n", args[0], line, s.c_str());
@@ -945,7 +945,7 @@ static void show_rnodes(char **args)
   }
 
   for(const auto &rnode : model->rnodes())
-    printf("%08x\n", rnode.id());
+    printf("%08x\n", rnode.rc().v);
 
   delete model;
 }
@@ -979,7 +979,7 @@ static void show_tnet(char **args)
     sim.show();
     printf("input %s (%d)\n", sim.get_node_name(input).c_str(), input);
     for(const auto &o : outputs)
-      printf("output %s: %s (%d)\n", o.first ? mistral::CycloneV::rn2s(o.first).c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
+      printf("output %s: %s (%d)\n", o.first ? o.first.to_string().c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
 
   } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
     printf("Unsupported node\n");
@@ -1056,7 +1056,7 @@ static void trun(char **args)
     sim.run();
     for(size_t o = 0; o != outputs.size(); o++)
       printf("%-30s %g - %g\n",
-	     outputs[o].first ? mistral::CycloneV::rn2s(outputs[o].first).c_str() : "<output>",
+	     outputs[o].first ? outputs[o].first.to_string().c_str() : "<output>",
 	     output_delays[o].mi, output_delays[o].mx);
 
   } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
@@ -1097,7 +1097,7 @@ static void timing(char **args)
       if(!p.empty())
 	p += ' ';
       auto pn = model->rnode_to_pnode(rn);
-      p += pn ? mistral::CycloneV::pn2s(pn) : mistral::CycloneV::rn2s(rn);
+      p += pn ? pn.to_string() : rn.to_string();
     }
     auto s = model->rnode_to_pnode(path.front());
     auto d = model->rnode_to_pnode(path.back());
@@ -1126,14 +1126,14 @@ static void timing(char **args)
 
     for(size_t i=0; i != path.size(); i++) {
       auto src = path[i];
-      auto dst = i+1 == path.size() ? 0 : path[i+1];
+      auto dst = i+1 == path.size() ? mistral::CycloneV::rnode_coords() : path[i+1];
 
       auto psrc = model->rnode_to_pnode(src);
       auto pdst = model->rnode_to_pnode(dst);
 
       printf("  %-30s %-30s",
-	     (psrc ? mistral::CycloneV::pn2s(psrc) : mistral::CycloneV::rn2s(src)).c_str(),
-	     dst ? (pdst ? mistral::CycloneV::pn2s(pdst) : mistral::CycloneV::rn2s(dst)).c_str() : "-");
+	     (psrc ? psrc.to_string() : src.to_string()).c_str(),
+	     dst ? (pdst ? pdst.to_string() : dst.to_string()).c_str() : "-");
 
       auto mode = model->rnode_timing_get_mode(src);
       if(mode == mistral::CycloneV::RTM_UNSUPPORTED) {

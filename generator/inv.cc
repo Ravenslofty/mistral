@@ -61,9 +61,9 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_coords nod
 {
   if(!(pos & inverter_info::DEF_MASK)) {
     pnode_coords pn = p2r.find_r(node);
-    auto pt = pn2pt(pn);
+    auto pt = pn.pt();
     if(pn) {
-      switch(pn2bt(pn)) {
+      switch(pn.bt()) {
       case CTRL: pos |= inverter_info::DEF_0; break;
       case CMUXCR: pos |= inverter_info::DEF_0; break;
       case CMUXHG: pos |= inverter_info::DEF_0; break;
@@ -104,7 +104,7 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_coords nod
       case FPLL: pos |= (pt == CLKEN || pt == EXTSWITCH0 ? inverter_info::DEF_1 : inverter_info::DEF_0); break;
       case HPS_CROSS_TRIGGER: pos |= pt == CLK_EN ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
       case HPS_TEST: pos |= pos |= pt == CFG_DFX_BYPASS_ENABLE ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
-      case HSSI: pos |= ((pt == PMA_PMA_RESERVED_IN && pn2pi(pn) == 0) || pt == SMRT_PACK_PLD_8G_TXELECIDLE) ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
+      case HSSI: pos |= ((pt == PMA_PMA_RESERVED_IN && pn.pi() == 0) || pt == SMRT_PACK_PLD_8G_TXELECIDLE) ? inverter_info::DEF_1 : inverter_info::DEF_0; break;
 
       case GPIO:
 	pos |= inverter_info::DEF_GP;
@@ -118,9 +118,9 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_coords nod
       }
 
     } else {
-      if(rn2t(node) == DCMUX)
+      if(node.t() == DCMUX)
 	pos |= inverter_info::DEF_0;
-      else if(rn2t(node) == GOUT)
+      else if(node.t() == GOUT)
 	pos |= inverter_info::DEF_0;
     }
   }
