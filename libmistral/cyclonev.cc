@@ -319,7 +319,7 @@ void mistral::CycloneV::add_cram_blocks()
 
     for(uint8_t x = xs; x <= xe; x++) {
       const uint8_t *spans = spans_start;
-      std::vector<uint16_t> *posvec;
+      std::vector<uint16_t> *posvec = nullptr;
       bool is_dsp = false;
       tile_type_t tp = di.column_types[x];
       switch(tp) {
