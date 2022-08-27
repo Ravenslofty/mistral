@@ -442,6 +442,9 @@ namespace mistral {
       uint8_t ro_targets_count;
       uint8_t ro_targets_caps_count;
       uint8_t ro_drivers[2];
+      uint8_t ro_span;
+      uint8_t ro_srclen;
+      uint16_t ro_srcoff;
       uint16_t ro_line_info_index;
       uint16_t ro_driver_position;
       uint32_t ro_fw_pos;
@@ -451,7 +454,7 @@ namespace mistral {
       inline rnode_index  ri() const noexcept { return ro_ri; }
 
       inline uint32_t sources_count() const noexcept {
-	return ro_pattern == 0xff ? 0 : ro_pattern == 0xfe ? 1 : rmux_patterns[ro_pattern].span;
+	return ro_srclen;
       }
 
       inline const rnode_coords *sources_begin() const noexcept {
@@ -504,6 +507,20 @@ namespace mistral {
 
       uint8_t pattern() const noexcept {
 	return ro_pattern;
+      }
+
+      uint8_t sources_span() const noexcept {
+	return ro_span;
+      }
+
+      const uint8_t *sources_forward_mapping(const uint8_t *rsrc) const noexcept
+      {
+	return rsrc + ro_srcoff;
+      }
+
+      const uint8_t *sources_backward_mapping(const uint8_t *rsrc) const noexcept
+      {
+	return rsrc + ro_srcoff + ro_srclen;
       }
 
       uint16_t line_info_index() const noexcept {
@@ -745,6 +762,7 @@ namespace mistral {
       uint32_t off_ro;
       uint32_t off_roh;
       uint32_t off_ri;
+      uint32_t off_rsrc;
       uint32_t off_line;
       uint32_t off_p2r;
       uint32_t off_p2p;
@@ -758,6 +776,7 @@ namespace mistral {
 
       uint32_t count_ro;
       uint32_t count_ri;
+      uint32_t count_rsrc;
       uint32_t count_p2r;
       uint32_t count_p2p;
       uint32_t count_inv;
@@ -943,11 +962,13 @@ namespace mistral {
     public:
       rnode_proxy(const rnode_object *_rn) : rn(_rn) {}
       rnode_coords rc() const { return rn->rc(); }
+      rnode_index ri() const { return rn->ri(); }
       int pattern() const { return rn->pattern(); }
       rnode_source_container_proxy sources() const { return rnode_source_container_proxy(rn); }
 
-    private:
       const rnode_object *rn;
+
+    private:
 
       operator const rnode_object&() const { return *rn; }
     };
@@ -1239,6 +1260,7 @@ namespace mistral {
     const rnode_object *ro_begin, *ro_end;
     const uint8_t *roh_info;
     const uint32_t *ri_info;
+    const uint8_t *rsrc_info;
     const rnode_line_information *rli_data;
 
     const p2r_info *p2r_infos;

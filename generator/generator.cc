@@ -43,6 +43,7 @@ struct data_header {
   uint32_t off_ro;
   uint32_t off_roh;
   uint32_t off_ri;
+  uint32_t off_rsrc;
   uint32_t off_line;
   uint32_t off_p2r;
   uint32_t off_p2p;
@@ -56,6 +57,7 @@ struct data_header {
 
   uint32_t count_ro;
   uint32_t count_ri;
+  uint32_t count_rsrc;
   uint32_t count_p2r;
   uint32_t count_p2p;
   uint32_t count_inv;
@@ -183,6 +185,9 @@ int main(int argc, char **argv)
 
     std::vector<uint32_t> rnode_vec;
     std::vector<uint32_t> rnode_pos;
+    std::vector<uint8_t> source_patterns;
+    std::unordered_map<uint16_t, std::vector<uint32_t>> source_offsets;
+    uint32_t source_offsets_counts = 0;
 
     uint8_t *opos = output.data() + dh->off_ro;
     while(rparse.rn || lparse.rn) {
@@ -210,16 +215,56 @@ int main(int argc, char **argv)
       rb.ro_line_info_index = lv ? get_line_info(lparse.li) : 0xffff;
       rb.ro_driver_position = lv ? lparse.driver_position : 0;
       rb.ro_fw_pos = rv ? rparse.fw_pos : 0;
-
       uint32_t span = rv ? rparse.pattern == 0xfe ? 1 : rmux_patterns[rparse.pattern].span : 0;
-    
-      memcpy(opos, &rb, sizeof(rb));
+
+      uint8_t *rbpos = opos;
       opos += sizeof(rb);
 
       if(span) {
-	memcpy(opos, rparse.sources.data(), span*4);
-	opos += 4*span;
+	uint8_t srcidx[64];
+	uint8_t backidx[64];
+	uint32_t srclen = 0;
+
+	for(uint32_t i = 0; i != span; i++) {
+	  if(rparse.sources[i]) {
+	    if(i != srclen)
+	      rparse.sources[srclen] = rparse.sources[i];
+	    srcidx[srclen] = i;
+	    backidx[i] = srclen++;
+	  } else
+	    backidx[i] = 0xff;
+	}
+
+	rb.ro_span = span;
+	rb.ro_srclen = srclen;
+
+	uint16_t key = (span << 8) | srclen;
+	auto &offs = source_offsets[key];
+	for(uint32_t off : offs)
+	  if(!memcmp(source_patterns.data() + off, srcidx, srclen)) {
+	    rb.ro_srcoff = off;
+	    goto found;
+	  }
+	{
+	  uint32_t off = source_patterns.size();
+	  rb.ro_srcoff = off;
+	  source_patterns.resize(off + srclen + span);
+	  memcpy(source_patterns.data() + off, srcidx, srclen);
+	  memcpy(source_patterns.data() + off + srclen, backidx, span);
+	  offs.push_back(off);
+	  source_offsets_counts ++;
+	}
+
+      found:
+	memcpy(opos, rparse.sources.data(), srclen*4);
+	opos += 4*srclen;
+      } else {
+	rb.ro_span = 0;
+	rb.ro_srclen = 0;
+	rb.ro_srcoff = 0xffff;
       }
+
+      memcpy(rbpos, &rb, sizeof(rb));
 
       if(rb.ro_targets_count || rb.ro_targets_caps_count) {
 	memcpy(opos, lparse.targets.data(), rb.ro_targets_count*4);
@@ -250,6 +295,7 @@ int main(int argc, char **argv)
     auto hdata = bdz_ph_hash::make(rnode_vec);
     size_t rohs   = (hdata.size() + 3) & ~3;
     size_t ris    = 4*bdz_ph_hash::output_range(hdata);
+    size_t rsrc   = (source_patterns.size() + 3) & ~3;
     size_t llines = sizeof(rnode_line_information)*rli_data.size();
     size_t p2rs   = p2r.data.size()*sizeof(p2r_info);
     size_t p2ps   = p2p.data.size()*sizeof(p2p_info);
@@ -263,7 +309,8 @@ int main(int argc, char **argv)
 
     dh->off_roh = opos - output.data();
     dh->off_ri = dh->off_roh + rohs;
-    dh->off_line = dh->off_ri + ris;
+    dh->off_rsrc = dh->off_ri + ris;
+    dh->off_line = dh->off_rsrc + rsrc;
     dh->off_p2r = dh->off_line + llines;
     dh->off_p2p = dh->off_p2r + p2rs;
     dh->off_inv = dh->off_p2p + p2ps;
@@ -277,6 +324,7 @@ int main(int argc, char **argv)
 
     dh->count_ro = rnode_vec.size();
     dh->count_ri = bdz_ph_hash::output_range(hdata);
+    dh->count_rsrc = source_patterns.size() ;
     dh->count_p2r = p2r.data.size();
     dh->count_p2p = p2p.data.size();
     dh->count_inv = inv.data.size();
@@ -298,6 +346,7 @@ int main(int argc, char **argv)
       ro->ro_ri = idx;
     }
 
+    memcpy(output.data() + dh->off_rsrc, source_patterns.data(), dh->count_rsrc);
     memcpy(output.data() + dh->off_line, rli_data.data(), llines);
     memcpy(output.data() + dh->off_p2r, p2r.data.data(), p2rs);
     memcpy(output.data() + dh->off_p2p, p2p.data.data(), p2ps);
@@ -310,13 +359,15 @@ int main(int argc, char **argv)
     memcpy(output.data() + dh->off_dqs16, dqs16_info.data(), dqs16s);
     memcpy(output.data() + dh->off_iob, iob.data.data(), iobs);
 
-    fprintf(stderr, "%-6s size %9d ro %9d rh %7d ri %8d rc %7d lines %5d p2r %5d p2p %4d inv %5d one %2d dcram %2d hps %2d fixed %2d dqs16 %2d iob %3d\n",
+    fprintf(stderr, "%-6s size %9d ro %9d rh %7d ri %8d rc %7d rsrc %d/%d lines %5d p2r %5d p2p %4d inv %5d one %2d dcram %2d hps %2d fixed %2d dqs16 %2d iob %3d\n",
 	    chip.c_str(),
 	    int(output.size()),
 	    dh->off_roh - dh->off_ro,
 	    dh->off_ri - dh->off_roh,
 	    dh->count_ri,
 	    dh->count_ro,
+	    source_offsets_counts,
+	    dh->count_rsrc,
 	    int(rli_data.size()),
 	    int(p2r.data.size()),
 	    int(p2p.data.size()),

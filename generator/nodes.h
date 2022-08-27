@@ -108,6 +108,9 @@ struct rnode_object {
   uint8_t ro_targets_count;
   uint8_t ro_targets_caps_count;
   uint8_t ro_drivers[2];
+  uint8_t ro_span;
+  uint8_t ro_srclen;
+  uint16_t ro_srcoff;
   uint16_t ro_line_info_index;
   uint16_t ro_driver_position;
   uint32_t ro_fw_pos;

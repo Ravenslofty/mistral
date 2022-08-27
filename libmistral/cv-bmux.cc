@@ -292,6 +292,8 @@ void mistral::CycloneV::bmux_val_set(uint32_t base, const bmux *mux, int idx, bm
       uint32_t pos = (base & 0xffff) + bt[0];
       if(base & (1<<23))
 	bmux_dqs16_adjust(pos, bt[0], base & (1 << 22));
+      if(pos >= prami.size())
+	abort();
       prami[pos] = b >= 64 ? 0 : (val >> b) & 1;
       bt ++;
     }

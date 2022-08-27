@@ -495,8 +495,6 @@ void mistral::CycloneV::validate_fw_bw() const
       const rnode_coords *rs = ro->sources_begin();
       for(uint32_t i=0; i != ro->sources_count(); i++) {
 	rnode_coords rns = rs[i];
-	if(!rns)
-	  continue;
 	const rnode_object *rnso = rc2ro(rns);
 	if(!rnso) {
 	  printf("%s: %s - backward node missing.\n", rn.to_string().c_str(), rns.to_string().c_str());

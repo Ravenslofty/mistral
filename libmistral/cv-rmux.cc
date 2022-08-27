@@ -49,6 +49,7 @@ void mistral::CycloneV::rmux_load()
   ro_end = reinterpret_cast<const rnode_object *>(data + dhead->off_roh);
   roh_info = data + dhead->off_roh;
   ri_info = reinterpret_cast<const uint32_t *>(data + dhead->off_ri);
+  rsrc_info = data + dhead->off_rsrc;
   rli_data = reinterpret_cast<const rnode_line_information *>(data + dhead->off_line);
   p2r_infos = reinterpret_cast<const p2r_info *>(data + dhead->off_p2r);
   p2p_infos = reinterpret_cast<const p2p_info *>(data + dhead->off_p2p);
@@ -114,7 +115,7 @@ mistral::CycloneV::rnode_coords mistral::CycloneV::rmux_get_source(const rnode_o
   int slot = rmux_get_slot(r);
   if(slot == -1)
     return rnode_coords();
-  return r.sources_begin()[slot];
+  return r.sources_begin()[r.sources_backward_mapping(rsrc_info)[slot]];
 }
 
 bool mistral::CycloneV::rnode_do_link(rnode_coords n1, rnode_coords n2)
@@ -125,9 +126,10 @@ bool mistral::CycloneV::rnode_do_link(rnode_coords n1, rnode_coords n2)
     return n1 == r->sources_begin()[0];
   const rmux_pattern &pat = rmux_patterns[r->pattern()];
   const rnode_coords *sources = r->sources_begin();
-  for(int slot = 0; slot != pat.span; slot++)
-    if(sources[slot] == n1) {
-      rmux_set_val(*r, rmux_vals[pat.o_vals + slot]);
+  const uint8_t *srcslot = r->sources_forward_mapping(rsrc_info);
+  for(uint8_t idx = 0; idx != r->sources_count(); idx++)
+    if(sources[idx] == n1) {
+      rmux_set_val(*r, rmux_vals[pat.o_vals + srcslot[idx]]);
       return true;
     }
   return false;
@@ -150,11 +152,12 @@ bool mistral::CycloneV::rmux_is_default(rnode_coords node) const
 
 void mistral::CycloneV::route_set_defaults()
 {
-  for(const auto &r : rnodes())
+  for(const auto &r : rnodes()) {
     if(r.pattern() < 0xfe) {
       const rmux_pattern &pat = rmux_patterns[r.pattern()];
       rmux_set_val(r, pat.def);
     }
+  }
 }
 
 bool mistral::CycloneV::rnode_active(const rnode_object *rn, rnode_coords previous) const
