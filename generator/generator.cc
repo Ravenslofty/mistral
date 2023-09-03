@@ -346,6 +346,19 @@ int main(int argc, char **argv)
       ro->ro_ri = idx;
     }
 
+    for(uint32_t idx=0; idx != dh->count_ri; idx++) {
+      if(offsets[idx] == 0xffffffff)
+	continue;
+      rnode_object *ro = reinterpret_cast<rnode_object *>(output.data() + dh->off_ro + offsets[idx]);
+
+      uint32_t *st = reinterpret_cast<uint32_t *>(reinterpret_cast<uint8_t *>(ro) + sizeof(rnode_object));
+      for(uint32_t i=0; i != ro->ro_srclen + ro->ro_targets_count; i++)
+	st[i] = bdz_ph_hash::lookup(hdata, st[i]);
+    }
+
+    p2r.convert_coords_to_index(hdata);
+    inv.convert_coords_to_index(hdata);
+
     memcpy(output.data() + dh->off_rsrc, source_patterns.data(), dh->count_rsrc);
     memcpy(output.data() + dh->off_line, rli_data.data(), llines);
     memcpy(output.data() + dh->off_p2r, p2r.data.data(), p2rs);

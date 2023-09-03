@@ -1,5 +1,6 @@
 #include "p2r.h"
 #include "io.h"
+#include "bdz-ph.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -97,3 +98,10 @@ pnode_coords P2RLoader::find_r(rnode_coords node) const
       return n.p;
   return pnode_coords();
 }
+
+void P2RLoader::convert_coords_to_index(const std::vector<uint8_t> &hdata)
+{
+  for(auto &n : data)
+    n.r.v = bdz_ph_hash::lookup(hdata, n.r.v);
+}
+

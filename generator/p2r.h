@@ -17,6 +17,8 @@ public:
 
   pnode_coords find_r(rnode_coords node) const;
 
+  void convert_coords_to_index(const std::vector<uint8_t> &hdata);
+
 private:
   const NodesReader &nr;
 

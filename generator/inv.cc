@@ -1,5 +1,6 @@
 #include "inv.h"
 #include "io.h"
+#include "bdz-ph.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -126,4 +127,10 @@ void InvLoader::add(const P2RLoader &p2r, const P2PLoader &p2p, rnode_coords nod
   }
 
   data.emplace_back(inverter_info{node, pos});
+}
+
+void InvLoader::convert_coords_to_index(const std::vector<uint8_t> &hdata)
+{
+  for(auto &n : data)
+    n.node.v = bdz_ph_hash::lookup(hdata, n.node.v);
 }

@@ -116,7 +116,7 @@ struct rnode_object {
   uint32_t ro_fw_pos;
 };
 
-// Additional std::hash specializations for wrapped integerst
+// Additional std::hash specializations for wrapped integers
 template<> struct std::hash<xycoords> {
   std::size_t operator()(const xycoords &v) const noexcept { return std::hash<uint16_t>()(v.v); }
 };

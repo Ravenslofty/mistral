@@ -75,7 +75,7 @@ void mistral::CycloneV::inv_default_set()
   }
 }
 
-bool mistral::CycloneV::inv_set(rnode_coords node, bool value)
+bool mistral::CycloneV::inv_set(rnode_index node, bool value)
 {
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
     const auto &inf = inverter_infos[i];
@@ -91,19 +91,18 @@ bool mistral::CycloneV::inv_set(rnode_coords node, bool value)
   return false;
 }
 
-mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_coords rn) const
+mistral::CycloneV::invert_t mistral::CycloneV::rnode_is_inverting(rnode_index ri) const
 {
+  const rnode_object *ro = ri2ro(ri);
+  rnode_coords rn = ro->rc();
   if(rn.t() == WM)
     return INV_NO;
 
   for(uint32_t i = 0; i != dhead->count_inv; i++) {
     const auto &inf = inverter_infos[i];
-    if(inf.node == rn)
+    if(inf.node == ri)
       return INV_PROGRAMMABLE;
   }
-  const rnode_object *ro = rc2ro(rn);
-  if(!ro)
-    return INV_UNKNOWN;
 
   if(ro->driver(0) == 0xff)
     return INV_UNKNOWN;

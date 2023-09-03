@@ -117,8 +117,8 @@ static void show_routes(char **args)
     auto s = model->rnode_to_pnode(l.first);
     auto d = model->rnode_to_pnode(l.second);
     printf("%s %s",
-	   s ? s.to_string().c_str() : l.first.to_string().c_str(),
-	   d ? d.to_string().c_str() : l.second.to_string().c_str());
+	   s ? s.to_string().c_str() : model->ri2rc(l.first).to_string().c_str(),
+	   d ? d.to_string().c_str() : model->ri2rc(l.second).to_string().c_str());
     bool has_comment = false;
     const mistral::CycloneV::pin_info_t *pin;
     pin = model->pin_find_pnode(s);
@@ -162,7 +162,7 @@ static void show_routesp(char **args)
       if(!p.empty())
 	p += ' ';
       auto pn = model->rnode_to_pnode(rn);
-      p += pn ? pn.to_string() : rn.to_string();
+      p += pn ? pn.to_string() : model->ri2rc(rn).to_string();
     }
     printf("%s", p.c_str());
     auto s = model->rnode_to_pnode(path.front());
@@ -209,8 +209,8 @@ static void show_routes2(char **args)
     auto d = model->rnode_to_pnode(l.second);
     if(!(s&&d))
     printf("%s %s\n",
-	   s ? s.to_string().c_str() : l.first.to_string().c_str(),
-	   d ? d.to_string().c_str() : l.second.to_string().c_str());
+	   s ? s.to_string().c_str() : model->ri2rc(l.first).to_string().c_str(),
+	   d ? d.to_string().c_str() : model->ri2rc(l.second).to_string().c_str());
   }
 
   delete model;
@@ -311,7 +311,7 @@ static void show_p2r(char **args)
   static const char invert[] = "nip?";
   auto r = model->get_all_p2r();
   for(const auto &e : r)
-    printf("%s %s %c\n", e.first.to_string().c_str(), e.second.to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
+    printf("%s %s %c\n", e.first.to_string().c_str(), model->ri2rc(e.second).to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
 
   delete model;
 }
@@ -326,7 +326,7 @@ static void show_p2p(char **args)
 
   auto r = model->get_all_p2p();
   for(const auto &e : r)
-    printf("%s %s\n", e.first.to_string().c_str(), e.second.to_string().c_str());
+    printf("%s %s\n", e.first.to_string().c_str(), model->ri2rc(e.second).to_string().c_str());
 
   delete model;
 }
@@ -344,13 +344,13 @@ static void show_p2ri(char **args)
     if(model->pnode_to_rnode(e.first) != e.second || model->rnode_to_pnode(e.second) != e.first) {
       printf("ERROR ");
       auto br = model->pnode_to_rnode(e.first);
-      if(br)
-	printf("%s ", br.to_string().c_str());
+      if(br != 0xffffffff)
+	printf("%s ", model->ri2rc(br).to_string().c_str());
       else
 	printf("- ");
     }
     static const char invert[] = "nip?";
-    printf("%s %s %c\n", e.first.to_string().c_str(), e.second.to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
+    printf("%s %s %c\n", e.first.to_string().c_str(), model->ri2rc(e.second).to_string().c_str(), invert[model->rnode_is_inverting(e.second)]);
   }
 
   delete model;
@@ -409,8 +409,8 @@ static void decompile(char **args)
     auto s = model->rnode_to_pnode(l.first);
     auto d = model->rnode_to_pnode(l.second);
     fprintf(fd, "r %s %s",
-	    s ? s.to_string().c_str() : l.first.to_string().c_str(),
-	    d ? d.to_string().c_str() : l.second.to_string().c_str());
+	    s ? s.to_string().c_str() : model->ri2rc(l.first).to_string().c_str(),
+	    d ? d.to_string().c_str() : model->ri2rc(l.second).to_string().c_str());
     bool has_comment = false;
     const mistral::CycloneV::pin_info_t *pin;
     pin = model->pin_find_pnode(s);
@@ -475,7 +475,7 @@ static void decompile(char **args)
     if(!s.def) {
       auto p = model->rnode_to_pnode(s.node);
       fprintf(fd, "i %s %d",
-	      p ? p.to_string().c_str() : s.node.to_string().c_str(), s.value);
+	      p ? p.to_string().c_str() : model->ri2rc(s.node).to_string().c_str(), s.value);
       auto pin = model->pin_find_pnode(p);
       if(pin)
 	fprintf(fd, " ; %s", pin->name);
@@ -514,7 +514,7 @@ static std::vector<std::string> dotsplit(std::string::const_iterator s, std::str
   return res;
 }
 
-static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::string s, const char *file, int line)
+static mistral::CycloneV::rnode_index get_rnode(mistral::CycloneV *model, std::string s, const char *file, int line)
 {
   auto pp = s.find(':');
   if(pp == std::string::npos) {
@@ -533,7 +533,12 @@ static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::
     uint32_t y = strtol(sp[2].c_str(), 0, 10);
     uint32_t z = strtol(sp[3].c_str(), 0, 10);
 
-    return mistral::CycloneV::rnode_coords(rt, x, y, z);
+    auto ro = model->rc2ro(mistral::CycloneV::rnode_coords(rt, x, y, z));
+    if(!ro) {
+      fprintf(stderr, "%s:%d: rnode %s does not exist in that model\n", file, line, s.c_str());
+      exit(1);
+    }
+    return ro->ri();
 
   } else {
     // pnode
@@ -564,6 +569,7 @@ static mistral::CycloneV::rnode_coords get_rnode(mistral::CycloneV *model, std::
     int16_t pi = sp.size() == 2 ? strtol(sp[1].c_str(), 0, 10) : -1;
 
     mistral::CycloneV::pnode_coords p(bt, x, y, pt, bi, pi);
+    
     auto r = model->pnode_to_rnode(p);
     if(!r) {
       fprintf(stderr, "%s:%d: pnode %s has no associated rnode\n", file, line, s.c_str());
@@ -936,20 +942,6 @@ static void missing(char **args)
   delete model;
 }
 
-static void show_rnodes(char **args)
-{
-  auto model = mistral::CycloneV::get_model(args[0]);
-  if(!model) {
-    fprintf(stderr, "Error: model %s unsupported\n", args[0]);
-    exit(1);
-  }
-
-  for(const auto &rnode : model->rnodes())
-    printf("%08x\n", rnode.rc().v);
-
-  delete model;
-}
-
 static void show_tnet(char **args)
 {
   auto model = mistral::CycloneV::get_model(args[0]);
@@ -974,12 +966,12 @@ static void show_tnet(char **args)
   if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
-    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_index, int>> outputs;
     model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.show();
     printf("input %s (%d)\n", sim.get_node_name(input).c_str(), input);
     for(const auto &o : outputs)
-      printf("output %s: %s (%d)\n", o.first ? o.first.to_string().c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
+      printf("output %s: %s (%d)\n", o.first != 0xffffffff ? model->ri2rc(o.first).to_string().c_str() : "generic", sim.get_node_name(o.second).c_str(), o.second);
 
   } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
     printf("Unsupported node\n");
@@ -1046,7 +1038,7 @@ static void trun(char **args)
   if(mode == mistral::CycloneV::RTM_CIRCUIT) {
     mistral::AnalogSim sim;
     int input = -1;
-    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_index, int>> outputs;
     model->rnode_timing_build_circuit(rn, temp, delay, edge, sim, input, outputs);
     sim.set_input_wave(input, input_signal);
     output_waves.resize(outputs.size());
@@ -1056,7 +1048,7 @@ static void trun(char **args)
     sim.run();
     for(size_t o = 0; o != outputs.size(); o++)
       printf("%-30s %g - %g\n",
-	     outputs[o].first ? outputs[o].first.to_string().c_str() : "<output>",
+	     outputs[o].first != 0xffffffff ? model->ri2rc(outputs[o].first).to_string().c_str() : "<output>",
 	     output_delays[o].mi, output_delays[o].mx);
 
   } else if(mode == mistral::CycloneV::RTM_UNSUPPORTED)
@@ -1097,7 +1089,7 @@ static void timing(char **args)
       if(!p.empty())
 	p += ' ';
       auto pn = model->rnode_to_pnode(rn);
-      p += pn ? pn.to_string() : rn.to_string();
+      p += pn ? pn.to_string() : model->ri2rc(rn).to_string();
     }
     auto s = model->rnode_to_pnode(path.front());
     auto d = model->rnode_to_pnode(path.back());
@@ -1121,19 +1113,19 @@ static void timing(char **args)
     bool inverted = false;
     mistral::AnalogSim::wave input_wave[2], output_wave[2];
     mistral::AnalogSim::time_interval output_delays[2];
-    std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
+    std::vector<std::pair<mistral::CycloneV::rnode_index, int>> outputs;
     auto est = delay == mistral::CycloneV::DELAY_MAX ? mistral::CycloneV::EST_SLOW : mistral::CycloneV::EST_FAST;
 
     for(size_t i=0; i != path.size(); i++) {
       auto src = path[i];
-      auto dst = i+1 == path.size() ? mistral::CycloneV::rnode_coords() : path[i+1];
+      auto dst = i+1 == path.size() ? 0xffffffff : path[i+1];
 
       auto psrc = model->rnode_to_pnode(src);
       auto pdst = model->rnode_to_pnode(dst);
 
       printf("  %-30s %-30s",
-	     (psrc ? psrc.to_string() : src.to_string()).c_str(),
-	     dst ? (pdst ? pdst.to_string() : dst.to_string()).c_str() : "-");
+	     (psrc ? psrc.to_string() : model->ri2rc(src).to_string()).c_str(),
+	     dst != 0xffffffff ? (pdst ? pdst.to_string() : model->ri2rc(dst).to_string()).c_str() : "-");
 
       auto mode = model->rnode_timing_get_mode(src);
       if(mode == mistral::CycloneV::RTM_UNSUPPORTED) {
@@ -1171,7 +1163,7 @@ static void timing(char **args)
 	auto actual_edge = edge ? inverted ? mistral::CycloneV::RF_RISE : mistral::CycloneV::RF_FALL : inverted ? mistral::CycloneV::RF_FALL : mistral::CycloneV::RF_RISE;
 	mistral::AnalogSim sim;
 	int input = -1;
-	std::vector<std::pair<mistral::CycloneV::rnode_coords, int>> outputs;
+	std::vector<std::pair<mistral::CycloneV::rnode_index, int>> outputs;
 	model->rnode_timing_build_circuit(src, temp, delay, actual_edge, sim, input, outputs);
 
 #if 0
@@ -1249,7 +1241,6 @@ static const fct fcts[] = {
   { "comp",     2, 2, compile,       "comp     file.bt out.rbf                                            -- Compile to a bitstream" },
   { "diff",     3, 3, diff,          "diff     model f1.rbf f2.rbf                                        -- Compare two bitstrems" },
   { "missing",  2, 2, missing,       "missing  model list.txt                                             -- List missing pnodes" },
-  { "rnodes",   1, 1, show_rnodes,   "rnodes   model                                                      -- List all rnodes ids" },
   { "tnet",     6, 6, show_tnet,     "tnet     model file.rbf temp [min/max] [fall/rise] rnode            -- Create and show the spice networks for a given temperature, min/max choice, rise/fall choice and routing node" },
   { "trun",     7, 7, trun,          "trun     model file.rbf temp [min/max] [fall/rise] input.txt rnode  -- Run the spice networks for a given temperature, min/max choice, rise/fall choice, impulse and routing node" },
   { "timing",   4, 4, timing,        "timing   model file.rbf temp [min/max/ss/tt/ff]                     -- Precise timing of everything (not everything, subject to availability) in a design" },

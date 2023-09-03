@@ -472,40 +472,32 @@ void mistral::CycloneV::validate_fw_bw() const
 
     {    
       // fw -> bw
-      const rnode_coords *rt = ro->targets_begin();
+      const rnode_index *rt = ro->targets_begin();
       for(uint32_t i=0; i != ro->targets_count(); i++) {
-	rnode_coords rnt = rt[i];
-	const rnode_object *rnto = rc2ro(rnt);
-	if(!rnto) {
-	  printf("%s: %s - forward node missing.\n", rn.to_string().c_str(), rnt.to_string().c_str());
-	  continue;
-	}
-	const rnode_coords *rs = rnto->sources_begin();
+	rnode_index rnt = rt[i];
+	const rnode_object *rnto = ri2ro(rnt);
+	const rnode_index *rs = rnto->sources_begin();
 	int span = rnto->sources_count();
 	bool ok = false;
 	for(int j=0; !ok && j != span; j++)
-	  ok = rs[j] == rn;
+	  ok = rs[j] == ri;
 	if(!ok)
-	  printf("%s: %s - forward not found in backward.\n", rn.to_string().c_str(), rnt.to_string().c_str());
+	  printf("%s: %s - forward not found in backward.\n", rn.to_string().c_str(), rnto->rc().to_string().c_str());
       }
     }
 
     {
       // bw -> fw
-      const rnode_coords *rs = ro->sources_begin();
+      const rnode_index *rs = ro->sources_begin();
       for(uint32_t i=0; i != ro->sources_count(); i++) {
-	rnode_coords rns = rs[i];
-	const rnode_object *rnso = rc2ro(rns);
-	if(!rnso) {
-	  printf("%s: %s - backward node missing.\n", rn.to_string().c_str(), rns.to_string().c_str());
-	  continue;
-	}
-	const rnode_coords *rst = rnso->targets_begin();
+	rnode_index rns = rs[i];
+	const rnode_object *rnso = ri2ro(rns);
+	const rnode_index *rst = rnso->targets_begin();
 	bool ok = false;
 	for(uint32_t j=0; !ok && j != rnso->targets_count(); j++)
-	  ok = rst[j] == rn;
+	  ok = rst[j] == ri;
 	if(!ok)
-	  printf("%s: %s - backward not found in forward.\n", rn.to_string().c_str(), rns.to_string().c_str());
+	  printf("%s: %s - backward not found in forward.\n", rn.to_string().c_str(), rnso->rc().to_string().c_str());
       }
     }
   }

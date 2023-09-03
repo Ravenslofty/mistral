@@ -28,6 +28,8 @@ public:
 
   InvLoader(const NodesReader &nr, const std::vector<uint8_t> &data, uint32_t width, const P2RLoader &p2r, const P2PLoader &p2p);
 
+  void convert_coords_to_index(const std::vector<uint8_t> &hdata);
+
 private:
   const NodesReader &nr;
 

@@ -457,11 +457,11 @@ namespace mistral {
 	return ro_srclen;
       }
 
-      inline const rnode_coords *sources_begin() const noexcept {
-	return reinterpret_cast<const rnode_coords *>(reinterpret_cast<const uint8_t *>(this) + sizeof(rnode_object));
+      inline const rnode_index *sources_begin() const noexcept {
+	return reinterpret_cast<const rnode_index *>(reinterpret_cast<const uint8_t *>(this) + sizeof(rnode_object));
       }
 
-      inline const rnode_coords *sources_end() const noexcept {
+      inline const rnode_index *sources_end() const noexcept {
 	return sources_begin() + sources_count();
       }
 
@@ -469,11 +469,11 @@ namespace mistral {
 	return ro_targets_count;
       }
 
-      inline const rnode_coords *targets_begin() const noexcept {
-	return reinterpret_cast<const rnode_coords *>(sources_end());
+      inline const rnode_index *targets_begin() const noexcept {
+	return reinterpret_cast<const rnode_index *>(sources_end());
       }
 
-      inline const rnode_coords *targets_end() const noexcept {
+      inline const rnode_index *targets_end() const noexcept {
 	return targets_begin() + targets_count();
       }
 
@@ -577,29 +577,30 @@ namespace mistral {
     rnode_index rc2ri(rnode_coords rc) const;
     const rnode_object *rc2ro(rnode_coords rc) const;
     const rnode_object *ri2ro(rnode_index ri) const;
+    const rnode_coords ri2rc(rnode_index ri) const { return ri == 0xffffffff ? rnode_coords() : ri2ro(ri)->rc(); }
 
-    rnode_coords pnode_to_rnode(pnode_coords pn) const;
-    pnode_coords rnode_to_pnode(rnode_coords rn) const;
-    invert_t rnode_is_inverting(rnode_coords rn) const;
+    rnode_index pnode_to_rnode(pnode_coords pn) const;
+    pnode_coords rnode_to_pnode(rnode_index rn) const;
+    invert_t rnode_is_inverting(rnode_index rn) const;
 
     std::vector<pnode_coords> p2p_from(pnode_coords pn) const;
     pnode_coords p2p_to(pnode_coords pn) const;
     pnode_coords hmc_get_bypass(pnode_coords pn) const;
 
-    std::vector<std::pair<pnode_coords, rnode_coords>> get_all_p2r() const;
+    std::vector<std::pair<pnode_coords, rnode_index>> get_all_p2r() const;
     std::vector<std::pair<pnode_coords, pnode_coords>> get_all_p2p() const;
-    std::vector<std::pair<pnode_coords, rnode_coords>> get_all_p2ri() const;
+    std::vector<std::pair<pnode_coords, rnode_index>> get_all_p2ri() const;
 
-    void rnode_link(rnode_coords n1, rnode_coords n2);
-    void rnode_link(pnode_coords p1, rnode_coords n2);
-    void rnode_link(rnode_coords n1, pnode_coords p2);
+    void rnode_link(rnode_index n1, rnode_index n2);
+    void rnode_link(pnode_coords p1, rnode_index n2);
+    void rnode_link(rnode_index n1, pnode_coords p2);
     void rnode_link(pnode_coords p1, pnode_coords p2);
-    void rnode_unlink(rnode_coords n2);
+    void rnode_unlink(rnode_index n2);
     void rnode_unlink(pnode_coords p2);
 
-    std::vector<std::pair<rnode_coords, rnode_coords>> route_all_active_links() const;
-    std::vector<std::pair<rnode_coords, rnode_coords>> route_frontier_links() const;
-    std::vector<std::vector<rnode_coords>> route_frontier_links_with_path() const;
+    std::vector<std::pair<rnode_index, rnode_index>> route_all_active_links() const;
+    std::vector<std::pair<rnode_index, rnode_index>> route_frontier_links() const;
+    std::vector<std::vector<rnode_index>> route_frontier_links_with_path() const;
 
     // Clock muxes
     static const std::pair<uint8_t, uint8_t> cmuxhg_link_table[4][64];
@@ -682,14 +683,14 @@ namespace mistral {
 
     // Programmable inverters
     struct inv_setting_t {
-      rnode_coords node;
+      rnode_index node;
       bool value;
       bool def; // Is the current value the default?
     };
 
     // Returns (active, default) pairs
     std::vector<inv_setting_t> inv_get() const;
-    bool inv_set(rnode_coords node, bool value);
+    bool inv_set(rnode_index node, bool value);
 
 
     // Package/pins/pads related functions
@@ -878,154 +879,19 @@ namespace mistral {
     };
 
   public:
-    class rnode_source_iterator : public std::iterator<std::bidirectional_iterator_tag, rnode_coords> {
-    public:
-      rnode_source_iterator(const rnode_coords *_rn) : rn(_rn) {}
-      rnode_source_iterator(const rnode_source_iterator &i) : rn(i.rn) {}
-
-      rnode_source_iterator &operator++() {
-	while(!*rn)
-	  rn++;
-	rn++;
-	return *this;
-      }
-
-      rnode_source_iterator operator++(int) {
-	const rnode_coords *rn1 = rn;
-	while(!*rn1)
-	  rn1++;
-	return rnode_source_iterator(rn+1);
-      }
-
-      rnode_source_iterator &operator--() {
-	rn--;
-	while(!rn[-1])
-	  rn--;
-	return *this;
-      }
-
-      rnode_source_iterator operator--(int) {
-	const rnode_coords *rn1 = rn-1;
-	while(!rn1[-1])
-	  rn1--;
-	return rnode_source_iterator(rn1);
-      }
-
-      rnode_coords operator*() {
-	const rnode_coords *rn1 = rn;
-	while(!rn1)
-	  rn1++;
-	return *rn1;
-      }
-
-      bool operator==(const rnode_source_iterator &rhs) const {
-	return rn == rhs.rn;
-      }
-
-      bool operator!=(const rnode_source_iterator &rhs) const {
-	return rn != rhs.rn;
-      }
-
-    private:
-      const rnode_coords *rn;
-    };
-      
-    class rnode_source_container_proxy {
-    public:
-      rnode_source_container_proxy(const rnode_object *_rn) : rn(_rn) {}
-      rnode_source_iterator begin() const {
-	const rnode_coords *start = rn->sources_begin();
-	const rnode_coords *end = rn->sources_end();
-	while(start != end && !*start)
-	  start++;
-	if(start == end)
-	  start = rn->sources_begin();
-	return rnode_source_iterator(start);
-      }
-
-      rnode_source_iterator end() const {
-	const rnode_coords *start = rn->sources_begin();
-	const rnode_coords *end = rn->sources_end();
-	while(end > start && !end[-1])
-	  end --;
-	return rnode_source_iterator(end);
-      }
-
-    private:
-      const rnode_object *rn;
-    };
+    rnode_timing_mode_t rnode_timing_get_mode(rnode_index rn) const;
+    void rnode_timing_build_circuit(rnode_index rn, timing_slot_t temp, delay_type_t delay, edge_t edge,
+				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_index, int>> &outputs) const;
+    void rnode_timing_build_circuit_si(rnode_index rn, timing_slot_t temp, speed_info_t si, edge_t edge,
+				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_index, int>> &outputs) const;
     
-
-    class rnode_proxy {
-      friend class CycloneV;
-
-    public:
-      rnode_proxy(const rnode_object *_rn) : rn(_rn) {}
-      rnode_coords rc() const { return rn->rc(); }
-      rnode_index ri() const { return rn->ri(); }
-      int pattern() const { return rn->pattern(); }
-      rnode_source_container_proxy sources() const { return rnode_source_container_proxy(rn); }
-
-      const rnode_object *rn;
-
-    private:
-
-      operator const rnode_object&() const { return *rn; }
-    };
-
-    class rnode_iterator : public std::iterator<std::input_iterator_tag, rnode_proxy> {
-    public:
-      rnode_iterator(const rnode_object *_rn) : rn(_rn) {}
-      rnode_iterator(const rnode_iterator &i) : rn(i.rn) {}
-
-      rnode_iterator &operator++() {
-	rn = rn->next();
-	return *this;
-      }
-
-      rnode_iterator operator++(int) {
-	return rnode_iterator(rn->next());
-      }
-
-      rnode_proxy operator*() {
-	return rnode_proxy(rn);
-      }
-
-      bool operator==(const rnode_iterator &rhs) const {
-	return rn == rhs.rn;
-      }
-
-      bool operator!=(const rnode_iterator &rhs) const {
-	return rn != rhs.rn;
-      }
-
-    private:
-      const rnode_object *rn;
-    };
-      
-    class rnode_container_proxy {
-    public:
-      rnode_container_proxy(const CycloneV *_data) : data(_data) {}
-      rnode_iterator begin() const { return rnode_iterator(data->ro_begin); }
-      rnode_iterator end() const { return rnode_iterator(data->ro_end); }
-
-    private:
-      const CycloneV *data;
-    };
-
-    rnode_container_proxy rnodes() const { return rnode_container_proxy(this); }
-
-    rnode_timing_mode_t rnode_timing_get_mode(rnode_coords rn) const;
-    void rnode_timing_build_circuit(rnode_coords rn, timing_slot_t temp, delay_type_t delay, edge_t edge,
-				    AnalogSim &sim, int &input, std::vector<std::pair<rnode_coords, int>> &outputs) const;
-    void rnode_timing_build_circuit_si(rnode_coords rn, timing_slot_t temp, speed_info_t si, edge_t edge,
-				       AnalogSim &sim, int &input, std::vector<std::pair<rnode_coords, int>> &outputs) const;
-    
-    void rnode_timing_build_input_wave(rnode_coords rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
-    void rnode_timing_build_input_wave_si(rnode_coords rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+    void rnode_timing_build_input_wave(rnode_index rn, timing_slot_t temp, delay_type_t delay, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+    void rnode_timing_build_input_wave_si(rnode_index rn, timing_slot_t temp, speed_info_t si, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
 
     void rnode_timing_trim_wave(timing_slot_t temp, delay_type_t delay, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
     void rnode_timing_trim_wave_si(timing_slot_t temp, speed_info_t si, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
+
+    uint32_t rnode_index_count() const { return dhead->count_ri; }
 
   private:
     struct bmux_sel_entry {
@@ -1091,7 +957,7 @@ namespace mistral {
 
     struct p2r_info {
       pnode_coords p;
-      rnode_coords r;
+      rnode_index r;
       uint32_t padding;
     };
 
@@ -1131,7 +997,7 @@ namespace mistral {
 	DEF_MASK = 0xf0000000,
       };
       
-      rnode_coords node;
+      rnode_index node;
       uint32_t pos_and_def;
     };
 
@@ -1302,12 +1168,12 @@ namespace mistral {
     uint32_t rmux_get_val(const rnode_object &r) const;
     void rmux_set_val(const rnode_object &r, uint32_t val);
     int rmux_get_slot(const rnode_object &r) const;
-    rnode_coords rmux_get_source(const rnode_object &r) const;
-    inline rnode_coords rmux_get_source(const rnode_object *r) const {
+    rnode_index rmux_get_source(const rnode_object &r) const;
+    inline rnode_index rmux_get_source(const rnode_object *r) const {
       return rmux_get_source(*r);
     }
-    bool rmux_is_default(rnode_coords node) const;
-    bool rnode_do_link(rnode_coords n1, rnode_coords n2);
+    bool rmux_is_default(rnode_index node) const;
+    bool rnode_do_link(rnode_index n1, rnode_index n2);
     void route_set_defaults();
 
     inline uint32_t pos2bit(xycoords pos) const {
@@ -1403,7 +1269,7 @@ namespace mistral {
     static void table_pos_to_index(double v, size_t &p, double &pf, double &pf1);
     std::unique_ptr<t2_lookup> dn_t2(int driver_id, const char *slot, uint16_t index) const;
     std::unique_ptr<t3_lookup> dn_t3(int driver_id, const char *slot, uint16_t index) const;
-    void rnode_timing_generate_line(const rnode_coords *targets,
+    void rnode_timing_generate_line(const rnode_index *targets,
 				    const float *targets_caps,
 				    const uint16_t *target_pos,
 				    int split_edge, int target_count,
@@ -1414,14 +1280,14 @@ namespace mistral {
 				    double line_r, edge_t edge,
 				    double dev,
 				    const rnode_line_information &rli,
-				    rnode_coords rn,
+				    rnode_index rn,
 				    const dnode_driver *driver_bank,
-				    AnalogSim &sim, std::vector<std::pair<rnode_coords, int>> &outputs) const;
-    void rnode_timing_build_circuit(int didx, rnode_coords rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_coords, int>> &outputs) const;
-    void rnode_timing_build_input_wave(int didx, rnode_coords rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
+				    AnalogSim &sim, std::vector<std::pair<rnode_index, int>> &outputs) const;
+    void rnode_timing_build_circuit(int didx, rnode_index rn, timing_slot_t temp, edge_t edge, AnalogSim &sim, int &input, std::vector<std::pair<rnode_index, int>> &outputs) const;
+    void rnode_timing_build_input_wave(int didx, rnode_index rn, edge_t edge, edge_speed_type est, AnalogSim::wave &w) const;
     void rnode_timing_trim_wave(int didx, const AnalogSim::wave &sw, AnalogSim::wave &dw) const;
 
-    bool rnode_active(const rnode_object *rn, rnode_coords previous) const;
+    bool rnode_active(const rnode_object *rn, rnode_index previous) const;
 
     std::unordered_map<const char *, rnode_type_t, sh, eq> rnode_type_hash;
     std::unordered_map<const char *, block_type_t, sh, eq> block_type_hash;
